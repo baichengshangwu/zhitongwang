@@ -1,0 +1,12 @@
+{
+  "name": "zhitongwang",
+  "version": "1.0.0",
+  "main": "serve.js",
+  "scripts": {
+    "start": "node serve.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.11.1",
+    "express": "^5.2.1"
+  }
+}

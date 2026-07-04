@@ -1,0 +1,1 @@
+window.__SYNC_DATA__ = {"profiles":[{"id":1,"email":"demo@ai.com","nickname":"Demo","avatar_url":"","bio":"Test user"}],"friend_requests":[],"friends":[],"ts":1783129858};

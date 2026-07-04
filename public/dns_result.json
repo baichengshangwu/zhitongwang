@@ -1,0 +1,5 @@
+{
+  "domain": "zhitongwang.cn",
+  "new_tunnel": "competent-est-foot-definitions.trycloudflare.com",
+  "final_state": "您好，zhitongwang.cn | 退出\n查看注册信息\n修改注册信息\n修改域名DNS\n修改域名管理密码\nDNS解析管理\nWhois保护\n实名验证\n退出\n\n　\n\n\t\nDNS解析记录管理即用户可根据实际需要，方便地修改或增加域名解析记录等。包括增加IP，增加别名及增加邮件三个操作功能。\n1.增加IP，即域名解析操作\n2.增加别名，即增设子域名，指向到已有空间\n3.增加邮件，即添加MX（邮件交换）记录\n4.解析记录增加后，可根据需要进行更改或删除，提醒：增加多线智能解析时，需先做默认线路解析后才能做单线路解析，删除多线解析时，如果存在单线路解析，需先删除单线路解析再最后删除默认解析。\n5.解析记录修改后生效时间根据前一次设置的ttl值决定，ttl值的单位是秒，最小值为120。\n域名：zhitongwang.cn\n添加记录\nA记录\nMX\nCNAME\nTXT\nNS\nAAAA\nSRV\nCAA\n查看所有\n主机名\n记录类型\n线路类型\n记录值\nMX优先级\nTTL\n操作\n域名控制面板Domain Control panel"
+}
