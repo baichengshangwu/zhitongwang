@@ -232,7 +232,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 <!-- ============ P2P PAGE ============ -->
 <div class="pg" id="page-p2p">
   <div style="margin-bottom:12px"><h2 style="font-size:1.5rem;font-weight:800;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" data-key="p2pt">P2P Marketplace</h2><p style="color:var(--t2);font-size:.8rem;margin-top:2px" data-key="p2pd">Buy and sell AI app access tokens directly with other users. No middlemen, lower prices.</p></div>
-  <div class="ttabs"><button class="ttab active" onclick="p2pTab('buy')" id="p2p-buy-btn" data-key="p2pbu">Buy Listings</button><button class="ttab" onclick="p2pTab('sell')" id="p2p-sell-btn" data-key="p2psl">Sell Listings</button><button class="ttab" onclick="p2pTab('pub')" id="p2p-pub-btn" data-key="p2pcm">Community</button></div>
+  <div class="ttabs"><button class="ttab active" onclick="p2pTab('buy')" id="p2p-buy-btn" data-key="p2pbu">Buy Listings</button><button class="ttab" onclick="p2pTab('sell')" id="p2p-sell-btn" data-key="p2psl">Sell Listings</button><button class="ttab prom" onclick="p2pTab('pub')" id="p2p-pub-btn" data-key="p2pcm">Community</button></div>
   <div id="p2p-buy"><div class="fr"><input type="text" placeholder="Search..." id="p2p-search" oninput="rP2P()" style="max-width:200px">
     <select id="p2p-tool" onchange="rP2P()"><option value="all" data-key="fall">All Tools</option></select>
     <select id="p2p-sort" onchange="rP2P()"><option value="price-low" data-key="pricel">Price: Low</option><option value="price-high" data-key="priceh">Price: High</option><option value="new" data-key="snew">Newest</option></select></div>
@@ -249,17 +249,17 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   </div>
   <div id="p2p-pub" style="display:none">
     <div class="pub-section">
-      <div class="pub-section-title">Publish</div>
+      <div class="pub-section-title" data-key="pub_btn_title">Publish</div>
       <div class="pub-actions" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
-        <button class="btn bg" onclick="oam('publish-tool')">+ Publish Tool</button>
-        <button class="btn bg" onclick="oam('publish-p2p')">+ Publish P2P</button>
-        <button class="btn bg" onclick="oam('publish-event')">+ Publish Event</button>
+        <button class="btn bg" onclick="oam('publish-tool')">+</span> <span data-key="pub_btn_tool" data-key="pub_btn_tool">Publish Tool</span></button>
+        <button class="btn bg" onclick="oam('publish-p2p')">+</span> <span data-key="pub_btn_p2p" data-key="pub_btn_p2p">Publish P2P</span></button>
+        <button class="btn bg" onclick="oam('publish-event')">+</span> <span data-key="pub_btn_event" data-key="pub_btn_event">Publish Event</span></button>
       </div>
     </div>
     <div class="ttabs" style="margin-top:8px">
-      <button class="ttab active" onclick="p2pPubSubTab('tools')" id="pub-sub-tools-btn">Tools</button>
-      <button class="ttab" onclick="p2pPubSubTab('p2p')" id="pub-sub-p2p-btn">P2P</button>
-      <button class="ttab" onclick="p2pPubSubTab('events')" id="pub-sub-events-btn">Events</button>
+      <button class="ttab active" onclick="p2pPubSubTab('tools')" id="pub-sub-tools-btn" data-key="pub_tab_tools">Tools</button>
+      <button class="ttab" onclick="p2pPubSubTab('p2p')" id="pub-sub-p2p-btn" data-key="pub_tab_p2p">P2P</button>
+      <button class="ttab" onclick="p2pPubSubTab('events')" id="pub-sub-events-btn" data-key="pub_tab_events">Events</button>
     </div>
     <div id="pub-tools-list" class="g2" style="margin-top:12px"></div>
     <div id="pub-p2p-list" class="g2" style="margin-top:12px;display:none"></div>
@@ -291,7 +291,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 <!-- ============ EVENTS PAGE ============ -->
 <div class="pg" id="page-events">
   <div style="margin-bottom:12px"><h2 style="font-size:1.5rem;font-weight:800;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" data-key="evt">AI Gatherings</h2><p style="color:var(--t2);font-size:.8rem;margin-top:2px" data-key="evd">Join exclusive AI community events. Each event features limited edition tokens and networking opportunities.</p></div>
-  <div class="ttabs" style="margin-bottom:12px"><button class="btn bg" onclick="oam('publish-event')" data-key="p2pbe">+ Publish Event</button></div>
+  <div class="ttabs" style="margin-bottom:12px"><button class="btn bg" onclick="oam('publish-event')" data-key="p2pbe">+</span> <span data-key="pub_btn_event" data-key="pub_btn_event">Publish Event</span></button></div>
 <div class="g3" id="events-grid"></div>
 </div>
 <!-- ============ DASHBOARD PAGE ============ -->
@@ -355,7 +355,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <div data-key="pppay_after" style="font-size:.63rem;color:var(--t3);text-align:center;margin-bottom:8px">After payment, copy your transaction ID and confirm below</div>
   <div class="ig"><label data-key="pptxnid">PayPal Transaction ID</label><input type="text" id="paypal-txn-id" data-key="pptxnid" placeholder="e.g. 9HW12345AB6789012"></div>
   <button class="btn bg bw" onclick="confirmPaypalPayment()" id="paypal-confirm-btn" data-key="ppagent_confirm">Confirm Payment & Register</button>
-  <div class="br2"><button class="btn bo" onclick="document.getElementById('paypal-donate-modal').classList.remove('show')" data-key="mcancel">Cancel</button></div>
+  <div class="br2"><button class="btn bo" onclick="document.getElementById('paypal-donate-modal').classList.remove('show')" data-key="mcancel"> data-key="pub_cancel">Cancel</button></div>
 </div></div>
 
 <!-- ============ BIND PAYPAL MODAL ============ -->
@@ -365,7 +365,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <div class="ig"><label data-key="agbpid">Hosted Button ID</label><input type="text" id="bind-pp-id" placeholder="HOSTED-BUTTON-ID"></div>
   <div style="font-size:.65rem;color:var(--t3);margin-bottom:8px" data-key="agbphelp">Find your hosted button ID in PayPal Dashboard > Pay & Get Paid > PayPal Buttons</div>
   <button class="btn bg bw" onclick="bindPaypalButton()" data-key="agbpb">Bind Button</button>
-  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
+  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel"> data-key="pub_cancel">Cancel</button></div>
 </div></div>
 
 <!-- ============ SOCIAL PAGE ============ -->
@@ -411,7 +411,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <div style="text-align:right;font-size:.7rem;margin-bottom:8px"><span style="color:var(--ap);cursor:pointer" onclick="oam('reset')" data-key="mforgot">Forgot Password?</span></div>
   <button class="btn bg bw" onclick="doLogin()" data-key="mlog2">Login</button>
   <div style="text-align:center;margin-top:8px;font-size:.73rem;color:var(--t2)"><span data-key="mnoacc">No account?</span> <span style="color:var(--ap);cursor:pointer;font-weight:600" onclick="oam('register')" data-key="mregi">Register</span></div>
-  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
+  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel"> data-key="pub_cancel">Cancel</button></div>
 </div></div>
 <div class="mo" id="mo-register"><div class="mod">
   <h3 data-key="mreg">Register</h3>
@@ -422,40 +422,40 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <div id="reg-status" style="display:none;padding:8px 12px;border-radius:8px;margin-bottom:6px;font-size:.8rem;text-align:center;"></div>
   <button class="btn bg bw" onclick="doRegister()" data-key="mreg2">Create Account</button>
   <div style="text-align:center;margin-top:8px;font-size:.73rem;color:var(--t2)"><span data-key="mhacc">Already have account?</span> <span style="color:var(--ap);cursor:pointer;font-weight:600" onclick="oam('login')" data-key="mlog2">Login</span></div>
-  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
+  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel"> data-key="pub_cancel">Cancel</button></div>
 </div></div>
 <div class="mo" id="mo-reset"><div class="mod">
   <h3 data-key="mres">Reset Password</h3>
   <div class="ig"><label data-key="memail">Email</label><input type="email" id="reset-email" placeholder="your@email.com"></div>
   <button class="btn bg bw" onclick="doReset()" data-key="mres2">Send Reset Link</button>
-  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
+  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel"> data-key="pub_cancel">Cancel</button></div>
 </div></div>
 <div class="mo" id="mo-publish-tool"><div class="mod">
-  <h3>Publish Tool</h3>
-  <div class="ig"><label>Name</label><input type="text" id="pub-tool-name" placeholder="Tool name"></div>
-  <div class="ig"><label>Description</label><textarea id="pub-tool-desc" rows="3" placeholder="Describe your tool"></textarea></div>
+  <h3 data-key="pub_btn_tool">Publish Tool</h3>
+  <div class="ig"><label>Name</label><input type="text" id="pub-tool-name" data-key="pub_name_ph" placeholder="Tool name"></div>
+  <div class="ig"><label data-key="pub_desc">Description</label><textarea id="pub-tool-desc" rows="3" data-key="pub_desc_ph" placeholder="Describe your tool"></textarea></div>
   <div class="ig"><label>Price (CNY/month)</label><input type="number" id="pub-tool-price" placeholder="0" step="0.01" min="0"></div>
-  <div class="ig"><label>Category</label><input type="text" id="pub-tool-cat" placeholder="e.g. Productivity"></div>
+  <div class="ig"><label data-key="pub_category">Category</label><input type="text" id="pub-tool-cat" data-key="pub_cat_ph" placeholder="e.g. Productivity"></div>
   <button class="btn bg bw" onclick="doPublishTool()" style="margin-top:8px">Publish</button>
-  <div class="br2"><button class="btn bo" onclick="cma()">Cancel</button></div>
+  <div class="br2"><button class="btn bo" onclick="cma()"> data-key="pub_cancel">Cancel</button></div>
 </div></div>
 <div class="mo" id="mo-publish-p2p"><div class="mod">
   <h3>Publish P2P Listing</h3>
-  <div class="ig"><label>Name</label><input type="text" id="pub-p2p-name" placeholder="Listing name"></div>
-  <div class="ig"><label>Description</label><textarea id="pub-p2p-desc" rows="3" placeholder="Describe your listing"></textarea></div>
-  <div class="ig"><label>Price (CNY)</label><input type="number" id="pub-p2p-price" placeholder="0" step="0.01" min="0"></div>
-  <div class="ig"><label>Quantity</label><input type="number" id="pub-p2p-qty" placeholder="1" value="1" min="1"></div>
+  <div class="ig"><label>Name</label><input type="text" id="pub-p2p-name" data-key="pub_name_ph" placeholder="Listing name"></div>
+  <div class="ig"><label data-key="pub_desc">Description</label><textarea id="pub-p2p-desc" rows="3" data-key="pub_desc_ph" placeholder="Describe your listing"></textarea></div>
+  <div class="ig"><label data-key="pub_price">Price (CNY)</label><input type="number" id="pub-p2p-price" placeholder="0" step="0.01" min="0"></div>
+  <div class="ig"><label data-key="pub_qty">Quantity</label><input type="number" id="pub-p2p-qty" placeholder="1" value="1" min="1"></div>
   <button class="btn bg bw" onclick="doPublishP2P()" style="margin-top:8px">Publish</button>
-  <div class="br2"><button class="btn bo" onclick="cma()">Cancel</button></div>
+  <div class="br2"><button class="btn bo" onclick="cma()"> data-key="pub_cancel">Cancel</button></div>
 </div></div>
 <div class="mo" id="mo-publish-event"><div class="mod">
-  <h3>Publish Event</h3>
-  <div class="ig"><label>Name</label><input type="text" id="pub-event-name" placeholder="Event name"></div>
-  <div class="ig"><label>Description</label><textarea id="pub-event-desc" rows="3" placeholder="Describe your event"></textarea></div>
-  <div class="ig"><label>Date</label><input type="date" id="pub-event-date"></div>
-  <div class="ig"><label>Location</label><input type="text" id="pub-event-loc" placeholder="e.g. Online / Shanghai"></div>
+  <h3 data-key="pub_btn_event">Publish Event</h3>
+  <div class="ig"><label>Name</label><input type="text" id="pub-event-name" data-key="pub_name_ph" placeholder="Event name"></div>
+  <div class="ig"><label data-key="pub_desc">Description</label><textarea id="pub-event-desc" rows="3" data-key="pub_desc_ph" placeholder="Describe your event"></textarea></div>
+  <div class="ig"><label data-key="pub_date">Date</label><input type="date" id="pub-event-date"></div>
+  <div class="ig"><label data-key="pub_location">Location</label><input type="text" id="pub-event-loc" data-key="pub_loc_ph" placeholder="e.g. Online / Shanghai"></div>
   <button class="btn bg bw" onclick="doPublishEvent()" style="margin-top:8px">Publish</button>
-  <div class="br2"><button class="btn bo" onclick="cma()">Cancel</button></div>
+  <div class="br2"><button class="btn bo" onclick="cma()"> data-key="pub_cancel">Cancel</button></div>
 </div></div>
 <div class="mo" id="mo-profile"><div class="mod">
   <h3 data-key="mprf">Edit Profile</h3>
@@ -467,7 +467,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <div class="ig upload-row"><label data-key="msigimg">Signature Image</label><div class="upload-wrap"><input type="file" id="profile-sigimg" accept="image/*" style="display:none" onchange="uploadFile('sigimg')"><button class="btn bs sm" onclick="document.getElementById('profile-sigimg').click()" data-key="mupload">Upload</button><span id="profile-sigimg-name"></span><button class="btn bd sm" onclick="clearUpload('sigimg')" data-key="mclear" style="margin-left:8px">Clear</button></div></div>
   <div class="ig upload-row"><label data-key="msigvid">Signature Video</label><div class="upload-wrap"><input type="file" id="profile-sigvid" accept="video/*" style="display:none" onchange="uploadFile('sigvid')"><button class="btn bs sm" onclick="document.getElementById('profile-sigvid').click()" data-key="mupload">Upload</button><span id="profile-sigvid-name"></span><button class="btn bd sm" onclick="clearUpload('sigvid')" data-key="mclear" style="margin-left:8px">Clear</button></div></div>
   <button class="btn bg bw" onclick="saveProfile()" data-key="msave">Save Profile</button>
-  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
+  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel"> data-key="pub_cancel">Cancel</button></div>
 </div></div>
 <div class="mo" id="mo-profile-view"><div class="mod">
   <h3 data-key="mpview">Profile</h3>
@@ -486,7 +486,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
     <div style="font-size:.8rem;line-height:1.5;white-space:pre-wrap" id="pv-bio">—</div>
   </div>
   <button class="btn bg bw" onclick="spme()" data-key="mpedit">Edit</button>
-  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
+  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel"> data-key="pub_cancel">Cancel</button></div>
 </div></div>
 <div class="mo" id="mo-kyc"><div class="mod">
   <h3 data-key="mkyc">KYC Verification</h3>
@@ -495,19 +495,19 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <div class="ig"><label data-key="mkname">Full Name (as on ID)</label><input type="text" id="kyc-name"></div>
   <div class="ig"><label data-key="mkaddr">Address</label><input type="text" id="kyc-addr"></div>
   <button class="btn bg bw" onclick="submitKYC()" data-key="mksub">Submit KYC</button>
-  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
+  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel"> data-key="pub_cancel">Cancel</button></div>
 </div></div>
 <div class="mo" id="mo-payment"><div class="mod">
   <h3 id="payment-title">Deposit CNY</h3>
   <div class="ig"><label>Amount (CNY)</label><input type="number" id="payment-amount" placeholder="100" min="1" step="1"></div>
   <div style="font-size:.68rem;color:var(--t3);margin-bottom:8px" id="payment-info"></div>
   <button class="btn bg bw" id="payment-btn" onclick="execPayment()">Confirm Deposit</button>
-  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
+  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel"> data-key="pub_cancel">Cancel</button></div>
 </div></div>
 <div class="mo" id="mo-confirm"><div class="mod">
   <h3 id="confirm-title" data-key="mconf">Confirm</h3>
   <p id="confirm-msg" style="color:var(--t2);font-size:.8rem;margin-bottom:10px"></p>
-  <div class="br2"><button class="btn bg" id="confirm-yes-btn" data-key="mcyes">Confirm</button><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
+  <div class="br2"><button class="btn bg" id="confirm-yes-btn" data-key="mcyes">Confirm</button><button class="btn bo" onclick="cma()" data-key="mcancel"> data-key="pub_cancel">Cancel</button></div>
 </div></div>
 <div class="mo" id="mo-listing"><div class="mod">
   <h3 data-key="mlist">Listing Details</h3>
@@ -519,7 +519,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
     <div style="font-family:var(--fm);font-weight:800;font-size:1.3rem;margin-top:4px" id="listing-price"></div>
   </div>
   <button class="btn bg bw" onclick="buyListing()" data-key="mbuy">Buy Now</button>
-  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
+  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel"> data-key="pub_cancel">Cancel</button></div>
 </div></div>
 
 <script>
@@ -675,7 +675,8 @@ pub_title:{zh:'社区发布',en:'Community Publishing',ja:'コミュニティ投
   pub_tab_events:{zh:'活动',en:'Events',ja:'イベント',ko:'이벤트',es:'Eventos',fr:'Événements'},
   pub_btn_tool:{zh:'发布工具',en:'Publish Tool',ja:'ツールを公開',ko:'도구 게시',es:'Publicar Herramienta',fr:'Publier Outil'},
   pub_btn_p2p:{zh:'发布P2P',en:'Publish P2P',ja:'P2Pを公開',ko:'P2P 게시',es:'Publicar P2P',fr:'Publier P2P'},
-  pub_btn_event:{zh:'发布活动',en:'Publish Event',ja:'イベントを公開',ko:'이벤트 게시',es:'Publicar Evento',fr:'Publier Événement'},
+  pub_btn_event:{zh:'发布活动',en:'Publish Event',ja:'イベントを公開',ko:'이벤트 게시',es:'Publicar Evento',fr:'Publier Événement'},pub_btn_title:{zh:'发布',en:'Publish',ja:'公開',ko:'게시',es:'Publicar',fr:'Publier',de:'Veröffentlichen',pt:'Publicar',ru:'Публикация',it:'Pubblica',ar:'نشر',hi:'प्रकाशित करें',th:'เผยแพร่',vi:'Đăng'},
+  
   pub_name:{zh:'名称',en:'Name',ja:'名前',ko:'이름',es:'Nombre',fr:'Nom'},
   pub_desc:{zh:'描述',en:'Description',ja:'説明',ko:'설명',es:'Descripción',fr:'Description'},
   pub_price:{zh:'价格 (CNY)',en:'Price (CNY)',ja:'価格 (CNY)',ko:'가격 (CNY)',es:'Precio (CNY)',fr:'Prix (CNY)'},
@@ -695,6 +696,10 @@ pub_title:{zh:'社区发布',en:'Community Publishing',ja:'コミュニティ投
   pub_none:{zh:'暂无发布内容',en:'No posts yet',ja:'投稿なし',ko:'게시물 없음',es:'Sin publicaciones',fr:'Aucune publication'},
   pub_del:{zh:'删除',en:'Delete',ja:'削除',ko:'삭제',es:'Eliminar',fr:'Supprimer'},
   pub_del_confirm:{zh:'确定删除此发布内容?',en:'Delete this published item?',ja:'この投稿を削除しますか?',ko:'이 게시물을 삭제하시겠습니까?',es:'¿Eliminar este contenido?',fr:'Supprimer cette publication?'},
+  pub_name_ph:{zh:'输入名称',en:'Enter name',ja:'名前を入力',ko:'이름 입력',es:'Ingrese nombre',fr:'Entrez le nom',de:'Name eingeben',pt:'Digite o nome',ru:'Введите имя',it:'Inserisci nome',ar:'أدخل الاسم',hi:'नाम दर्ज करें',th:'ป้อนชื่อ',vi:'Nhập tên'},
+  pub_desc_ph:{zh:'输入描述',en:'Enter description',ja:'説明を入力',ko:'설명 입력',es:'Ingrese descripción',fr:'Entrez la description',de:'Beschreibung eingeben',pt:'Digite a descrição',ru:'Введите описание',it:'Inserisci descrizione',ar:'أدخل الوصف',hi:'विवरण दर्ज करें',th:'ป้อนคำอธิบาย',vi:'Nhập mô tả'},
+  pub_cat_ph:{zh:'例如：效率工具',en:'e.g. Productivity',ja:'例：生産性',ko:'예: 생산성',es:'ej. Productividad',fr:'ex. Productivité',de:'z.B. Produktivität',pt:'ex. Produtividade',ru:'напр. Продуктивность',it:'es. Produttività',ar:'مثال: إنتاجية',hi:'उदा. उत्पादकता',th:'เช่น ประสิทธิภาพ',vi:'vd. Năng suất'},
+  pub_loc_ph:{zh:'例如：线上 / 上海',en:'e.g. Online / NYC',ja:'例：オンライン / 東京',ko:'예: 온라인 / 서울',es:'ej. Online / Madrid',fr:'ex. En ligne / Paris',de:'z.B. Online / Berlin',pt:'ex. Online / São Paulo',ru:'напр. Онлайн / Москва',it:'es. Online / Roma',ar:'مثال: عبر الإنترنت / دبي',hi:'उदा. ऑनलाइन / दिल्ली',th:'เช่น ออนไลน์ / กรุงเทพ',vi:'vd. Trực tuyến / Hà Nội'},
 };
 
 
@@ -1324,7 +1329,7 @@ function rP2P(){
     own.forEach(l=>{
       sh+=`<div class="lc"><div class="lct"><span class="ltk">${l.toolName}</span><span class="lcd">$${l.price}</span></div>
         <div style="font-size:.65rem;color:var(--t3)">Qty: ${l.qty} | ${l.dur} days | Sold: ${l.sold}</div>
-        <button class="btn bd2 bx" onclick="cancelListing('${l.id}')">Cancel</button></div>`;
+        <button class="btn bd2 bx" onclick="cancelListing('${l.id}')"> data-key="pub_cancel">Cancel</button></div>`;
     });
     document.getElementById('p2p-sell-list').innerHTML=sh||'<div style="text-align:center;padding:10px;color:var(--t3);grid-column:1/-1">No active listings</div>';
   }
@@ -1799,7 +1804,7 @@ var PUB_I18N=(function(){
   ['pub_title','pub_tab_tools','pub_tab_p2p','pub_tab_events','pub_btn_tool','pub_btn_p2p','pub_btn_event',
    'pub_name','pub_desc','pub_price','pub_duration','pub_qty','pub_category','pub_date','pub_location',
    'pub_submit','pub_cancel','pub_my','pub_all','pub_search','pub_comm_tools','pub_comm_p2p','pub_comm_events',
-   'pub_none','pub_del','pub_del_confirm'].forEach(function(k){
+   'pub_none','pub_del','pub_del_confirm','pub_name_ph','pub_desc_ph','pub_cat_ph','pub_loc_ph'].forEach(function(k){
     if(LANG&&LANG[k])m[k]=LANG[k];
   });
   return m;
