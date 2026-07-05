@@ -707,7 +707,16 @@ pub_title:{zh:'社区发布',en:'Community Publishing',ja:'コミュニティ投
   pub_comm_p2p:{zh:'社区P2P',en:'Community P2P',ja:'コミュニティP2P',ko:'커뮤니티 P2P',es:'P2P',fr:'P2P'},
   pub_comm_events:{zh:'社区活动',en:'Community Events',ja:'コミュニティイベント',ko:'커뮤니티 이벤트',es:'Eventos',fr:'Événements'},
   pub_none:{zh:'暂无发布内容',en:'No posts yet',ja:'投稿なし',ko:'게시물 없음',es:'Sin publicaciones',fr:'Aucune publication'},
-  pub_del:{zh:'删除',en:'Delete',ja:'削除',ko:'삭제',es:'Eliminar',fr:'Supprimer'},
+
+  pub_no_tools:{zh:'暂无工具',en:t('pub_no_tools'),ja:'ツールが見つかりません',ko:'도구 없음',es:'Sin herramientas',fr:'Aucun outil',de:'Keine Tools',pt:'Sem ferramentas',ru:'Инструменты не найдены',it:'Nessuno strumento',ar:'لا توجد أدوات',hi:'कोई उपकरण नहीं',th:'ไม่พบเครื่องมือ',vi:'Không có công cụ'},
+  pub_all_tools:{zh:'全部工具',en:t('pub_all_tools'),ja:'すべてのツール',ko:'모든 도구',es:'Todas',fr:'Tous',de:'Alle Tools',pt:'Todas',ru:'Все',it:'Tutti',ar:'الكل',hi:'सभी',th:'ทั้งหมด',vi:'Tất cả'},
+
+  ev_live:{zh:'进行中',en:'LIVE',ja:'開催中',ko:'진행중',es:'EN VIVO',fr:'EN DIRECT',de:'LIVE',pt:'AO VIVO',ru:'LIVE',it:'IN CORSO',ar:'مباشر',hi:'लाइव',th:'สด',vi:'TRỰC TIẾP'},
+  ev_upcoming:{zh:'即将开始',en:'UPCOMING',ja:'予定',ko:'예정',es:'PRÓXIMO',fr:'À VENIR',de:'BEVORSTEHEND',pt:'EM BREVE',ru:'СКОРО',it:'IN ARRIVO',ar:'قادم',hi:'आगामी',th:'เร็วๆ นี้',vi:'SẮP DIỄN RA'},
+  ev_ended:{zh:'已结束',en:'ENDED',ja:'終了',ko:'종료',es:'FINALIZADO',fr:'TERMINÉ',de:'BEENDET',pt:'ENCERRADO',ru:'ЗАВЕРШЕН',it:'TERMINATO',ar:'منتهي',hi:'समाप्त',th:'สิ้นสุด',vi:'ĐÃ KẾT THÚC'},
+  tokens:{zh:'代币',en:'Tokens',ja:'トークン',ko:'토큰',es:'Tokens',fr:'Jetons',de:'Tokens',pt:'Tokens',ru:'Токены',it:'Token',ar:'عملات',hi:'टोकन',th:'โทเค็น',vi:'Token'},  per_mo:{zh:'/月',en:'/mo',ja:'/月',ko:'/월',es:'/mes',fr:'/mois',de:'/Monat',pt:'/mês',ru:'/мес',it:'/mese',ar:'/شهر',hi:'/माह',th:'/เดือน',vi:'/tháng'},
+  users:{zh:'用户',en:'users',ja:'ユーザー',ko:'사용자',es:'usuarios',fr:'utilisateurs',de:'Nutzer',pt:'usuários',ru:'польз.',it:'utenti',ar:'مستخدم',hi:'उपयोगकर्ता',th:'ผู้ใช้',vi:'người dùng'},
+  cny:{zh:'元',en:'CNY',ja:'元',ko:'CNY',es:'CNY',fr:'CNY',de:'CNY',pt:'CNY',ru:'CNY',it:'CNY',ar:'CNY',hi:'CNY',th:'CNY',vi:'CNY'},  pub_del:{zh:'删除',en:'Delete',ja:'削除',ko:'삭제',es:'Eliminar',fr:'Supprimer'},
   pub_del_confirm:{zh:'确定删除此发布内容?',en:'Delete this published item?',ja:'この投稿を削除しますか?',ko:'이 게시물을 삭제하시겠습니까?',es:'¿Eliminar este contenido?',fr:'Supprimer cette publication?'},
   pub_name_ph:{zh:'输入名称',en:'Enter name',ja:'名前を入力',ko:'이름 입력',es:'Ingrese nombre',fr:'Entrez le nom',de:'Name eingeben',pt:'Digite o nome',ru:'Введите имя',it:'Inserisci nome',ar:'أدخل الاسم',hi:'नाम दर्ज करें',th:'ป้อนชื่อ',vi:'Nhập tên'},
   pub_desc_ph:{zh:'输入描述',en:'Enter description',ja:'説明を入力',ko:'설명 입력',es:'Ingrese descripción',fr:'Entrez la description',de:'Beschreibung eingeben',pt:'Digite a descrição',ru:'Введите описание',it:'Inserisci descrizione',ar:'أدخل الوصف',hi:'विवरण दर्ज करें',th:'ป้อนคำอธิบาย',vi:'Nhập mô tả'},
@@ -1128,6 +1137,7 @@ function applyI18N(){
   try{if(typeof renderP2PPub==='function')renderP2PPub();}catch(e){}
   try{if(typeof renderPubEvents==='function')renderPubEvents();}catch(e){}
   try{if(typeof rTools==='function')rTools();}catch(e){}
+  try{if(typeof rP2P==='function')rP2P();}catch(e){}
   try{if(typeof rEvents==='function')rEvents();}catch(e){}
 }
 
@@ -1167,7 +1177,7 @@ function rTrending(){
     h+=`<div class="tpc${t.badge?' ft':''}" data-badge="${t.badge}" onclick="sp('tools')">
       <div class="pi" style="background:${t.color}20;color:${t.color};font-size:1.3rem">${t.icon}</div>
       <div class="pn">${t.name}</div><div class="ps2">${t.desc.slice(0,50)}</div>
-      <div class="pp">$${t.price}<span class="pc2 up">/mo</span></div>
+      <div class="pp">$${t.price}<span class="pc2 up">${t('per_mo')}</span></div>
       <div class="pm"><span>${t.use} users</span><span class="up">APY ${t.apy}%</span></div></div>`;
   });
   document.getElementById('trending-packages').innerHTML=h;
@@ -1225,9 +1235,9 @@ function rTools(){
   tools.forEach(tl=>{
     h+=`<div class="tpc"><div class="pi" style="background:${tl.color}20;color:${tl.color};font-size:1.3rem">${tl.icon}</div>
       <div class="pn">${tl.name}</div><div class="ps2">${tl.desc.slice(0,60)}</div>
-      <div class="pp">$${tl.price}<span class="pc2" style="color:var(--t2)">/mo</span></div>
-      <div class="pm"><span>${tl.use} users</span><span class="up">APY ${tl.apy}%</span><span>&#x2B50;${tl.rating}</span></div>
-      <button class="btn bg bs bw" style="margin-top:8px" onclick="subscribeTool('${tl.id}')">${LANG&&LANG[curLang]&&LANG[curLang].sub||'Subscribe'} - $${tl.price} CNY</button></div>`;
+      <div class="pp">$${tl.price}<span class="pc2" style="color:var(--t2)">${t('per_mo')}</span></div>
+      <div class="pm"><span>${tl.use} ${t('users')}</span><span class="up">APY ${tl.apy}%</span><span>&#x2B50;${tl.rating}</span></div>
+      <button class="btn bg bs bw" style="margin-top:8px" onclick="subscribeTool('${tl.id}')">${t('sub')} - $${tl.price} ${t('cny')}</button></div>`;
   });
   document.getElementById('tools-grid').innerHTML=h||'<div style="text-align:center;padding:30px;color:var(--t3);grid-column:1/-1">No tools found</div>';
 }
@@ -1505,10 +1515,10 @@ function rEvents(){
   let allEvents=[...initEvents,...userEvents];
   allEvents.forEach(ev=>{
     let st=ev.status==='live'?'tlive':(ev.status==='upcoming'?'tv':'tsb');
-    h+=`<div class="ec"><div class="eci" style="background:linear-gradient(135deg,var(--bgch),var(--bg2))"><span class="et ${st}">${ev.status.toUpperCase()}</span><span class="ee">${ev.emoji}</span></div>
+    h+=`<div class="ec"><div class="eci" style="background:linear-gradient(135deg,var(--bgch),var(--bg2))"><span class="et ${st}">${t('ev_'+ev.status)}</span><span class="ee">${ev.emoji}</span></div>
       <div class="ecb"><h3>${ev.title}</h3><div class="ei"><span>&#x1F4C5; ${ev.date}</span><span>&#x1F4CD; ${ev.loc}</span><span>&#x1F465; ${ev.attendees.toLocaleString()}</span></div>
       <p style="font-size:.68rem;color:var(--t2);margin-bottom:6px">${ev.desc}</p>
-      <div class="etp"><span>${ev.tokens.toLocaleString()} Tokens</span><span style="font-weight:800;color:var(--ap)">${ev.price}</span></div></div></div>`;
+      <div class="etp"><span>${ev.tokens.toLocaleString()} ${t('tokens')}</span><span style="font-weight:800;color:var(--ap)">${ev.price}</span></div></div></div>`;
   });
   document.getElementById('events-grid').innerHTML=h;
 }
