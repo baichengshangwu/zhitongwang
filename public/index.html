@@ -167,6 +167,37 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 
 .bbtn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:var(--r);border:1px solid var(--bd);background:var(--bg2);color:var(--t2);font-size:.75rem;cursor:pointer;transition:var(--tt)}
 .bbtn:hover{background:var(--bgc);color:var(--t1);border-color:var(--ap)}
+/* ==== Market Ticker Bar ==== */
+.mt{display:flex;align-items:center;height:36px;background:linear-gradient(90deg,#0f172a,#1e293b,#0f172a);border-bottom:1px solid var(--bd);position:sticky;top:58px;z-index:999;overflow:hidden;font-size:.82rem;color:#e2e8f0}
+.mt-lb{background:#dc2626;color:#fff;font-weight:700;padding:0 14px;height:100%;display:flex;align-items:center;font-size:.72rem;letter-spacing:1px;flex-shrink:0;animation:mtp 2s infinite}
+@keyframes mtp{0%,100%{opacity:1}50%{opacity:.7}}
+.mt-tr{flex:1;overflow:hidden;height:100%;display:flex;align-items:center}
+.mt-it{display:flex;align-items:center;gap:40px;white-space:nowrap;animation:mts 60s linear infinite;padding:0 20px}
+@keyframes mts{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+.mt-tr:hover .mt-it{animation-play-state:paused}
+.mt-el{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.mt-ico{font-size:.9rem}
+.mt-tag{background:rgba(124,131,255,.2);color:#a5b4fc;padding:1px 6px;border-radius:3px;font-size:.7rem;font-weight:600}
+.mt-txt{color:#e2e8f0}.mt-up{color:#22c55e;font-weight:600}.mt-dn{color:#ef4444;font-weight:600}
+.mt-exp{background:rgba(255,255,255,.06);border:none;color:#94a3b8;cursor:pointer;padding:0 14px;height:100%;font-size:.85rem;flex-shrink:0;transition:all .2s}
+.mt-exp:hover{background:rgba(255,255,255,.12);color:#fff}.mt-exp.open{transform:rotate(180deg)}
+/* ==== Market Panel ==== */
+.mp{position:fixed;top:94px;right:-420px;width:400px;max-width:90vw;height:calc(100vh - 94px);background:var(--bgc);border-left:1px solid var(--bda);box-shadow:-4px 0 20px rgba(0,0,0,.5);z-index:998;transition:right .3s ease;display:flex;flex-direction:column;overflow-y:auto}
+.mp.open{right:0}
+.mp-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--bd);background:var(--bg2);position:sticky;top:0;z-index:1}
+.mp-hd h3{font-size:1rem;color:var(--t1);margin:0}
+.mp-rf{font-size:.7rem;color:var(--t3);margin-left:auto;margin-right:12px}
+.mp-cl{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--t3);padding:0 4px}.mp-cl:hover{color:var(--t1)}
+.mp-bd{padding:16px}
+.mp-sec{margin-bottom:20px}
+.mp-sec h4{font-size:.82rem;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--bd)}
+.mp-tbl{width:100%;border-collapse:collapse;font-size:.85rem}
+.mp-tbl th{text-align:left;padding:6px 8px;font-weight:600;color:var(--t2);font-size:.72rem;text-transform:uppercase;border-bottom:1px solid var(--bd)}
+.mp-tbl td{padding:8px;border-bottom:1px solid var(--bd)}.mp-tbl .up{color:#22c55e;font-weight:600}.mp-tbl .dn{color:var(--ar);font-weight:600}.mp-tbl .sy{font-weight:600;color:var(--t1)}.mp-tbl .nm{color:var(--t2);font-size:.8rem}
+.mp-ev{display:flex;flex-direction:column;gap:8px}
+.mp-ev-it{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:8px;font-size:.84rem;transition:background .15s}.mp-ev-it:hover{background:var(--bgch)}
+.mp-ev-it .ei{font-size:1.1rem}.mp-ev-it .ed{font-size:.72rem;color:var(--t3);white-space:nowrap}.mp-ev-it .en{flex:1;font-weight:500}
+@media(max-width:768px){.mt{font-size:.72rem;height:32px}.mt-lb{padding:0 10px;font-size:.65rem}.mt-it{gap:24px;animation-duration:40s}.mp{top:90px;height:calc(100vh - 90px)}}
 </style>
 </head>
 <body>
@@ -179,6 +210,20 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 </div>
 <div class="pcs" id="pcs"></div>
 <div class="tc2" id="tc"></div>
+
+<div class="mt" id="mt">
+<div class="mt-lb">LIVE</div>
+<div class="mt-tr"><div class="mt-it" id="mt-it"></div><div class="mt-it" id="mt-it-cl"></div></div>
+<button class="mt-exp" onclick="togMP()" title="Market Quotes">&#9650;</button>
+</div>
+<div class="mp" id="mp">
+<div class="mp-hd"><h3>Market Quotes</h3><span class="mp-rf" id="mp-rf"></span><button class="mp-cl" onclick="togMP()">&times;</button></div>
+<div class="mp-bd">
+<div class="mp-sec"><h4>Token Prices</h4><table class="mp-tbl" id="mp-toks"></table></div>
+<div class="mp-sec"><h4>AI Services</h4><table class="mp-tbl" id="mp-svcs"></table></div>
+<div class="mp-sec"><h4>Events</h4><div class="mp-ev" id="mp-evs"></div></div>
+</div>
+</div>
 
 <nav class="nb"><div class="ni">
 <div class="nl" onclick="sp('market')"><div class="li">&#x2B21;</div><span>AI Nexus</span></div>
@@ -444,7 +489,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <h3 data-key="pub_btn_tool">Publish Tool</h3>
   <div class="ig"><label data-key="pub_name">Name</label><input type="text" id="pub-tool-name" data-key="pub_name_ph" placeholder="Tool name"></div>
   <div class="ig"><label data-key="pub_desc">Description</label><textarea id="pub-tool-desc" rows="3" data-key="pub_desc_ph" placeholder="Describe your tool"></textarea></div>
-  <div class="ig"><label data-key="pub_price_label">Price (CNY/month)</label><input type="number" id="pub-tool-price" placeholder="0" step="0.01" min="0"></div>
+  <div class="ig"><label data-key="pub_price_label">Price ($/MTok / ¥/MTok)</label><input type="number" id="pub-tool-price" placeholder="0" step="0.01" min="0"></div>
   <div class="ig"><label data-key="pub_category">Category</label><input type="text" id="pub-tool-cat" data-key="pub_cat_ph" placeholder="e.g. Productivity"></div>
   <button class="btn bg bw" onclick="doPublishTool()" style="margin-top:8px" data-key="pub_submit">Publish</button>
   <div class="br2"><button class="btn bo" onclick="cma()" data-key="pub_cancel">Cancel</button></div>
@@ -719,7 +764,7 @@ pub_title:{zh:'社区发布',en:'Community Publishing',ja:'コミュニティ投
   pub_location:{zh:'地点',en:'Location',ja:'場所',ko:'장소',es:'Ubicación',fr:'Lieu'},
   pub_submit:{zh:'发布',en:'Publish',ja:'公開',ko:'게시',es:'Publicar',fr:'Publier'},
 
-  pub_price_label:{zh:'价格（元/月）',en:'Price (CNY/month)',ja:'価格（元/月）',ko:'가격 (CNY/월)',es:'Precio (CNY/mes)',fr:'Prix (CNY/mois)',de:'Preis (CNY/Monat)',pt:'Preço (CNY/mês)',ru:'Цена (CNY/мес)',it:'Prezzo (CNY/mese)',ar:'السعر (CNY/شهر)',hi:'मूल्य (CNY/माह)',th:'ราคา (CNY/เดือน)',vi:'Giá (CNY/tháng)'},
+  pub_price_label:{zh:'价格（$/MTok / ¥/MTok）',en:'Price ($/MTok / ¥/MTok)',ja:'価格（$/MTok / ¥/MTok）',ko:'가격 ($/MTok / ¥/MTok)',es:'Precio ($/MTok / ¥/MTok)',fr:'Prix ($/MTok / ¥/MTok)',de:'Preis ($/MTok / ¥/MTok)',pt:'Preço ($/MTok / ¥/MTok)',ru:'Цена ($/MTok / ¥/MTok)',it:'Prezzo ($/MTok / ¥/MTok)',ar:'السعر ($/MTok / ¥/MTok)',hi:'मूल्य ($/MTok / ¥/MTok)',th:'ราคา ($/MTok / ¥/MTok)',vi:'Giá ($/MTok / ¥/MTok)'},
   pub_name:{zh:'名称',en:'Name',ja:'名前',ko:'이름',es:'Nombre',fr:'Nom',de:'Name',pt:'Nome',ru:'Название',it:'Nome',ar:'الاسم',hi:'नाम',th:'ชื่อ',vi:'Tên'},  pub_cancel:{zh:'取消',en:'Cancel',ja:'キャンセル',ko:'취소',es:'Cancelar',fr:'Annuler'},
   pub_my:{zh:'我的发布',en:'My Posts',ja:'投稿',ko:'내 게시물',es:'Mis Publicaciones',fr:'Mes Publications'},
   pub_all:{zh:'全部',en:'All',ja:'すべて',ko:'전체',es:'Todo',fr:'Tout'},
@@ -735,7 +780,7 @@ pub_title:{zh:'社区发布',en:'Community Publishing',ja:'コミュニティ投
   ev_live:{zh:'进行中',en:'LIVE',ja:'開催中',ko:'진행중',es:'EN VIVO',fr:'EN DIRECT',de:'LIVE',pt:'AO VIVO',ru:'LIVE',it:'IN CORSO',ar:'مباشر',hi:'लाइव',th:'สด',vi:'TRỰC TIẾP'},
   ev_upcoming:{zh:'即将开始',en:'UPCOMING',ja:'予定',ko:'예정',es:'PRÓXIMO',fr:'À VENIR',de:'BEVORSTEHEND',pt:'EM BREVE',ru:'СКОРО',it:'IN ARRIVO',ar:'قادم',hi:'आगामी',th:'เร็วๆ นี้',vi:'SẮP DIỄN RA'},
   ev_ended:{zh:'已结束',en:'ENDED',ja:'終了',ko:'종료',es:'FINALIZADO',fr:'TERMINÉ',de:'BEENDET',pt:'ENCERRADO',ru:'ЗАВЕРШЕН',it:'TERMINATO',ar:'منتهي',hi:'समाप्त',th:'สิ้นสุด',vi:'ĐÃ KẾT THÚC'},
-  tokens:{zh:'代币',en:'Tokens',ja:'トークン',ko:'토큰',es:'Tokens',fr:'Jetons',de:'Tokens',pt:'Tokens',ru:'Токены',it:'Token',ar:'عملات',hi:'टोकन',th:'โทเค็น',vi:'Token'},  per_mo:{zh:'/月',en:'/mo',ja:'/月',ko:'/월',es:'/mes',fr:'/mois',de:'/Monat',pt:'/mês',ru:'/мес',it:'/mese',ar:'/شهر',hi:'/माह',th:'/เดือน',vi:'/tháng'},
+  tokens:{zh:'代币',en:'Tokens',ja:'トークン',ko:'토큰',es:'Tokens',fr:'Jetons',de:'Tokens',pt:'Tokens',ru:'Токены',it:'Token',ar:'عملات',hi:'टोकन',th:'โทเค็น',vi:'Token'},  per_mo:{zh:'$/MTok / ¥/MTok',en:'$/MTok / ¥/MTok',ja:'$/MTok / ¥/MTok',ko:'$/MTok / ¥/MTok',es:'$/MTok / ¥/MTok',fr:'$/MTok / ¥/MTok',de:'$/MTok / ¥/MTok',pt:'$/MTok / ¥/MTok',ru:'$/MTok / ¥/MTok',it:'$/MTok / ¥/MTok',ar:'$/MTok / ¥/MTok',hi:'$/MTok / ¥/MTok',th:'$/MTok / ¥/MTok',vi:'$/MTok / ¥/MTok'},
   users:{zh:'用户',en:'users',ja:'ユーザー',ko:'사용자',es:'usuarios',fr:'utilisateurs',de:'Nutzer',pt:'usuários',ru:'польз.',it:'utenti',ar:'مستخدم',hi:'उपयोगकर्ता',th:'ผู้ใช้',vi:'người dùng'},
   cny:{zh:'元',en:'CNY',ja:'元',ko:'CNY',es:'CNY',fr:'CNY',de:'CNY',pt:'CNY',ru:'CNY',it:'CNY',ar:'CNY',hi:'CNY',th:'CNY',vi:'CNY'},  pub_del:{zh:'删除',en:'Delete',ja:'削除',ko:'삭제',es:'Eliminar',fr:'Supprimer'},
   pub_del_confirm:{zh:'确定删除此发布内容?',en:'Delete this published item?',ja:'この投稿を削除しますか?',ko:'이 게시물을 삭제하시겠습니까?',es:'¿Eliminar este contenido?',fr:'Supprimer cette publication?'},
@@ -1160,7 +1205,41 @@ function applyI18N(){
   try{if(typeof rTools==='function')rTools();}catch(e){}
   try{if(typeof rP2P==='function')rP2P();}catch(e){}
   try{if(typeof rEvents==='function')rEvents();}catch(e){}
+  refTkr();
 }
+// ============ MARKET TICKER & PANEL ============
+const MKT_DATA={tokens:[
+{symbol:'NEXUS',name:'Nexus AI',price:0.042,change:5.2,volume:'2.4M'},
+{symbol:'ALNEX',name:'Alliance Nexus',price:0.0103,change:3.1,volume:'8.1M'},
+{symbol:'AION',name:'Aion Protocol',price:1.87,change:-1.3,volume:'560K'},
+{symbol:'SYNAP',name:'Synap Token',price:0.215,change:8.7,volume:'1.2M'},
+{symbol:'NEXAI',name:'NexAI Coin',price:3.45,change:-2.8,volume:'340K'},
+],services:[
+{name:'GPT-4 API',provider:'OpenAI',price:12.00,unit:'/MTok',change:0},
+{name:'Claude 3 API',provider:'Anthropic',price:15.00,unit:'/MTok',change:-5.0},
+{name:'Gemini Pro',provider:'Google',price:3.50,unit:'/MTok',change:10.0},
+{name:'Llama 3 70B',provider:'Meta',price:0.90,unit:'/MTok',change:0},
+{name:'Stable Diffusion XL',provider:'Stability AI',price:0.04,unit:'/image',change:0},
+],events:[
+{date:'2026-07-15',name:'AI DevCon 2026 - Tickets Available',icon:'🎫'},
+{date:'2026-07-20',name:'NEXUS Mainnet Launch',icon:'🚀'},
+{date:'2026-08-01',name:'ALNEX Staking Rewards Double Week',icon:'💰'},
+],notes:[
+{icon:'📢',tag:'Notification',text:'New listing: GPT-4 @ $12/MTok'},
+{icon:'📈',tag:'Market Update',text:'NEXUS +5.2% in last 24h'},
+{icon:'🎫',tag:'Event',text:'AI DevCon tickets available'},
+{icon:'🆕',tag:'New Listing',text:'Claude 3.5 Sonnet @ $8/MTok'},
+{icon:'📈',tag:'Market Update',text:'ALNEX staking APY increased to 22%'},
+{icon:'🔥',tag:'Notification',text:'24h volume exceeds $5M on ALNEX/USDT pair'},
+]};
+function flucPrice(b,r){return (b*(1+(Math.random()-.5)*r*2)).toFixed(4);}
+function refMkt(){MKT_DATA.tokens.forEach(t=>{t.price=parseFloat(flucPrice(t.price,.03));t.change=parseFloat((t.change+(Math.random()-.5)*1.5).toFixed(1));});MKT_DATA.services.forEach(s=>{if(s.change!==0)s.change=parseFloat((s.change+(Math.random()-.5)*2).toFixed(1));});}
+function rdrTkr(){var c=document.getElementById('mt-it');var h='';var all=[...MKT_DATA.notes,...MKT_DATA.tokens.map(t=>({icon:t.change>=0?'📈':'📉',tag:'Market Update',text:t.symbol+' '+(t.change>=0?'+':'')+t.change+'%',change:t.change}))];all.forEach(it=>{var cc=it.change!==undefined?(it.change>=0?'mt-up':'mt-dn'):'';h+='<div class="mt-el"><span class="mt-ico">'+it.icon+'</span><span class="mt-tag">'+it.tag+'</span><span class="mt-txt '+cc+'">'+it.text+'</span></div>';});c.innerHTML=h;document.getElementById('mt-it-cl').innerHTML=h;}
+function rdrMP(){var tH='<tr><th>Asset</th><th>Price</th><th>24h Chg</th><th>Volume</th></tr>';MKT_DATA.tokens.forEach(t=>{var c=t.change>=0?'up':'dn';var s=t.change>=0?'+':'';tH+='<tr><td><span class="sy">'+t.symbol+'</span> <span class="nm">'+t.name+'</span></td><td>$'+t.price.toFixed(4)+'</td><td class="'+c+'">'+s+t.change+'%</td><td>'+t.volume+'</td></tr>';});document.getElementById('mp-toks').innerHTML=tH;var sH='<tr><th>Service</th><th>Price</th><th>24h Chg</th></tr>';MKT_DATA.services.forEach(s=>{var c=s.change>=0?'up':'dn';var sg=s.change>=0?'+':'';sH+='<tr><td><span class="sy">'+s.name+'</span> <span class="nm">'+s.provider+'</span></td><td>$'+s.price.toFixed(2)+s.unit+'</td><td class="'+c+'">'+(s.change!==0?sg+s.change+'%':'-')+'</td></tr>';});document.getElementById('mp-svcs').innerHTML=sH;var eH='';MKT_DATA.events.forEach(e=>{eH+='<div class="mp-ev-it"><span class="ei">'+e.icon+'</span><span class="en">'+e.name+'</span><span class="ed">'+e.date+'</span></div>';});document.getElementById('mp-evs').innerHTML=eH;document.getElementById('mp-rf').textContent='Updated: '+new Date().toLocaleTimeString();}
+function togMP(){var p=document.getElementById('mp');var b=document.querySelector('.mt-exp');p.classList.toggle('open');b.classList.toggle('open');if(p.classList.contains('open')){refMkt();rdrMP();}}
+var _tkrIv,_pnlIv;
+function initMKT(){rdrTkr();refMkt();_tkrIv=setInterval(function(){refMkt();rdrTkr();},15000);_pnlIv=setInterval(function(){var p=document.getElementById('mp');if(p.classList.contains('open')){refMkt();rdrMP();}},10000);}
+function refTkr(){if(document.getElementById('mt-it')&&document.getElementById('mt-it').children.length>0){rdrTkr();}var p=document.getElementById('mp');if(p&&p.classList.contains('open')){rdrMP();}}
 
 // ============ RENDER ALL ============
 function rAll(){
@@ -1428,7 +1507,7 @@ function rP2P(){
   let seen=new Set(); initTools.forEach(t=>{if(!seen.has(t.id)){seen.add(t.id);tfs+=`<option value="${t.id}">${t.name}</option>`;}});
   let sel=document.getElementById('p2p-tool'); if(sel)sel.innerHTML=tfs;
   // Populate sell tool selector
-  let sellSel=document.getElementById('p2p-sell-tool'); if(sellSel){ sellSel.innerHTML=initTools.map(t=>`<option value="${t.id}">${t.name} ($${t.price}/mo)</option>`).join('');}
+  let sellSel=document.getElementById('p2p-sell-tool'); if(sellSel){ sellSel.innerHTML=initTools.map(t=>`<option value="${t.id}">${t.name} ($${t.price}/MTok)</option>`).join('');}
   // Render buy list
   let h='';
   ls.forEach(l=>{
@@ -1903,6 +1982,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   let saved=localStorage.getItem('nexus_cur_user_email');
   if(saved&&users[saved]){curUser={...users[saved]};curUser._email=saved;document.getElementById('aa').style.display='none';document.getElementById('ud').style.display='block';document.getElementById('ual').textContent=(curUser.name||'U')[0].toUpperCase();document.getElementById('udn').textContent=curUser.name;}
   applyI18N(); rAll();
+  initMKT(); setTimeout(function(){rdrTkr();},1500);
   // Translate dynamic community content async (non-blocking)
   translateCommunityContent();
   // Auto-save logged in user
