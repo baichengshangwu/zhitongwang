@@ -153,6 +153,15 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 @keyframes upspin{to{transform:rotate(360deg)}}
 .upsuccess{color:var(--ag);font-weight:600}
 .upfail{color:var(--ar);font-weight:600}
+
+/* ====== PUBLISH SYSTEM & TRANSLATION ====== */
+.pub-card{background:var(--bgc);border:1.5px solid rgba(6,182,212,.2);border-radius:var(--rl);padding:18px;transition:var(--tt);position:relative}
+.pub-card:hover{border-color:rgba(6,182,212,.5);transform:translateY(-2px)}
+.pub-badge{position:absolute;top:10px;right:10px;padding:3px 8px;background:rgba(6,182,212,.2);color:var(--ac);font-size:.6rem;border-radius:7px;font-weight:700}
+.pub-section-title{font-size:.9rem;font-weight:700;color:var(--ac);margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+.pub-section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(6,182,212,.3),transparent)}
+.pub-lang-tag{display:inline-block;padding:1px 5px;background:rgba(139,92,246,.15);color:#a78bfa;border-radius:4px;font-size:.58rem;margin-left:4px}
+
 </style>
 </head>
 <body>
@@ -210,15 +219,18 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
     <select id="tool-sort" onchange="rTools()"><option value="pop" data-key="spop">Popular</option><option value="new" data-key="snew">Newest</option><option value="price" data-key="sprice">Price Low</option><option value="apy" data-key="sapy">Yield High</option></select>
   </div>
   <div class="g3" id="tools-grid"></div>
+  <div class="pub-section-title" id="tools-pub-title" style="display:none"></div>
+  <div class="g3" id="tools-pub-grid"></div>
 </div>
 <!-- ============ P2P PAGE ============ -->
 <div class="pg" id="page-p2p">
   <div style="margin-bottom:12px"><h2 style="font-size:1.5rem;font-weight:800;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" data-key="p2pt">P2P Marketplace</h2><p style="color:var(--t2);font-size:.8rem;margin-top:2px" data-key="p2pd">Buy and sell AI app access tokens directly with other users. No middlemen, lower prices.</p></div>
-  <div class="ttabs"><button class="ttab active" onclick="p2pTab('buy')" id="p2p-buy-btn" data-key="p2pbu">Buy Listings</button><button class="ttab" onclick="p2pTab('sell')" id="p2p-sell-btn" data-key="p2psl">Sell Listings</button></div>
+  <div class="ttabs"><button class="ttab active" onclick="p2pTab('buy')" id="p2p-buy-btn" data-key="p2pbu">Buy Listings</button><button class="ttab" onclick="p2pTab('sell')" id="p2p-sell-btn" data-key="p2psl">Sell Listings</button><button class="ttab" onclick="p2pTab('pub')" id="p2p-pub-btn" data-key="pub_tab_p2p">Community</button></div>
   <div id="p2p-buy"><div class="fr"><input type="text" placeholder="Search..." id="p2p-search" oninput="rP2P()" style="max-width:200px">
     <select id="p2p-tool" onchange="rP2P()"><option value="all" data-key="fall">All Tools</option></select>
     <select id="p2p-sort" onchange="rP2P()"><option value="price-low" data-key="pricel">Price: Low</option><option value="price-high" data-key="priceh">Price: High</option><option value="new" data-key="snew">Newest</option></select></div>
     <div class="g2" id="p2p-buy-list"></div></div>
+  <div id="p2p-pub" style="display:none"><div class="g2" id="p2p-pub-list"></div></div>
   <div id="p2p-sell" style="display:none"><div class="card" style="margin-bottom:12px"><h3 style="font-size:.95rem;margin-bottom:8px" data-key="p2pcr">Create Listing</h3>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <div class="ig"><label data-key="tool">Tool</label><select id="p2p-sell-tool"></select></div>
@@ -256,6 +268,8 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 <div class="pg" id="page-events">
   <div style="margin-bottom:12px"><h2 style="font-size:1.5rem;font-weight:800;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" data-key="evt">AI Gatherings</h2><p style="color:var(--t2);font-size:.8rem;margin-top:2px" data-key="evd">Join exclusive AI community events. Each event features limited edition tokens and networking opportunities.</p></div>
   <div class="g3" id="events-grid"></div>
+  <div class="pub-section-title" id="events-pub-title" style="display:none"></div>
+  <div class="g3" id="events-pub-grid"></div>
 </div>
 <!-- ============ DASHBOARD PAGE ============ -->
 <div class="pg" id="page-dashboard">
@@ -365,6 +379,53 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   </div>
 </div>
 </div>
+
+<div class="mo" id="mo-publish-tool"><div class="mod" style="max-width:500px">
+  <h3 data-key="pub_mt">Publish Tool</h3>
+  <div class="ig"><label data-key="pub_lang">Source Language</label>
+    <select id="pub-tool-lang"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="es">Español</option><option value="fr">Français</option></select>
+  </div>
+  <div class="ig"><label data-key="pub_name">Name</label><input type="text" id="pub-tool-name" data-key="pub_name_ph" placeholder="Tool name"></div>
+  <div class="ig"><label data-key="pub_icon">Icon (emoji)</label><input type="text" id="pub-tool-icon" placeholder="⚙️" style="width:80px" value="⚙️"></div>
+  <div class="ig"><label data-key="pub_cat">Category</label><select id="pub-tool-cat"><option value="text">Text & Copy</option><option value="image">Image & Design</option><option value="video">Video & Audio</option><option value="code">Code & Dev</option><option value="data">Data & Analytics</option><option value="biz">Business</option></select></div>
+  <div class="ig"><label data-key="pub_desc">Description</label><textarea id="pub-tool-desc" rows="2" data-key="pub_desc_ph" placeholder="Short description"></textarea></div>
+  <div class="ig"><label data-key="pub_content">Content / Details</label><textarea id="pub-tool-content" rows="3" data-key="pub_content_ph" placeholder="Full details, instructions, or content (auto-translated)"></textarea></div>
+  <div class="ig"><label data-key="pub_price">Price (CNY/mo)</label><input type="number" id="pub-tool-price" placeholder="0" step="0.01" min="0"></div>
+  <div class="ig"><label data-key="pub_color">Color</label><input type="text" id="pub-tool-color" value="#06b6d4" style="width:100px"></div>
+  <div style="font-size:.63rem;color:var(--t3);margin-bottom:8px" data-key="pub_auto_tl">Content auto-translated when switching languages.</div>
+  <button class="btn bg bw" onclick="doPublishTool()" data-key="pub_btn_submit">Publish</button>
+  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
+</div></div>
+
+<div class="mo" id="mo-publish-p2p"><div class="mod" style="max-width:500px">
+  <h3 data-key="pub_mp">Publish P2P Listing</h3>
+  <div class="ig"><label data-key="pub_lang">Source Language</label>
+    <select id="pub-p2p-lang"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="es">Español</option><option value="fr">Français</option></select>
+  </div>
+  <div class="ig"><label data-key="pub_name">Title</label><input type="text" id="pub-p2p-title" data-key="pub_name_ph" placeholder="Listing title"></div>
+  <div class="ig"><label data-key="pub_desc">Description</label><textarea id="pub-p2p-desc" rows="2" data-key="pub_desc_ph" placeholder="Short description"></textarea></div>
+  <div class="ig"><label data-key="pub_content">Content / Details</label><textarea id="pub-p2p-content" rows="3" data-key="pub_content_ph" placeholder="Full details (auto-translated)"></textarea></div>
+  <div class="ig"><label data-key="pub_price">Price (USDT)</label><input type="number" id="pub-p2p-price" placeholder="0" step="0.01" min="0"></div>
+  <div style="font-size:.63rem;color:var(--t3);margin-bottom:8px" data-key="pub_auto_tl">Content auto-translated when switching languages.</div>
+  <button class="btn bg bw" onclick="doPublishP2P()" data-key="pub_btn_submit">Publish</button>
+  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
+</div></div>
+
+<div class="mo" id="mo-publish-event"><div class="mod" style="max-width:500px">
+  <h3 data-key="pub_me">Publish Event</h3>
+  <div class="ig"><label data-key="pub_lang">Source Language</label>
+    <select id="pub-event-lang"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="es">Español</option><option value="fr">Français</option></select>
+  </div>
+  <div class="ig"><label data-key="pub_name">Title</label><input type="text" id="pub-event-title" data-key="pub_name_ph" placeholder="Event title"></div>
+  <div class="ig"><label data-key="pub_icon">Emoji</label><input type="text" id="pub-event-emoji" placeholder="🎉" style="width:80px" value="🎉"></div>
+  <div class="ig"><label data-key="pub_date">Event Date</label><input type="date" id="pub-event-date"></div>
+  <div class="ig"><label data-key="pub_loc">Location</label><input type="text" id="pub-event-loc" data-key="pub_loc_ph" placeholder="City, Country or Online"></div>
+  <div class="ig"><label data-key="pub_desc">Description</label><textarea id="pub-event-desc" rows="2" data-key="pub_desc_ph" placeholder="Short description"></textarea></div>
+  <div class="ig"><label data-key="pub_content">Content / Details</label><textarea id="pub-event-content" rows="3" data-key="pub_content_ph" placeholder="Full details (auto-translated)"></textarea></div>
+  <div style="font-size:.63rem;color:var(--t3);margin-bottom:8px" data-key="pub_auto_tl">Content auto-translated when switching languages.</div>
+  <button class="btn bg bw" onclick="doPublishEvent()" data-key="pub_btn_submit">Publish</button>
+  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
+</div></div>
 
 <!-- ============ MODALS ============ -->
 <div class="mo" id="mo-login"><div class="mod">
@@ -609,6 +670,40 @@ const LANG = {
 
 
 // ============ LANGUAGE ============
+
+  // ---------- Publish System ----------
+  pub_btn_tool:{zh:'+ 发布工具',en:'+ Publish Tool',ja:'+ ツール公開',ko:'+ 도구 게시',es:'+ Publicar Herramienta',fr:'+ Publier Outil'},
+  pub_btn_p2p:{zh:'+ 发布挂单',en:'+ Publish Listing',ja:'+ 出品公開',ko:'+ 판매 등록',es:'+ Publicar Anuncio',fr:'+ Publier Annonce'},
+  pub_btn_event:{zh:'+ 发布活动',en:'+ Publish Event',ja:'+ イベント公開',ko:'+ 이벤트 게시',es:'+ Publicar Evento',fr:'+ Publier Événement'},
+  pub_mt:{zh:'发布工具',en:'Publish Tool',ja:'ツール公開',ko:'도구 게시',es:'Publicar Herramienta',fr:'Publier Outil'},
+  pub_mp:{zh:'发布P2P挂单',en:'Publish P2P Listing',ja:'P2P出品公開',ko:'P2P 판매 등록',es:'Publicar Anuncio P2P',fr:'Publier Annonce P2P'},
+  pub_me:{zh:'发布活动',en:'Publish Event',ja:'イベント公開',ko:'이벤트 게시',es:'Publicar Evento',fr:'Publier Événement'},
+  pub_lang:{zh:'源语言',en:'Source Language',ja:'原文言語',ko:'원본 언어',es:'Idioma Fuente',fr:'Langue Source'},
+  pub_name:{zh:'名称',en:'Name',ja:'名称',ko:'이름',es:'Nombre',fr:'Nom'},
+  pub_name_ph:{zh:'输入名称',en:'Enter name',ja:'名称を入力',ko:'이름 입력',es:'Ingresar nombre',fr:'Saisir le nom'},
+  pub_icon:{zh:'图标',en:'Icon',ja:'アイコン',ko:'아이콘',es:'Icono',fr:'Icône'},
+  pub_cat:{zh:'分类',en:'Category',ja:'カテゴリ',ko:'카테고리',es:'Categoría',fr:'Catégorie'},
+  pub_desc:{zh:'描述',en:'Description',ja:'説明',ko:'설명',es:'Descripción',fr:'Description'},
+  pub_desc_ph:{zh:'简要描述',en:'Short description',ja:'簡単な説明',ko:'간단한 설명',es:'Descripción breve',fr:'Brève description'},
+  pub_content:{zh:'内容/详情',en:'Content / Details',ja:'内容/詳細',ko:'내용/상세',es:'Contenido / Detalles',fr:'Contenu / Détails'},
+  pub_content_ph:{zh:'完整详情(自动翻译)',en:'Full details (auto-translated)',ja:'詳細(自動翻訳)',ko:'상세 내용(자동 번역)',es:'Detalles (traducción automática)',fr:'Détails (traduction automatique)'},
+  pub_price:{zh:'价格',en:'Price',ja:'価格',ko:'가격',es:'Precio',fr:'Prix'},
+  pub_color:{zh:'颜色',en:'Color',ja:'色',ko:'색상',es:'Color',fr:'Couleur'},
+  pub_date:{zh:'活动日期',en:'Event Date',ja:'イベント日',ko:'행사 날짜',es:'Fecha del Evento',fr:'Date de l'Événement'},
+  pub_loc:{zh:'地点',en:'Location',ja:'場所',ko:'위치',es:'Ubicación',fr:'Lieu'},
+  pub_loc_ph:{zh:'城市/国家 或 线上',en:'City/Country or Online',ja:'都市/国 または オンライン',ko:'도시/국가 또는 온라인',es:'Ciudad/País o En línea',fr:'Ville/Pays ou En ligne'},
+  pub_auto_tl:{zh:'内容将在切换语言时自动翻译',en:'Content auto-translated when switching languages.',ja:'言語切替時に自動翻訳されます',ko:'언어 변경 시 자동 번역됩니다',es:'Contenido traducido automáticamente al cambiar idioma.',fr:'Contenu traduit automatiquement lors du changement de langue.'},
+  pub_btn_submit:{zh:'发布',en:'Publish',ja:'公開',ko:'게시',es:'Publicar',fr:'Publier'},
+  pub_tab_p2p:{zh:'社区',en:'Community',ja:'コミュニティ',ko:'커뮤니티',es:'Comunidad',fr:'Communauté'},
+  pub_comm_tools:{zh:'社区发布工具',en:'Community Published Tools',ja:'コミュニティ公開ツール',ko:'커뮤니티 게시 도구',es:'Herramientas de la Comunidad',fr:'Outils de la Communauté'},
+  pub_comm_events:{zh:'社区发布活动',en:'Community Published Events',ja:'コミュニティ公開イベント',ko:'커뮤니티 게시 이벤트',es:'Eventos de la Comunidad',fr:'Événements de la Communauté'},
+  pub_comm_p2p:{zh:'社区P2P挂单',en:'Community P2P Listings',ja:'コミュニティP2P出品',ko:'커뮤니티 P2P 판매',es:'Anuncios P2P de la Comunidad',fr:'Annonces P2P de la Communauté'},
+  pub_comm_empty:{zh:'暂无社区发布',en:'No community posts yet',ja:'コミュニティ投稿なし',ko:'커뮤니티 게시글 없음',es:'Sin publicaciones aún',fr:'Aucune publication'},
+  pub_published:{zh:'已发布! 翻译中...',en:'Published! Translating...',ja:'公開完了! 翻訳中...',ko:'게시 완료! 번역 중...',es:'¡Publicado! Traduciendo...',fr:'Publié! Traduction en cours...'},
+  pub_done:{zh:'发布成功!',en:'Published successfully!',ja:'公開成功!',ko:'게시 성공!',es:'¡Publicado con éxito!',fr:'Publié avec succès!'},
+  pub_del:{zh:'删除',en:'Delete',ja:'削除',ko:'삭제',es:'Eliminar',fr:'Supprimer'},
+  pub_del_confirm:{zh:'确定删除此发布内容?',en:'Delete this published item?',ja:'この投稿を削除しますか?',ko:'이 게시물을 삭제하시겠습니까?',es:'¿Eliminar este contenido?',fr:'Supprimer cette publication?'},
+
 const LANG_FLAGS = {zh:'&#x1F1E8;&#x1F1F3;',en:'&#x1F1EC;&#x1F1E7;',ja:'&#x1F1EF;&#x1F1F5;',ko:'&#x1F1F0;&#x1F1F7;',es:'&#x1F1EA;&#x1F1F8;',fr:'&#x1F1EB;&#x1F1F7;',de:'&#x1F1E9;&#x1F1EA;',pt:'&#x1F1E7;&#x1F1F7;',ru:'&#x1F1F7;&#x1F1FA;',ar:'&#x1F1F8;&#x1F1E6;',hi:'&#x1F1EE;&#x1F1F3;',th:'&#x1F1F9;&#x1F1ED;',vi:'&#x1F1FB;&#x1F1F3;',id:'&#x1F1EE;&#x1F1E9;',it:'&#x1F1EE;&#x1F1F9;'};
 
 function buildLangMenu(){
@@ -634,9 +729,8 @@ function toast(msg){ notify(msg); }
 // ============ MODAL ============
 function oam(type){
   document.querySelectorAll('.mo').forEach(m=>m.classList.remove('show'));
-  if(type==='login') document.getElementById('mo-login').classList.add('show');
-  else if(type==='register') document.getElementById('mo-register').classList.add('show');
-  else if(type==='reset') document.getElementById('mo-reset').classList.add('show');
+  var map={'login':'mo-login','register':'mo-register','reset':'mo-reset','publish-tool':'mo-publish-tool','publish-p2p':'mo-publish-p2p','publish-event':'mo-publish-event'};
+  if(map[type]){var el=document.getElementById(map[type]);if(el)el.classList.add('show');return;}
 }
 function cma(){ document.querySelectorAll('.mo').forEach(m=>m.classList.remove('show')); }
 function togNav(forceClose){
@@ -1172,9 +1266,11 @@ async function createEvent(){
 function p2pTab(tab){ p2pTabV=tab;
   document.getElementById('p2p-buy-btn').classList.toggle('active',tab==='buy');
   document.getElementById('p2p-sell-btn').classList.toggle('active',tab==='sell');
+  var pbtn=document.getElementById('p2p-pub-btn');if(pbtn)pbtn.classList.toggle('active',tab==='pub');
   document.getElementById('p2p-buy').style.display=tab==='buy'?'block':'none';
   document.getElementById('p2p-sell').style.display=tab==='sell'?'block':'none';
-  rP2P();
+  var ppub=document.getElementById('p2p-pub');if(ppub)ppub.style.display=tab==='pub'?'block':'none';
+  if(tab==='pub')renderP2PPub(); else rP2P();
 }
 // ============ BACKEND P2P SYNC ============
 async function loadP2PFromBackend(){
@@ -1672,3 +1768,225 @@ document.addEventListener('DOMContentLoaded',()=>{
 </script>
 <script src="api-client.js?v=13"></script>
 </body>
+
+
+// ============ MULTI-LANGUAGE TRANSLATION ENGINE ============
+var TL_CACHE={};
+var TL_MUTEX=false;
+async function translateText(text,srcLang,tgtLang){
+  if(!text||!text.trim()||srcLang===tgtLang)return text;
+  var cacheKey=srcLang+'>'+tgtLang+':'+text.substring(0,200);
+  if(TL_CACHE[cacheKey])return TL_CACHE[cacheKey];
+  try{
+    var resp=await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl='+srcLang+'&tl='+tgtLang+'&dt=t&q='+encodeURIComponent(text));
+    var data=await resp.json();
+    var result='';
+    if(data&&data[0]){for(var i=0;i<data[0].length;i++){if(data[0][i]&&data[0][i][0])result+=data[0][i][0];}}
+    var final=result||text;
+    TL_CACHE[cacheKey]=final;
+    return final;
+  }catch(e){return text;}
+}
+
+async function translateItem(item,srcLang){
+  if(!srcLang)srcLang=item.srcLang||'en';
+  var targets=TL_LANGS2||['en','zh','ja','ko','es','fr'];
+  var fields=['title','name','description','content','location','loc'];
+  for(var fi=0;fi<fields.length;fi++){
+    var fld=fields[fi];
+    var srcText=item['_'+fld+'_'+srcLang]||item[fld];
+    if(!srcText||!srcText.trim())continue;
+    for(var ti=0;ti<targets.length;ti++){
+      var tl=targets[ti];
+      if(tl===srcLang)continue;
+      var key='_'+fld+'_'+tl;
+      if(!item[key]||!item[key].trim()){
+        item[key]=await translateText(srcText,srcLang,tl);
+      }
+    }
+  }
+  item._translated=true;
+  return item;
+}
+
+function getItemText(item,field,lang){
+  if(!lang)lang=curLang;
+  var key='_'+field+'_'+lang;
+  if(item[key]&&item[key].trim())return item[key];
+  if(item['_'+field+'_en']&&item['_'+field+'_en'].trim())return item['_'+field+'_en'];
+  if(item['_'+field+'_zh']&&item['_'+field+'_zh'].trim())return item['_'+field+'_zh'];
+  return item[field]||'';
+}
+
+// ============ PUBLISH STORAGE ============
+var PUB=loadLS('nexus_pub',{tools:[],p2p:[],events:[]});
+
+// ============ PUBLISH: TOOL ============
+async function doPublishTool(){
+  if(!curUser){oam('login');return;}
+  var name=document.getElementById('pub-tool-name').value.trim();
+  var desc=document.getElementById('pub-tool-desc').value.trim();
+  var content=document.getElementById('pub-tool-content').value.trim();
+  if(!name||!desc){notify('Name and description required','⚠');return;}
+  var item={
+    id:'pub_t_'+Date.now()+'_'+Math.random().toString(36).substr(2,4),
+    name:name, description:desc, content:content, mode:'tool',
+    icon:document.getElementById('pub-tool-icon').value.trim()||'⚙️',
+    cat:document.getElementById('pub-tool-cat').value,
+    price:parseFloat(document.getElementById('pub-tool-price').value)||0,
+    color:document.getElementById('pub-tool-color').value.trim()||'#06b6d4',
+    srcLang:document.getElementById('pub-tool-lang').value,
+    publishedBy:curUser.email, publishedAt:new Date().toISOString(),
+    use:0,apy:0,rating:5.0,badge:'PUB'
+  };
+  item['_name_'+item.srcLang]=name;
+  item['_description_'+item.srcLang]=desc;
+  item['_content_'+item.srcLang]=content;
+  cma();
+  notify(PUB_I18N.pub_published, '📤');
+  await translateItem(item,item.srcLang);
+  PUB.tools.push(item);
+  saveLS('nexus_pub',PUB);
+  renderPubTools();
+  notify(PUB_I18N.pub_done, '✅');
+}
+
+function renderPubTools(){
+  var grid=document.getElementById('tools-pub-grid');
+  var titleEl=document.getElementById('tools-pub-title');
+  if(!grid)return;
+  var items=PUB.tools||[];
+  if(titleEl){
+    titleEl.textContent=tI18N('pub_comm_tools')+(items.length?' ('+items.length+')':'');
+    titleEl.style.display=items.length>0?'flex':'none';
+  }
+  if(items.length===0){grid.innerHTML='';return;}
+  grid.innerHTML=items.map(function(t){
+    var name=getItemText(t,'name');var desc=getItemText(t,'description');
+    var pubBy=t.publishedBy?t.publishedBy.split('@')[0]:'?';var flag=(t.srcLang||'en').toUpperCase();
+    var delBtn=(curUser&&curUser.email===t.publishedBy)?'<button class="btn bd2 bx" onclick="event.stopPropagation();delPubItem(\'tools\',\''+t.id+'\')" style="font-size:.6rem;padding:2px 7px;margin-top:4px">'+tI18N('pub_del')+'</button>':'';
+    return '<div class="tpc pub-card"><div class="pub-badge">'+flag+'</div><div class="pi" style="background:'+t.color+'20;color:'+t.color+';font-size:1.3rem">'+t.icon+'</div><div class="pn">'+escHtml2(name)+'</div><div class="ps2">'+escHtml2(desc).slice(0,60)+'</div><div class="pp">$'+t.price+'<span class="pc2" style="color:var(--t2)">/mo</span></div><div class="pm"><span>By: '+escHtml2(pubBy)+'</span></div>'+delBtn+'</div>';
+  }).join('');
+}
+
+// ============ PUBLISH: P2P ============
+async function doPublishP2P(){
+  if(!curUser){oam('login');return;}
+  var title=document.getElementById('pub-p2p-title').value.trim();
+  var desc=document.getElementById('pub-p2p-desc').value.trim();
+  var content=document.getElementById('pub-p2p-content').value.trim();
+  if(!title||!desc){notify('Title and description required','⚠');return;}
+  var item={
+    id:'pub_p_'+Date.now()+'_'+Math.random().toString(36).substr(2,4),
+    name:title, description:desc, content:content, mode:'p2p',
+    price:parseFloat(document.getElementById('pub-p2p-price').value)||0,
+    srcLang:document.getElementById('pub-p2p-lang').value,
+    publishedBy:curUser.email, publishedAt:new Date().toISOString()
+  };
+  item['_name_'+item.srcLang]=title;
+  item['_description_'+item.srcLang]=desc;
+  item['_content_'+item.srcLang]=content;
+  cma();
+  notify(PUB_I18N.pub_published, '📤');
+  await translateItem(item,item.srcLang);
+  PUB.p2p.push(item);
+  saveLS('nexus_pub',PUB);
+  renderP2PPub();
+  notify(PUB_I18N.pub_done, '✅');
+}
+
+function renderP2PPub(){
+  var grid=document.getElementById('p2p-pub-list');
+  if(!grid)return;
+  var items=PUB.p2p||[];
+  if(items.length===0){grid.innerHTML='<div style="color:var(--t3);padding:20px;text-align:center;grid-column:1/-1">'+tI18N('pub_comm_empty')+'</div>';return;}
+  grid.innerHTML=items.map(function(t){
+    var name=getItemText(t,'name');var desc=getItemText(t,'description');
+    var pubBy=t.publishedBy?t.publishedBy.split('@')[0]:'?';var flag=(t.srcLang||'en').toUpperCase();
+    var delBtn=(curUser&&curUser.email===t.publishedBy)?'<button class="btn bd2 bx" onclick="event.stopPropagation();delPubItem(\'p2p\',\''+t.id+'\')" style="font-size:.6rem;padding:2px 7px;margin-top:4px">'+tI18N('pub_del')+'</button>':'';
+    return '<div class="pub-card"><div class="pub-badge">'+flag+'</div><div class="pn" style="font-size:.9rem">'+escHtml2(name)+'</div><div class="ps2" style="font-size:.73rem;color:var(--t2);margin-bottom:7px">'+escHtml2(desc)+'</div><div class="pm"><span>By: '+escHtml2(pubBy)+'</span><span>'+t.price+' USDT</span></div>'+delBtn+'</div>';
+  }).join('');
+}
+
+// ============ PUBLISH: EVENT ============
+async function doPublishEvent(){
+  if(!curUser){oam('login');return;}
+  var title=document.getElementById('pub-event-title').value.trim();
+  var desc=document.getElementById('pub-event-desc').value.trim();
+  var content=document.getElementById('pub-event-content').value.trim();
+  if(!title||!desc){notify('Title and description required','⚠');return;}
+  var item={
+    id:'pub_e_'+Date.now()+'_'+Math.random().toString(36).substr(2,4),
+    title:title, description:desc, content:content, mode:'event',
+    emoji:document.getElementById('pub-event-emoji').value.trim()||'🎉',
+    date:document.getElementById('pub-event-date').value,
+    loc:document.getElementById('pub-event-loc').value.trim()||'Online',
+    srcLang:document.getElementById('pub-event-lang').value,
+    publishedBy:curUser.email, publishedAt:new Date().toISOString(),
+    tokens:1000,price:'FREE',status:'upcoming'
+  };
+  item['_title_'+item.srcLang]=title;
+  item['_description_'+item.srcLang]=desc;
+  item['_content_'+item.srcLang]=content;
+  item['_loc_'+item.srcLang]=item.loc;
+  cma();
+  notify(PUB_I18N.pub_published, '📤');
+  await translateItem(item,item.srcLang);
+  PUB.events.push(item);
+  saveLS('nexus_pub',PUB);
+  renderPubEvents();
+  notify(PUB_I18N.pub_done, '✅');
+}
+
+function renderPubEvents(){
+  var grid=document.getElementById('events-pub-grid');
+  var titleEl=document.getElementById('events-pub-title');
+  if(!grid)return;
+  var items=PUB.events||[];
+  if(titleEl){
+    titleEl.textContent=tI18N('pub_comm_events')+(items.length?' ('+items.length+')':'');
+    titleEl.style.display=items.length>0?'flex':'none';
+  }
+  if(items.length===0){grid.innerHTML='';return;}
+  grid.innerHTML=items.map(function(t){
+    var title=getItemText(t,'title');var desc=getItemText(t,'description');
+    var loc=getItemText(t,'loc');var pubBy=t.publishedBy?t.publishedBy.split('@')[0]:'?';var flag=(t.srcLang||'en').toUpperCase();
+    var delBtn=(curUser&&curUser.email===t.publishedBy)?'<button class="btn bd2 bx" onclick="event.stopPropagation();delPubItem(\'events\',\''+t.id+'\')" style="font-size:.6rem;padding:2px 7px;margin-top:4px">'+tI18N('pub_del')+'</button>':'';
+    return '<div class="tpc pub-card"><div class="pub-badge">'+flag+'</div><div class="pi" style="font-size:1.5rem">'+t.emoji+'</div><div class="pn">'+escHtml2(title)+'</div><div class="ps2">'+escHtml2(desc).slice(0,60)+'</div><div class="pm"><span>'+t.date+'</span><span>'+escHtml2(loc)+'</span></div>'+delBtn+'</div>';
+  }).join('');
+}
+
+// ============ UTILITIES ============
+function escHtml2(str){if(!str)return'';var d=document.createElement('div');d.textContent=str;return d.innerHTML;}
+function delPubItem(mode,id){
+  if(!confirm(tI18N('pub_del_confirm')))return;
+  if(mode==='tools')PUB.tools=PUB.tools.filter(function(p){return p.id!==id;});
+  if(mode==='p2p')PUB.p2p=PUB.p2p.filter(function(p){return p.id!==id;});
+  if(mode==='events')PUB.events=PUB.events.filter(function(p){return p.id!==id;});
+  saveLS('nexus_pub',PUB);
+  if(mode==='tools')renderPubTools();
+  if(mode==='p2p')renderP2PPub();
+  if(mode==='events')renderPubEvents();
+}
+
+// ============ PUB I18N ============
+var PUB_I18N={
+  pub_published:{zh:'已发布! 翻译中...',en:'Published! Translating...',ja:'公開完了! 翻訳中...',ko:'게시 완료! 번역 중...',es:'Publicado! Traduciendo...',fr:'Publié! Traduction en cours...'},
+  pub_done:{zh:'发布成功!',en:'Published!',ja:'公開成功!',ko:'게시 성공!',es:'Publicado!',fr:'Publié!'},
+  pub_del:{zh:'删除',en:'Delete',ja:'削除',ko:'삭제',es:'Eliminar',fr:'Supprimer'},
+  pub_del_confirm:{zh:'确定删除此发布?',en:'Delete this item?',ja:'削除しますか?',ko:'삭제하시겠습니까?',es:'Eliminar?',fr:'Supprimer?'},
+  pub_comm_empty:{zh:'暂无社区发布',en:'No community posts yet',ja:'投稿なし',ko:'게시글 없음',es:'Sin publicaciones',fr:'Aucune publication'}
+};
+function tI18N(key){if(PUB_I18N[key]&&PUB_I18N[key][curLang])return PUB_I18N[key][curLang];return PUB_I18N[key]?PUB_I18N[key]['en']:key;}
+
+// ============ HOOK INTO rAll ============
+var _origRAll=rAll||function(){};
+rAll=function(){
+  _origRAll();
+  renderPubTools();
+  renderPubEvents();
+  if(typeof renderP2PPub==='function'&&p2pTabV==='pub')renderP2PPub();
+};
+
+// ============ INIT ============
+console.log('[PUB] Publish system loaded. Tools:',PUB.tools.length,'P2P:',PUB.p2p.length,'Events:',PUB.events.length);
