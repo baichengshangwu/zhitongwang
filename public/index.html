@@ -744,6 +744,8 @@ function setLang(l){
   if(curUser&&curUser.bio){translateBio(); updateProfileView();}
   // Retranslate chat messages to new language
   retranslateMsgs();
+  // Translate dynamic community content
+  translateCommunityContent();
 }
 
 // ============ NOTIFICATIONS ============
@@ -1234,7 +1236,7 @@ function rTools(){
   let h='';
   tools.forEach(tl=>{
     h+=`<div class="tpc"><div class="pi" style="background:${tl.color}20;color:${tl.color};font-size:1.3rem">${tl.icon}</div>
-      <div class="pn">${tl.name}</div><div class="ps2">${tl.desc.slice(0,60)}</div>
+      <div class="pn"><span class="dyn-tr" data-orig="${escHtml(tl.name)}">${escHtml(tl.name)}</span></div><div class="ps2"><span class="dyn-tr" data-orig="${escHtml(tl.desc.slice(0,60))}">${escHtml(tl.desc.slice(0,60))}</span></div>
       <div class="pp">$${tl.price}<span class="pc2" style="color:var(--t2)">${t('per_mo')}</span></div>
       <div class="pm"><span>${tl.use} ${t('users')}</span><span class="up">APY ${tl.apy}%</span><span>&#x2B50;${tl.rating}</span></div>
       <button class="btn bg bs bw" style="margin-top:8px" onclick="subscribeTool('${tl.id}')">${t('sub')} - $${tl.price} ${t('cny')}</button></div>`;
@@ -1351,7 +1353,7 @@ function rP2P(){
   let h='';
   ls.forEach(l=>{
     h+=`<div class="lc" onclick="openListing('${l.id}')">
-      <div class="lct"><span class="ltk">${l.toolName}</span><span class="lcd">$${l.price}</span></div>
+      <div class="lct"><span class="ltk dyn-tr" data-orig="${escHtml(l.toolName)}">${escHtml(l.toolName)}</span><span class="lcd">$${l.price}</span></div>
       <div class="lci"><span>${t('sell')}: ${l.seller}</span><span>${t('rating')}: ${l.sellerRating}</span><span>${t('sold2')}: ${l.sold}</span></div>
       <div class="lcp">$${l.price} CNY <span style="font-size:.65rem;color:var(--t3);font-weight:400">| ${l.dur} ${t('days')}</span></div></div>`;
   });
@@ -1516,8 +1518,8 @@ function rEvents(){
   allEvents.forEach(ev=>{
     let st=ev.status==='live'?'tlive':(ev.status==='upcoming'?'tv':'tsb');
     h+=`<div class="ec"><div class="eci" style="background:linear-gradient(135deg,var(--bgch),var(--bg2))"><span class="et ${st}">${t('ev_'+ev.status)}</span><span class="ee">${ev.emoji}</span></div>
-      <div class="ecb"><h3>${ev.title}</h3><div class="ei"><span>&#x1F4C5; ${ev.date}</span><span>&#x1F4CD; ${ev.loc}</span><span>&#x1F465; ${ev.attendees.toLocaleString()}</span></div>
-      <p style="font-size:.68rem;color:var(--t2);margin-bottom:6px">${ev.desc}</p>
+      <div class="ecb"><h3><span class="dyn-tr" data-orig="${escHtml(ev.title)}">${escHtml(ev.title)}</span></h3><div class="ei"><span>&#x1F4C5; ${ev.date}</span><span>&#x1F4CD; <span class="dyn-tr" data-orig="${escHtml(ev.loc)}">${escHtml(ev.loc)}</span></span><span>&#x1F465; ${ev.attendees.toLocaleString()}</span></div>
+      <p style="font-size:.68rem;color:var(--t2);margin-bottom:6px"><span class="dyn-tr" data-orig="${escHtml(ev.desc)}">${escHtml(ev.desc)}</span></p>
       <div class="etp"><span>${ev.tokens.toLocaleString()} ${t('tokens')}</span><span style="font-weight:800;color:var(--ap)">${ev.price}</span></div></div></div>`;
   });
   document.getElementById('events-grid').innerHTML=h;
@@ -1777,6 +1779,23 @@ setInterval(function(){
   if(curPage==='social' && socialFriend && curUser) loadMessages();
 }, 3000);
 
+// ============ DYNAMIC CONTENT TRANSLATION ============
+async function translateCommunityContent(){
+  if(curLang==='zh') return;
+  var els=document.querySelectorAll('.dyn-tr');
+  var tasks=[];
+  els.forEach(function(el){
+    var orig=el.getAttribute('data-orig');
+    if(!orig) return;
+    tasks.push(
+      translateText(orig,curLang).then(function(tr){
+        if(tr&&tr!==orig) el.textContent=tr;
+      })
+    );
+  });
+  await Promise.all(tasks);
+}
+
 // ============ PARTICLES ============
 function initParticles(){
   let c=document.getElementById('pcs'); let frag=document.createDocumentFragment();
@@ -1804,6 +1823,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   let saved=localStorage.getItem('nexus_cur_user_email');
   if(saved&&users[saved]){curUser={...users[saved]};curUser._email=saved;document.getElementById('aa').style.display='none';document.getElementById('ud').style.display='block';document.getElementById('ual').textContent=(curUser.name||'U')[0].toUpperCase();document.getElementById('udn').textContent=curUser.name;}
   applyI18N(); rAll();
+  // Translate dynamic community content async (non-blocking)
+  translateCommunityContent();
   // Auto-save logged in user
   setInterval(()=>{if(curUser){localStorage.setItem('nexus_cur_user_email',curUser._email);}},5000);
   // Save on page unload
@@ -1896,7 +1917,7 @@ function renderPubTools(){
   if(!el)return;
   if(PUB.tools.length===0){el.innerHTML='<div class="pub-empty">'+pubT('pub_none')+'</div>';return;}
   var h=PUB.tools.map(function(t,i){
-    return '<div class="pub-card"><div class="pub-card-h"><strong>'+htmlEscape(t.name)+'</strong><span class="pub-badge">'+pubT('pub_comm_tools')+'</span></div><div>'+htmlEscape(t.desc)+'</div><div class="pub-card-foot"><span>$'+t.price.toFixed(2)+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem(&quot;tools&quot;,'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
+    return '<div class="pub-card"><div class="pub-card-h"><strong><span class="dyn-tr" data-orig="'+htmlEscape(t.name)+'">'+htmlEscape(t.name)+'</span></strong><span class="pub-badge">'+pubT('pub_comm_tools')+'</span></div><div><span class="dyn-tr" data-orig="'+htmlEscape(t.desc)+'">'+htmlEscape(t.desc)+'</span></div><div class="pub-card-foot"><span>$'+t.price.toFixed(2)+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem(&quot;tools&quot;,'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
   }).join('');
   el.innerHTML=h;
 }
@@ -1905,7 +1926,7 @@ function renderP2PPub(){
   if(!el)return;
   if(PUB.p2p.length===0){el.innerHTML='<div class="pub-empty">'+pubT('pub_none')+'</div>';return;}
   var h=PUB.p2p.map(function(t,i){
-    return '<div class="pub-card"><div class="pub-card-h"><strong>'+htmlEscape(t.name)+'</strong><span class="pub-badge">'+pubT('pub_comm_p2p')+'</span></div><div>'+htmlEscape(t.desc)+'</div><div class="pub-card-foot"><span>$'+t.price.toFixed(2)+' x'+t.qty+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem(&quot;p2p&quot;,'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
+    return '<div class="pub-card"><div class="pub-card-h"><strong><span class="dyn-tr" data-orig="'+htmlEscape(t.name)+'">'+htmlEscape(t.name)+'</span></strong><span class="pub-badge">'+pubT('pub_comm_p2p')+'</span></div><div><span class="dyn-tr" data-orig="'+htmlEscape(t.desc)+'">'+htmlEscape(t.desc)+'</span></div><div class="pub-card-foot"><span>$'+t.price.toFixed(2)+' x'+t.qty+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem(&quot;p2p&quot;,'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
   }).join('');
   el.innerHTML=h;
 }
@@ -1914,7 +1935,7 @@ function renderPubEvents(){
   if(!el)return;
   if(PUB.events.length===0){el.innerHTML='<div class="pub-empty">'+pubT('pub_none')+'</div>';return;}
   var h=PUB.events.map(function(t,i){
-    return '<div class="pub-card"><div class="pub-card-h"><strong>'+htmlEscape(t.name)+'</strong><span class="pub-badge">'+pubT('pub_comm_events')+'</span></div><div>'+htmlEscape(t.desc)+'</div><div class="pub-card-foot"><span>'+pubT('pub_date')+': '+(t.date||'TBD')+' | '+pubT('pub_location')+': '+(t.loc||'Online')+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem(&quot;events&quot;,'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
+    return '<div class="pub-card"><div class="pub-card-h"><strong><span class="dyn-tr" data-orig="'+htmlEscape(t.name)+'">'+htmlEscape(t.name)+'</span></strong><span class="pub-badge">'+pubT('pub_comm_events')+'</span></div><div><span class="dyn-tr" data-orig="'+htmlEscape(t.desc)+'">'+htmlEscape(t.desc)+'</span></div><div class="pub-card-foot"><span>'+pubT('pub_date')+': '+(t.date||'TBD')+' | '+pubT('pub_location')+': '+(t.loc||'Online')+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem(&quot;events&quot;,'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
   }).join('');
   el.innerHTML=h;
 }
