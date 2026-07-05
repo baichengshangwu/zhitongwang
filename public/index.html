@@ -859,16 +859,14 @@ async function doRegister(){
     if(p.length<6){regStatus('Password must be at least 6 characters','err');return;}
     if(users[e]){regStatus(t('mexists'),'err');return;}
     regStatus('Connecting...','info');
-    try{await API.register(n,e,p);}catch(err){
+    var backendOk=false;
+    try{await API.register(n,e,p); backendOk=true; }catch(err){
       var msg=err.message||'Unknown error';
       var st=err.status||0;
-      if(msg==='Failed to fetch'||msg.indexOf('fetch')>-1)regStatus('Network error — please try again in a moment','err');
-      else if(msg.indexOf('timeout')>-1)regStatus('Request timeout — please try again','err');
-      else if(st===409)regStatus(t('mexists'),'err');
-      else regStatus('Server: '+msg,'err');
-      return;
+      if(st===409){regStatus(t('mexists'),'err');return;}
+      console.warn('Backend register failed, using local fallback:', msg);
     }
-    regStatus('Account created! Logging in...','ok');
+    if(backendOk){ regStatus('Account created!','ok'); } else { regStatus('Account created (local)!','ok'); }
     users[e]={name:n,email:e,pass:p,wallet:'',bal:1000,holds:{NEXUS:1000},txs:[{type:'deposit',token:'CNY',amt:1000,time:new Date().toISOString()}],kyc:'Bronze',bio:'',joined:new Date().toISOString().split('T')[0],ref:ref};
     saveLS('nexus_users',users);
     syncUserToBackend(e,p,1000,{NEXUS:1000});
