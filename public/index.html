@@ -531,6 +531,18 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <button class="btn bg bw" onclick="buyListing()" data-key="mbuy">Buy Now</button>
   <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
 </div></div>
+<div class="mo" id="mo-channel-config"><div class="mod">
+  <h3>&#x1F310; API Channel Config</h3>
+  <div style="background:var(--bg2);border-radius:var(--r);padding:12px;margin-bottom:12px">
+    <div style="font-weight:700;font-size:.95rem;margin-bottom:4px" id="ch-tool-name">—</div>
+    <div style="font-size:.7rem;color:var(--t2);font-family:var(--fm)" id="ch-tool-id"></div>
+  </div>
+  <div class="ig"><label>API Endpoint</label><input type="text" id="ch-endpoint" style="font-family:var(--fm)" placeholder="https://xtokens.shop/v1"></div>
+  <div class="ig"><label>API Key</label><div style="display:flex;gap:6px"><input type="password" id="ch-apikey" style="font-family:var(--fm)" placeholder="sk-..."><button class="btn bo bs" onclick="var x=document.getElementById('ch-apikey');x.type=x.type==='password'?'text':'password'">&#x1F441;</button></div></div>
+  <div class="ig"><label style="font-size:.65rem;color:var(--t3)">Test Connection</label><button class="btn bs2 bs" onclick="testChannelConnection()">&#x25B6; Test API</button><span id="ch-test-result" style="margin-left:8px;font-size:.7rem"></span></div>
+  <button class="btn bg bw" onclick="saveChannelConfig()">&#x1F4BE; Save Config</button>
+  <div class="br2"><button class="btn bo" onclick="cma()">Cancel</button></div>
+</div></div>
 
 <script>
 // ============ DATA STORE ============
@@ -559,6 +571,7 @@ const initTools = [
   {id:'analytics-ai',icon:'&#x1F4CA;',name:'Analytics AI',cat:'data',desc:'AI-powered business intelligence suite',price:40,color:'#6366f1',use:510,apy:16.1,rating:4.4,badge:''},
   {id:'notion-ai2',icon:'&#x1F4CB;',name:'Copy.ai',cat:'text',desc:'AI copywriting for teams',price:36,color:'#8b5cf6',use:920,apy:14.3,rating:4.5,badge:''},
   {id:'fireflies',icon:'&#x1F399;',name:'Fireflies.ai',cat:'biz',desc:'AI meeting transcription & summaries',price:18,color:'#f59e0b',use:670,apy:12.7,rating:4.6,badge:''},
+  {id:'xtokens',icon:'&#x1F310;',name:'XToken AI Gateway',cat:'code',desc:'Unified AI model hub — OpenAI/Claude/Gemini compatible API gateway (xtokens.shop)',price:7,color:'#06b6d4',use:0,apy:0,rating:5.0,badge:'NEW',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
 ];
 
 const initEvents = [
@@ -1235,17 +1248,18 @@ function rTools(){
   else if(sort==='apy') tools.sort((a,b)=>b.apy-a.apy);
   let h='';
   tools.forEach(tl=>{
-    h+=`<div class="tpc"><div class="pi" style="background:${tl.color}20;color:${tl.color};font-size:1.3rem">${tl.icon}</div>
+    var isApi=tl.apiEndpoint&&tl.apiKey;
+    h+=`<div class="tpc${isApi?' ft':''}"${isApi?' data-badge="API"':''}><div class="pi" style="background:${tl.color}20;color:${tl.color};font-size:1.3rem">${tl.icon}</div>
       <div class="pn"><span class="dyn-tr" data-orig="${escHtml(tl.name)}">${escHtml(tl.name)}</span></div><div class="ps2"><span class="dyn-tr" data-orig="${escHtml(tl.desc.slice(0,60))}">${escHtml(tl.desc.slice(0,60))}</span></div>
       <div class="pp">$${tl.price}<span class="pc2" style="color:var(--t2)">${t('per_mo')}</span></div>
       <div class="pm"><span>${tl.use} ${t('users')}</span><span class="up">APY ${tl.apy}%</span><span>&#x2B50;${tl.rating}</span></div>
-      <button class="btn bg bs bw" style="margin-top:8px" onclick="subscribeTool('${tl.id}')">${t('sub')} - $${tl.price} ${t('cny')}</button></div>`;
+      ${isApi?`<button class="btn bd2 bs bw" style="margin-top:4px" onclick="showChannelConfig('${tl.id}')">&#x2699; Config API</button><button class="btn bg bs bw" style="margin-top:4px" onclick="subscribeTool('${tl.id}')">${t('sub')} - $${tl.price} ${t('cny')}</button>`:`<button class="btn bg bs bw" style="margin-top:8px" onclick="subscribeTool('${tl.id}')">${t('sub')} - $${tl.price} ${t('cny')}</button>`}</div>`;
   });
   document.getElementById('tools-grid').innerHTML=h||'<div style="text-align:center;padding:30px;color:var(--t3);grid-column:1/-1">No tools found</div>';
 }
 async function subscribeTool(toolId){
   if(!curUser){oam('login');return;}
-  let tool=initTools.find(t=>t.id===toolId); if(!tool)return;
+  var tool=initTools.find(t=>t.id===toolId)||userTools.find(t=>t.id===toolId); if(!tool)return;
   if(curUser.bal<tool.price){notify('Insufficient balance','&#x26A0;');return;}
   // Try backend API first
   if(apiToken){
@@ -1260,6 +1274,10 @@ async function subscribeTool(toolId){
   curUser.txs.push({type:'buy',token:tool.name,amt:tool.price,time:new Date().toISOString()});
   users[curUser._email]={...curUser,holds:{...curUser.holds},txs:[...curUser.txs],bal:curUser.bal};
   saveLS('nexus_users',users); saveSession();
+  // If it's an API tool, auto-open channel config
+  if(tool.apiEndpoint||tool.apiKey){
+    showChannelConfig(toolId);
+  }
   notify(t('bs'),'&#x2705;'); rAll();
 }
 
@@ -1283,6 +1301,57 @@ async function createTool(){
   userTools.push({id:'ut_'+Date.now(),icon,name,cat,desc,price,color,use:0,apy:0,rating:5.0,badge:'NEW'});
   document.getElementById('mo-publish-tool').classList.remove('show');
   rTools(); notify('Tool published!','✅');
+}
+
+// ============ Channel Management (API Key Config) ============
+var channelConfigs = JSON.parse(localStorage.getItem('nexus_channels')||'{}');
+function saveChannels(){localStorage.setItem('nexus_channels',JSON.stringify(channelConfigs));}
+
+function showChannelConfig(toolId){
+  var tool = initTools.find(function(t){return t.id===toolId;}) || userTools.find(function(t){return t.id===toolId;});
+  if(!tool) return;
+  document.getElementById('ch-tool-name').textContent = tool.name;
+  document.getElementById('ch-tool-id').textContent = 'ID: '+toolId;
+  var cfg = channelConfigs[toolId] || {};
+  document.getElementById('ch-endpoint').value = cfg.endpoint || tool.apiEndpoint || 'https://xtokens.shop/v1';
+  document.getElementById('ch-apikey').value = cfg.apikey || tool.apiKey || '';
+  document.getElementById('ch-test-result').textContent = '';
+  document.getElementById('mo-channel-config').classList.add('show');
+}
+
+function saveChannelConfig(){
+  var toolId = document.getElementById('ch-tool-id').textContent.replace('ID: ','');
+  var endpoint = document.getElementById('ch-endpoint').value.trim();
+  var apikey = document.getElementById('ch-apikey').value.trim();
+  if(!endpoint){notify('API Endpoint required','⚠');return;}
+  channelConfigs[toolId] = {endpoint:endpoint, apikey:apikey, updated:Date.now()};
+  saveChannels();
+  document.getElementById('mo-channel-config').classList.remove('show');
+  notify('Channel config saved','✅');
+}
+
+async function testChannelConnection(){
+  var toolId = document.getElementById('ch-tool-id').textContent.replace('ID: ','');
+  var endpoint = document.getElementById('ch-endpoint').value.trim();
+  var apikey = document.getElementById('ch-apikey').value.trim();
+  var resultEl = document.getElementById('ch-test-result');
+  resultEl.textContent = 'Testing...';
+  resultEl.style.color = 'var(--t2)';
+  try{
+    var res = await fetch(endpoint+'/models', {headers:{'Authorization':'Bearer '+apikey,'Content-Type':'application/json'}});
+    if(res.ok){
+      var data = await res.json();
+      var modelCount = data.data ? data.data.length : (Array.isArray(data) ? data.length : '?');
+      resultEl.textContent = '✅ Connected — '+modelCount+' models available';
+      resultEl.style.color = 'var(--ag)';
+    } else {
+      resultEl.textContent = '❌ HTTP '+res.status+': '+(res.statusText||'Failed');
+      resultEl.style.color = 'var(--ar)';
+    }
+  }catch(e){
+    resultEl.textContent = '❌ Connection failed: '+e.message;
+    resultEl.style.color = 'var(--ar)';
+  }
 }
 
 // ============ Create Event ============
