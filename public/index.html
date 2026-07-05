@@ -632,6 +632,7 @@ if(listings.length===0){
 let users = loadLS('nexus_users', {});
 let p2pFilter = '';
 let tradeTFVal = '1h';
+const USD_TO_CNY = 6.80;
 
 function loadLS(k, d){ try{let v=localStorage.getItem(k); return v?JSON.parse(v):d;}catch(e){console.error('loadLS failed',k,e);return d;} }
 function saveLS(k, v){ try{localStorage.setItem(k, JSON.stringify(v));if(k==='nexus_users')saveAuthCookie();}catch(e){console.error('saveLS failed',k,e);} }
@@ -1199,7 +1200,7 @@ function rTrending(){
     h+=`<div class="tpc${tool.badge?' ft':''}" data-badge="${tool.badge}" onclick="sp('tools')">
       <div class="pi" style="background:${tool.color}20;color:${tool.color};font-size:1.3rem">${tool.icon}</div>
       <div class="pn">${tool.name}</div><div class="ps2">${tool.desc.slice(0,50)}</div>
-      <div class="pp">$${tool.price}<span class="pc2 up">${t('per_mo')}</span></div>
+      <div class="pp">$${tool.price} / ¥${(tool.price*USD_TO_CNY).toFixed(2)}<span class="pc2 up">${t('per_mo')}</span></div>
       <div class="pm"><span>${tool.use} users</span><span class="up">APY ${tool.apy}%</span></div></div>`;
   });
   document.getElementById('trending-packages').innerHTML=h;
@@ -1256,29 +1257,34 @@ function rTools(){
   let h='';
   tools.forEach(tl=>{
     var isApi=tl.apiEndpoint&&tl.apiKey;
+    var isInit=initTools.some(i=>i.id===tl.id);
+    var priceDisplay=isInit?`$${tl.price} / ¥${(tl.price*USD_TO_CNY).toFixed(2)}`:`¥${tl.price}`;
+    var subPrice=isInit?`¥${(tl.price*USD_TO_CNY).toFixed(2)}`:`¥${tl.price}`;
     h+=`<div class="tpc${isApi?' ft':''}"${isApi?' data-badge="API"':''}><div class="pi" style="background:${tl.color}20;color:${tl.color};font-size:1.3rem">${tl.icon}</div>
       <div class="pn"><span class="dyn-tr" data-orig="${escHtml(tl.name)}">${escHtml(tl.name)}</span></div><div class="ps2"><span class="dyn-tr" data-orig="${escHtml(tl.desc.slice(0,60))}">${escHtml(tl.desc.slice(0,60))}</span></div>
-      <div class="pp">$${tl.price}<span class="pc2" style="color:var(--t2)">${t('per_mo')}</span></div>
+      <div class="pp">${priceDisplay}<span class="pc2" style="color:var(--t2)">${t('per_mo')}</span></div>
       <div class="pm"><span>${tl.use} ${t('users')}</span><span class="up">APY ${tl.apy}%</span><span>&#x2B50;${tl.rating}</span></div>
-      ${isApi?`<button class="btn bd2 bs bw" style="margin-top:4px" onclick="showChannelConfig('${tl.id}')">&#x2699; Config API</button><button class="btn bg bs bw" style="margin-top:4px" onclick="subscribeTool('${tl.id}')">${t('sub')} - $${tl.price} ${t('cny')}</button>`:`<button class="btn bg bs bw" style="margin-top:8px" onclick="subscribeTool('${tl.id}')">${t('sub')} - $${tl.price} ${t('cny')}</button>`}</div>`;
+      ${isApi?`<button class="btn bd2 bs bw" style="margin-top:4px" onclick="showChannelConfig('${tl.id}')">&#x2699; Config API</button><button class="btn bg bs bw" style="margin-top:4px" onclick="subscribeTool('${tl.id}')">${t('sub')} - ${subPrice} ${t('cny')}</button>`:`<button class="btn bg bs bw" style="margin-top:8px" onclick="subscribeTool('${tl.id}')">${t('sub')} - ${subPrice} ${t('cny')}</button>`}</div>`;
   });
   document.getElementById('tools-grid').innerHTML=h||'<div style="text-align:center;padding:30px;color:var(--t3);grid-column:1/-1">No tools found</div>';
 }
 async function subscribeTool(toolId){
   if(!curUser){oam('login');return;}
   var tool=initTools.find(t=>t.id===toolId)||userTools.find(t=>t.id===toolId); if(!tool)return;
-  if(curUser.bal<tool.price){notify(t('insufbal'),'&#x26A0;');return;}
+  var isInit=initTools.some(i=>i.id===toolId);
+  var priceCNY=isInit?tool.price*USD_TO_CNY:tool.price;
+  if(curUser.bal<priceCNY){notify(t('insufbal'),'&#x26A0;');return;}
   // Try backend API first
   if(apiToken){
     try{
-      let res=await API.toolSubscribe(toolId,tool.name,tool.price);
+      let res=await API.toolSubscribe(toolId,tool.name,priceCNY);
       if(res.ok){ curUser.bal=res.balance; syncBalanceFromBackend(); rAll(); notify(t('bs'),'&#x2705;'); return; }
     }catch(e){console.error('subscribeTool backend failed, using local',e);}
   }
   // Local fallback
-  curUser.bal-=tool.price;
+  curUser.bal-=priceCNY;
   let hk='TOOL_'+toolId; curUser.holds[hk]=(curUser.holds[hk]||0)+1;
-  curUser.txs.push({type:'buy',token:tool.name,amt:tool.price,time:new Date().toISOString()});
+  curUser.txs.push({type:'buy',token:tool.name,amt:priceCNY,time:new Date().toISOString()});
   users[curUser._email]={...curUser,holds:{...curUser.holds},txs:[...curUser.txs],bal:curUser.bal};
   saveLS('nexus_users',users); saveSession();
   // If it's an API tool, auto-open channel config
