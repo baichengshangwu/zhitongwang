@@ -154,14 +154,16 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 .upsuccess{color:var(--ag);font-weight:600}
 .upfail{color:var(--ar);font-weight:600}
 
-/* ====== PUBLISH SYSTEM & TRANSLATION ====== */
-.pub-card{background:var(--bgc);border:1.5px solid rgba(6,182,212,.2);border-radius:var(--rl);padding:18px;transition:var(--tt);position:relative}
-.pub-card:hover{border-color:rgba(6,182,212,.5);transform:translateY(-2px)}
-.pub-badge{position:absolute;top:10px;right:10px;padding:3px 8px;background:rgba(6,182,212,.2);color:var(--ac);font-size:.6rem;border-radius:7px;font-weight:700}
-.pub-section-title{font-size:.9rem;font-weight:700;color:var(--ac);margin:20px 0 10px;display:flex;align-items:center;gap:8px}
-.pub-section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(6,182,212,.3),transparent)}
-.pub-lang-tag{display:inline-block;padding:1px 5px;background:rgba(139,92,246,.15);color:#a78bfa;border-radius:4px;font-size:.58rem;margin-left:4px}
-
+.pub-card{background:var(--bgc);border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;transition:all .2s}
+.pub-card:hover{background:var(--bg);transform:translateY(-1px)}
+.pub-card-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.pub-badge{font-size:.65rem;padding:2px 8px;border-radius:10px;background:var(--g1);color:#000;font-weight:600}
+.pub-section-title{font-size:1rem;font-weight:700;margin-bottom:8px}
+.pub-lang-tag{font-size:.65rem;padding:1px 6px;border-radius:6px;background:var(--t3);color:var(--t1)}
+.pub-card-foot{display:flex;justify-content:space-between;align-items:center;font-size:.72rem;color:var(--t3);margin-top:6px}
+.pub-del{color:var(--oa);cursor:pointer;font-weight:600}
+.pub-del:hover{text-decoration:underline}
+.pub-empty{padding:30px;text-align:center;color:var(--t3);font-size:.85rem}
 </style>
 </head>
 <body>
@@ -219,18 +221,15 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
     <select id="tool-sort" onchange="rTools()"><option value="pop" data-key="spop">Popular</option><option value="new" data-key="snew">Newest</option><option value="price" data-key="sprice">Price Low</option><option value="apy" data-key="sapy">Yield High</option></select>
   </div>
   <div class="g3" id="tools-grid"></div>
-  <div class="pub-section-title" id="tools-pub-title" style="display:none"></div>
-  <div class="g3" id="tools-pub-grid"></div>
 </div>
 <!-- ============ P2P PAGE ============ -->
 <div class="pg" id="page-p2p">
   <div style="margin-bottom:12px"><h2 style="font-size:1.5rem;font-weight:800;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" data-key="p2pt">P2P Marketplace</h2><p style="color:var(--t2);font-size:.8rem;margin-top:2px" data-key="p2pd">Buy and sell AI app access tokens directly with other users. No middlemen, lower prices.</p></div>
-  <div class="ttabs"><button class="ttab active" onclick="p2pTab('buy')" id="p2p-buy-btn" data-key="p2pbu">Buy Listings</button><button class="ttab" onclick="p2pTab('sell')" id="p2p-sell-btn" data-key="p2psl">Sell Listings</button><button class="ttab" onclick="p2pTab('pub')" id="p2p-pub-btn" data-key="pub_tab_p2p">Community</button></div>
+  <div class="ttabs"><button class="ttab active" onclick="p2pTab('buy')" id="p2p-buy-btn" data-key="p2pbu">Buy Listings</button><button class="ttab" onclick="p2pTab('sell')" id="p2p-sell-btn" data-key="p2psl">Sell Listings</button><button class="ttab" onclick="p2pTab('pub')" id="p2p-pub-btn">Community</button></div>
   <div id="p2p-buy"><div class="fr"><input type="text" placeholder="Search..." id="p2p-search" oninput="rP2P()" style="max-width:200px">
     <select id="p2p-tool" onchange="rP2P()"><option value="all" data-key="fall">All Tools</option></select>
     <select id="p2p-sort" onchange="rP2P()"><option value="price-low" data-key="pricel">Price: Low</option><option value="price-high" data-key="priceh">Price: High</option><option value="new" data-key="snew">Newest</option></select></div>
     <div class="g2" id="p2p-buy-list"></div></div>
-  <div id="p2p-pub" style="display:none"><div class="g2" id="p2p-pub-list"></div></div>
   <div id="p2p-sell" style="display:none"><div class="card" style="margin-bottom:12px"><h3 style="font-size:.95rem;margin-bottom:8px" data-key="p2pcr">Create Listing</h3>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <div class="ig"><label data-key="tool">Tool</label><select id="p2p-sell-tool"></select></div>
@@ -240,6 +239,24 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
     </div>
     <button class="btn bg bw" onclick="p2pCreateListing()" style="margin-top:8px" data-key="p2pbcr">Create Listing</button></div>
     <div class="g2" id="p2p-sell-list"></div>
+  </div>
+  <div id="p2p-pub" style="display:none">
+    <div class="pub-section">
+      <div class="pub-section-title">Publish</div>
+      <div class="pub-actions" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+        <button class="btn bg" onclick="oam('publish-tool')">+ Publish Tool</button>
+        <button class="btn bg" onclick="oam('publish-p2p')">+ Publish P2P</button>
+        <button class="btn bg" onclick="oam('publish-event')">+ Publish Event</button>
+      </div>
+    </div>
+    <div class="ttabs" style="margin-top:8px">
+      <button class="ttab active" onclick="p2pPubSubTab('tools')" id="pub-sub-tools-btn">Tools</button>
+      <button class="ttab" onclick="p2pPubSubTab('p2p')" id="pub-sub-p2p-btn">P2P</button>
+      <button class="ttab" onclick="p2pPubSubTab('events')" id="pub-sub-events-btn">Events</button>
+    </div>
+    <div id="pub-tools-list" class="g2" style="margin-top:12px"></div>
+    <div id="pub-p2p-list" class="g2" style="margin-top:12px;display:none"></div>
+    <div id="pub-events-list" class="g2" style="margin-top:12px;display:none"></div>
   </div>
 </div>
 <!-- ============ TRADE PAGE ============ -->
@@ -268,8 +285,6 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 <div class="pg" id="page-events">
   <div style="margin-bottom:12px"><h2 style="font-size:1.5rem;font-weight:800;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" data-key="evt">AI Gatherings</h2><p style="color:var(--t2);font-size:.8rem;margin-top:2px" data-key="evd">Join exclusive AI community events. Each event features limited edition tokens and networking opportunities.</p></div>
   <div class="g3" id="events-grid"></div>
-  <div class="pub-section-title" id="events-pub-title" style="display:none"></div>
-  <div class="g3" id="events-pub-grid"></div>
 </div>
 <!-- ============ DASHBOARD PAGE ============ -->
 <div class="pg" id="page-dashboard">
@@ -380,53 +395,6 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 </div>
 </div>
 
-<div class="mo" id="mo-publish-tool"><div class="mod" style="max-width:500px">
-  <h3 data-key="pub_mt">Publish Tool</h3>
-  <div class="ig"><label data-key="pub_lang">Source Language</label>
-    <select id="pub-tool-lang"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="es">Español</option><option value="fr">Français</option></select>
-  </div>
-  <div class="ig"><label data-key="pub_name">Name</label><input type="text" id="pub-tool-name" data-key="pub_name_ph" placeholder="Tool name"></div>
-  <div class="ig"><label data-key="pub_icon">Icon (emoji)</label><input type="text" id="pub-tool-icon" placeholder="⚙️" style="width:80px" value="⚙️"></div>
-  <div class="ig"><label data-key="pub_cat">Category</label><select id="pub-tool-cat"><option value="text">Text & Copy</option><option value="image">Image & Design</option><option value="video">Video & Audio</option><option value="code">Code & Dev</option><option value="data">Data & Analytics</option><option value="biz">Business</option></select></div>
-  <div class="ig"><label data-key="pub_desc">Description</label><textarea id="pub-tool-desc" rows="2" data-key="pub_desc_ph" placeholder="Short description"></textarea></div>
-  <div class="ig"><label data-key="pub_content">Content / Details</label><textarea id="pub-tool-content" rows="3" data-key="pub_content_ph" placeholder="Full details, instructions, or content (auto-translated)"></textarea></div>
-  <div class="ig"><label data-key="pub_price">Price (CNY/mo)</label><input type="number" id="pub-tool-price" placeholder="0" step="0.01" min="0"></div>
-  <div class="ig"><label data-key="pub_color">Color</label><input type="text" id="pub-tool-color" value="#06b6d4" style="width:100px"></div>
-  <div style="font-size:.63rem;color:var(--t3);margin-bottom:8px" data-key="pub_auto_tl">Content auto-translated when switching languages.</div>
-  <button class="btn bg bw" onclick="doPublishTool()" data-key="pub_btn_submit">Publish</button>
-  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
-</div></div>
-
-<div class="mo" id="mo-publish-p2p"><div class="mod" style="max-width:500px">
-  <h3 data-key="pub_mp">Publish P2P Listing</h3>
-  <div class="ig"><label data-key="pub_lang">Source Language</label>
-    <select id="pub-p2p-lang"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="es">Español</option><option value="fr">Français</option></select>
-  </div>
-  <div class="ig"><label data-key="pub_name">Title</label><input type="text" id="pub-p2p-title" data-key="pub_name_ph" placeholder="Listing title"></div>
-  <div class="ig"><label data-key="pub_desc">Description</label><textarea id="pub-p2p-desc" rows="2" data-key="pub_desc_ph" placeholder="Short description"></textarea></div>
-  <div class="ig"><label data-key="pub_content">Content / Details</label><textarea id="pub-p2p-content" rows="3" data-key="pub_content_ph" placeholder="Full details (auto-translated)"></textarea></div>
-  <div class="ig"><label data-key="pub_price">Price (USDT)</label><input type="number" id="pub-p2p-price" placeholder="0" step="0.01" min="0"></div>
-  <div style="font-size:.63rem;color:var(--t3);margin-bottom:8px" data-key="pub_auto_tl">Content auto-translated when switching languages.</div>
-  <button class="btn bg bw" onclick="doPublishP2P()" data-key="pub_btn_submit">Publish</button>
-  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
-</div></div>
-
-<div class="mo" id="mo-publish-event"><div class="mod" style="max-width:500px">
-  <h3 data-key="pub_me">Publish Event</h3>
-  <div class="ig"><label data-key="pub_lang">Source Language</label>
-    <select id="pub-event-lang"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="es">Español</option><option value="fr">Français</option></select>
-  </div>
-  <div class="ig"><label data-key="pub_name">Title</label><input type="text" id="pub-event-title" data-key="pub_name_ph" placeholder="Event title"></div>
-  <div class="ig"><label data-key="pub_icon">Emoji</label><input type="text" id="pub-event-emoji" placeholder="🎉" style="width:80px" value="🎉"></div>
-  <div class="ig"><label data-key="pub_date">Event Date</label><input type="date" id="pub-event-date"></div>
-  <div class="ig"><label data-key="pub_loc">Location</label><input type="text" id="pub-event-loc" data-key="pub_loc_ph" placeholder="City, Country or Online"></div>
-  <div class="ig"><label data-key="pub_desc">Description</label><textarea id="pub-event-desc" rows="2" data-key="pub_desc_ph" placeholder="Short description"></textarea></div>
-  <div class="ig"><label data-key="pub_content">Content / Details</label><textarea id="pub-event-content" rows="3" data-key="pub_content_ph" placeholder="Full details (auto-translated)"></textarea></div>
-  <div style="font-size:.63rem;color:var(--t3);margin-bottom:8px" data-key="pub_auto_tl">Content auto-translated when switching languages.</div>
-  <button class="btn bg bw" onclick="doPublishEvent()" data-key="pub_btn_submit">Publish</button>
-  <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
-</div></div>
-
 <!-- ============ MODALS ============ -->
 <div class="mo" id="mo-login"><div class="mod">
   <h3 data-key="mlog">Login</h3>
@@ -453,6 +421,33 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <div class="ig"><label data-key="memail">Email</label><input type="email" id="reset-email" placeholder="your@email.com"></div>
   <button class="btn bg bw" onclick="doReset()" data-key="mres2">Send Reset Link</button>
   <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
+</div></div>
+<div class="mo" id="mo-publish-tool"><div class="mod">
+  <h3>Publish Tool</h3>
+  <div class="ig"><label>Name</label><input type="text" id="pub-tool-name" placeholder="Tool name"></div>
+  <div class="ig"><label>Description</label><textarea id="pub-tool-desc" rows="3" placeholder="Describe your tool"></textarea></div>
+  <div class="ig"><label>Price (CNY/month)</label><input type="number" id="pub-tool-price" placeholder="0" step="0.01" min="0"></div>
+  <div class="ig"><label>Category</label><input type="text" id="pub-tool-cat" placeholder="e.g. Productivity"></div>
+  <button class="btn bg bw" onclick="doPublishTool()" style="margin-top:8px">Publish</button>
+  <div class="br2"><button class="btn bo" onclick="cma()">Cancel</button></div>
+</div></div>
+<div class="mo" id="mo-publish-p2p"><div class="mod">
+  <h3>Publish P2P Listing</h3>
+  <div class="ig"><label>Name</label><input type="text" id="pub-p2p-name" placeholder="Listing name"></div>
+  <div class="ig"><label>Description</label><textarea id="pub-p2p-desc" rows="3" placeholder="Describe your listing"></textarea></div>
+  <div class="ig"><label>Price (CNY)</label><input type="number" id="pub-p2p-price" placeholder="0" step="0.01" min="0"></div>
+  <div class="ig"><label>Quantity</label><input type="number" id="pub-p2p-qty" placeholder="1" value="1" min="1"></div>
+  <button class="btn bg bw" onclick="doPublishP2P()" style="margin-top:8px">Publish</button>
+  <div class="br2"><button class="btn bo" onclick="cma()">Cancel</button></div>
+</div></div>
+<div class="mo" id="mo-publish-event"><div class="mod">
+  <h3>Publish Event</h3>
+  <div class="ig"><label>Name</label><input type="text" id="pub-event-name" placeholder="Event name"></div>
+  <div class="ig"><label>Description</label><textarea id="pub-event-desc" rows="3" placeholder="Describe your event"></textarea></div>
+  <div class="ig"><label>Date</label><input type="date" id="pub-event-date"></div>
+  <div class="ig"><label>Location</label><input type="text" id="pub-event-loc" placeholder="e.g. Online / Shanghai"></div>
+  <button class="btn bg bw" onclick="doPublishEvent()" style="margin-top:8px">Publish</button>
+  <div class="br2"><button class="btn bo" onclick="cma()">Cancel</button></div>
 </div></div>
 <div class="mo" id="mo-profile"><div class="mod">
   <h3 data-key="mprf">Edit Profile</h3>
@@ -667,43 +662,36 @@ const LANG = {
   id:{nm:'Pasar',nto:'Alat',np2p:'P2P',ntr:'Perdagangan',nev:'Acara',ndb:'Dasbor',tlk:'Ticker Langsung',blg:'Masuk',bsu:'Daftar',umd:'Dasbor',ump:'Profil',uml:'Keluar',hbad:'Protokol Ekonomi Berbagi AI',hhd:'Satu Token. AI Tak Terbatas.',hsd:'Beli, jual, dan perdagangkan langganan aplikasi AI di pasar akses AI terdesentralisasi pertama di dunia. Kuasai produktivitas Anda.',stools:'Alat AI',susers:'Pemegang',svol:'Volume 24j',smcap:'Kapitalisasi Pasar',ttp:'Paket Tren',vall:'Lihat Semua',tpe:'Evolusi Harga',tre:'Transaksi Terbaru',taia:'Semua Aplikasi AI',taid:'Jelajahi dan berlangganan alat AI premium. Bagikan langganan untuk dapatkan token.',fall:'Semua Kategori',spop:'Populer',snew:'Terbaru',sprice:'Harga Rendah',sapy:'Hasil Tinggi',p2pt:'Pasar P2P',p2pd:'Beli dan jual token akses AI langsung dengan pengguna lain. Tanpa perantara, harga lebih rendah.',p2pbu:'Daftar Beli',p2psl:'Daftar Jual',pricel:'Harga: Rendah',priceh:'Harga: Tinggi',p2pcr:'Buat Iklan',tool:'Alat',pricel2:'Harga (CNY)',qty:'Jumlah',dur:'Durasi (hari)',p2pbcr:'Buat Iklan',trdt:'Perdagangan',tbuy:'Beli',tsell:'Jual',tlim:'Batas',tmar:'Pasar',tprice:'Harga (CNY)',tamt:'Jumlah (NEXUS)',ttot:'Total',tbal:'Tersedia',tbuy2:'Beli NEXUS',tord:'Buku Pesanan',thst:'Riwayat Perdagangan',evt:'Pertemuan AI',evd:'Ikuti acara komunitas AI eksklusif. Setiap acara menawarkan token edisi terbatas dan kesempatan jaringan.',dbt:'Dasbor Saya',dph:'Aset Portofolio',dtoken:'Token',dbal:'Saldo',dval:'Nilai',dpnl:'Untung/Rugi',dth:'Riwayat Transaksi',dkc:'KYC & Verifikasi',kycd:'Selesaikan KYC untuk batas lebih tinggi',kycb:'Tingkatkan KYC',dwl:'Dompet',dwa:'Alamat Dompet',dwah:'Hubungkan dompet asli untuk penarikan dan hadiah',dws:'Simpan Dompet',mlog:'Masuk',mlog2:'Masuk',memail:'Email',mpass:'Kata Sandi',mforgot:'Lupa Kata Sandi?',mnoacc:'Belum punya akun?',mregi:'Daftar',mreg:'Daftar',muname:'Nama Pengguna',mref:'Kode Referal (opsional)',mreg2:'Buat Akun',mhacc:'Sudah punya akun?',mres:'Reset Kata Sandi',mres2:'Kirim Tautan',mprf:'Edit Profil',mbio:'Bio',msave:'Simpan',mkyc:'Verifikasi KYC',mkid:'Jenis ID',mknum:'Nomor ID',mkname:'Nama Lengkap (sesuai ID)',mkaddr:'Alamat',mksub:'Kirim KYC',mconf:'Konfirmasi',mcyes:'Konfirmasi',mcancel:'Batal',mlist:'Detail Iklan',mbuy:'Beli Sekarang',sub:'Berlangganan',share:'Bagikan',days:'hari',cny:'CNY',sell:'Penjual',rating:'Rating',sold2:'Terjual',deposit:'Setor',withdraw:'Tarik',buy:'Beli',sell2:'Jual',reward:'Hadiah',bt:'Beli',sd:'Jual',on:'Buka',mlog3:'Silakan login dulu',bs:'Pembelian berhasil!',ss:'Penjualan berhasil!',pln:'Iklan dibuat',prs:'Tautan reset dikirim ke',rgs:'Pendaftaran berhasil! Selamat datang di AI Nexus',notimpl:'Perlu API backend. Mode demo.',noauth:'Silakan login dulu',mvercode:'Kode Verifikasi',mvercode2:'Kirim Kode',mvercode3:'Masukkan kode',mverr:'Kode verifikasi tidak valid',mversent:'Kode verifikasi dikirim ke',nag:'Agen',nsoc:'Sosial',sod:'Sosial — Teman & Chat',sosearch:'Cari',sosearchph:'Cari via email...',sofriends:'Teman Saya',sorequests:'Permintaan',sochat:'Chat',sonofriends:'Belum ada teman',soadd:'Tambah',soaccept:'Terima',soreject:'Tolak',somsgph:'Ketik pesan...',sosend:'Kirim',sonomsg:'Pilih teman',soonl:'Online',soffl:'Offline',soselect:'Pilih',soadded:'Teman ditambah!',soreqsent:'Permintaan terkirim',sologin:'Login dulu',agtit:'Agen Aliansi AI',agdesc:'Bergabung dengan program agen kami. Jadilah agen AI Alliance dan dapatkan 50% komisi.',agnreg:'Menjadi Agen AI Alliance',agnregd:'Bergabung dengan program agen AI Nexus, dapatkan 50% komisi berulang per pengguna yang direferensikan.',agstep1:'Bayar & Bergabung',agstep1d:'Pembayaran satu kali menjadi agen',agstep2:'Dapatkan Sub-Akun',agstep2d:'Buat sub-akun untuk pelanggan',agstep3:'Dapatkan 50%',agstep3d:'50% komisi berulang per penjualan',agjoin:'Bergabung Sekarang - Jadi Agen',agpp:'Tombol PayPal Anda',agbind:'+ Ikat PayPal',agnopp:'Belum ada tombol PayPal terikat',agcomm:'Riwayat Komisi',aglive:'Tombol PayPal Langsung',agnolive:'Tidak ada tombol langsung',agbpt:'Ikat Tombol PayPal',agbpn:'Nama Tombol',agbpnph:'Tombol Saya',agbpid:'ID Tombol Hosted',agbpidph:'HOSTED-BUTTON-ID',agbphelp:'Temukan ID di Dasbor PayPal > Terima Pembayaran > Tombol PayPal',agbpb:'Ikat',agid:'ID Agen',agte:'Total Pendapatan',agrate:'Tingkat Komisi',agstat:'Status',agtxns:'Trans.',agrev:'Pendapatan',agearn:'Diperoleh',agregok:'Pendaftaran agen berhasil!',agdelcf:'Hapus tombol PayPal ini?',agfill:'Harap isi semua bidang',agbinds:'Tombol PayPal terikat!',agnocomm:'Belum ada catatan komisi',agpcard:'Menjadi Agen AI Alliance',agpcardd:'Bayar bergabung → Sub-akun → 50% komisi.',agpjoin:'Bergabung',ppagent:'Menjadi Agen AI Alliance',ppdonate:'Sponsor/Donasi',mavatar:'Avatar',mupload:'Unggah',mclear:'Hapus',msigimg:'Gambar TTD',msigvid:'Video TTD',mbio_ph:'Ceritakan tentang dirimu',mpsaved:'Profil tersimpan',mup_success:'Upload berhasil',mup_fail:'Upload gagal',mexists:'Email ini sudah terdaftar — silakan login',mnofile:'Pilih file',mpview:'Profil',mpedit:'Edit',mpkyc:'Level KYC',mpjoined:'Bergabung',soresult:'Hasil Pencarian',soadd2:'Tambah Teman',sosearching:'Mencari...',soself:'Tidak bisa tambah diri',sopending:'Permintaan tertunda',},
   it:{nm:'Mercato',nto:'Strumenti',np2p:'P2P',ntr:'Scambio',nev:'Eventi',ndb:'Dashboard',tlk:'Ticker Live',blg:'Accedi',bsu:'Registrati',umd:'Dashboard',ump:'Profilo',uml:'Esci',hbad:'Protocollo Economia Condivisa IA',hhd:'Un Token. IA Infinita.',hsd:'Compra, vendi e scambia abbonamenti IA nel primo mercato decentralizzato di accesso IA al mondo. Domina la tua produttività.',stools:'Strumenti IA',susers:'Detentori',svol:'Volume 24h',smcap:'Capitalizzazione',ttp:'Pacchetti Trend',vall:'Vedi Tutto',tpe:'Evoluzione Prezzo',tre:'Transazioni Recenti',taia:'Tutte le App IA',taid:'Sfoglia e abbonati a strumenti IA premium. Condividi gli abbonamenti per guadagnare token.',fall:'Tutte le Categorie',spop:'Popolare',snew:'Più Nuovo',sprice:'Prezzo Basso',sapy:'Rendimento Alto',p2pt:'Mercato P2P',p2pd:'Compra e vendi token di accesso IA direttamente con altri utenti. Nessun intermediario, prezzi più bassi.',p2pbu:'Annunci Acquisto',p2psl:'Annunci Vendita',pricel:'Prezzo: Basso',priceh:'Prezzo: Alto',p2pcr:'Crea Annuncio',tool:'Strumento',pricel2:'Prezzo (CNY)',qty:'Quantità',dur:'Durata (giorni)',p2pbcr:'Crea Annuncio',trdt:'Scambio',tbuy:'Compra',tsell:'Vendi',tlim:'Limite',tmar:'Mercato',tprice:'Prezzo (CNY)',tamt:'Importo (NEXUS)',ttot:'Totale',tbal:'Disponibile',tbuy2:'Compra NEXUS',tord:'Registro Ordini',thst:'Cronologia Scambi',evt:'Raduni IA',evd:'Partecipa a eventi esclusivi della comunità IA. Ogni evento offre token in edizione limitata e opportunità di networking.',dbt:'Mia Dashboard',dph:'Patrimonio Portafoglio',dtoken:'Token',dbal:'Saldo',dval:'Valore',dpnl:'P&L',dth:'Cronologia Transazioni',dkc:'KYC e Verifica',kycd:'Completa KYC per sbloccare limiti superiori',kycb:'Aggiorna KYC',dwl:'Portafoglio',dwa:'Indirizzo Portafoglio',dwah:'Collega il tuo portafoglio reale per prelievi e ricompense',dws:'Salva Portafoglio',mlog:'Accedi',mlog2:'Accedi',memail:'Email',mpass:'Password',mforgot:'Password dimenticata?',mnoacc:'Nessun account?',mregi:'Registrati',mreg:'Registrazione',muname:'Nome Utente',mref:'Codice Referral (opzionale)',mreg2:'Crea Account',mhacc:'Hai già un account?',mres:'Reimposta Password',mres2:'Invia Link',mprf:'Modifica Profilo',mbio:'Bio',msave:'Salva',mkyc:'Verifica KYC',mkid:'Tipo Documento',mknum:'Numero Documento',mkname:'Nome Completo (come da documento)',mkaddr:'Indirizzo',mksub:'Invia KYC',mconf:'Conferma',mcyes:'Conferma',mcancel:'Annulla',mlist:'Dettagli Annuncio',mbuy:'Compra Ora',sub:'Abbonati',share:'Condividi',days:'giorni',cny:'CNY',sell:'Venditore',rating:'Valutazione',sold2:'Venduto',deposit:'Deposita',withdraw:'Preleva',buy:'Compra',sell2:'Vendi',reward:'Ricompensa',bt:'Compra',sd:'Vendi',on:'Aperto',mlog3:'Accedi prima',bs:'Acquisto riuscito!',ss:'Vendita riuscita!',pln:'Annuncio creato',prs:'Link di reimpostazione inviato a',rgs:'Registrazione riuscita! Benvenuto su AI Nexus',notimpl:'Richiede API backend. Modalità demo.',noauth:'Accedi prima',mvercode:'Codice di Verifica',mvercode2:'Invia Codice',mvercode3:'Inserisci codice',mverr:'Codice di verifica non valido',mversent:'Codice inviato a',nag:'Agente',nsoc:'Social',sod:'Social — Amici & Chat',sosearch:'Cerca',sosearchph:'Cerca per email...',sofriends:'I Miei Amici',sorequests:'Richieste',sochat:'Chat',sonofriends:'Nessun amico',soadd:'Aggiungi',soaccept:'Accetta',soreject:'Rifiuta',somsgph:'Scrivi...',sosend:'Invia',sonomsg:'Seleziona amico',soonl:'Online',soffl:'Offline',soselect:'Seleziona',soadded:'Amico aggiunto!',soreqsent:'Richiesta inviata',sologin:'Accedi',agtit:'Agente Alleanza IA',agdesc:'Unisciti al nostro programma agenti. Diventa agente AI Alliance e guadagna il 50% di commissione.',agnreg:'Diventa Agente AI Alliance',agnregd:'Unisciti al programma agenti AI Nexus, guadagna il 50% di commissione ricorrente per ogni utente referral.',agstep1:'Paga e Unisciti',agstep1d:'Pagamento una tantum per diventare agente',agstep2:'Ottieni Sub-Account',agstep2d:'Crea sub-account per clienti',agstep3:'Guadagna 50%',agstep3d:'50% commissione ricorrente su ogni vendita',agjoin:'Unisciti Ora - Diventa Agente',agpp:'I Tuoi Pulsanti PayPal',agbind:'+ Collega PayPal',agnopp:'Nessun pulsante PayPal collegato',agcomm:'Cronologia Commissioni',aglive:'Pulsanti PayPal Live',agnolive:'Nessun pulsante live',agbpt:'Collega Pulsante PayPal',agbpn:'Nome Pulsante',agbpnph:'Mio Pulsante',agbpid:'ID Pulsante Hosted',agbpidph:'HOSTED-BUTTON-ID',agbphelp:'Trova ID in Dashboard PayPal > Ricevi Pagamenti > Pulsanti PayPal',agbpb:'Collega',agid:'ID Agente',agte:'Guadagni Totali',agrate:'Tasso Commissione',agstat:'Stato',agtxns:'Trans.',agrev:'Ricavi',agearn:'Guadagnato',agregok:'Registrazione agente riuscita!',agdelcf:'Eliminare questo pulsante PayPal?',agfill:'Compila tutti i campi',agbinds:'Pulsante PayPal collegato!',agnocomm:'Nessuna registrazione commissioni',agpcard:'Diventa Agente AI Alliance',agpcardd:'Paga per unirti → Sub-account → 50% commissione.',agpjoin:'Unisciti Ora',ppagent:'Diventa Agente AI Alliance',ppdonate:'Sponsorizza/Dona',mavatar:'Avatar',mupload:'Carica',mclear:'Cancella',msigimg:'Immagine Firma',msigvid:'Video Firma',mbio_ph:'Parlaci di te',mpsaved:'Profilo salvato',mup_success:'Caricamento riuscito',mup_fail:'Caricamento fallito',mexists:'Email già registrata — accedi',mnofile:'Seleziona file',mpview:'Profilo',mpedit:'Modifica',mpkyc:'Livello KYC',mpjoined:'Iscritto',soresult:'Risultati',soadd2:'Aggiungi amico',sosearching:'Cercando...',soself:'Non puoi aggiungerti',sopending:'Richiesta in sospeso'}
 };
-
-
-// ============ LANGUAGE ============
-
-  // ---------- Publish System ----------
-  pub_btn_tool:{zh:'+ 发布工具',en:'+ Publish Tool',ja:'+ ツール公開',ko:'+ 도구 게시',es:'+ Publicar Herramienta',fr:'+ Publier Outil'},
-  pub_btn_p2p:{zh:'+ 发布挂单',en:'+ Publish Listing',ja:'+ 出品公開',ko:'+ 판매 등록',es:'+ Publicar Anuncio',fr:'+ Publier Annonce'},
-  pub_btn_event:{zh:'+ 发布活动',en:'+ Publish Event',ja:'+ イベント公開',ko:'+ 이벤트 게시',es:'+ Publicar Evento',fr:'+ Publier Événement'},
-  pub_mt:{zh:'发布工具',en:'Publish Tool',ja:'ツール公開',ko:'도구 게시',es:'Publicar Herramienta',fr:'Publier Outil'},
-  pub_mp:{zh:'发布P2P挂单',en:'Publish P2P Listing',ja:'P2P出品公開',ko:'P2P 판매 등록',es:'Publicar Anuncio P2P',fr:'Publier Annonce P2P'},
-  pub_me:{zh:'发布活动',en:'Publish Event',ja:'イベント公開',ko:'이벤트 게시',es:'Publicar Evento',fr:'Publier Événement'},
-  pub_lang:{zh:'源语言',en:'Source Language',ja:'原文言語',ko:'원본 언어',es:'Idioma Fuente',fr:'Langue Source'},
-  pub_name:{zh:'名称',en:'Name',ja:'名称',ko:'이름',es:'Nombre',fr:'Nom'},
-  pub_name_ph:{zh:'输入名称',en:'Enter name',ja:'名称を入力',ko:'이름 입력',es:'Ingresar nombre',fr:'Saisir le nom'},
-  pub_icon:{zh:'图标',en:'Icon',ja:'アイコン',ko:'아이콘',es:'Icono',fr:'Icône'},
-  pub_cat:{zh:'分类',en:'Category',ja:'カテゴリ',ko:'카테고리',es:'Categoría',fr:'Catégorie'},
+  pub_title:{zh:'社区发布',en:'Community Publishing',ja:'コミュニティ投稿',ko:'커뮤니티 게시',es:'Publicación Comunitaria',fr:'Publication Communautaire'},
+  pub_tab_tools:{zh:'工具',en:'Tools',ja:'ツール',ko:'도구',es:'Herramientas',fr:'Outils'},
+  pub_tab_p2p:{zh:'P2P',en:'P2P',ja:'P2P',ko:'P2P',es:'P2P',fr:'P2P'},
+  pub_tab_events:{zh:'活动',en:'Events',ja:'イベント',ko:'이벤트',es:'Eventos',fr:'Événements'},
+  pub_btn_tool:{zh:'发布工具',en:'Publish Tool',ja:'ツールを公開',ko:'도구 게시',es:'Publicar Herramienta',fr:'Publier Outil'},
+  pub_btn_p2p:{zh:'发布P2P',en:'Publish P2P',ja:'P2Pを公開',ko:'P2P 게시',es:'Publicar P2P',fr:'Publier P2P'},
+  pub_btn_event:{zh:'发布活动',en:'Publish Event',ja:'イベントを公開',ko:'이벤트 게시',es:'Publicar Evento',fr:'Publier Événement'},
+  pub_name:{zh:'名称',en:'Name',ja:'名前',ko:'이름',es:'Nombre',fr:'Nom'},
   pub_desc:{zh:'描述',en:'Description',ja:'説明',ko:'설명',es:'Descripción',fr:'Description'},
-  pub_desc_ph:{zh:'简要描述',en:'Short description',ja:'簡単な説明',ko:'간단한 설명',es:'Descripción breve',fr:'Brève description'},
-  pub_content:{zh:'内容/详情',en:'Content / Details',ja:'内容/詳細',ko:'내용/상세',es:'Contenido / Detalles',fr:'Contenu / Détails'},
-  pub_content_ph:{zh:'完整详情(自动翻译)',en:'Full details (auto-translated)',ja:'詳細(自動翻訳)',ko:'상세 내용(자동 번역)',es:'Detalles (traducción automática)',fr:'Détails (traduction automatique)'},
-  pub_price:{zh:'价格',en:'Price',ja:'価格',ko:'가격',es:'Precio',fr:'Prix'},
-  pub_color:{zh:'颜色',en:'Color',ja:'色',ko:'색상',es:'Color',fr:'Couleur'},
-  pub_date:{zh:'活动日期',en:'Event Date',ja:'イベント日',ko:'행사 날짜',es:'Fecha del Evento',fr:'Date de l'Événement'},
-  pub_loc:{zh:'地点',en:'Location',ja:'場所',ko:'위치',es:'Ubicación',fr:'Lieu'},
-  pub_loc_ph:{zh:'城市/国家 或 线上',en:'City/Country or Online',ja:'都市/国 または オンライン',ko:'도시/국가 또는 온라인',es:'Ciudad/País o En línea',fr:'Ville/Pays ou En ligne'},
-  pub_auto_tl:{zh:'内容将在切换语言时自动翻译',en:'Content auto-translated when switching languages.',ja:'言語切替時に自動翻訳されます',ko:'언어 변경 시 자동 번역됩니다',es:'Contenido traducido automáticamente al cambiar idioma.',fr:'Contenu traduit automatiquement lors du changement de langue.'},
-  pub_btn_submit:{zh:'发布',en:'Publish',ja:'公開',ko:'게시',es:'Publicar',fr:'Publier'},
-  pub_tab_p2p:{zh:'社区',en:'Community',ja:'コミュニティ',ko:'커뮤니티',es:'Comunidad',fr:'Communauté'},
-  pub_comm_tools:{zh:'社区发布工具',en:'Community Published Tools',ja:'コミュニティ公開ツール',ko:'커뮤니티 게시 도구',es:'Herramientas de la Comunidad',fr:'Outils de la Communauté'},
-  pub_comm_events:{zh:'社区发布活动',en:'Community Published Events',ja:'コミュニティ公開イベント',ko:'커뮤니티 게시 이벤트',es:'Eventos de la Comunidad',fr:'Événements de la Communauté'},
-  pub_comm_p2p:{zh:'社区P2P挂单',en:'Community P2P Listings',ja:'コミュニティP2P出品',ko:'커뮤니티 P2P 판매',es:'Anuncios P2P de la Comunidad',fr:'Annonces P2P de la Communauté'},
-  pub_comm_empty:{zh:'暂无社区发布',en:'No community posts yet',ja:'コミュニティ投稿なし',ko:'커뮤니티 게시글 없음',es:'Sin publicaciones aún',fr:'Aucune publication'},
-  pub_published:{zh:'已发布! 翻译中...',en:'Published! Translating...',ja:'公開完了! 翻訳中...',ko:'게시 완료! 번역 중...',es:'¡Publicado! Traduciendo...',fr:'Publié! Traduction en cours...'},
-  pub_done:{zh:'发布成功!',en:'Published successfully!',ja:'公開成功!',ko:'게시 성공!',es:'¡Publicado con éxito!',fr:'Publié avec succès!'},
+  pub_price:{zh:'价格 (CNY)',en:'Price (CNY)',ja:'価格 (CNY)',ko:'가격 (CNY)',es:'Precio (CNY)',fr:'Prix (CNY)'},
+  pub_duration:{zh:'时长',en:'Duration',ja:'期間',ko:'기간',es:'Duración',fr:'Durée'},
+  pub_qty:{zh:'数量',en:'Quantity',ja:'数量',ko:'수량',es:'Cantidad',fr:'Quantité'},
+  pub_category:{zh:'分类',en:'Category',ja:'カテゴリ',ko:'카테고리',es:'Categoría',fr:'Catégorie'},
+  pub_date:{zh:'日期',en:'Date',ja:'日付',ko:'날짜',es:'Fecha',fr:'Date'},
+  pub_location:{zh:'地点',en:'Location',ja:'場所',ko:'장소',es:'Ubicación',fr:'Lieu'},
+  pub_submit:{zh:'发布',en:'Publish',ja:'公開',ko:'게시',es:'Publicar',fr:'Publier'},
+  pub_cancel:{zh:'取消',en:'Cancel',ja:'キャンセル',ko:'취소',es:'Cancelar',fr:'Annuler'},
+  pub_my:{zh:'我的发布',en:'My Posts',ja:'投稿',ko:'내 게시물',es:'Mis Publicaciones',fr:'Mes Publications'},
+  pub_all:{zh:'全部',en:'All',ja:'すべて',ko:'전체',es:'Todo',fr:'Tout'},
+  pub_search:{zh:'搜索...',en:'Search...',ja:'検索...',ko:'검색...',es:'Buscar...',fr:'Rechercher...'},
+  pub_comm_tools:{zh:'社区工具',en:'Community Tools',ja:'コミュニティツール',ko:'커뮤니티 도구',es:'Herramientas',fr:'Outils'},
+  pub_comm_p2p:{zh:'社区P2P',en:'Community P2P',ja:'コミュニティP2P',ko:'커뮤니티 P2P',es:'P2P',fr:'P2P'},
+  pub_comm_events:{zh:'社区活动',en:'Community Events',ja:'コミュニティイベント',ko:'커뮤니티 이벤트',es:'Eventos',fr:'Événements'},
+  pub_none:{zh:'暂无发布内容',en:'No posts yet',ja:'投稿なし',ko:'게시물 없음',es:'Sin publicaciones',fr:'Aucune publication'},
   pub_del:{zh:'删除',en:'Delete',ja:'削除',ko:'삭제',es:'Eliminar',fr:'Supprimer'},
   pub_del_confirm:{zh:'确定删除此发布内容?',en:'Delete this published item?',ja:'この投稿を削除しますか?',ko:'이 게시물을 삭제하시겠습니까?',es:'¿Eliminar este contenido?',fr:'Supprimer cette publication?'},
 
+
+
+// ============ LANGUAGE ============
 const LANG_FLAGS = {zh:'&#x1F1E8;&#x1F1F3;',en:'&#x1F1EC;&#x1F1E7;',ja:'&#x1F1EF;&#x1F1F5;',ko:'&#x1F1F0;&#x1F1F7;',es:'&#x1F1EA;&#x1F1F8;',fr:'&#x1F1EB;&#x1F1F7;',de:'&#x1F1E9;&#x1F1EA;',pt:'&#x1F1E7;&#x1F1F7;',ru:'&#x1F1F7;&#x1F1FA;',ar:'&#x1F1F8;&#x1F1E6;',hi:'&#x1F1EE;&#x1F1F3;',th:'&#x1F1F9;&#x1F1ED;',vi:'&#x1F1FB;&#x1F1F3;',id:'&#x1F1EE;&#x1F1E9;',it:'&#x1F1EE;&#x1F1F9;'};
 
 function buildLangMenu(){
@@ -730,7 +718,7 @@ function toast(msg){ notify(msg); }
 function oam(type){
   document.querySelectorAll('.mo').forEach(m=>m.classList.remove('show'));
   var map={'login':'mo-login','register':'mo-register','reset':'mo-reset','publish-tool':'mo-publish-tool','publish-p2p':'mo-publish-p2p','publish-event':'mo-publish-event'};
-  if(map[type]){var el=document.getElementById(map[type]);if(el)el.classList.add('show');return;}
+  if(map[type]){var el=document.getElementById(map[type]);if(el)el.classList.add('show');}
 }
 function cma(){ document.querySelectorAll('.mo').forEach(m=>m.classList.remove('show')); }
 function togNav(forceClose){
@@ -1117,6 +1105,15 @@ function rAll(){
   else if(curPage==='agent'){ loadAgentDashboard(); renderAgentCard(); }
   else if(curPage==='social') rSocial();
 }
+
+// ============ HOOK INTO rAll ============
+var _origRAll=rAll||function(){};
+rAll=function(){
+  _origRAll();
+  renderPubTools();
+  renderPubEvents();
+  if(typeof renderP2PPub==='function'&&p2pTabV==='pub')renderP2PPub();
+};
 function rTicker(){
   let h='';
   for(let i=0;i<TICKERS.length;i++){
@@ -1266,11 +1263,12 @@ async function createEvent(){
 function p2pTab(tab){ p2pTabV=tab;
   document.getElementById('p2p-buy-btn').classList.toggle('active',tab==='buy');
   document.getElementById('p2p-sell-btn').classList.toggle('active',tab==='sell');
-  var pbtn=document.getElementById('p2p-pub-btn');if(pbtn)pbtn.classList.toggle('active',tab==='pub');
+  document.getElementById('p2p-pub-btn').classList.toggle('active',tab==='pub');
   document.getElementById('p2p-buy').style.display=tab==='buy'?'block':'none';
   document.getElementById('p2p-sell').style.display=tab==='sell'?'block':'none';
-  var ppub=document.getElementById('p2p-pub');if(ppub)ppub.style.display=tab==='pub'?'block':'none';
-  if(tab==='pub')renderP2PPub(); else rP2P();
+  document.getElementById('p2p-pub').style.display=tab==='pub'?'block':'none';
+  if(tab==='pub')renderP2PPub();
+  else rP2P();
 }
 // ============ BACKEND P2P SYNC ============
 async function loadP2PFromBackend(){
@@ -1765,228 +1763,124 @@ document.addEventListener('DOMContentLoaded',()=>{
   // Close dropdowns on outside click
   document.addEventListener('click',(e)=>{if(!e.target.closest('.ld'))document.getElementById('lm').classList.remove('show');if(!e.target.closest('.ud'))document.getElementById('um').classList.remove('show');if(!e.target.closest('.nfb'))document.getElementById('np').classList.remove('show');});
 });
-</script>
-<script src="api-client.js?v=13"></script>
-</body>
-
-
 // ============ MULTI-LANGUAGE TRANSLATION ENGINE ============
 var TL_CACHE={};
 var TL_MUTEX=false;
-async function translateText(text,srcLang,tgtLang){
-  if(!text||!text.trim()||srcLang===tgtLang)return text;
-  var cacheKey=srcLang+'>'+tgtLang+':'+text.substring(0,200);
-  if(TL_CACHE[cacheKey])return TL_CACHE[cacheKey];
+async function translateText(text,targetLang){
+  if(!text||targetLang==='zh')return text;
+  var key=text+'_'+targetLang;
+  if(TL_CACHE[key])return TL_CACHE[key];
   try{
-    var resp=await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl='+srcLang+'&tl='+tgtLang+'&dt=t&q='+encodeURIComponent(text));
-    var data=await resp.json();
-    var result='';
-    if(data&&data[0]){for(var i=0;i<data[0].length;i++){if(data[0][i]&&data[0][i][0])result+=data[0][i][0];}}
-    var final=result||text;
-    TL_CACHE[cacheKey]=final;
-    return final;
+    var res=await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=zh-CN&tl='+targetLang+'&dt=t&q='+encodeURIComponent(text));
+    var d=await res.json();
+    var translated=(d[0]||[]).map(x=>x[0]).join('');
+    TL_CACHE[key]=translated||text;
+    return translated||text;
   }catch(e){return text;}
 }
 
-async function translateItem(item,srcLang){
-  if(!srcLang)srcLang=item.srcLang||'en';
-  var targets=TL_LANGS2||['en','zh','ja','ko','es','fr'];
-  var fields=['title','name','description','content','location','loc'];
-  for(var fi=0;fi<fields.length;fi++){
-    var fld=fields[fi];
-    var srcText=item['_'+fld+'_'+srcLang]||item[fld];
-    if(!srcText||!srcText.trim())continue;
-    for(var ti=0;ti<targets.length;ti++){
-      var tl=targets[ti];
-      if(tl===srcLang)continue;
-      var key='_'+fld+'_'+tl;
-      if(!item[key]||!item[key].trim()){
-        item[key]=await translateText(srcText,srcLang,tl);
-      }
-    }
-  }
-  item._translated=true;
-  return item;
+// ============ PUBLISH SYSTEM ============
+var PUB=JSON.parse(localStorage.getItem('nexus_pub')||'{"tools":[],"p2p":[],"events":[]}');
+var PUB_I18N=(function(){
+  var m={};
+  ['pub_title','pub_tab_tools','pub_tab_p2p','pub_tab_events','pub_btn_tool','pub_btn_p2p','pub_btn_event',
+   'pub_name','pub_desc','pub_price','pub_duration','pub_qty','pub_category','pub_date','pub_location',
+   'pub_submit','pub_cancel','pub_my','pub_all','pub_search','pub_comm_tools','pub_comm_p2p','pub_comm_events',
+   'pub_none','pub_del','pub_del_confirm'].forEach(function(k){
+    if(LANG&&LANG[k])m[k]=LANG[k];
+  });
+  return m;
+})();
+
+function pubT(key){
+  if(!PUB_I18N[key])return key;
+  return PUB_I18N[key][curLang]||PUB_I18N[key]['en']||key;
 }
 
-function getItemText(item,field,lang){
-  if(!lang)lang=curLang;
-  var key='_'+field+'_'+lang;
-  if(item[key]&&item[key].trim())return item[key];
-  if(item['_'+field+'_en']&&item['_'+field+'_en'].trim())return item['_'+field+'_en'];
-  if(item['_'+field+'_zh']&&item['_'+field+'_zh'].trim())return item['_'+field+'_zh'];
-  return item[field]||'';
+var p2pPubSubTabV='tools';
+function p2pPubSubTab(tab){
+  p2pPubSubTabV=tab;
+  document.getElementById('pub-sub-tools-btn').classList.toggle('active',tab==='tools');
+  document.getElementById('pub-sub-p2p-btn').classList.toggle('active',tab==='p2p');
+  document.getElementById('pub-sub-events-btn').classList.toggle('active',tab==='events');
+  document.getElementById('pub-tools-list').style.display=tab==='tools'?'block':'none';
+  document.getElementById('pub-p2p-list').style.display=tab==='p2p'?'block':'none';
+  document.getElementById('pub-events-list').style.display=tab==='events'?'block':'none';
 }
 
-// ============ PUBLISH STORAGE ============
-var PUB=loadLS('nexus_pub',{tools:[],p2p:[],events:[]});
 
-// ============ PUBLISH: TOOL ============
-async function doPublishTool(){
-  if(!curUser){oam('login');return;}
-  var name=document.getElementById('pub-tool-name').value.trim();
-  var desc=document.getElementById('pub-tool-desc').value.trim();
-  var content=document.getElementById('pub-tool-content').value.trim();
-  if(!name||!desc){notify('Name and description required','⚠');return;}
-  var item={
-    id:'pub_t_'+Date.now()+'_'+Math.random().toString(36).substr(2,4),
-    name:name, description:desc, content:content, mode:'tool',
-    icon:document.getElementById('pub-tool-icon').value.trim()||'⚙️',
-    cat:document.getElementById('pub-tool-cat').value,
-    price:parseFloat(document.getElementById('pub-tool-price').value)||0,
-    color:document.getElementById('pub-tool-color').value.trim()||'#06b6d4',
-    srcLang:document.getElementById('pub-tool-lang').value,
-    publishedBy:curUser.email, publishedAt:new Date().toISOString(),
-    use:0,apy:0,rating:5.0,badge:'PUB'
-  };
-  item['_name_'+item.srcLang]=name;
-  item['_description_'+item.srcLang]=desc;
-  item['_content_'+item.srcLang]=content;
-  cma();
-  notify(PUB_I18N.pub_published, '📤');
-  await translateItem(item,item.srcLang);
-  PUB.tools.push(item);
-  saveLS('nexus_pub',PUB);
-  renderPubTools();
-  notify(PUB_I18N.pub_done, '✅');
+function savePub(){localStorage.setItem('nexus_pub',JSON.stringify(PUB));}
+
+function doPublishTool(){
+  var n=document.getElementById('pub-tool-name').value.trim();
+  var d=document.getElementById('pub-tool-desc').value.trim();
+  var p=parseFloat(document.getElementById('pub-tool-price').value)||0;
+  var c=document.getElementById('pub-tool-cat').value.trim();
+  if(!n||!d){alert(pubT('pub_name')+' & '+pubT('pub_desc')+' required');return;}
+  PUB.tools.unshift({name:n,desc:d,price:p,cat:c,author:curUser?curUser.name:'Anonymous',time:Date.now()});
+  savePub();cma();renderPubTools();
+}
+function doPublishP2P(){
+  var n=document.getElementById('pub-p2p-name').value.trim();
+  var d=document.getElementById('pub-p2p-desc').value.trim();
+  var p=parseFloat(document.getElementById('pub-p2p-price').value)||0;
+  var q=parseInt(document.getElementById('pub-p2p-qty').value)||1;
+  if(!n||!d){alert(pubT('pub_name')+' & '+pubT('pub_desc')+' required');return;}
+  PUB.p2p.unshift({name:n,desc:d,price:p,qty:q,author:curUser?curUser.name:'Anonymous',time:Date.now()});
+  savePub();cma();renderP2PPub();
+}
+function doPublishEvent(){
+  var n=document.getElementById('pub-event-name').value.trim();
+  var d=document.getElementById('pub-event-desc').value.trim();
+  var dt=document.getElementById('pub-event-date').value;
+  var loc=document.getElementById('pub-event-loc').value.trim();
+  if(!n||!d){alert(pubT('pub_name')+' & '+pubT('pub_desc')+' required');return;}
+  PUB.events.unshift({name:n,desc:d,date:dt||'TBD',loc:loc||'Online',author:curUser?curUser.name:'Anonymous',time:Date.now()});
+  savePub();cma();renderPubEvents();
 }
 
 function renderPubTools(){
-  var grid=document.getElementById('tools-pub-grid');
-  var titleEl=document.getElementById('tools-pub-title');
-  if(!grid)return;
-  var items=PUB.tools||[];
-  if(titleEl){
-    titleEl.textContent=tI18N('pub_comm_tools')+(items.length?' ('+items.length+')':'');
-    titleEl.style.display=items.length>0?'flex':'none';
-  }
-  if(items.length===0){grid.innerHTML='';return;}
-  grid.innerHTML=items.map(function(t){
-    var name=getItemText(t,'name');var desc=getItemText(t,'description');
-    var pubBy=t.publishedBy?t.publishedBy.split('@')[0]:'?';var flag=(t.srcLang||'en').toUpperCase();
-    var delBtn=(curUser&&curUser.email===t.publishedBy)?'<button class="btn bd2 bx" onclick="event.stopPropagation();delPubItem(\'tools\',\''+t.id+'\')" style="font-size:.6rem;padding:2px 7px;margin-top:4px">'+tI18N('pub_del')+'</button>':'';
-    return '<div class="tpc pub-card"><div class="pub-badge">'+flag+'</div><div class="pi" style="background:'+t.color+'20;color:'+t.color+';font-size:1.3rem">'+t.icon+'</div><div class="pn">'+escHtml2(name)+'</div><div class="ps2">'+escHtml2(desc).slice(0,60)+'</div><div class="pp">$'+t.price+'<span class="pc2" style="color:var(--t2)">/mo</span></div><div class="pm"><span>By: '+escHtml2(pubBy)+'</span></div>'+delBtn+'</div>';
+  var el=document.getElementById('pub-tools-list');
+  if(!el)return;
+  if(PUB.tools.length===0){el.innerHTML='<div class="pub-empty">'+pubT('pub_none')+'</div>';return;}
+  var h=PUB.tools.map(function(t,i){
+    return '<div class="pub-card"><div class="pub-card-h"><strong>'+htmlEscape(t.name)+'</strong><span class="pub-badge">'+pubT('pub_comm_tools')+'</span></div><div>'+htmlEscape(t.desc)+'</div><div class="pub-card-foot"><span>$'+t.price.toFixed(2)+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem("tools",'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
   }).join('');
+  el.innerHTML=h;
 }
-
-// ============ PUBLISH: P2P ============
-async function doPublishP2P(){
-  if(!curUser){oam('login');return;}
-  var title=document.getElementById('pub-p2p-title').value.trim();
-  var desc=document.getElementById('pub-p2p-desc').value.trim();
-  var content=document.getElementById('pub-p2p-content').value.trim();
-  if(!title||!desc){notify('Title and description required','⚠');return;}
-  var item={
-    id:'pub_p_'+Date.now()+'_'+Math.random().toString(36).substr(2,4),
-    name:title, description:desc, content:content, mode:'p2p',
-    price:parseFloat(document.getElementById('pub-p2p-price').value)||0,
-    srcLang:document.getElementById('pub-p2p-lang').value,
-    publishedBy:curUser.email, publishedAt:new Date().toISOString()
-  };
-  item['_name_'+item.srcLang]=title;
-  item['_description_'+item.srcLang]=desc;
-  item['_content_'+item.srcLang]=content;
-  cma();
-  notify(PUB_I18N.pub_published, '📤');
-  await translateItem(item,item.srcLang);
-  PUB.p2p.push(item);
-  saveLS('nexus_pub',PUB);
-  renderP2PPub();
-  notify(PUB_I18N.pub_done, '✅');
-}
-
 function renderP2PPub(){
-  var grid=document.getElementById('p2p-pub-list');
-  if(!grid)return;
-  var items=PUB.p2p||[];
-  if(items.length===0){grid.innerHTML='<div style="color:var(--t3);padding:20px;text-align:center;grid-column:1/-1">'+tI18N('pub_comm_empty')+'</div>';return;}
-  grid.innerHTML=items.map(function(t){
-    var name=getItemText(t,'name');var desc=getItemText(t,'description');
-    var pubBy=t.publishedBy?t.publishedBy.split('@')[0]:'?';var flag=(t.srcLang||'en').toUpperCase();
-    var delBtn=(curUser&&curUser.email===t.publishedBy)?'<button class="btn bd2 bx" onclick="event.stopPropagation();delPubItem(\'p2p\',\''+t.id+'\')" style="font-size:.6rem;padding:2px 7px;margin-top:4px">'+tI18N('pub_del')+'</button>':'';
-    return '<div class="pub-card"><div class="pub-badge">'+flag+'</div><div class="pn" style="font-size:.9rem">'+escHtml2(name)+'</div><div class="ps2" style="font-size:.73rem;color:var(--t2);margin-bottom:7px">'+escHtml2(desc)+'</div><div class="pm"><span>By: '+escHtml2(pubBy)+'</span><span>'+t.price+' USDT</span></div>'+delBtn+'</div>';
+  var el=document.getElementById('pub-p2p-list');
+  if(!el)return;
+  if(PUB.p2p.length===0){el.innerHTML='<div class="pub-empty">'+pubT('pub_none')+'</div>';return;}
+  var h=PUB.p2p.map(function(t,i){
+    return '<div class="pub-card"><div class="pub-card-h"><strong>'+htmlEscape(t.name)+'</strong><span class="pub-badge">'+pubT('pub_comm_p2p')+'</span></div><div>'+htmlEscape(t.desc)+'</div><div class="pub-card-foot"><span>$'+t.price.toFixed(2)+' x'+t.qty+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem("p2p",'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
   }).join('');
+  el.innerHTML=h;
 }
-
-// ============ PUBLISH: EVENT ============
-async function doPublishEvent(){
-  if(!curUser){oam('login');return;}
-  var title=document.getElementById('pub-event-title').value.trim();
-  var desc=document.getElementById('pub-event-desc').value.trim();
-  var content=document.getElementById('pub-event-content').value.trim();
-  if(!title||!desc){notify('Title and description required','⚠');return;}
-  var item={
-    id:'pub_e_'+Date.now()+'_'+Math.random().toString(36).substr(2,4),
-    title:title, description:desc, content:content, mode:'event',
-    emoji:document.getElementById('pub-event-emoji').value.trim()||'🎉',
-    date:document.getElementById('pub-event-date').value,
-    loc:document.getElementById('pub-event-loc').value.trim()||'Online',
-    srcLang:document.getElementById('pub-event-lang').value,
-    publishedBy:curUser.email, publishedAt:new Date().toISOString(),
-    tokens:1000,price:'FREE',status:'upcoming'
-  };
-  item['_title_'+item.srcLang]=title;
-  item['_description_'+item.srcLang]=desc;
-  item['_content_'+item.srcLang]=content;
-  item['_loc_'+item.srcLang]=item.loc;
-  cma();
-  notify(PUB_I18N.pub_published, '📤');
-  await translateItem(item,item.srcLang);
-  PUB.events.push(item);
-  saveLS('nexus_pub',PUB);
-  renderPubEvents();
-  notify(PUB_I18N.pub_done, '✅');
-}
-
 function renderPubEvents(){
-  var grid=document.getElementById('events-pub-grid');
-  var titleEl=document.getElementById('events-pub-title');
-  if(!grid)return;
-  var items=PUB.events||[];
-  if(titleEl){
-    titleEl.textContent=tI18N('pub_comm_events')+(items.length?' ('+items.length+')':'');
-    titleEl.style.display=items.length>0?'flex':'none';
-  }
-  if(items.length===0){grid.innerHTML='';return;}
-  grid.innerHTML=items.map(function(t){
-    var title=getItemText(t,'title');var desc=getItemText(t,'description');
-    var loc=getItemText(t,'loc');var pubBy=t.publishedBy?t.publishedBy.split('@')[0]:'?';var flag=(t.srcLang||'en').toUpperCase();
-    var delBtn=(curUser&&curUser.email===t.publishedBy)?'<button class="btn bd2 bx" onclick="event.stopPropagation();delPubItem(\'events\',\''+t.id+'\')" style="font-size:.6rem;padding:2px 7px;margin-top:4px">'+tI18N('pub_del')+'</button>':'';
-    return '<div class="tpc pub-card"><div class="pub-badge">'+flag+'</div><div class="pi" style="font-size:1.5rem">'+t.emoji+'</div><div class="pn">'+escHtml2(title)+'</div><div class="ps2">'+escHtml2(desc).slice(0,60)+'</div><div class="pm"><span>'+t.date+'</span><span>'+escHtml2(loc)+'</span></div>'+delBtn+'</div>';
+  var el=document.getElementById('pub-events-list');
+  if(!el)return;
+  if(PUB.events.length===0){el.innerHTML='<div class="pub-empty">'+pubT('pub_none')+'</div>';return;}
+  var h=PUB.events.map(function(t,i){
+    return '<div class="pub-card"><div class="pub-card-h"><strong>'+htmlEscape(t.name)+'</strong><span class="pub-badge">'+pubT('pub_comm_events')+'</span></div><div>'+htmlEscape(t.desc)+'</div><div class="pub-card-foot"><span>'+pubT('pub_date')+': '+(t.date||'TBD')+' | '+pubT('pub_location')+': '+(t.loc||'Online')+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem("events",'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
   }).join('');
+  el.innerHTML=h;
 }
 
-// ============ UTILITIES ============
-function escHtml2(str){if(!str)return'';var d=document.createElement('div');d.textContent=str;return d.innerHTML;}
-function delPubItem(mode,id){
-  if(!confirm(tI18N('pub_del_confirm')))return;
-  if(mode==='tools')PUB.tools=PUB.tools.filter(function(p){return p.id!==id;});
-  if(mode==='p2p')PUB.p2p=PUB.p2p.filter(function(p){return p.id!==id;});
-  if(mode==='events')PUB.events=PUB.events.filter(function(p){return p.id!==id;});
-  saveLS('nexus_pub',PUB);
-  if(mode==='tools')renderPubTools();
-  if(mode==='p2p')renderP2PPub();
-  if(mode==='events')renderPubEvents();
+function delPubItem(type,idx){
+  if(!confirm(pubT('pub_del_confirm')))return;
+  PUB[type].splice(idx,1);
+  savePub();
+  if(type==='tools')renderPubTools();
+  else if(type==='p2p')renderP2PPub();
+  else renderPubEvents();
 }
 
-// ============ PUB I18N ============
-var PUB_I18N={
-  pub_published:{zh:'已发布! 翻译中...',en:'Published! Translating...',ja:'公開完了! 翻訳中...',ko:'게시 완료! 번역 중...',es:'Publicado! Traduciendo...',fr:'Publié! Traduction en cours...'},
-  pub_done:{zh:'发布成功!',en:'Published!',ja:'公開成功!',ko:'게시 성공!',es:'Publicado!',fr:'Publié!'},
-  pub_del:{zh:'删除',en:'Delete',ja:'削除',ko:'삭제',es:'Eliminar',fr:'Supprimer'},
-  pub_del_confirm:{zh:'确定删除此发布?',en:'Delete this item?',ja:'削除しますか?',ko:'삭제하시겠습니까?',es:'Eliminar?',fr:'Supprimer?'},
-  pub_comm_empty:{zh:'暂无社区发布',en:'No community posts yet',ja:'投稿なし',ko:'게시글 없음',es:'Sin publicaciones',fr:'Aucune publication'}
-};
-function tI18N(key){if(PUB_I18N[key]&&PUB_I18N[key][curLang])return PUB_I18N[key][curLang];return PUB_I18N[key]?PUB_I18N[key]['en']:key;}
-
-// ============ HOOK INTO rAll ============
-var _origRAll=rAll||function(){};
-rAll=function(){
-  _origRAll();
-  renderPubTools();
-  renderPubEvents();
-  if(typeof renderP2PPub==='function'&&p2pTabV==='pub')renderP2PPub();
-};
+function htmlEscape(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
 
 // ============ INIT ============
 console.log('[PUB] Publish system loaded. Tools:',PUB.tools.length,'P2P:',PUB.p2p.length,'Events:',PUB.events.length);
+
+</script>
+<script src="api-client.js?v=13"></script>
+</body>
