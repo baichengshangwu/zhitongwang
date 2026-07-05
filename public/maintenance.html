@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AI Nexus - Maintenance</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #0a0a0f;
+  color: #e0e0e0;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh; padding: 20px;
+  background: linear-gradient(135deg, #0a0a0f 0%, #111827 50%, #0a0a0f 100%);
+}
+.container{
+  text-align: center;
+  max-width: 500px;
+  padding: 48px 32px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+}
+.icon{ font-size: 48px; margin-bottom: 20px; line-height: 1 }
+h1{
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #a78bfa, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+p{
+  color: #9ca3af;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.lang-switch{
+  display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
+  margin-top: 20px; padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.lang-btn{
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #9ca3af;
+  padding: 6px 14px; border-radius: 8px;
+  cursor: pointer; font-size: 0.78rem;
+  transition: all 0.2s;
+}
+.lang-btn:hover{ background: rgba(255,255,255,0.12); color: #e0e0e0 }
+.lang-btn.active{
+  background: rgba(139,92,246,0.2);
+  border-color: rgba(139,92,246,0.4);
+  color: #a78bfa;
+}
+.footer{
+  margin-top: 16px;
+  font-size: 0.7rem;
+  color: #4b5563;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="icon">&#x1F6E0;&#xFE0F;</div>
+  <h1 id="maint-title">系统升级维护中</h1>
+  <p id="maint-desc">我们正在进行系统升级维护，请稍后再来。预计很快恢复。</p>
+  <div class="footer">AI Nexus</div>
+  <div class="lang-switch" id="lang-switch"></div>
+</div>
+
+<script>
+const i18n = {
+  zh:{ title:'系统升级维护中', desc:'我们正在进行系统升级维护，请稍后再来。预计很快恢复。', name:'中文' },
+  en:{ title:'System Under Maintenance', desc:'We are currently performing system upgrades. Please check back soon.', name:'English' },
+  ja:{ title:'メンテナンス中', desc:'システムアップグレード中です。しばらくしてから再度お試しください。', name:'日本語' },
+  ko:{ title:'시스템 점검 중', desc:'시스템 업그레이드 중입니다. 잠시 후 다시 방문해 주세요.', name:'한국어' },
+  es:{ title:'Mantenimiento del Sistema', desc:'Estamos realizando mejoras en el sistema. Vuelva pronto.', name:'Español' },
+  fr:{ title:'Maintenance du Système', desc:'Nous effectuons une mise à niveau du système. Veuillez revenir bientôt.', name:'Français' },
+  de:{ title:'Systemwartung', desc:'Wir führen System-Upgrades durch. Bitte versuchen Sie es später erneut.', name:'Deutsch' },
+  pt:{ title:'Sistema em Manutenção', desc:'Estamos realizando atualizações no sistema. Por favor, volte em breve.', name:'Português' },
+  ru:{ title:'Техническое обслуживание', desc:'Проводится обновление системы. Пожалуйста, зайдите позже.', name:'Русский' },
+  it:{ title:'Manutenzione in Corso', desc:'Stiamo effettuando aggiornamenti di sistema. Riprova più tardi.', name:'Italiano' },
+  ar:{ title:'الصيانة جارية', desc:'نقوم حالياً بتحديث النظام. يرجى العودة لاحقاً.', name:'العربية' },
+  hi:{ title:'सिस्टम रखरखाव', desc:'हम सिस्टम अपग्रेड कर रहे हैं। कृपया बाद में पुनः प्रयास करें।', name:'हिन्दी' },
+  th:{ title:'กำลังบำรุงรักษาระบบ', desc:'เรากำลังอัปเกรดระบบ กรุณากลับมาใหม่ในภายหลัง', name:'ไทย' },
+  vi:{ title:'Bảo Trì Hệ Thống', desc:'Chúng tôi đang nâng cấp hệ thống. Vui lòng quay lại sau.', name:'Tiếng Việt' }
+};
+
+function getLang(){
+  const url = new URL(window.location.href);
+  const param = url.searchParams.get('lang');
+  if (param && i18n[param]) return param;
+  const browser = (navigator.language || 'en').split('-')[0];
+  if (i18n[browser]) return browser;
+  return 'zh';
+}
+
+function setLang(lang){
+  const d = i18n[lang];
+  document.getElementById('maint-title').textContent = d.title;
+  document.getElementById('maint-desc').textContent = d.desc;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('lang-'+lang).classList.add('active');
+  try {
+    const url = new URL(window.location.href);
+    url.searchParams.set('lang', lang);
+    window.history.replaceState({}, '', url.toString());
+  } catch(e){}
+}
+
+const lang = getLang();
+const switchEl = document.getElementById('lang-switch');
+Object.keys(i18n).forEach(k => {
+  const btn = document.createElement('span');
+  btn.className = 'lang-btn' + (k === lang ? ' active' : '');
+  btn.id = 'lang-'+k;
+  btn.textContent = i18n[k].name;
+  btn.onclick = () => setLang(k);
+  switchEl.appendChild(btn);
+});
+setLang(lang);
+</script>
+</body>
+</html>
