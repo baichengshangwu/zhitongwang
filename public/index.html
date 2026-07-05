@@ -1112,7 +1112,13 @@ function sp(page){
   let el=document.getElementById('page-'+page); if(el)el.classList.add('active');
   rAll();
 }
-function t(k){var d=LANG[curLang]||LANG['en'];return d[k]||LANG['en'][k]||k;}
+function t(k){
+  if(LANG&&LANG[curLang]&&LANG[curLang][k])return LANG[curLang][k];
+  if(LANG&&LANG[k]&&LANG[k][curLang])return LANG[k][curLang];
+  if(LANG&&LANG['en']&&LANG['en'][k])return LANG['en'][k];
+  if(LANG&&LANG[k]&&LANG[k]['en'])return LANG[k]['en'];
+  return k;
+}
 function applyI18N(){
   document.querySelectorAll('[data-key]').forEach(el=>{let k=el.getAttribute('data-key'); if(el.tagName==='INPUT'&&el.type==='text')el.placeholder=t(k); else if(!el.hasAttribute('data-html'))el.textContent=t(k);});
 }
