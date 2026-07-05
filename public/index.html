@@ -1123,6 +1123,11 @@ function t(k){
 }
 function applyI18N(){
   document.querySelectorAll('[data-key]').forEach(el=>{let k=el.getAttribute('data-key'); if(el.tagName==='INPUT'&&el.type==='text')el.placeholder=t(k); else if(!el.hasAttribute('data-html'))el.textContent=t(k);});
+  try{if(typeof renderPubTools==='function')renderPubTools();}catch(e){}
+  try{if(typeof renderP2PPub==='function')renderP2PPub();}catch(e){}
+  try{if(typeof renderPubEvents==='function')renderPubEvents();}catch(e){}
+  try{if(typeof rTools==='function')rTools();}catch(e){}
+  try{if(typeof rEvents==='function')rEvents();}catch(e){}
 }
 
 // ============ RENDER ALL ============
@@ -1880,7 +1885,7 @@ function renderPubTools(){
   if(!el)return;
   if(PUB.tools.length===0){el.innerHTML='<div class="pub-empty">'+pubT('pub_none')+'</div>';return;}
   var h=PUB.tools.map(function(t,i){
-    return '<div class="pub-card"><div class="pub-card-h"><strong>'+htmlEscape(t.name)+'</strong><span class="pub-badge">'+pubT('pub_comm_tools')+'</span></div><div>'+htmlEscape(t.desc)+'</div><div class="pub-card-foot"><span>$'+t.price.toFixed(2)+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem("tools",'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
+    return '<div class="pub-card"><div class="pub-card-h"><strong>'+htmlEscape(t.name)+'</strong><span class="pub-badge">'+pubT('pub_comm_tools')+'</span></div><div>'+htmlEscape(t.desc)+'</div><div class="pub-card-foot"><span>$'+t.price.toFixed(2)+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem(&quot;tools&quot;,'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
   }).join('');
   el.innerHTML=h;
 }
@@ -1889,7 +1894,7 @@ function renderP2PPub(){
   if(!el)return;
   if(PUB.p2p.length===0){el.innerHTML='<div class="pub-empty">'+pubT('pub_none')+'</div>';return;}
   var h=PUB.p2p.map(function(t,i){
-    return '<div class="pub-card"><div class="pub-card-h"><strong>'+htmlEscape(t.name)+'</strong><span class="pub-badge">'+pubT('pub_comm_p2p')+'</span></div><div>'+htmlEscape(t.desc)+'</div><div class="pub-card-foot"><span>$'+t.price.toFixed(2)+' x'+t.qty+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem("p2p",'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
+    return '<div class="pub-card"><div class="pub-card-h"><strong>'+htmlEscape(t.name)+'</strong><span class="pub-badge">'+pubT('pub_comm_p2p')+'</span></div><div>'+htmlEscape(t.desc)+'</div><div class="pub-card-foot"><span>$'+t.price.toFixed(2)+' x'+t.qty+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem(&quot;p2p&quot;,'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
   }).join('');
   el.innerHTML=h;
 }
@@ -1898,7 +1903,7 @@ function renderPubEvents(){
   if(!el)return;
   if(PUB.events.length===0){el.innerHTML='<div class="pub-empty">'+pubT('pub_none')+'</div>';return;}
   var h=PUB.events.map(function(t,i){
-    return '<div class="pub-card"><div class="pub-card-h"><strong>'+htmlEscape(t.name)+'</strong><span class="pub-badge">'+pubT('pub_comm_events')+'</span></div><div>'+htmlEscape(t.desc)+'</div><div class="pub-card-foot"><span>'+pubT('pub_date')+': '+(t.date||'TBD')+' | '+pubT('pub_location')+': '+(t.loc||'Online')+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem("events",'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
+    return '<div class="pub-card"><div class="pub-card-h"><strong>'+htmlEscape(t.name)+'</strong><span class="pub-badge">'+pubT('pub_comm_events')+'</span></div><div>'+htmlEscape(t.desc)+'</div><div class="pub-card-foot"><span>'+pubT('pub_date')+': '+(t.date||'TBD')+' | '+pubT('pub_location')+': '+(t.loc||'Online')+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem(&quot;events&quot;,'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
   }).join('');
   el.innerHTML=h;
 }
