@@ -1173,12 +1173,12 @@ function rTicker(){
 function rTrending(){
   let tools=initTools.sort((a,b)=>b.use-a.use).slice(0,8);
   let h='';
-  tools.forEach(t=>{
-    h+=`<div class="tpc${t.badge?' ft':''}" data-badge="${t.badge}" onclick="sp('tools')">
-      <div class="pi" style="background:${t.color}20;color:${t.color};font-size:1.3rem">${t.icon}</div>
-      <div class="pn">${t.name}</div><div class="ps2">${t.desc.slice(0,50)}</div>
-      <div class="pp">$${t.price}<span class="pc2 up">${t('per_mo')}</span></div>
-      <div class="pm"><span>${t.use} users</span><span class="up">APY ${t.apy}%</span></div></div>`;
+  tools.forEach(tool=>{
+    h+=`<div class="tpc${tool.badge?' ft':''}" data-badge="${tool.badge}" onclick="sp('tools')">
+      <div class="pi" style="background:${tool.color}20;color:${tool.color};font-size:1.3rem">${tool.icon}</div>
+      <div class="pn">${tool.name}</div><div class="ps2">${tool.desc.slice(0,50)}</div>
+      <div class="pp">$${tool.price}<span class="pc2 up">${t('per_mo')}</span></div>
+      <div class="pm"><span>${tool.use} users</span><span class="up">APY ${tool.apy}%</span></div></div>`;
   });
   document.getElementById('trending-packages').innerHTML=h;
 }
