@@ -403,6 +403,7 @@ async function syncUserToBackend(email, password, balance, holds) {
       curUser.holds['NEXUS'] = loginRes.user.nexus || 1000;
       curUser.avatar = loginRes.user.avatar || '';
       curUser.sig_image = loginRes.user.sig_image || '';
+      curUser.sig_images = curUser.sig_image ? curUser.sig_image.split(',').filter(Boolean) : [];
       curUser.sig_video = loginRes.user.sig_video || '';
       curUser.bio = loginRes.user.bio || curUser.bio;
       curUser.wallet = loginRes.user.wallet || curUser.wallet;
@@ -411,6 +412,7 @@ async function syncUserToBackend(email, password, balance, holds) {
       users[email].holds = curUser.holds;
       users[email].avatar = curUser.avatar;
       users[email].sig_image = curUser.sig_image;
+      users[email].sig_images = curUser.sig_images;
       users[email].sig_video = curUser.sig_video;
       users[email].bio = curUser.bio;
       users[email].wallet = curUser.wallet;
