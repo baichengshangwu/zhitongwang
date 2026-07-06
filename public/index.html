@@ -2046,26 +2046,24 @@ function togN(){
 
 // ============ INIT ============
 document.addEventListener('DOMContentLoaded',()=>{
-  initParticles();
-  curLang=localStorage.getItem('nexus_lang')||'zh';
-  document.getElementById('cln').textContent=curLang.toUpperCase();
-  document.getElementById('clf').innerHTML=LANG_FLAGS[curLang]||'';
-  buildLangMenu();
-  let saved=localStorage.getItem('nexus_cur_user_email');
-  if(saved&&users[saved]){curUser={...users[saved]};curUser._email=saved;document.getElementById('aa').style.display='none';document.getElementById('ud').style.display='block';document.getElementById('ual').textContent=(curUser.name||'U')[0].toUpperCase();document.getElementById('udn').textContent=curUser.name;}
-  applyI18N(); rAll();
-  initMKT(); setTimeout(function(){rdrTkr();},1500);
-  // Translate dynamic community content async (non-blocking)
-  translateCommunityContent();
-  // Auto-save logged in user
-  setInterval(()=>{if(curUser){localStorage.setItem('nexus_cur_user_email',curUser._email);}},5000);
-  // Save on page unload
-  window.addEventListener('beforeunload',()=>{saveSession();});
-  // Close dropdowns on outside click
-  document.addEventListener('click',(e)=>{if(!e.target.closest('.ld'))document.getElementById('lm').classList.remove('show');if(!e.target.closest('.ud'))document.getElementById('um').classList.remove('show');if(!e.target.closest('.nfb'))document.getElementById('np').classList.remove('show');});
-  // Hide maintenance overlay on successful init
+  try{
+    initParticles();
+  }catch(e){console.error('initParticles failed:',e.message);}
+  try{
+    curLang=localStorage.getItem('nexus_lang')||'zh';
+    document.getElementById('cln').textContent=curLang.toUpperCase();
+    document.getElementById('clf').innerHTML=LANG_FLAGS[curLang]||'';
+    buildLangMenu();
+    let saved=localStorage.getItem('nexus_cur_user_email');
+    if(saved&&users[saved]){curUser={...users[saved]};curUser._email=saved;document.getElementById('aa').style.display='none';document.getElementById('ud').style.display='block';document.getElementById('ual').textContent=(curUser.name||'U')[0].toUpperCase();document.getElementById('udn').textContent=curUser.name;}
+    applyI18N(); rAll();
+    initMKT(); setTimeout(function(){rdrTkr();},1500);
+    translateCommunityContent();
+    setInterval(()=>{if(curUser){localStorage.setItem('nexus_cur_user_email',curUser._email);}},5000);
+    window.addEventListener('beforeunload',()=>{saveSession();});
+    document.addEventListener('click',(e)=>{if(!e.target.closest('.ld'))document.getElementById('lm').classList.remove('show');if(!e.target.closest('.ud'))document.getElementById('um').classList.remove('show');if(!e.target.closest('.nfb'))document.getElementById('np').classList.remove('show');});
+  }catch(e){console.error('Init failed:',e.message);}
   var mo=document.getElementById('mt-overlay');if(mo)mo.style.display='none';
-  // Update maintenance overlay text for current language
   var maintTitle = document.getElementById('maintenance-title');
   var maintSub = document.getElementById('maintenance-subtitle');
   if(maintTitle) maintTitle.textContent = t('somaintenance');
