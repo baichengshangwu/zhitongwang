@@ -101,7 +101,7 @@ function requireAuth(req, res, next) {
 // File upload setup
 const upload = multer({
   dest: path.join(DATA_DIR, 'uploads'),
-  limits: { fileSize: 100 * 1024 * 1024 }, // 100MB
+  limits: { fileSize: 200 * 1024 * 1024 }, // 200MB for video support
 });
 
 // ========== Data stores ==========
@@ -186,7 +186,7 @@ app.post('/api/profile', requireAuth, (req, res) => {
   if (wallet !== undefined) users[req.user.email].wallet = wallet;
   if (bio !== undefined) users[req.user.email].bio = bio;
   if (avatar !== undefined) users[req.user.email].avatar = avatar;
-  if (sig_image !== undefined) users[req.user.email].sig_image = sig_image;
+  if (sig_image !== undefined) users[req.user.email].sig_image = sig_image; // comma-separated URLs for multi-image
   if (sig_video !== undefined) users[req.user.email].sig_video = sig_video;
   users[req.user.email].updated_at = new Date().toISOString();
   saveUsers(users);
