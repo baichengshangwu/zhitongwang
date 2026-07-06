@@ -2072,7 +2072,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(maintSub) maintSub.textContent = t('somaintenance_sub');
 });
 
-window.addEventListener('error',function(e){if(e.target!==window)return;if(e.filename&&(e.filename.startsWith('https://')||e.filename.startsWith('http://'))){console.warn('External script error (likely blocked):',e.filename);return;}var mo=document.getElementById('mt-overlay');if(mo)mo.style.display='flex';console.error('Page error:',e.message);});
+window.addEventListener('error',function(e){if(e.target!==window)return;if(e.filename&&(e.filename.startsWith('https://')||e.filename.startsWith('http://'))){console.warn('External script error (likely blocked):',e.filename);return;}console.error('Page error:',e.message);});
 // ============ MULTI-LANGUAGE TRANSLATION ENGINE ============
 var TL_CACHE={};
 var TL_MUTEX=false;
