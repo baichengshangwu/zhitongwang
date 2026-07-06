@@ -46,9 +46,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// Maintenance mode detection
+// Maintenance mode detection (controlled by env var, defaults to off)
 function isMaintenanceMode() {
-  return fs.existsSync(path.join(DATA_DIR, '.maintenance'));
+  return process.env.MAINTENANCE_MODE === 'true';
 }
 
 // Maintenance middleware - must be before static/SPA routes
