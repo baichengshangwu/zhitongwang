@@ -404,7 +404,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <h3 id="paypal-modal-title" data-key="ppagent">Become AI Alliance Agent</h3>
   <p id="paypal-modal-desc" data-key="ppagent_desc">One-time payment of $199 to join the AI Nexus agent program and earn 50% recurring commission.</p>
   <div id="paypal-modal-price" style="font-size:1.5rem;font-weight:800;font-family:var(--fm);color:var(--ap);margin-bottom:14px">$199.00</div>
-  <div id="paypal-container-EJC58LA49LNM2" style="display:flex;justify-content:center;margin-bottom:14px;min-height:45px;max-width:100%;overflow:hidden"></div>
+  <div id="paypal-container-EJC58LA49LNM2" style="display:flex;justify-content:center;align-items:center;margin-bottom:14px;min-height:45px;max-width:100%;overflow:hidden"><span style="color:var(--t3);font-size:.7rem;padding:10px;text-align:center" id="paypal-fallback">PayPal button loading... Please wait or refresh.</span></div>
   <div class="br2"><button class="btn bo" onclick="document.getElementById('paypal-donate-modal').classList.remove('show')" data-key="mcancel">Cancel</button></div>
 </div></div>
 
@@ -515,7 +515,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <div class="ig"><label data-key="dwa">Wallet Address</label><input type="text" id="profile-wallet" placeholder="0x... or T..." style="font-family:var(--fm)"></div>
   <div class="ig"><label data-key="mbio">Bio</label><textarea id="profile-bio" rows="2" data-key-ph="mbio_ph" placeholder="Tell us about yourself"></textarea></div>
   <div class="ig upload-row"><label data-key="mavatar">Avatar</label><div class="upload-wrap"><input type="file" id="profile-avatar" accept="image/*" style="display:none" onchange="uploadFile('avatar')"><button class="btn bs sm" onclick="document.getElementById('profile-avatar').click()" data-key="mupload">Upload</button><span id="profile-avatar-name"></span><button class="btn bd sm" onclick="clearUpload('avatar')" data-key="mclear" style="margin-left:8px">Clear</button></div></div>
-  <div class="ig upload-row"><label data-key="msigimg">Signature Image</label><div class="upload-wrap"><input type="file" id="profile-sigimg" accept="image/*" style="display:none" onchange="uploadFile('sigimg')"><button class="btn bs sm" onclick="document.getElementById('profile-sigimg').click()" data-key="mupload">Upload</button><span id="profile-sigimg-name"></span><button class="btn bd sm" onclick="clearUpload('sigimg')" data-key="mclear" style="margin-left:8px">Clear</button></div></div>
+  <div class="ig upload-row"><label data-key="msigimg">Signature Images (max 9)</label><div class="upload-wrap"><input type="file" id="profile-sigimg" accept="image/*" multiple style="display:none" onchange="uploadMultipleImages()"><button class="btn bs sm" onclick="document.getElementById('profile-sigimg').click()" data-key="mupload">Upload</button><span id="profile-sigimg-name"></span><button class="btn bd sm" onclick="clearUpload('sigimg')" data-key="mclear" style="margin-left:8px">Clear All</button><div id="sigimg-preview" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px"></div></div></div>
   <div class="ig upload-row"><label data-key="msigvid">Signature Video</label><div class="upload-wrap"><input type="file" id="profile-sigvid" accept="video/*" style="display:none" onchange="uploadFile('sigvid')"><button class="btn bs sm" onclick="document.getElementById('profile-sigvid').click()" data-key="mupload">Upload</button><span id="profile-sigvid-name"></span><button class="btn bd sm" onclick="clearUpload('sigvid')" data-key="mclear" style="margin-left:8px">Clear</button></div></div>
   <button class="btn bg bw" onclick="saveProfile()" data-key="msave">Save Profile</button>
   <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
@@ -535,6 +535,10 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <div style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:10px">
     <div style="font-size:.7rem;color:var(--t3);margin-bottom:4px" data-key="mbio">Bio</div>
     <div style="font-size:.8rem;line-height:1.5;white-space:pre-wrap" id="pv-bio">—</div>
+  </div>
+  <div id="pv-sigimgs" style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:10px;display:none">
+    <div style="font-size:.7rem;color:var(--t3);margin-bottom:6px">Signature Images</div>
+    <div id="pv-sigimg-gallery" style="display:flex;flex-wrap:wrap;gap:6px"></div>
   </div>
   <button class="btn bg bw" onclick="spme()" data-key="mpedit">Edit</button>
   <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
@@ -839,7 +843,10 @@ function spme(){
   document.getElementById('profile-wallet').value=curUser.wallet||'';
   document.getElementById('profile-bio').value=curUser.bio||'';
   document.getElementById('profile-avatar-name').textContent=curUser.avatar?'✅ Uploaded':'';
-  document.getElementById('profile-sigimg-name').textContent=curUser.sig_image?'✅ Uploaded':'';
+  // Populate sig images
+  sigImages=(curUser.sig_images||(curUser.sig_image?[curUser.sig_image]:[]));
+  document.getElementById('profile-sigimg-name').textContent=sigImages.length?sigImages.length+' image(s)':'';
+  renderSigPreview();
   document.getElementById('profile-sigvid-name').textContent=curUser.sig_video?'✅ Uploaded':'';
   document.getElementById('mo-profile').classList.add('show');
   updateI18n();
@@ -855,6 +862,15 @@ function updateProfileView(){
   // Show translated bio if available, otherwise original
   var bioDisplay = curLang==='zh' ? (curUser.bio||'') : (curUser._bioTranslated||'');
   document.getElementById('pv-bio').textContent=bioDisplay||curUser.bio||'—';
+  // Show signature images
+  var sigImgs=curUser.sig_images||(curUser.sig_image?curUser.sig_image.split(',').filter(Boolean):[]);
+  var sigContainer=document.getElementById('pv-sigimgs');
+  if(sigImgs.length){
+    sigContainer.style.display='';
+    document.getElementById('pv-sigimg-gallery').innerHTML=sigImgs.map(function(url){
+      return '<img src="'+url+'" style="width:80px;height:80px;object-fit:cover;border-radius:6px;border:1px solid var(--bda)" onerror="this.style.display=\'none\'">';
+    }).join('');
+  }else{sigContainer.style.display='none';}
 }
 // Translate bio text for current language
 async function translateBio(){
@@ -961,22 +977,27 @@ function doReset(){
 }
 // ========== UPLOAD FUNCTIONS ==========
 async function uploadFile(type){
-  const map={avatar:'profile-avatar',sigimg:'profile-sigimg',sigvid:'profile-sigvid'};
-  const apiMap={avatar:'uploadAvatar',sigimg:'uploadImage',sigvid:'uploadVideo'};
+  const map={avatar:'profile-avatar',sigvid:'profile-sigvid'};
+  const apiMap={avatar:'uploadAvatar',sigvid:'uploadVideo'};
   const input=document.getElementById(map[type]);
   if(!input||!input.files||!input.files[0]){notify(t('mnofile'),'&#x26A0;');return;}
   const file=input.files[0];
+  // Video duration validation (max 60 seconds)
+  if(type==='sigvid'){
+    try{
+      const dur=await getVideoDuration(file);
+      if(dur>60){notify(t('msigvid_too_long')||'Video must be under 60 seconds','&#x26A0;');input.value='';return;}
+    }catch(e){console.warn('Video duration check failed, proceeding anyway:',e);}
+  }
   const nameSpan=document.getElementById(map[type]+'-name');
   if(nameSpan)nameSpan.innerHTML='<span class=\"upspinner\"></span> '+file.name;
   try{
     const res=await API[apiMap[type]](file);
     if(curUser){
       if(type==='avatar')curUser.avatar=res.path||res.url||'';
-      else if(type==='sigimg')curUser.sig_image=res.path||res.url||'';
       else curUser.sig_video=res.path||res.url||'';
       users[curUser._email]={...users[curUser._email],
         avatar:curUser.avatar||users[curUser._email].avatar||'',
-        sig_image:curUser.sig_image||users[curUser._email].sig_image||'',
         sig_video:curUser.sig_video||users[curUser._email].sig_video||''};
       saveLS('nexus_users',users);saveSession();
     }
@@ -987,19 +1008,74 @@ async function uploadFile(type){
     notify(t('mup_fail')+': '+e.message,'&#x274C;');
   }
 }
+function getVideoDuration(file){
+  return new Promise(function(resolve,reject){
+    var video=document.createElement('video');
+    video.preload='metadata';
+    video.onloadedmetadata=function(){window.URL.revokeObjectURL(video.src);resolve(video.duration);};
+    video.onerror=function(){window.URL.revokeObjectURL(video.src);reject(new Error('Cannot read video'));};
+    video.src=URL.createObjectURL(file);
+  });
+}
+// Multi-image upload for signature
+var sigImages=[]; // Currently selected sig image URLs
+async function uploadMultipleImages(){
+  var input=document.getElementById('profile-sigimg');
+  if(!input||!input.files||!input.files.length){notify(t('mnofile'),'&#x26A0;');return;}
+  var newFiles=Array.from(input.files);
+  if(sigImages.length+newFiles.length>9){notify('Maximum 9 images allowed','&#x26A0;');input.value='';return;}
+  var nameSpan=document.getElementById('profile-sigimg-name');
+  var preview=document.getElementById('sigimg-preview');
+  for(var i=0;i<newFiles.length;i++){
+    var file=newFiles[i];
+    if(nameSpan)nameSpan.innerHTML='<span class=\"upspinner\"></span> Uploading '+(i+1)+'/'+newFiles.length;
+    try{
+      var res=await API.uploadImage(file);
+      sigImages.push(res.path||res.url||'');
+      if(curUser)curUser.sig_images=sigImages.slice();
+    }catch(e){
+      notify('Upload failed: '+e.message,'&#x274C;');
+    }
+  }
+  input.value='';
+  if(nameSpan)nameSpan.innerHTML=sigImages.length+' image(s) uploaded &#x2705;';
+  renderSigPreview();
+}
+function renderSigPreview(){
+  var preview=document.getElementById('sigimg-preview');
+  if(!preview)return;
+  preview.innerHTML=sigImages.map(function(url,i){
+    return '<div style="position:relative;width:60px;height:60px;border-radius:6px;overflow:hidden;border:1px solid var(--bda)"><img src="'+url+'" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display=\'none\'"><button onclick="removeSigImage('+i+')" style="position:absolute;top:0;right:0;background:rgba(239,68,68,.8);color:#fff;border:none;border-radius:0 0 0 6px;font-size:.6rem;padding:2px 5px;cursor:pointer;line-height:1">&times;</button></div>';
+  }).join('');
+}
+function removeSigImage(idx){
+  sigImages.splice(idx,1);
+  if(curUser)curUser.sig_images=sigImages.slice();
+  renderSigPreview();
+  var nameSpan=document.getElementById('profile-sigimg-name');
+  if(nameSpan)nameSpan.innerHTML=sigImages.length+' image(s)';
+}
 function clearUpload(type){
-  const map={avatar:'profile-avatar',sigimg:'profile-sigimg',sigvid:'profile-sigvid'};
+  if(type==='sigimg'){
+    sigImages=[];
+    if(curUser){curUser.sig_images=[];}
+    var input=document.getElementById('profile-sigimg');
+    if(input)input.value='';
+    var nameSpan=document.getElementById('profile-sigimg-name');
+    if(nameSpan)nameSpan.textContent='';
+    renderSigPreview();
+    return;
+  }
+  const map={avatar:'profile-avatar',sigvid:'profile-sigvid'};
   const input=document.getElementById(map[type]);
   if(input)input.value='';
   const nameSpan=document.getElementById(map[type]+'-name');
   if(nameSpan)nameSpan.textContent='';
   if(curUser){
     if(type==='avatar')curUser.avatar='';
-    else if(type==='sigimg')curUser.sig_image='';
     else curUser.sig_video='';
     users[curUser._email]={...users[curUser._email],
       avatar:type==='avatar'?'':(users[curUser._email].avatar||''),
-      sig_image:type==='sigimg'?'':(users[curUser._email].sig_image||''),
       sig_video:type==='sigvid'?'':(users[curUser._email].sig_video||'')};
     saveLS('nexus_users',users);saveSession();
   }
@@ -1016,7 +1092,7 @@ function saveProfile(){
   document.getElementById('udn').textContent=curUser.name;
   cma(); notify(t('mpsaved'),'&#x2705;'); rAll();
   // Sync to backend if authenticated
-  if(typeof apiToken!=='undefined'&&apiToken){ API.saveProfile(curUser.name,curUser.wallet,curUser.bio,curUser.avatar||'',curUser.sig_image||'',curUser.sig_video||'').catch(e=>console.error('backend sync:',e)); }
+  if(typeof apiToken!=='undefined'&&apiToken){ API.saveProfile(curUser.name,curUser.wallet,curUser.bio,curUser.avatar||'',(curUser.sig_images||[]).join(','),curUser.sig_video||'').catch(e=>console.error('backend sync:',e)); }
 }
 function saveWallet(){
   if(!curUser){oam('login');return;}
@@ -1798,7 +1874,7 @@ async function loadFriends(){
       h+='<div class="ni2" onclick="selectFriend(\''+isOther+'\')" '+sel+'>'+escHtml(name)+' <span style="font-size:.62rem;color:var(--t3)">'+escHtml(isOther)+'</span></div>';
     }
     div.innerHTML = h;
-  } catch(e){ console.error('loadFriends error:', e.message, 'apiToken:', !!apiToken); div.innerHTML='<div class="nemp">'+escHtml(errMsg(e))+'</div>'; }
+  } catch(e){ console.error('loadFriends error:', e.message, 'apiToken:', !!apiToken); div.innerHTML='<div class="nemp" data-key="sotokenexpired">'+escHtml(errMsg(e))+'</div>'; }
 }
 
 async function loadFriendRequests(){
@@ -1834,7 +1910,7 @@ async function searchUser(){
     if(data.pendingRequest){ resDiv.innerHTML='<div style="padding:10px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:8px;text-align:center;color:#8b5cf6;font-size:.78rem" data-key="sopending">'+t('sopending')+'</div>'; return; }
     var h = '<div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg);border:1px solid var(--ap);border-radius:10px"><div style="width:40px;height:40px;border-radius:50%;background:var(--g1);display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:#fff;flex-shrink:0">'+escHtml(name[0].toUpperCase())+'</div><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:.85rem">'+escHtml(name)+'</div><div style="font-size:.65rem;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+escHtml(u.email)+'</div>'+(u.bio?'<div style="font-size:.68rem;color:var(--t2);margin-top:2px;white-space:pre-wrap;max-height:40px;overflow:hidden">'+escHtml(u.bio)+'</div>':'')+'</div><button class="btn bs bg" onclick="addSearchedUser(\''+u.email+'\')" data-key="soadd2" style="flex-shrink:0">'+t('soadd2')+'</button></div>';
     resDiv.innerHTML = h;
-  } catch(e){ resDiv.innerHTML='<div style="padding:10px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;text-align:center;color:#ef4444;font-size:.78rem">'+escHtml(errMsg(e))+'</div>'; }
+  } catch(e){ resDiv.innerHTML='<div style="padding:10px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;text-align:center;color:#ef4444;font-size:.78rem" data-key="sotokenexpired">'+escHtml(errMsg(e))+'</div>'; }
 }
 async function addSearchedUser(email){
   try {
@@ -1993,7 +2069,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(maintSub) maintSub.textContent = t('somaintenance_sub');
 });
 
-window.addEventListener('error',function(e){if(e.target!==window)return;var mo=document.getElementById('mt-overlay');if(mo)mo.style.display='flex';console.error('Page error:',e.message);});
+window.addEventListener('error',function(e){if(e.target!==window)return;if(e.filename&&(e.filename.startsWith('https://')||e.filename.startsWith('http://'))){console.warn('External script error (likely blocked):',e.filename);return;}var mo=document.getElementById('mt-overlay');if(mo)mo.style.display='flex';console.error('Page error:',e.message);});
 // ============ MULTI-LANGUAGE TRANSLATION ENGINE ============
 var TL_CACHE={};
 var TL_MUTEX=false;
@@ -2122,5 +2198,5 @@ console.log('[PUB] Publish system loaded. Tools:',PUB.tools.length,'P2P:',PUB.p2
 </script>
 <script src="api-client.js?v=13"></script>
 <!-- PayPal SDK -->
-<script async src="https://www.paypal.com/sdk/js?client-id=BAAopNlOslfGxeREktaXu8cbdZ6XWXNbzQYeodvtXjmTISEt4Rxrb4pcjPOwR7FZN63ri345gSa9prPJfc&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
+<script async src="https://www.paypal.com/sdk/js?client-id=BAAopNlOslfGxeREktaXu8cbdZ6XWXNbzQYeodvtXjmTISEt4Rxrb4pcjPOwR7FZN63ri345gSa9prPJfc&components=hosted-buttons&disable-funding=venmo&currency=USD" onerror="console.warn('PayPal SDK load failed');this.remove();"></script>
 </body>
