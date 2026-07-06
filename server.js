@@ -59,7 +59,7 @@ app.use((req, res, next) => {
     return res.status(503).json({ error: 'maintenance', message: 'System is under maintenance' });
   }
   // Serve maintenance page for all other requests
-  const maintPath = path.join(__dirname, 'maintenance.html');
+  const maintPath = path.join(__dirname, 'public', 'maintenance.html');
   if (fs.existsSync(maintPath)) {
     return res.sendFile(maintPath);
   }
@@ -540,11 +540,11 @@ app.get('/api/lhr-url', (req, res) => {
 });
 
 // ========== Static files (SPA) ==========
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'public')));
 app.get('*', (req, res) => {
   // Don't serve HTML for API routes
   if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'Not found' });
-  res.sendFile(path.join(__dirname, 'zhitongwang_backup_20260706.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // ========== WebSocket ==========
