@@ -1062,10 +1062,10 @@ function clearUpload(type){
   if(type==='sigimg'){
     sigImages=[];
     if(curUser){curUser.sig_images=[];}
-    var input=document.getElementById('profile-sigimg');
-    if(input)input.value='';
-    var nameSpan=document.getElementById('profile-sigimg-name');
-    if(nameSpan)nameSpan.textContent='';
+    var sigInput=document.getElementById('profile-sigimg');
+    if(sigInput)sigInput.value='';
+    var sigNameSpan=document.getElementById('profile-sigimg-name');
+    if(sigNameSpan)sigNameSpan.textContent='';
     renderSigPreview();
     return;
   }
