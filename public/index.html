@@ -2118,7 +2118,7 @@ async function loadFriends(){
       h+='<div class="ni2" onclick="selectFriend(\''+isOther+'\')" '+sel+'>'+escHtml(name)+' <span style="font-size:.62rem;color:var(--t3)">'+escHtml(isOther)+'</span></div>';
     }
     div.innerHTML = h;
-  } catch(e){ console.error('loadFriends error:', e.message, 'apiToken:', !!apiToken); div.innerHTML='<div class="nemp">'+escHtml(errMsg(e))+'</div>'; }
+  } catch(e){ console.error('loadFriends error:', e.message, 'apiToken:', !!apiToken); var em=e.message||''; div.innerHTML='<div class="nemp" data-key="'+(em==='Invalid or expired token'||em==='sotokenexpired'?'sotokenexpired':'sonoauth')+'">'+escHtml(errMsg(e))+'</div>'; }
 }
 
 async function loadFriendRequests(){
@@ -2154,7 +2154,7 @@ async function searchUser(){
     if(data.pendingRequest){ resDiv.innerHTML='<div style="padding:10px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:8px;text-align:center;color:#8b5cf6;font-size:.78rem" data-key="sopending">'+t('sopending')+'</div>'; return; }
     var h = '<div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg);border:1px solid var(--ap);border-radius:10px"><div style="width:40px;height:40px;border-radius:50%;background:var(--g1);display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:#fff;flex-shrink:0">'+escHtml(name[0].toUpperCase())+'</div><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:.85rem">'+escHtml(name)+'</div><div style="font-size:.65rem;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+escHtml(u.email)+'</div>'+(u.bio?'<div style="font-size:.68rem;color:var(--t2);margin-top:2px;white-space:pre-wrap;max-height:40px;overflow:hidden">'+escHtml(u.bio)+'</div>':'')+'</div><button class="btn bs bg" onclick="addSearchedUser(\''+u.email+'\')" data-key="soadd2" style="flex-shrink:0">'+t('soadd2')+'</button></div>';
     resDiv.innerHTML = h;
-  } catch(e){ resDiv.innerHTML='<div style="padding:10px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;text-align:center;color:#ef4444;font-size:.78rem">'+escHtml(errMsg(e))+'</div>'; }
+  } catch(e){ var em=e.message||''; resDiv.innerHTML='<div style="padding:10px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;text-align:center;color:#ef4444;font-size:.78rem" data-key="'+(em==='Invalid or expired token'||em==='sotokenexpired'?'sotokenexpired':'sonoauth')+'">'+escHtml(errMsg(e))+'</div>'; }
 }
 async function addSearchedUser(email){
   try {
