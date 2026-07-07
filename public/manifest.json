@@ -1,0 +1,23 @@
+{
+  "name": "AI Nexus - AI共享经济平台",
+  "short_name": "AI Nexus",
+  "description": "全球首个去中心化 AI 访问市场，买卖 AI 应用订阅，掌握你的生产力",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#0a0a0f",
+  "background_color": "#0a0a0f",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
