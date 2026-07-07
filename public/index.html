@@ -1039,7 +1039,7 @@ function setLang(l){
   curLang=l; localStorage.setItem('nexus_lang',l);
   document.getElementById('cln').textContent=l.toUpperCase();
   document.getElementById('lm').classList.remove('show');
-  buildLangMenu(); applyI18N(); rAll();
+  buildLangMenu(); applyI18N(); var lb=document.querySelector('#aa [data-key="blg"]');if(lb)lb.textContent=t('blg'); rAll(); var lb=document.querySelector('#aa [data-key="blg"]');if(lb)lb.textContent=t('blg');
   // Translate bio if profile view is open or bio exists
   if(curUser&&curUser.bio){translateBio(); updateProfileView();}
   // Retranslate chat messages to new language
@@ -1207,7 +1207,7 @@ async function doLogin_email(e,p){
   loadUserEventsFromBackend();
   notify('Welcome back, '+curUser.name+'!','&#x1F44B;'); rAll();
 }
-function doLogout(){ curUser=null; apiToken=null; try{localStorage.removeItem('nexus_api_token');localStorage.removeItem('nexus_recovery_code');}catch(e){} document.getElementById('aa').style.display='block'; document.getElementById('ud').style.display='none'; rAll(); notify('Logged out'); }
+function doLogout(){ curUser=null; apiToken=null; try{localStorage.removeItem('nexus_api_token');localStorage.removeItem('nexus_recovery_code');}catch(e){} document.getElementById('aa').style.display='block'; document.getElementById('ud').style.display='none'; rAll(); var lb=document.querySelector('#aa [data-key="blg"]');if(lb)lb.textContent=t('blg'); notify('Logged out'); }
 function doReset(){
   let e=document.getElementById('reset-email').value.trim().toLowerCase();
   if(!e){notify('Enter email','&#x26A0;');return;}
@@ -2092,7 +2092,7 @@ var _msgTexts = {};      // msg id -> original text
 var _msgTransCache = {}; // text|lang -> translated text
 function escHtml(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
 // Translate common API error messages
-function errMsg(e){return e.message==='Authentication required'?t('sonoauth'):e.message==='Invalid or expired token'?t('sotokenexpired'):e.message;}
+function errMsg(e){var m=e.message||'';if(m==='Authentication required')return t('sonoauth');if(m==='Invalid or expired token'||m==='sotokenexpired')return t('sotokenexpired');if(m==='sonoauth')return t('sonoauth');var tt=t(m);return tt!==m?tt:m;}
 
 function rSocial(){
   applyI18N();
@@ -2118,7 +2118,7 @@ async function loadFriends(){
       h+='<div class="ni2" onclick="selectFriend(\''+isOther+'\')" '+sel+'>'+escHtml(name)+' <span style="font-size:.62rem;color:var(--t3)">'+escHtml(isOther)+'</span></div>';
     }
     div.innerHTML = h;
-  } catch(e){ console.error('loadFriends error:', e.message, 'apiToken:', !!apiToken); div.innerHTML='<div class="nemp" data-key="sotokenexpired">'+escHtml(errMsg(e))+'</div>'; }
+  } catch(e){ console.error('loadFriends error:', e.message, 'apiToken:', !!apiToken); div.innerHTML='<div class="nemp">'+escHtml(errMsg(e))+'</div>'; }
 }
 
 async function loadFriendRequests(){
@@ -2154,7 +2154,7 @@ async function searchUser(){
     if(data.pendingRequest){ resDiv.innerHTML='<div style="padding:10px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:8px;text-align:center;color:#8b5cf6;font-size:.78rem" data-key="sopending">'+t('sopending')+'</div>'; return; }
     var h = '<div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg);border:1px solid var(--ap);border-radius:10px"><div style="width:40px;height:40px;border-radius:50%;background:var(--g1);display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:#fff;flex-shrink:0">'+escHtml(name[0].toUpperCase())+'</div><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:.85rem">'+escHtml(name)+'</div><div style="font-size:.65rem;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+escHtml(u.email)+'</div>'+(u.bio?'<div style="font-size:.68rem;color:var(--t2);margin-top:2px;white-space:pre-wrap;max-height:40px;overflow:hidden">'+escHtml(u.bio)+'</div>':'')+'</div><button class="btn bs bg" onclick="addSearchedUser(\''+u.email+'\')" data-key="soadd2" style="flex-shrink:0">'+t('soadd2')+'</button></div>';
     resDiv.innerHTML = h;
-  } catch(e){ resDiv.innerHTML='<div style="padding:10px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;text-align:center;color:#ef4444;font-size:.78rem" data-key="sotokenexpired">'+escHtml(errMsg(e))+'</div>'; }
+  } catch(e){ resDiv.innerHTML='<div style="padding:10px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;text-align:center;color:#ef4444;font-size:.78rem">'+escHtml(errMsg(e))+'</div>'; }
 }
 async function addSearchedUser(email){
   try {
@@ -2299,7 +2299,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(saved&&users[saved]){curUser={...users[saved]};curUser._email=saved;document.getElementById('aa').style.display='none';document.getElementById('ud').style.display='block';document.getElementById('ual').textContent=(curUser.name||'U')[0].toUpperCase();var mcLvlNav=curUser.mcLevel||1;
   var mcBadgeNav=getMcBadge(mcLvlNav);
   document.getElementById('udn').innerHTML='<span class="mc-profile-badge">'+mcBadgeNav+'</span>'+(curUser.name||'User');}
-    applyI18N(); rAll();
+    applyI18N(); rAll(); var lb=document.querySelector('#aa [data-key="blg"]');if(lb)lb.textContent=t('blg');
     initMKT(); setTimeout(function(){rdrTkr();},1500);
     translateCommunityContent();
     setInterval(()=>{if(curUser){localStorage.setItem('nexus_cur_user_email',curUser._email);}},5000);
