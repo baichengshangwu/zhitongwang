@@ -2214,10 +2214,16 @@ function togUm(){document.getElementById('um').classList.toggle('show');}
 const MEMBER_LEVELS=[
   {key:'normal',  name:{zh:'普通会员',en:'Normal',ja:'一般会員',ko:'일반 회원',es:'Miembro Normal',de:'Normal Mitglied',fr:'Membre Normal',pt:'Membro Normal',ru:'Обычный участник',ar:'عضو عادي',hi:'सामान्य सदस्य',th:'สมาชิกทั่วไป',vi:'Hội Viên Thường',id:'Anggota Biasa',it:'Membro Normale'},threshold:0,returnMul:1.0,icon:'✨'},
   {key:'mineral', name:{zh:'初级矿石',en:'Mineral',ja:'初級鉱石',ko:'초급 광석',es:'Mineral Inicial',de:'Anfänger-Mineral',fr:'Minéral Débutant',pt:'Minério Inicial',ru:'Начальная руда',ar:'معدن مبتدئ',hi:'प्रारंभिक खनिज',th:'แร่เริ่มต้น',vi:'Khoáng Sơ Cấp',id:'Mineral Pemula',it:'Minerale Iniziale'},threshold:3000,returnMul:1.2,icon:'⛏️'},
-  {key:'jade', name:{zh:'中级玉石',en:'Jade',ja:'中級玉石',ko:'중급 옥석',es:'Jade Intermedio',de:'Mittelstufe-Jade',fr:'Jade Intermédiaire',pt:'Jade Intermediário',ru:'Средний нефрит',ar:'يشم متوسط',hi:'मध्यम जेड',th:'หยกระดับกลาง',vi:'Ngọc Trung Cấp',id:'Giok Menengah',it:'Giada Intermedia'},threshold:10000,returnMul:1.5,icon:'🟢'},
-  {key:'gem', name:{zh:'高级宝石',en:'Gem',ja:'高級宝石',ko:'고급 보석',es:'Gema Avanzada',de:'Fortgeschritten-Edelstein',fr:'Gemme Avancée',pt:'Gema Avançada',ru:'Продвинутый самоцвет',ar:'جوهرة متقدمة',hi:'उन्नत रत्न',th:'อัญมณีขั้นสูง',vi:'Đá Quý Cao Cấp',id:'Permata Lanjut',it:'Gemma Avanzata'},threshold:20000,returnMul:1.8,icon:'🔴'},
-  {key:'diamond', name:{zh:'顶级钻石',en:'Diamond',ja:'ダイヤモンド',ko:'최고급 다이아몬드',es:'Diamante Supremo',de:'Top-Diamant',fr:'Diamant Suprême',pt:'Diamante Supremo',ru:'Высший бриллиант',ar:'ألماس ممتاز',hi:'शीर्ष हीरा',th:'เพชรชั้นสูง',vi:'Kim Cương Đỉnh Cao',id:'Berlian Tertinggi',it:'Diamante Supremo'},threshold:50000,returnMul:2.0,icon:'💎'}
+  {key:'jade', name:{zh:'中级玉石',en:'Jade',ja:'中級玉石',ko:'중급 옥석',es:'Jade Intermedio',de:'Mittelstufe-Jade',fr:'Jade Intermédiaire',pt:'Jade Intermediário',ru:'Средний нефрит',ar:'يشم متوسط',hi:'मध्यम जेड',th:'หยกระดับกลาง',vi:'Ngọc Trung Cấp',id:'Giok Menengah',it:'Giada Intermedia'},threshold:10000,returnMul:1.5,icon:BADGE_SVG.jade},
+  {key:'gem', name:{zh:'高级宝石',en:'Gem',ja:'高級宝石',ko:'고급 보석',es:'Gema Avanzada',de:'Fortgeschritten-Edelstein',fr:'Gemme Avancée',pt:'Gema Avançada',ru:'Продвинутый самоцвет',ar:'جوهرة متقدمة',hi:'उन्नत रत्न',th:'อัญมณีขั้นสูง',vi:'Đá Quý Cao Cấp',id:'Permata Lanjut',it:'Gemma Avanzata'},threshold:20000,returnMul:1.8,icon:BADGE_SVG.gem},
+  {key:'diamond', name:{zh:'顶级钻石',en:'Diamond',ja:'ダイヤモンド',ko:'최고급 다이아몬드',es:'Diamante Supremo',de:'Top-Diamant',fr:'Diamant Suprême',pt:'Diamante Supremo',ru:'Высший бриллиант',ar:'ألماس ممتاز',hi:'शीर्ष हीरा',th:'เพชรชั้นสูง',vi:'Kim Cương Đỉnh Cao',id:'Berlian Tertinggi',it:'Diamante Supremo'},threshold:50000,returnMul:2.0,icon:BADGE_SVG.diamond}
 ];
+// Inline SVG badges for member levels (gradient-rendered for cross-platform consistency)
+const BADGE_SVG={
+  jade:'<svg viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-0.15em" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="bj" cx="35%" cy="30%"><stop offset="0%" stop-color="#a7f3d0"/><stop offset="55%" stop-color="#10b981"/><stop offset="100%" stop-color="#065f46"/></radialGradient></defs><ellipse cx="12" cy="12" rx="8" ry="6" fill="url(#bj)" stroke="#047857" stroke-width="0.5"/><ellipse cx="9" cy="9" rx="2.8" ry="1.6" fill="#d1fae5" opacity="0.7"/><ellipse cx="14.5" cy="14" rx="1.2" ry="0.7" fill="#d1fae5" opacity="0.4"/></svg>',
+  gem:'<svg viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-0.15em" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fca5a5"/><stop offset="50%" stop-color="#dc2626"/><stop offset="100%" stop-color="#7f1d1d"/></linearGradient></defs><polygon points="12,2 21,9 18,21 6,21 3,9" fill="url(#bg)" stroke="#991b1b" stroke-width="0.5"/><polygon points="12,2 9,9 15,9" fill="#fecaca" opacity="0.75"/><polygon points="3,9 9,9 6,21" fill="#7f1d1d" opacity="0.55"/><polygon points="21,9 15,9 18,21" fill="#991b1b" opacity="0.65"/><line x1="9" y1="9" x2="15" y2="9" stroke="#fee2e2" stroke-width="0.4" opacity="0.8"/></svg>',
+  diamond:'<svg viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-0.15em" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bd" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0f2fe"/><stop offset="40%" stop-color="#7dd3fc"/><stop offset="100%" stop-color="#0369a1"/></linearGradient></defs><polygon points="3,9 8,3 16,3 21,9 12,22" fill="url(#bd)" stroke="#0c4a6e" stroke-width="0.5"/><polygon points="3,9 8,3 12,9" fill="#bae6fd" opacity="0.85"/><polygon points="21,9 16,3 12,9" fill="#7dd3fc" opacity="0.65"/><polygon points="8,3 16,3 12,9" fill="#e0f2fe" opacity="0.95"/><line x1="3" y1="9" x2="21" y2="9" stroke="#0c4a6e" stroke-width="0.3" opacity="0.6"/><line x1="12" y1="9" x2="12" y2="22" stroke="#0c4a6e" stroke-width="0.3" opacity="0.5"/></svg>'
+};
 const PLATFORM_POOL_ADDR='TXyZ1234567890abcdefghijklmnopqrstuvwxUSDT_TRC20';
 function getInviteData(){
   var d={};
@@ -2264,12 +2270,12 @@ function renderMemberPage(){
   var ic={
     normal:'\u2728',
     mineral:'\u26CF\uFE0F',
-    jade:'\uD83D\uDFE2',
-    gem:'\uD83D\uDD34',
-    diamond:'\uD83D\uDC8E'
+    jade: BADGE_SVG.jade,
+    gem: BADGE_SVG.gem,
+    diamond: BADGE_SVG.diamond
   };
   var cb=document.getElementById('m-current-badge');
-  if(cb)cb.textContent=ic[lv.key]||'\u2728';
+  if(cb)cb.innerHTML=ic[lv.key]||'\u2728';
   var cn=document.getElementById('m-current-name');
   if(cn)cn.textContent=_fmtLang(lv.name,lang);
 
@@ -2796,9 +2802,9 @@ function updateUserBadge(){
   var lvIdx=_computeLevel(recharged);
   var lv=MEMBER_LEVELS[lvIdx];
   var badge='';
-  if(lv.key==='diamond')badge='\uD83D\uDC8E ';  // 💎 顶级钻石
-  else if(lv.key==='gem')badge='\uD83D\uDD34 ';  // 🔴 高级宝石
-  else if(lv.key==='jade')badge='\uD83D\uDFE2 ';  // 🟢 中级玉石
+  if(lv.key==='diamond')badge='<span class="bdg-ic" style="display:inline-block;width:1em;height:1em;vertical-align:-0.15em">'+BADGE_SVG.diamond+'</span> ';  // 💎 顶级钻石
+  else if(lv.key==='gem')badge='<span class="bdg-ic" style="display:inline-block;width:1em;height:1em;vertical-align:-0.15em">'+BADGE_SVG.gem+'</span> ';  // 🔴 高级宝石
+  else if(lv.key==='jade')badge='<span class="bdg-ic" style="display:inline-block;width:1em;height:1em;vertical-align:-0.15em">'+BADGE_SVG.jade+'</span> ';  // 🟢 中级玉石
   else if(lv.key==='mineral')badge='\u26CF\uFE0F ';  // ⛏️ 初级矿石
   else badge='\u2728 ';  // ✨ 普通会员
   // nav user display name
@@ -2806,14 +2812,14 @@ function updateUserBadge(){
   if(udn){
     var name=curUser.name||curUser.username||'';
     var bhtml=badge+name;
-    if(udn.textContent!==bhtml)udn.textContent=bhtml;
+    if(udn.innerHTML!==bhtml)udn.innerHTML=bhtml;
   }
   // profile view name
   var pv=document.getElementById('pv-name');
   if(pv){
     var name2=curUser.name||curUser.username||'';
     var bhtml2=badge+name2;
-    if(pv.textContent!==bhtml2)pv.textContent=bhtml2;
+    if(pv.innerHTML!==bhtml2)pv.innerHTML=bhtml2;
   }
   // social list items with data-curuser="1"
   try{
@@ -2821,7 +2827,7 @@ function updateUserBadge(){
     for(var i=0;i<sels.length;i++){
       var name3=curUser.name||curUser.username||'';
       var bhtml3=badge+name3;
-      if(sels[i].textContent!==bhtml3)sels[i].textContent=bhtml3;
+      if(sels[i].innerHTML!==bhtml3)sels[i].innerHTML=bhtml3;
     }
   }catch(e){}
 }
