@@ -2280,7 +2280,7 @@ function togLm(){document.getElementById('lm').classList.toggle('show');}
 function togUm(){document.getElementById('um').classList.toggle('show');}
 function togN(){
   let np=document.getElementById('np');
-  let h='<a href="/install.html" style="display:block;padding:10px 12px;border-radius:8px;text-align:center;background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;font-size:.85rem;font-weight:600;text-decoration:none;transition:opacity .2s" onmouseover="this.style.opacity=\'0.9\'" onmouseout="this.style.opacity=\'1\'">📱 APP下载</a>';
+  let h='<div class="ni2" onclick="event.stopPropagation();window.location.href=\'/install.html\'" style="cursor:pointer;padding:10px 12px;border-radius:8px;text-align:center;background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;font-size:.85rem;font-weight:600">📱 APP下载</div>';
   np.innerHTML=h; np.classList.toggle('show');
 }
 
