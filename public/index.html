@@ -1216,6 +1216,9 @@ function openPaypalBtn(n){
     if(typeof paypal !== 'undefined' && paypal.HostedButtons){
       container.innerHTML = '';
       paypal.HostedButtons({hostedButtonId:'EJC58LA49LNM2'}).render('#paypal-container-EJC58LA49LNM2');
+    } else if(!window.paypalLoaded){
+      // PayPal SDK blocked (GFW) - show direct payment link fallback
+      container.innerHTML = '<a href="https://www.paypal.com/ncp/payment/EJC58LA49LNM2" target="_blank" rel="noopener" style="display:inline-block;padding:10px 24px;background:linear-gradient(135deg,#0070ba,#1546a0);color:#fff;border-radius:25px;text-decoration:none;font-weight:700;font-size:.82rem">Pay Now - $199</a>';
     }
   } else {
     title.setAttribute('data-key','ppdonate');
@@ -2199,5 +2202,5 @@ console.log('[PUB] Publish system loaded. Tools:',PUB.tools.length,'P2P:',PUB.p2
 </script>
 <script src="api-client.js?v=13"></script>
 <!-- PayPal SDK -->
-<script async src="https://www.paypal.com/sdk/js?client-id=BAAopNlOslfGxeREktaXu8cbdZ6XWXNbzQYeodvtXjmTISEt4Rxrb4pcjPOwR7FZN63ri345gSa9prPJfc&components=hosted-buttons&disable-funding=venmo&currency=USD" onerror="console.warn('PayPal SDK load failed');this.remove();"></script>
+<script async src="https://www.paypal.com/sdk/js?client-id=BAAopNlOslfGxeREktaXu8cbdZ6XWXNbzQYeodvtXjmTISEt4Rxrb4pcjPOwR7FZN63ri345gSa9prPJfc&components=hosted-buttons&disable-funding=venmo&currency=USD" onload="window.paypalLoaded=true" onerror="console.warn('PayPal SDK load failed');window.paypalLoaded=false;this.remove();"></script>
 </body>
