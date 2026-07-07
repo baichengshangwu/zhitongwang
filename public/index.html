@@ -150,7 +150,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 #paypal-member-agent-btn{margin-top:5px}
 #paypal-modal-desc{word-break:break-word;white-space:normal;overflow-wrap:break-word;max-width:100%;writing-mode:horizontal-tb}
 /* PayPal button container: clip iframe's long description, keep button visible */
-#paypal-container-EJC58LA49LNM2{max-height:56px!important;overflow:hidden!important}
+#paypal-container-EJC58LA49LNM2{max-height:200px!important}
 #paypal-container-EJC58LA49LNM2 iframe{max-height:56px!important}
 /* Upload spinner */
 .upspinner{display:inline-block;width:14px;height:14px;border:2px solid var(--bd);border-top-color:var(--ap);border-radius:50%;animation:upspin .7s linear infinite;vertical-align:middle;margin:0 4px}
@@ -1216,9 +1216,10 @@ function openPaypalBtn(n){
     if(typeof paypal !== 'undefined' && paypal.HostedButtons){
       container.innerHTML = '';
       paypal.HostedButtons({hostedButtonId:'EJC58LA49LNM2'}).render('#paypal-container-EJC58LA49LNM2');
-    } else if(!window.paypalLoaded){
-      // PayPal SDK blocked (GFW) - show direct payment link fallback
+    } else {
+      // PayPal unavailable - show direct payment link fallback
       container.innerHTML = '<a href="https://www.paypal.com/ncp/payment/EJC58LA49LNM2" target="_blank" rel="noopener" style="display:inline-block;padding:10px 24px;background:linear-gradient(135deg,#0070ba,#1546a0);color:#fff;border-radius:25px;text-decoration:none;font-weight:700;font-size:.82rem">Pay Now - $199</a>';
+      container.style.maxHeight = '200px';
     }
   } else {
     title.setAttribute('data-key','ppdonate');
