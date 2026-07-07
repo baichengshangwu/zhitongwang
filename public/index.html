@@ -1493,10 +1493,14 @@ function renderAgentCard(){
 function sp(page){
   curPage=page;
   document.querySelectorAll('.nls a').forEach(a=>a.classList.remove('active'));
-  document.querySelector('.nls a[data-page="'+page+'"]').classList.add('active');
+  var navLink=document.querySelector('.nls a[data-page="'+page+'"]');
+  if(navLink) navLink.classList.add('active');
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   let el=document.getElementById('page-'+page); if(el)el.classList.add('active');
   rAll();
+  // 移动端切换页面后自动关闭导航菜单
+  var nls=document.getElementById('nls');
+  if(nls&&window.innerWidth<=768) nls.classList.remove('show');
 }
 function t(k){
   if(LANG&&LANG[curLang]&&LANG[curLang][k])return LANG[curLang][k];
