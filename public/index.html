@@ -2280,8 +2280,7 @@ function togLm(){document.getElementById('lm').classList.toggle('show');}
 function togUm(){document.getElementById('um').classList.toggle('show');}
 function togN(){
   let np=document.getElementById('np');
-  let h='<div class="nemp">Notifications</div>';
-  h+='<div class="ni2">Market update: NEXUS +5.2%</div><div class="ni2">New listing: GPT-4 @ $12</div><div class="ni2">Event: AI DevCon tickets available</div>';
+  let h='<a href="/install.html" style="display:block;padding:10px 12px;border-radius:8px;text-align:center;background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;font-size:.85rem;font-weight:600;text-decoration:none;transition:opacity .2s" onmouseover="this.style.opacity=\'0.9\'" onmouseout="this.style.opacity=\'1\'">📱 APP下载</a>';
   np.innerHTML=h; np.classList.toggle('show');
 }
 
