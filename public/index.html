@@ -2214,8 +2214,8 @@ function togUm(){document.getElementById('um').classList.toggle('show');}
 const MEMBER_LEVELS=[
   {key:'normal',  name:{zh:'普通会员',en:'Normal',ja:'一般会員',ko:'일반 회원',es:'Miembro Normal',de:'Normal Mitglied',fr:'Membre Normal',pt:'Membro Normal',ru:'Обычный участник',ar:'عضو عادي',hi:'सामान्य सदस्य',th:'สมาชิกทั่วไป',vi:'Hội Viên Thường',id:'Anggota Biasa',it:'Membro Normale'},threshold:0,returnMul:1.0,icon:'✨'},
   {key:'mineral', name:{zh:'初级矿石',en:'Mineral',ja:'初級鉱石',ko:'초급 광석',es:'Mineral Inicial',de:'Anfänger-Mineral',fr:'Minéral Débutant',pt:'Minério Inicial',ru:'Начальная руда',ar:'معدن مبتدئ',hi:'प्रारंभिक खनिज',th:'แร่เริ่มต้น',vi:'Khoáng Sơ Cấp',id:'Mineral Pemula',it:'Minerale Iniziale'},threshold:3000,returnMul:1.2,icon:'⛏️'},
-  {key:'jade', name:{zh:'中级玉石',en:'Jade',ja:'中級玉石',ko:'중급 옥석',es:'Jade Intermedio',de:'Mittelstufe-Jade',fr:'Jade Intermédiaire',pt:'Jade Intermediário',ru:'Средний нефрит',ar:'يشم متوسط',hi:'मध्यम जेड',th:'หยกระดับกลาง',vi:'Ngọc Trung Cấp',id:'Giok Menengah',it:'Giada Intermedia'},threshold:10000,returnMul:1.5,icon:'🔮'},
-  {key:'gem', name:{zh:'高级宝石',en:'Gem',ja:'高級宝石',ko:'고급 보석',es:'Gema Avanzada',de:'Fortgeschritten-Edelstein',fr:'Gemme Avancée',pt:'Gema Avançada',ru:'Продвинутый самоцвет',ar:'جوهرة متقدمة',hi:'उन्नत रत्न',th:'อัญมณีขั้นสูง',vi:'Đá Quý Cao Cấp',id:'Permata Lanjut',it:'Gemma Avanzata'},threshold:20000,returnMul:1.8,icon:'💠'},
+  {key:'jade', name:{zh:'中级玉石',en:'Jade',ja:'中級玉石',ko:'중급 옥석',es:'Jade Intermedio',de:'Mittelstufe-Jade',fr:'Jade Intermédiaire',pt:'Jade Intermediário',ru:'Средний нефрит',ar:'يشم متوسط',hi:'मध्यम जेड',th:'หยกระดับกลาง',vi:'Ngọc Trung Cấp',id:'Giok Menengah',it:'Giada Intermedia'},threshold:10000,returnMul:1.5,icon:'🟢'},
+  {key:'gem', name:{zh:'高级宝石',en:'Gem',ja:'高級宝石',ko:'고급 보석',es:'Gema Avanzada',de:'Fortgeschritten-Edelstein',fr:'Gemme Avancée',pt:'Gema Avançada',ru:'Продвинутый самоцвет',ar:'جوهرة متقدمة',hi:'उन्नत रत्न',th:'อัญมณีขั้นสูง',vi:'Đá Quý Cao Cấp',id:'Permata Lanjut',it:'Gemma Avanzata'},threshold:20000,returnMul:1.8,icon:'🔴'},
   {key:'diamond', name:{zh:'顶级钻石',en:'Diamond',ja:'ダイヤモンド',ko:'최고급 다이아몬드',es:'Diamante Supremo',de:'Top-Diamant',fr:'Diamant Suprême',pt:'Diamante Supremo',ru:'Высший бриллиант',ar:'ألماس ممتاز',hi:'शीर्ष हीरा',th:'เพชรชั้นสูง',vi:'Kim Cương Đỉnh Cao',id:'Berlian Tertinggi',it:'Diamante Supremo'},threshold:50000,returnMul:2.0,icon:'💎'}
 ];
 const PLATFORM_POOL_ADDR='TXyZ1234567890abcdefghijklmnopqrstuvwxUSDT_TRC20';
@@ -2264,8 +2264,8 @@ function renderMemberPage(){
   var ic={
     normal:'\u2728',
     mineral:'\u26CF\uFE0F',
-    jade:'\uD83D\uDC8E',
-    gem:'\uD83D\uDC8E',
+    jade:'\uD83D\uDFE2',
+    gem:'\uD83D\uDD34',
     diamond:'\uD83D\uDC8E'
   };
   var cb=document.getElementById('m-current-badge');
@@ -2797,8 +2797,8 @@ function updateUserBadge(){
   var lv=MEMBER_LEVELS[lvIdx];
   var badge='';
   if(lv.key==='diamond')badge='\uD83D\uDC8E ';  // 💎 顶级钻石
-  else if(lv.key==='gem')badge='\uD83D\uDCA0 ';  // 💠 高级宝石
-  else if(lv.key==='jade')badge='\uD83D\uDD2E ';  // 🔮 中级玉石
+  else if(lv.key==='gem')badge='\uD83D\uDD34 ';  // 🔴 高级宝石
+  else if(lv.key==='jade')badge='\uD83D\uDFE2 ';  // 🟢 中级玉石
   else if(lv.key==='mineral')badge='\u26CF\uFE0F ';  // ⛏️ 初级矿石
   else badge='\u2728 ';  // ✨ 普通会员
   // nav user display name
