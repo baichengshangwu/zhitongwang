@@ -830,6 +830,61 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <div class="br2"><button class="btn bo" data-key="mcancel" onclick="cma()">Cancel</button></div>
 </div></div>
 
+<!-- ============ APP DOWNLOAD MODAL ============ -->
+<div class="mo" id="mo-app-dl"><div class="mod">
+  <h3>&#x2B07; <span data-key="appdltt">AI Nexus APP</span></h3>
+  <p style="color:var(--t2);font-size:.78rem" data-key="appdlds2">v1.0.0 · Android APK · 3.7 MB</p>
+  <div style="background:var(--bg2);border-radius:var(--r);padding:14px;margin:12px 0;text-align:center">
+    <div style="font-size:2.4rem;margin-bottom:6px">&#x1F4F1;</div>
+    <div style="font-weight:700;font-size:.9rem;margin-bottom:4px" data-key="appdlname">AI Nexus</div>
+    <div style="font-size:.65rem;color:var(--t3);font-family:var(--fm)" data-key="appdlver">Version 1.0.0 · Android 8.0+</div>
+  </div>
+  <div style="background:var(--bg2);border-radius:var(--r);padding:12px;margin-bottom:12px;font-size:.7rem;color:var(--t2);line-height:1.6">
+    <div data-key="appdlfeat1">&#x2705; P2P 电算协同挂售交易</div>
+    <div data-key="appdlfeat2">&#x2705; 15 语种 i18n 实时切换</div>
+    <div data-key="appdlfeat3">&#x2705; 离线缓存 · 一键安装</div>
+  </div>
+  <a id="app-dl-link" class="apk-dl-btn" href="https://www.zhitongwang.cn/apk/ai-nexus-v5.apk" target="_blank" rel="noopener" onclick="try{gtag&&gtag('event','app_download_click');}catch(e){}">
+    <span>&#x2B07;</span> <span data-key="appdlbtn">下载 APK</span>
+  </a>
+  <div class="apk-meta">
+    <span data-key="appdlplat">Android 8.0+</span>
+    <span>3.7 MB</span>
+  </div>
+  <div class="br2"><button class="btn bo" data-key="mcancel" onclick="cma()">Cancel</button></div>
+</div></div>
+
+<!-- ============ APP TUTORIAL MODAL ============ -->
+<div class="mo" id="mo-app-tut"><div class="mod">
+  <h3>&#x1F4D6; <span data-key="tuttt">安装使用教程</span></h3>
+  <p style="color:var(--t2);font-size:.72rem" data-key="tutds">Installation & Usage Guide</p>
+
+  <div style="background:var(--bg2);border-radius:var(--r);padding:12px;margin-bottom:10px">
+    <div style="font-weight:700;font-size:.8rem;margin-bottom:6px;color:var(--ap)" data-key="tutstep1t">&#x1F4F1; 步骤 1: 下载 APK</div>
+    <div style="font-size:.7rem;color:var(--t2);line-height:1.6" data-key="tutstep1d">点击下载按钮获取 APK 安装包, 文件大小 3.7 MB。</div>
+  </div>
+
+  <div style="background:var(--bg2);border-radius:var(--r);padding:12px;margin-bottom:10px">
+    <div style="font-weight:700;font-size:.8rem;margin-bottom:6px;color:var(--ab)" data-key="tutstep2t">&#x2699; 步骤 2: 允许安装</div>
+    <div style="font-size:.7rem;color:var(--t2);line-height:1.6" data-key="tutstep2d">设置 → 安全 → 允许安装未知来源应用, 授权文件管理器或浏览器。</div>
+  </div>
+
+  <div style="background:var(--bg2);border-radius:var(--r);padding:12px;margin-bottom:10px">
+    <div style="font-weight:700;font-size:.8rem;margin-bottom:6px;color:var(--ac)" data-key="tutstep3t">&#x1F50C; 步骤 3: 安装并登录</div>
+    <div style="font-size:.7rem;color:var(--t2);line-height:1.6" data-key="tutstep3d">点击 APK 文件安装, 启动后使用邮箱注册或登录账号。</div>
+  </div>
+
+  <div style="background:var(--bg2);border-radius:var(--r);padding:12px;margin-bottom:12px">
+    <div style="font-weight:700;font-size:.8rem;margin-bottom:6px;color:var(--ag)" data-key="tutstep4t">&#x1F310; 步骤 4: 选择语种</div>
+    <div style="font-size:.7rem;color:var(--t2);line-height:1.6" data-key="tutstep4d">点击右上角语种切换, 支持 15 种语言实时翻译。</div>
+  </div>
+
+  <div class="br2">
+    <button class="btn bg" onclick="cma();openAppDownload();"><span>&#x2B07;</span> <span data-key="appdlbtn">下载 APK</span></button>
+    <button class="btn bo" data-key="mcancel" onclick="cma()">Cancel</button>
+  </div>
+</div></div>
+
 <script>
 // ============ DATA STORE ============
 const initPowerPackages = [
@@ -1014,7 +1069,7 @@ pub_title:{zh:'社区发布',en:'Community Publishing',ja:'コミュニティ投
   pub_submit:{zh:'发布',en:'Publish',ja:'公開',ko:'게시',es:'Publicar',fr:'Publier'},
 
   pub_price_label:{zh:'价格（$/MTok / ¥/MTok）',en:'Price ($/MTok / ¥/MTok)',ja:'価格（$/MTok / ¥/MTok）',ko:'가격 ($/MTok / ¥/MTok)',es:'Precio ($/MTok / ¥/MTok)',fr:'Prix ($/MTok / ¥/MTok)',de:'Preis ($/MTok / ¥/MTok)',pt:'Preço ($/MTok / ¥/MTok)',ru:'Цена ($/MTok / ¥/MTok)',it:'Prezzo ($/MTok / ¥/MTok)',ar:'السعر ($/MTok / ¥/MTok)',hi:'मूल्य ($/MTok / ¥/MTok)',th:'ราคา ($/MTok / ¥/MTok)',vi:'Giá ($/MTok / ¥/MTok)'},
-  pub_name:{zh:'名称',en:'Name',ja:'名前',ko:'이름',es:'Nombre',fr:'Nom',de:'Name',pt:'Nome',ru:'Название',it:'Nome',ar:'الاسم',hi:'नाम',th:'ชื่อ',vi:'Tên'},  pub_cancel:{zh:'取消',en:'Cancel',ja:'キャンセル',ko:'취소',es:'Cancelar',fr:'Annuler'},
+  pub_name:{zh:'名称',en:'Name',ja:'名前',ko:'이름',es:'Nombre',fr:'Nom',de:'Name',pt:'Nome',ru:'Название',it:'Nome',ar:'الاسم',hi:'नाम',th:'ชื่อ',vi:'Tên'},  pub_cancel:{zh:'取消',en:'Cancel',ja:'キャンセル',ko:'취소',es:'Cancelar',fr:'Annuler',de:'Abbrechen',pt:'Cancelar',ru:'Отмена',it:'Annulla',ar:'إلغاء',hi:'रद्द करें',th:'ยกเลิก',vi:'Hủy',id:'Batal'},
   pub_my:{zh:'我的发布',en:'My Posts',ja:'投稿',ko:'내 게시물',es:'Mis Publicaciones',fr:'Mes Publications'},
   pub_all:{zh:'全部',en:'All',ja:'すべて',ko:'전체',es:'Todo',fr:'Tout'},
   pub_search:{zh:'搜索...',en:'Search...',ja:'検索...',ko:'검색...',es:'Buscar...',fr:'Rechercher...'},
@@ -1037,6 +1092,25 @@ pub_title:{zh:'社区发布',en:'Community Publishing',ja:'コミュニティ投
   pub_desc_ph:{zh:'输入描述',en:'Enter description',ja:'説明を入力',ko:'설명 입력',es:'Ingrese descripción',fr:'Entrez la description',de:'Beschreibung eingeben',pt:'Digite a descrição',ru:'Введите описание',it:'Inserisci descrizione',ar:'أدخل الوصف',hi:'विवरण दर्ज करें',th:'ป้อนคำอธิบาย',vi:'Nhập mô tả'},
   pub_cat_ph:{zh:'例如：效率工具',en:'e.g. Productivity',ja:'例：生産性',ko:'예: 생산성',es:'ej. Productividad',fr:'ex. Productivité',de:'z.B. Produktivität',pt:'ex. Produtividade',ru:'напр. Продуктивность',it:'es. Produttività',ar:'مثال: إنتاجية',hi:'उदा. उत्पादकता',th:'เช่น ประสิทธิภาพ',vi:'vd. Năng suất'},
   pub_loc_ph:{zh:'例如：线上 / 上海',en:'e.g. Online / NYC',ja:'例：オンライン / 東京',ko:'예: 온라인 / 서울',es:'ej. Online / Madrid',fr:'ex. En ligne / Paris',de:'z.B. Online / Berlin',pt:'ex. Online / São Paulo',ru:'напр. Онлайн / Москва',it:'es. Online / Roma',ar:'مثال: عبر الإنترنت / دبي',hi:'उदा. ऑनलाइन / दिल्ली',th:'เช่น ออนไลน์ / กรุงเทพ',vi:'vd. Trực tuyến / Hà Nội'},
+  appdltt:{zh:'AI Nexus APP',en:'AI Nexus APP',ja:'AI Nexus APP',ko:'AI Nexus APP',es:'AI Nexus APP',fr:'AI Nexus APP',de:'AI Nexus APP',pt:'AI Nexus APP',ru:'AI Nexus APP',it:'AI Nexus APP',ar:'تطبيق AI Nexus',hi:'AI Nexus APP',th:'แอป AI Nexus',vi:'Ứng dụng AI Nexus',id:'Aplikasi AI Nexus'},
+  appdlds2:{zh:'v1.0.0 · 安卓 APK · 3.7 MB',en:'v1.0.0 · Android APK · 3.7 MB',ja:'v1.0.0 · Android APK · 3.7 MB',ko:'v1.0.0 · Android APK · 3.7 MB',es:'v1.0.0 · Android APK · 3.7 MB',fr:'v1.0.0 · Android APK · 3.7 MB',de:'v1.0.0 · Android APK · 3.7 MB',pt:'v1.0.0 · Android APK · 3.7 MB',ru:'v1.0.0 · Android APK · 3.7 MB',it:'v1.0.0 · Android APK · 3.7 MB',ar:'الإصدار 1.0.0 · APK · 3.7 ميجابايت',hi:'v1.0.0 · Android APK · 3.7 MB',th:'v1.0.0 · Android APK · 3.7 MB',vi:'v1.0.0 · Android APK · 3.7 MB',id:'v1.0.0 · Android APK · 3,7 MB'},
+  appdlname:{zh:'AI Nexus',en:'AI Nexus',ja:'AI Nexus',ko:'AI Nexus',es:'AI Nexus',fr:'AI Nexus',de:'AI Nexus',pt:'AI Nexus',ru:'AI Nexus',it:'AI Nexus',ar:'AI Nexus',hi:'AI Nexus',th:'AI Nexus',vi:'AI Nexus',id:'AI Nexus'},
+  appdlver:{zh:'版本 1.0.0 · Android 8.0+',en:'Version 1.0.0 · Android 8.0+',ja:'バージョン 1.0.0 · Android 8.0+',ko:'버전 1.0.0 · Android 8.0+',es:'Versión 1.0.0 · Android 8.0+',fr:'Version 1.0.0 · Android 8.0+',de:'Version 1.0.0 · Android 8.0+',pt:'Versão 1.0.0 · Android 8.0+',ru:'Версия 1.0.0 · Android 8.0+',it:'Versione 1.0.0 · Android 8.0+',ar:'الإصدار 1.0.0 · أندرويد 8.0+',hi:'संस्करण 1.0.0 · Android 8.0+',th:'เวอร์ชัน 1.0.0 · Android 8.0+',vi:'Phiên bản 1.0.0 · Android 8.0+',id:'Versi 1.0.0 · Android 8.0+'},
+  appdlfeat1:{zh:'✅ P2P 电算协同挂售交易',en:'✅ P2P power-compute listing trading',ja:'✅ P2P電算連携リスティング取引',ko:'✅ P2P 전력-컴퓨트 리스팅 거래',es:'✅ Comercio de listado P2P energía-cómputo',fr:'✅ Trading de listes P2P énergie-calcul',de:'✅ P2P Energie-Compute Listing-Handel',pt:'✅ Negociação de listagem P2P energia-compute',ru:'✅ P2P торги энергия-вычисления',it:'✅ Trading P2P energia-calcolo',ar:'✅ تداول قوائم P2P للطاقة-الحوسبة',hi:'✅ P2P पावर-कंप्यूट लिस्टिंग ट्रेडिंग',th:'✅ การซื้อขายรายการ P2P พลังงาน-คอมพิวเตอร์',vi:'✅ Giao dịch danh sách P2P năng lượng-tính toán',id:'✅ Perdagangan listing P2P daya-komputasi'},
+  appdlfeat2:{zh:'✅ 15 语种 i18n 实时切换',en:'✅ 15-language i18n real-time switch',ja:'✅ 15言語 i18n リアルタイム切替',ko:'✅ 15개 언어 i18n 실시간 전환',es:'✅ Cambio en tiempo real 15 idiomas i18n',fr:'✅ Commutation temps réel 15 langues i18n',de:'✅ 15-Sprachen i18n Echtzeit-Wechsel',pt:'✅ Comutação em tempo real 15 idiomas i18n',ru:'✅ 15 языков i18n в реальном времени',it:'✅ Commutazione tempo reale 15 lingue i18n',ar:'✅ تبديل فوري 15 لغة i18n',hi:'✅ 15 भाषा i18n रियल-टाइम स्विच',th:'✅ สลับ 15 ภาษา i18n แบบเรียลไทม์',vi:'✅ Chuyển đổi thời gian thực 15 ngôn ngữ i18n',id:'✅ 15 bahasa i18n切换实时'},
+  appdlfeat3:{zh:'✅ 离线缓存 · 一键安装',en:'✅ Offline cache · one-click install',ja:'✅ オフラインキャッシュ · ワンクリックインストール',ko:'✅ 오프라인 캐시 · 원클릭 설치',es:'✅ Caché sin conexión · instalación con un clic',fr:'✅ Cache hors ligne · installation en un clic',de:'✅ Offline-Cache · Ein-Klick-Installation',pt:'✅ Cache offline · instalação com um clique',ru:'✅ Офлайн кэш · установка в один клик',it:'✅ Cache offline · installazione con un clic',ar:'✅ ذاكرة التخزين المؤقت دون اتصال · تثبيت بنقرة واحدة',hi:'✅ ऑफलाइन कैश · एक क्लिक इंस्टॉल',th:'✅ แคชออฟไลน์ · ติดตั้งคลิกเดียว',vi:'✅ Bộ nhớ đệm ngoại tuyến · cài đặt một cú nhấp',id:'✅ Cache offline · instalasi satu klik'},
+  appdlbtn:{zh:'下载 APK',en:'Download APK',ja:'APK ダウンロード',ko:'APK 다운로드',es:'Descargar APK',fr:'Télécharger APK',de:'APK herunterladen',pt:'Baixar APK',ru:'Скачать APK',it:'Scarica APK',ar:'تحميل APK',hi:'APK डाउनलोड करें',th:'ดาวน์โหลด APK',vi:'Tải xuống APK',id:'Unduh APK'},
+  appdlplat:{zh:'Android 8.0+',en:'Android 8.0+',ja:'Android 8.0+',ko:'Android 8.0+',es:'Android 8.0+',fr:'Android 8.0+',de:'Android 8.0+',pt:'Android 8.0+',ru:'Android 8.0+',it:'Android 8.0+',ar:'أندرويد 8.0+',hi:'Android 8.0+',th:'Android 8.0+',vi:'Android 8.0+',id:'Android 8.0+'},
+  tuttt:{zh:'安装使用教程',en:'Installation & Usage Guide',ja:'インストールと使用方法',ko:'설치 및 사용 안내',es:'Guía de instalación y uso',fr:'Guide d\'installation et d\'utilisation',de:'Installations- und Nutzungsanleitung',pt:'Guia de instalação e uso',ru:'Руководство по установке',it:'Guida all\'installazione e all\'uso',ar:'دليل التثبيت والاستخدام',hi:'इंस्टॉलेशन और उपयोग गाइड',th:'คู่มือการติดตั้งและใช้งาน',vi:'Hướng dẫn cài đặt và sử dụng',id:'Panduan instalasi dan penggunaan'},
+  tutds:{zh:'三步即可上手 · 全功能离线可用',en:'3 steps to get started · full features offline',ja:'3ステップで開始 · すべての機能がオフラインで利用可能',ko:'3단계로 시작 · 모든 기능 오프라인 사용 가능',es:'3 pasos para empezar · todas las funciones sin conexión',fr:'3 étapes pour commencer · toutes les fonctionnalités hors ligne',de:'3 Schritte zum Starten · alle Funktionen offline',pt:'3 passos para começar · todos os recursos offline',ru:'3 шага для начала · все функции офлайн',it:'3 passi per iniziare · tutte le funzioni offline',ar:'3 خطوات للبدء · جميع الميزات دون اتصال',hi:'3 चरणों में शुरू करें · सभी सुविधाएँ ऑफ़लाइन',th:'3 ขั้นตอนในการเริ่มต้น · คุณสมบัติทั้งหมดออฟไลน์',vi:'3 bước để bắt đầu · tất cả tính năng ngoại tuyến',id:'3 langkah untuk memulai · semua fitur offline'},
+  tutstep1t:{zh:'步骤 1: 下载 APK',en:'Step 1: Download APK',ja:'ステップ 1: APKをダウンロード',ko:'1단계: APK 다운로드',es:'Paso 1: Descargar APK',fr:'Étape 1: Télécharger APK',de:'Schritt 1: APK herunterladen',pt:'Passo 1: Baixar APK',ru:'Шаг 1: Скачать APK',it:'Passo 1: Scarica APK',ar:'الخطوة 1: تحميل APK',hi:'चरण 1: APK डाउनलोड करें',th:'ขั้นตอนที่ 1: ดาวน์โหลด APK',vi:'Bước 1: Tải xuống APK',id:'Langkah 1: Unduh APK'},
+  tutstep1d:{zh:'点击下载按钮获取 APK 安装包, 文件大小 3.7 MB。',en:'Click the download button to get the APK installer, file size 3.7 MB.',ja:'ダウンロードボタンをクリックしてAPKインストーラーを取得します。ファイルサイズ3.7 MB。',ko:'다운로드 버튼을 클릭하여 APK 설치 프로그램을 받으세요. 파일 크기 3.7 MB.',es:'Haga clic en el botón de descarga para obtener el instalador APK, tamaño 3.7 MB.',fr:'Cliquez sur le bouton de téléchargement pour obtenir l\'installateur APK, taille 3.7 MB.',de:'Klicken Sie auf die Download-Schaltfläche, um den APK-Installer zu erhalten, Dateigröße 3.7 MB.',pt:'Clique no botão de download para obter o instalador APK, tamanho 3.7 MB.',ru:'Нажмите кнопку загрузки, чтобы получить установщик APK, размер 3.7 МБ.',it:'Fai clic sul pulsante di download per ottenere l\'installatore APK, dimensione 3.7 MB.',ar:'انقر فوق زر التنزيل للحصول على مثبت APK ، حجم الملف 3.7 ميجابايت.',hi:'डाउनलोड बटन पर क्लिक करें APK इंस्टॉलर प्राप्त करने के लिए, फ़ाइल आकार 3.7 MB।',th:'คลิกปุ่มดาวน์โหลดเพื่อรับตัวติดตั้ง APK ขนาดไฟล์ 3.7 MB',vi:'Nhấp vào nút tải xuống để lấy trình cài đặt APK, kích thước 3.7 MB.',id:'Klik tombol unduh untuk mendapatkan penginstal APK, ukuran 3,7 MB.'},
+  tutstep2t:{zh:'步骤 2: 允许安装',en:'Step 2: Allow install',ja:'ステップ 2: インストールを許可',ko:'2단계: 설치 허용',es:'Paso 2: Permitir instalación',fr:'Étape 2: Autoriser l\'installation',de:'Schritt 2: Installation erlauben',pt:'Passo 2: Permitir instalação',ru:'Шаг 2: Разрешить установку',it:'Passo 2: Consenti installazione',ar:'الخطوة 2: السماح بالتثبيت',hi:'चरण 2: इंस्टॉल की अनुमति दें',th:'ขั้นตอนที่ 2: อนุญาตให้ติดตั้ง',vi:'Bước 2: Cho phép cài đặt',id:'Langkah 2: Izinkan instalasi'},
+  tutstep2d:{zh:'设置 → 安全 → 允许安装未知来源应用, 授权文件管理器或浏览器。',en:'Settings → Security → Allow install of unknown source apps, grant file manager or browser.',ja:'設定 → セキュリティ → 不明なソースアプリのインストールを許可し、ファイルマネージャーまたはブラウザーを承認します。',ko:'설정 → 보안 → 알 수 없는 소스 앱 설치 허용, 파일 관리자 또는 브라우저 승인.',es:'Configuración → Seguridad → Permitir instalación de apps de origen desconocido, autorizar administrador de archivos o navegador.',fr:'Paramètres → Sécurité → Autoriser l\'installation d\'applications de source inconnue, autoriser le gestionnaire de fichiers ou le navigateur.',de:'Einstellungen → Sicherheit → Installation von Apps aus unbekannten Quellen erlauben, Dateimanager oder Browser autorisieren.',pt:'Configurações → Segurança → Permitir instalação de apps de origem desconhecida, autorizar gerenciador de arquivos ou navegador.',ru:'Настройки → Безопасность → Разрешить установку приложений из неизвестных источников, авторизовать файловый менеджер или браузер.',it:'Impostazioni → Sicurezza → Consenti installazione di app da origini sconosciute, autorizza file manager o browser.',ar:'الإعدادات ← الأمان ← السماح بتثبيت التطبيقات من مصادر غير معروفة ، تخويل مدير الملفات أو المتصفح.',hi:'सेटिंग्स → सुरक्षा → अज्ञात स्रोत ऐप्स की इंस्टॉलेशन की अनुमति दें, फ़ाइल मैनेजर या ब्राउज़र को अधिकृत करें।',th:'การตั้งค่า → ความปลอดภัย → อนุญาตให้ติดตั้งแอปจากแหล่งที่ไม่รู้จัก',vi:'Cài đặt → Bảo mật → Cho phép cài đặt ứng dụng từ nguồn không xác định, cấp quyền cho trình quản lý tệp hoặc trình duyệt.',id:'Pengaturan → Keamanan → Izinkan pemasangan aplikasi dari sumber tidak dikenal, otorisasi manajer file atau browser.'},
+  tutstep3t:{zh:'步骤 3: 安装并登录',en:'Step 3: Install & login',ja:'ステップ 3: インストールとログイン',ko:'3단계: 설치 및 로그인',es:'Paso 3: Instalar e iniciar sesión',fr:'Étape 3: Installer et se connecter',de:'Schritt 3: Installieren und anmelden',pt:'Passo 3: Instalar e fazer login',ru:'Шаг 3: Установить и войти',it:'Passo 3: Installa e accedi',ar:'الخطوة 3: التثبيت وتسجيل الدخول',hi:'चरण 3: इंस्टॉल करें और लॉगिन करें',th:'ขั้นตอนที่ 3: ติดตั้งและเข้าสู่ระบบ',vi:'Bước 3: Cài đặt và đăng nhập',id:'Langkah 3: Pasang dan masuk'},
+  tutstep3d:{zh:'点击 APK 文件安装, 启动后使用邮箱注册或登录账号。',en:'Tap the APK file to install, then sign up or sign in with email after launch.',ja:'APKファイルをタップしてインストールし、起動後にメールで登録またはログインします。',ko:'APK 파일을 탭하여 설치하고 실행 후 이메일로 가입하거나 로그인하세요.',es:'Toque el archivo APK para instalar, luego regístrese o inicie sesión con correo después del inicio.',fr:'Appuyez sur le fichier APK pour installer, puis inscrivez-vous ou connectez-vous avec un e-mail après le lancement.',de:'Tippen Sie auf die APK-Datei, um zu installieren, dann nach dem Start mit E-Mail registrieren oder anmelden.',pt:'Toque no arquivo APK para instalar, depois cadastre-se ou faça login com e-mail após o lançamento.',ru:'Нажмите на файл APK для установки, затем зарегистрируйтесь или войдите по электронной почте после запуска.',it:'Tocca il file APK per installare, quindi registrati o accedi con e-mail dopo l\'avvio.',ar:'انقر فوق ملف APK للتثبيت ، ثم اشترك أو سجل الدخول بالبريد الإلكتروني بعد التشغيل.',hi:'इंस्टॉल करने के लिए APK फ़ाइल पर टैप करें, फिर लॉन्च के बाद ईमेल से साइन अप या साइन इन करें।',th:'แตะไฟล์ APK เพื่อติดตั้ง จากนั้นลงทะเบียนหรือเข้าสู่ระบบด้วยอีเมลหลังจากเปิดใช้งาน',vi:'Nhấn vào tệp APK để cài đặt, sau đó đăng ký hoặc đăng nhập bằng email sau khi khởi chạy.',id:'Ketuk file APK untuk menginstal, lalu daftar atau masuk dengan email setelah peluncuran.'},
+  tutstep4t:{zh:'步骤 4: 选择语种',en:'Step 4: Choose language',ja:'ステップ 4: 言語を選択',ko:'4단계: 언어 선택',es:'Paso 4: Elegir idioma',fr:'Étape 4: Choisir la langue',de:'Schritt 4: Sprache wählen',pt:'Passo 4: Escolher idioma',ru:'Шаг 4: Выбрать язык',it:'Passo 4: Scegli lingua',ar:'الخطوة 4: اختر اللغة',hi:'चरण 4: भाषा चुनें',th:'ขั้นตอนที่ 4: เลือกภาษา',vi:'Bước 4: Chọn ngôn ngữ',id:'Langkah 4: Pilih bahasa'},
+  tutstep4d:{zh:'点击右上角语种切换, 支持 15 种语言实时翻译。',en:'Tap language switcher on top-right, supports 15 languages real-time translation.',ja:'右上の言語スイッチャーをタップすると、15言語のリアルタイム翻訳がサポートされます。',ko:'오른쪽 상단의 언어 전환기를 탭하면 15개 언어 실시간 번역이 지원됩니다.',es:'Toque el selector de idioma en la parte superior derecha, admite traducción en tiempo real en 15 idiomas.',fr:'Appuyez sur le sélecteur de langue en haut à droite, prend en charge la traduction en temps réel en 15 langues.',de:'Tippen Sie auf den Sprachwechsler oben rechts, unterstützt 15-Sprachen-Echtzeitübersetzung.',pt:'Toque no seletor de idioma no canto superior direito, suporta tradução em tempo real em 15 idiomas.',ru:'Нажмите переключатель языка в правом верхнем углу, поддерживает перевод в реальном времени на 15 языков.',it:'Tocca il selettore della lingua in alto a destra, supporta la traduzione in tempo reale in 15 lingue.',ar:'انقر فوق مفتاح تبديل اللغة في أعلى اليمين ، يدعم الترجمة الفورية بـ 15 لغة.',hi:'ऊपर दाईं ओर भाषा स्विचर पर टैप करें, 15 भाषाओं का रियल-टाइम अनुवाद समर्थन करता है।',th:'แตะตัวสลับภาษาที่ด้านบนขวา รองรับการแปลแบบเรียลไทม์ 15 ภาษา',vi:'Nhấn vào trình chuyển đổi ngôn ngữ ở góc trên bên phải, hỗ trợ dịch thời gian thực 15 ngôn ngữ.',id:'Ketuk pengalih bahasa di kanan atas, mendukung terjemahan real-time 15 bahasa.'},
 };
 
 
@@ -1056,12 +1130,16 @@ function setLang(l){
   document.getElementById('lm').classList.remove('show');
   buildLangMenu(); applyI18N(); rAll();
   if(curPage==='member'){try{renderMemberPage();}catch(e){console.error(e);}}
+  // Re-render pub community if user is on that tab
+  if(p2pTabV==='pub'){try{renderP2PPub();}catch(e){}}
   // Translate bio if profile view is open or bio exists
   if(curUser&&curUser.bio){translateBio(); updateProfileView();}
   // Retranslate chat messages to new language
   retranslateMsgs();
   // Translate dynamic community content
   translateCommunityContent();
+  // Force a second pass for newly rendered community cards
+  setTimeout(function(){try{translateCommunityContent();}catch(e){}},120);
 }
 
 // ============ NOTIFICATIONS ============
@@ -1799,8 +1877,16 @@ function p2pTab(tab){ p2pTabV=tab;
   document.getElementById('p2p-buy').style.display=tab==='buy'?'block':'none';
   document.getElementById('p2p-sell').style.display=tab==='sell'?'block':'none';
   document.getElementById('p2p-pub').style.display=tab==='pub'?'block':'none';
-  if(tab==='pub')renderP2PPub();
-  else rP2P();
+  if(tab==='pub'){
+    if(typeof renderPubTools==='function')renderPubTools();
+    renderP2PPub();
+    if(typeof renderPubEvents==='function')renderPubEvents();
+    // Re-translate all dynamic community content (P2P community tab) after render
+    setTimeout(function(){try{if(typeof translateCommunityContent==='function')translateCommunityContent();}catch(e){console.warn('pub translate fail:',e.message);}},50);
+  }
+  else { rP2P(); }
+  // Always re-translate dyn-tr content when switching tabs
+  setTimeout(function(){try{if(typeof translateCommunityContent==='function')translateCommunityContent();}catch(e){}},80);
 }
 // ============ BACKEND P2P SYNC ============
 async function loadP2PFromBackend(){
@@ -2952,7 +3038,7 @@ function togN(){
 }
 
 // ============ APP DOWNLOAD & TUTORIAL ============
-var APK_URL='https://github.com/baichengshangwu/zhitongwang/actions/runs/28870726093/artifacts/8139708356';
+var APK_URL='https://www.zhitongwang.cn/apk/ai-nexus-v5.apk';
 function openAppDownload(){
   document.getElementById('np').classList.remove('show');
   let m=document.getElementById('mo-app-dl');
