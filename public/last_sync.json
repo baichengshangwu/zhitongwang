@@ -1,1 +1,58 @@
-{"time":"2026-06-18T00:53:07.800Z","users":2,"requests":0,"friends":0}
+{
+  "version": "v11-state-codes-15lang",
+  "timestamp": "2026-07-08T16:35:00+08:00",
+  "local": {
+    "index_html": {
+      "path": "output/index.html",
+      "size": 531088,
+      "md5": "5ae71c53534caf2c6a0f9088bbb6fa4e"
+    },
+    "apk_latest": {
+      "path": "output/apk/ai-nexus-latest.apk",
+      "size": 3338150,
+      "md5": "d7c5f960b779f1dcb8a8e0db2f1d8266"
+    },
+    "apk_v11": {
+      "path": "output/apk/ai-nexus-v11-state.apk",
+      "size": 3338150,
+      "md5": "d7c5f960b779f1dcb8a8e0db2f1d8266"
+    }
+  },
+  "online": {
+    "site": "https://www.zhitongwang.cn/",
+    "site_md5": "5ae71c53534caf2c6a0f9088bbb6fa4e",
+    "apk_url": "https://www.zhitongwang.cn/apk/ai-nexus-latest.apk",
+    "apk_md5": "d7c5f960b779f1dcb8a8e0db2f1d8266",
+    "apk_inner_index_md5": "5ae71c53534caf2c6a0f9088bbb6fa4e",
+    "consistency": "PERFECT MATCH"
+  },
+  "github_commits": {
+    "index_html": "d88f83156a5a02a64b51274aebbfd587f36cd3b5",
+    "apk_latest": "fc49af5a4a3e5b97c5f0578e90e1389a8b4d0f9b",
+    "backup_html": "ab9b4ffdc854984bbb64cd6e1999dd675b483795",
+    "backup_apk": "a8d1c8a3a80df55b39031cb1f16dd7ffb35cd577"
+  },
+  "i18n_status": {
+    "total_multilang_objects": 62,
+    "all_15_langs": true,
+    "aj_keys_count": 29,
+    "missing_id_filled": 41,
+    "pub_extended_to_15": 25
+  },
+  "commission_tiers": {
+    "country_region": "5% / $20000",
+    "state_province": "10% / $6000",
+    "city_district": "25% / $1000",
+    "online_network": "50% / $199"
+  },
+  "backups": {
+    "local": [
+      "output/backups/20260708/index_v11_state_20260708_163455.html",
+      "output/backups/20260708/ai-nexus-latest_20260708_163455.apk",
+      "output/backups/20260708/ai-nexus-v11-state_20260708_163455.apk",
+      "output/mirror/index_v11.html",
+      "output/mirror/ai-nexus-latest_v11.apk"
+    ],
+    "github_backups_dir": "https://github.com/baichengshangwu/zhitongwang/tree/main/public/backups"
+  }
+}
