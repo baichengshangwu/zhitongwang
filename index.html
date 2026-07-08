@@ -950,16 +950,16 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
     <div class="aj-tier" data-tier="city" style="background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(6,182,212,.05));border:1.5px solid rgba(16,185,129,.35);border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px;position:relative;overflow:hidden;cursor:pointer;transition:all .2s" onclick="selectAgentTier(this)">
       <div style="position:absolute;top:0;right:0;background:linear-gradient(135deg,#10b981,#06b6d4);color:#fff;font-size:.58rem;font-weight:700;padding:3px 10px;border-radius:0 12px 0 8px;letter-spacing:.5px" data-key="ajbad_pro">PRO</div>
       <div style="font-size:2.2rem;line-height:1;flex-shrink:0">🏙️</div>
-      <div style="flex:1;min-width:0">
+      <div style="flex:1;min-width:70px">
         <div style="font-weight:800;font-size:.92rem;margin-bottom:3px;color:var(--t1)" data-key="ajt3n">市/区级代理</div>
-        <div style="font-size:.68rem;color:var(--t2);line-height:1.5" data-key="ajt3d">代理一个城市或区域,获取本地市场资源与稳定佣金收入</div>
+        <div style="font-size:.68rem;color:var(--t2);line-height:1.5;word-break:break-word" data-key="ajt3d">代理一个城市或区域,获取本地市场资源与稳定佣金收入</div>
         <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">
           <span style="background:rgba(16,185,129,.15);color:#10b981;font-size:.6rem;font-weight:600;padding:2px 8px;border-radius:10px" data-key="ajt3f1">25% 佣金</span>
           <span style="background:rgba(6,182,212,.15);color:#06b6d4;font-size:.6rem;font-weight:600;padding:2px 8px;border-radius:10px" data-key="ajt3f2">本地资源</span>
           <span style="background:rgba(245,158,11,.15);color:#f59e0b;font-size:.6rem;font-weight:600;padding:2px 8px;border-radius:10px" data-key="ajt3f3">市场支持</span>
         </div>
       </div>
-      <div style="text-align:right;flex-shrink:0;min-width:110px">
+      <div style="text-align:right;flex-shrink:0;min-width:95px">
         <select id="ajr_city_ctry" class="aj-reg-sel" onchange="onAjRegCascade(this,'city_ctry','ajr_city_state')"><option value="" data-key="ajr_sel_ctry">选择国家</option></select>
         <select id="ajr_city_state" class="aj-reg-sel" disabled onchange="onAjRegCascade(this,'city_state','ajr_city')"><option value="" data-key="ajr_sel_state">选择省/州</option></select>
         <select id="ajr_city" class="aj-reg-sel" disabled onchange="onAjRegChange(this,'city')"><option value="" data-key="ajr_sel_city">选择市/区</option></select>
