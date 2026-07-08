@@ -322,10 +322,10 @@ async function fetchBalanceFromBackend(email) {
 API.p2pListings = async function() {
   return await apiFetch(API_BASE + '/api/p2p/listings');
 };
-API.p2pCreateListing = async function(toolId, toolName, toolIcon, toolColor, price, qty, dur) {
+API.p2pCreateListing = async function(toolId, toolName, toolIcon, toolColor, price, qty, dur, saleMode, powerSource, region, slaTier, computeUnit, tokenPerMwh) {
   return await apiFetch(API_BASE + '/api/p2p/listings', {
     method: 'POST',
-    body: JSON.stringify({ tool_id: toolId, tool_name: toolName, tool_icon: toolIcon, tool_color: toolColor, price: price, qty: qty, dur: dur })
+    body: JSON.stringify({ tool_id: toolId, tool_name: toolName, tool_icon: toolIcon, tool_color: toolColor, price: price, qty: qty, dur: dur, sale_mode: saleMode, power_source: powerSource, region: region, sla_tier: slaTier, compute_unit: computeUnit, token_per_mwh: tokenPerMwh })
   });
 };
 API.p2pDeleteListing = async function(id) {
