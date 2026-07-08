@@ -485,13 +485,43 @@ app.post('/api/user/events', requireAuth, (req, res) => {
 
 // ========== P2P ==========
 app.get('/api/p2p/listings', (req, res) => {
-  const listings = getP2PListings();
+  let listings = getP2PListings();
+  // Seed 5 power-compute sample packages on first call
+  if (!listings.find(l => l.id === 'pkg-mix-west-240')) {
+    const seedPackages = [
+      { id: 'pkg-mix-west-240', tool_id: 'pkg-mix-west-240', tool_name: '西部绿电 240M Token/兆瓦时', tool_icon: '⚡', tool_color: '#10b981', price: 0.20, qty: 1000, dur: 365, sale_mode: 'token', power_source: 'mix', region: 'west', sla_tier: 'std', compute_unit: 'mtok', token_per_mwh: 240, owner_email: 'system@zhitongwang.cn', sold: 0, created_at: new Date().toISOString() },
+      { id: 'pkg-wind-yrd-280', tool_id: 'pkg-wind-yrd-280', tool_name: '长三角风电 280M Token/兆瓦时', tool_icon: '🌬️', tool_color: '#3b82f6', price: 0.22, qty: 500, dur: 30, sale_mode: 'month', power_source: 'wind', region: 'yrd', sla_tier: 'ent', compute_unit: 'mtok', token_per_mwh: 280, owner_email: 'system@zhitongwang.cn', sold: 0, created_at: new Date().toISOString() },
+      { id: 'pkg-solar-prd-200', tool_id: 'pkg-solar-prd-200', tool_name: '珠三角光伏 200M Token/兆瓦时', tool_icon: '☀️', tool_color: '#f59e0b', price: 0.18, qty: 800, dur: 365, sale_mode: 'token', power_source: 'solar', region: 'prd', sla_tier: 'std', compute_unit: 'mtok', token_per_mwh: 200, owner_email: 'system@zhitongwang.cn', sold: 0, created_at: new Date().toISOString() },
+      { id: 'pkg-coal-west-360', tool_id: 'pkg-coal-west-360', tool_name: '火电基荷 360M Token/兆瓦时', tool_icon: '💡', tool_color: '#ef4444', price: 0.16, qty: 300, dur: 365, sale_mode: 'year', power_source: 'coal', region: 'west', sla_tier: 'crit', compute_unit: 'mtok', token_per_mwh: 360, owner_email: 'system@zhitongwang.cn', sold: 0, created_at: new Date().toISOString() },
+      { id: 'pkg-gpu-overseas-8xh100', tool_id: 'pkg-gpu-overseas-8xh100', tool_name: '海外 H100 集群 8卡-小时', tool_icon: '🖥️', tool_color: '#8b5cf6', price: 32.0, qty: 200, dur: 7, sale_mode: 'gpu', power_source: 'mix', region: 'overseas', sla_tier: 'crit', compute_unit: 'gpu', token_per_mwh: 0, owner_email: 'system@zhitongwang.cn', sold: 0, created_at: new Date().toISOString() }
+    ];
+    listings = seedPackages.concat(listings);
+    saveP2PListings(listings);
+  }
   res.json({ listings });
 });
 
 app.post('/api/p2p/listings', requireAuth, (req, res) => {
-  const { tool_id, tool_name, tool_icon, tool_color, price, qty, dur } = req.body;
+  const {
+    tool_id, tool_name, tool_icon, tool_color,
+    price, qty, dur,
+    sale_mode, power_source, region, sla_tier, compute_unit, token_per_mwh
+  } = req.body;
   if (!tool_id || !price || !qty) return res.status(400).json({ error: 'tool_id, price, qty required' });
+
+  // 验证电算协同字段
+  const validModes = ['token', 'month', 'year', 'gpu'];
+  const validSources = ['coal', 'wind', 'solar', 'hydro', 'mix'];
+  const validRegions = ['west', 'yrd', 'prd', 'overseas'];
+  const validSla = ['std', 'ent', 'crit'];
+  const validUnit = ['mwh', 'gpu', 'mtok'];
+
+  const mode = validModes.includes(sale_mode) ? sale_mode : 'token';
+  const psrc = validSources.includes(power_source) ? power_source : 'mix';
+  const reg  = validRegions.includes(region) ? region : 'west';
+  const sla  = validSla.includes(sla_tier) ? sla_tier : 'std';
+  const unit = validUnit.includes(compute_unit) ? compute_unit : 'mtok';
+  const cvt  = Math.max(0, Number(token_per_mwh) || 240);
 
   const listings = getP2PListings();
   const newListing = {
@@ -504,6 +534,12 @@ app.post('/api/p2p/listings', requireAuth, (req, res) => {
     price: Number(price),
     qty: Number(qty),
     dur: Number(dur) || 30,
+    sale_mode: mode,
+    power_source: psrc,
+    region: reg,
+    sla_tier: sla,
+    compute_unit: unit,
+    token_per_mwh: cvt,
     sold: 0,
     created_at: new Date().toISOString()
   };
