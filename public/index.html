@@ -217,6 +217,18 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 .aj-reg-sel{width:100%;max-width:160px;padding:3px 6px;font-size:.56rem;border-radius:5px;border:1px solid var(--bc);background:var(--bg);color:var(--t1);cursor:pointer;margin-bottom:3px;font-family:var(--fm)}.aj-reg-sel:disabled{opacity:.45;cursor:not-allowed}.aj-reg-sel:focus{outline:none;border-color:var(--ap)}
 
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* Publish dropdown */
+.pub-dropdown{position:relative;display:inline-block;width:100%}
+.pub-dropdown .pub-btn{width:100%;padding:12px;font-size:.78rem;border-radius:10px;background:var(--ap);color:#fff;border:none;cursor:pointer;font-weight:700;letter-spacing:.5px;transition:var(--tt)}
+.pub-dropdown .pub-btn:hover{opacity:.9;transform:translateY(-1px)}
+.pub-dropdown .pub-menu{display:none;position:absolute;top:100%;left:0;right:0;z-index:100;background:var(--bg);border:1px solid var(--bd);border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.35);overflow:hidden;margin-top:6px}
+.pub-dropdown .pub-menu.show{display:block;animation:fadeIn .2s}
+.pub-dropdown .pub-item{display:flex;align-items:center;gap:10px;padding:11px 14px;font-size:.78rem;color:var(--t1);cursor:pointer;border-bottom:1px solid var(--bgc);transition:background .15s}
+.pub-dropdown .pub-item:last-child{border-bottom:none}
+.pub-dropdown .pub-item:hover{background:var(--bgc);color:#fff}
+.pub-dropdown .pub-icon{font-size:1.1rem;width:24px;text-align:center}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
@@ -566,11 +578,14 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 
 <!-- Create Post Bar -->
 <div class="card" style="margin-bottom:10px">
-  <div class="g2" style="grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
-    <button class="btn bg bw" onclick="openForumPost('article')" style="font-size:.75rem;padding:10px" data-key="fmarticle">&#x1F4DD; 发图文文章</button>
-    <button class="btn bg bw" onclick="openForumPost('video')" style="font-size:.75rem;padding:10px" data-key="fmvideo">&#x1F3AC; 发短视频</button>
-    <button class="btn bg bw" onclick="openForumPost('course')" style="font-size:.75rem;padding:10px" data-key="fmcourse">&#x1F393; 视频课程</button>
-    <button class="btn bg bw" onclick="openForumPost('audio')" style="font-size:.75rem;padding:10px" data-key="fmaudio">&#x1F399; 播音课程</button>
+  <div class="pub-dropdown">
+    <button class="pub-btn" onclick="togglePublishMenu(event)" data-key="fmpub">发布</button>
+    <div class="pub-menu" id="pub-menu">
+      <div class="pub-item" onclick="openForumPost('article')"><span class="pub-icon">&#x1F4DD;</span><span data-key="fmpub_tw">图文</span></div>
+      <div class="pub-item" onclick="openForumPost('video')"><span class="pub-icon">&#x1F3AC;</span><span data-key="fmpub_sp">短视频</span></div>
+      <div class="pub-item" onclick="openForumPost('course')"><span class="pub-icon">&#x1F393;</span><span data-key="fmpub_vc">视频课程</span></div>
+      <div class="pub-item" onclick="openForumPost('audio')"><span class="pub-icon">&#x1F399;</span><span data-key="fmpub_ac">播音课程</span></div>
+    </div>
   </div>
   <div style="margin-top:10px">
     <button class="btn bg bw" onclick="openForumLive()" style="width:100%;padding:10px;font-size:.78rem;background:linear-gradient(135deg,#ef4444,#ec4899)" data-key="fmlive">&#x1F534; 开启直播</button>
@@ -1247,6 +1262,13 @@ pub_title:{zh:'社区发布',en:'Community Publishing',ja:'コミュニティ投
   tutstep3d:{zh:'点击 APK 文件安装, 启动后使用邮箱注册或登录账号。',en:'Tap the APK file to install, then sign up or sign in with email after launch.',ja:'APKファイルをタップしてインストールし、起動後にメールで登録またはログインします。',ko:'APK 파일을 탭하여 설치하고 실행 후 이메일로 가입하거나 로그인하세요.',es:'Toque el archivo APK para instalar, luego regístrese o inicie sesión con correo después del inicio.',fr:'Appuyez sur le fichier APK pour installer, puis inscrivez-vous ou connectez-vous avec un e-mail après le lancement.',de:'Tippen Sie auf die APK-Datei, um zu installieren, dann nach dem Start mit E-Mail registrieren oder anmelden.',pt:'Toque no arquivo APK para instalar, depois cadastre-se ou faça login com e-mail após o lançamento.',ru:'Нажмите на файл APK для установки, затем зарегистрируйтесь или войдите по электронной почте после запуска.',it:'Tocca il file APK per installare, quindi registrati o accedi con e-mail dopo l\'avvio.',ar:'انقر فوق ملف APK للتثبيت ، ثم اشترك أو سجل الدخول بالبريد الإلكتروني بعد التشغيل.',hi:'इंस्टॉल करने के लिए APK फ़ाइल पर टैप करें, फिर लॉन्च के बाद ईमेल से साइन अप या साइन इन करें।',th:'แตะไฟล์ APK เพื่อติดตั้ง จากนั้นลงทะเบียนหรือเข้าสู่ระบบด้วยอีเมลหลังจากเปิดใช้งาน',vi:'Nhấn vào tệp APK để cài đặt, sau đó đăng ký hoặc đăng nhập bằng email sau khi khởi chạy.',id:'Ketuk file APK untuk menginstal, lalu daftar atau masuk dengan email setelah peluncuran.'},
   tutstep4t:{zh:'步骤 4: 选择语种',en:'Step 4: Choose language',ja:'ステップ 4: 言語を選択',ko:'4단계: 언어 선택',es:'Paso 4: Elegir idioma',fr:'Étape 4: Choisir la langue',de:'Schritt 4: Sprache wählen',pt:'Passo 4: Escolher idioma',ru:'Шаг 4: Выбрать язык',it:'Passo 4: Scegli lingua',ar:'الخطوة 4: اختر اللغة',hi:'चरण 4: भाषा चुनें',th:'ขั้นตอนที่ 4: เลือกภาษา',vi:'Bước 4: Chọn ngôn ngữ',id:'Langkah 4: Pilih bahasa'},
   tutstep4d:{zh:'点击右上角语种切换, 支持 15 种语言实时翻译。',en:'Tap language switcher on top-right, supports 15 languages real-time translation.',ja:'右上の言語スイッチャーをタップすると、15言語のリアルタイム翻訳がサポートされます。',ko:'오른쪽 상단의 언어 전환기를 탭하면 15개 언어 실시간 번역이 지원됩니다.',es:'Toque el selector de idioma en la parte superior derecha, admite traducción en tiempo real en 15 idiomas.',fr:'Appuyez sur le sélecteur de langue en haut à droite, prend en charge la traduction en temps réel en 15 langues.',de:'Tippen Sie auf den Sprachwechsler oben rechts, unterstützt 15-Sprachen-Echtzeitübersetzung.',pt:'Toque no seletor de idioma no canto superior direito, suporta tradução em tempo real em 15 idiomas.',ru:'Нажмите переключатель языка в правом верхнем углу, поддерживает перевод в реальном времени на 15 языков.',it:'Tocca il selettore della lingua in alto a destra, supporta la traduzione in tempo reale in 15 lingue.',ar:'انقر فوق مفتاح تبديل اللغة في أعلى اليمين ، يدعم الترجمة الفورية بـ 15 لغة.',hi:'ऊपर दाईं ओर भाषा स्विचर पर टैप करें, 15 भाषाओं का रियल-टाइम अनुवाद समर्थन करता है।',th:'แตะตัวสลับภาษาที่ด้านบนขวา รองรับการแปลแบบเรียลไทม์ 15 ภาษา',vi:'Nhấn vào trình chuyển đổi ngôn ngữ ở góc trên bên phải, hỗ trợ dịch thời gian thực 15 ngôn ngữ.',id:'Ketuk pengalih bahasa di kanan atas, mendukung terjemahan real-time 15 bahasa.'},ajr_sel_ctry:'Seleziona Paese',ajr_sel_state:'Seleziona Stato/Provincia',ajr_sel_city:'Seleziona Città/Distretto',
+  fmpub:{zh:'发布',en:'Publish',ja:'投稿',ko:'게시',es:'Publicar',fr:'Publier',de:'Veröffentlichen',pt:'Publicar',ru:'Опубликовать',it:'Pubblica',ar:'نشر',hi:'प्रकाशित करें',th:'เผยแพร่',vi:'Đăng',id:'Terbitkan'},
+  fmpub_tw:{zh:'图文',en:'Article',ja:'記事',ko:'글',es:'Artículo',fr:'Article',de:'Artikel',pt:'Artigo',ru:'Статья',it:'Articolo',ar:'مقال',hi:'लेख',th:'บทความ',vi:'Bài viết',id:'Artikel'},
+  fmpub_sp:{zh:'短视频',en:'Short Video',ja:'ショート動画',ko:'숏폼',es:'Video Corto',fr:'Courte Vidéo',de:'Kurzes Video',pt:'Vídeo Curto',ru:'Короткое видео',it:'Video Breve',ar:'فيديو قصير',hi:'लघु वीडियो',th:'วิดีโอสั้น',vi:'Video Ngắn',id:'Video Pendek'},
+  fmpub_vc:{zh:'视频课程',en:'Video Course',ja:'動画講座',ko:'비디오 강좌',es:'Curso en Vídeo',fr:'Cours Vidéo',de:'Videokurs',pt:'Curso em Vídeo',ru:'Видеокурс',it:'Corso Video',ar:'دورة فيديو',hi:'वीडियो कोर्स',th:'คอร์สวิดีโอ',vi:'Khóa Học Video',id:'Kursus Video'},
+  fmpub_ac:{zh:'播音课程',en:'Audio Course',ja:'音声講座',ko:'오디오 강좌',es:'Curso de Audio',fr:'Cours Audio',de:'Audiokurs',pt:'Curso de Áudio',ru:'Аудиокурс',it:'Corso Audio',ar:'دورة صوتية',hi:'ऑडियो कोर्स',th:'คอร์สเสียง',vi:'Khóa Học Âm Thanh',id:'Kursus Audio'},
+  fmnottl:{zh:'请输入标题',en:'Please enter a title',ja:'タイトルを入力してください',ko:'제목을 입력하세요',es:'Introduzca un título',fr:'Veuillez saisir un titre',de:'Bitte Titel eingeben',pt:'Insira um título',ru:'Введите заголовок',it:'Inserisci un titolo',ar:'الرجاء إدخال عنوان',hi:'कृपया शीर्षक दर्ज करें',th:'กรุณากรอกหัวข้อ',vi:'Vui lòng nhập tiêu đề',id:'Silakan masukkan judul'},
+  fmmoderate:{zh:'内容违规，禁止发布',en:'Content violation, publishing blocked',ja:'コンテンツ違反のため公開をブロック',ko:'콘텐츠 위반, 게시 차단됨',es:'Contenido infractor, publicación bloqueada',fr:'Contenu en infraction, publication bloquée',de:'Inhaltsverstoß, Veröffentlichung blockiert',pt:'Conteúdo viola regras, publicação bloqueada',ru:'Нарушение правил, публикация заблокирована',it:'Contenuto illecito, pubblicazione bloccata',ar:'انتهاك المحتوى، تم حظر النشر',hi:'सामग्री उल्लंघन, प्रकाशन अवरुद्ध',th:'เนื้อหาละเมิดกฎ ถูกบล็อกการเผยแพร่',vi:'Vi phạm nội dung, bị chặn đăng',id:'Konten melanggar aturan, publikasi diblokir'}
 };
 
 
@@ -2405,9 +2427,10 @@ var forumFilter = 'all';
 var forumPosts = [];
 
 function openForumPost(type){
+  closePublishMenu();
   if(!curUser){ notify(t('noauth'),'⚠'); return; }
   document.getElementById('mo-forum-post').style.display='flex';
-  var titles = {article:t('fmarticle'),video:t('fmvideo'),course:t('fmcourse'),audio:t('fmaudio')};
+  var titles = {article:t('fmpub_tw'),video:t('fmpub_sp'),course:t('fmpub_vc'),audio:t('fmpub_ac')};
   document.getElementById('forum-post-title').textContent = titles[type] || t('fmnewpost');
   document.getElementById('mo-forum-post').dataset.type = type;
   document.getElementById('forum-post-body').value = '';
@@ -2415,6 +2438,19 @@ function openForumPost(type){
   document.getElementById('forum-media-preview').innerHTML = '';
   document.getElementById('forum-cover-img').style.display = 'none';
 }
+
+function togglePublishMenu(e){
+  e.stopPropagation();
+  var menu = document.getElementById('pub-menu');
+  menu.classList.toggle('show');
+}
+function closePublishMenu(){
+  var menu = document.getElementById('pub-menu');
+  if(menu) menu.classList.remove('show');
+}
+document.addEventListener('click', function(e){
+  if(!e.target.closest('.pub-dropdown')) closePublishMenu();
+});
 
 function handleForumMedia(e){
   var files = e.target.files;
@@ -2446,10 +2482,51 @@ function handleForumCover(e){
   img.src = URL.createObjectURL(f);
 }
 
+// Content moderation - detect illegal/sensitive content
+var MODERATION_RULES = [
+  // Political sensitivity terms
+  {pattern:/领导|主席|总理|书记|常委|政治局|人大|政协|军委|中央|政府|共产党|中共|gcd|ccp|党中央|总书记|国家主席|国务院|中南海|xjp|xi jinping|习近平|胡锦涛|温家宝|李克强|江泽民|邓小平|mao|毛泽东|周恩来|六四|天安门|法轮功|flg|falungong|藏独|疆独|台独|港独|td|zd|jd|六四事件|8964/g, label:'政治敏感'},
+  // Gore/violence
+  {pattern:/杀人|砍人|割喉|分尸|肢解|剥皮|挖眼|斩首|虐杀|碎尸|焚尸|血淋淋|内脏|肠子|脑浆|眼球|碎肉|人肉|血腥|gore|mutilat|dismember|behead/g, label:'血腥暴力'},
+  // Terrorism
+  {pattern:/恐怖|圣战|jihad|isil|isis|基地组织|塔利班|东突|炸弹|爆炸|恐怖袭击|terrorist|terrorism|bomb attack/g, label:'恐怖主义'},
+  // Infringement
+  {pattern:/盗版|crack|破解版|注册机|keygen|补丁|patch|序列号|激活码|注册码|license key|破解补丁|绿色版|去广告版|vip破解|会员破解/g, label:'侵权内容'},
+  // Fraud
+  {pattern:/赚钱|发财|暴富|日赚|月入|躺赚|稳赚|必赚|包赚|高收益|高回报|翻倍|投资理财|股票推荐|crypto|刷单|兼职|网赚|返利|传销|庞氏/g, label:'诈骗风险'},
+  // Gambling
+  {pattern:/赌博|赌场|彩票|博彩|六合彩|百家乐|赌球|德州扑克|赌城|casino|gambling|bet365|1xbet/g, label:'赌博内容'},
+  // Drugs
+  {pattern:/毒品|大麻|冰毒|海洛因|k粉|摇头丸|吗啡|可卡因|吸毒|cocaine|heroin|meth|drug abuse/g, label:'毒品内容'},
+  // Porn
+  {pattern:/裸体|裸聊|色情|情色|成人|av|porn|sex视频|约炮|一夜情|援交|卖淫|嫖娼|外围女|福利姬/g, label:'色情内容'},
+  // Weapons
+  {pattern:/枪支|枪械|手枪|步枪|子弹|弹药|炸药|雷管|炸弹制作|制毒|造枪/g, label:'违禁品'}
+];
+
+function moderateContent(text){
+  var combined = text.toLowerCase();
+  for(var i=0; i<MODERATION_RULES.length; i++){
+    var rule = MODERATION_RULES[i];
+    if(rule.pattern.test(combined)){
+      return { blocked: true, reason: rule.label };
+    }
+  }
+  return { blocked: false, reason: '' };
+}
+
 async function publishForumPost(){
   var title = document.getElementById('forum-post-title-inp').value.trim();
   var body = document.getElementById('forum-post-body').value.trim();
-  if(!title){ notify('Please enter a title','⚠'); return; }
+  if(!title){ notify(t('fmnottl'),'⚠'); return; }
+
+  // Content moderation check
+  var check = moderateContent(title + ' ' + body);
+  if(check.blocked){
+    notify(t('fmmoderate') + ': ' + check.reason, '🛡️');
+    return;
+  }
+
   var type = document.getElementById('mo-forum-post').dataset.type || 'article';
   var post = {
     id: 'fp_'+Date.now(),
@@ -2460,7 +2537,8 @@ async function publishForumPost(){
     authorName: curUser.name || curUser.email.split('@')[0],
     createdAt: new Date().toISOString(),
     likes: 0,
-    comments: []
+    comments: [],
+    moderated: false
   };
   forumPosts.unshift(post);
   closeModal('mo-forum-post');
