@@ -2471,7 +2471,7 @@ async function publishForumPost(){
 function filterForum(type){
   forumFilter = type;
   document.querySelectorAll('.ftab').forEach(function(t){ t.classList.remove('active'); t.style.background=''; t.style.color='var(--t2)'; });
-  var target = document.querySelector('.ftab[onclick="filterForum(''+type+'')"]');
+  var target = document.querySelector('.ftab[onclick="filterForum(\''+type+'\')"]');
   if(target){ target.classList.add('active'); target.style.background='var(--ap)'; target.style.color='#fff'; }
   loadForumFeed();
 }
@@ -2488,7 +2488,7 @@ function loadForumFeed(){
     var p = filtered[i];
     var typeIcon = {article:'📝',video:'🎬',course:'🎓',audio:'🎙️',live:'🔴'}[p.type]||'📝';
     var typeLabel = {article:t('fmart'),video:t('fmvid'),course:t('fmcos'),audio:t('fmaud'),live:t('fmlive2')}[p.type]||'';
-    h+='<div class="card" style="cursor:pointer;padding:12px;transition:var(--tt)" onmouseover="this.style.borderColor=\\'var(--ap)\\'" onmouseout="this.style.borderColor=\\'var(--bd)\\'" onclick="viewForumPost(\''+p.id+'\')">';
+    h+='<div class="card" style="cursor:pointer;padding:12px;transition:var(--tt)" onmouseover="this.style.borderColor=\'var(--ap)\'" onmouseout="this.style.borderColor=\'var(--bd)\'" onclick="viewForumPost(\''+p.id+'\')">';
     h+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:.85rem">'+typeIcon+'</span><span style="font-size:.62rem;background:var(--ap);color:#fff;padding:1px 6px;border-radius:8px">'+typeLabel+'</span></div>';
     h+='<div style="font-weight:700;font-size:.85rem;margin-bottom:4px;color:#fff">'+escHtml(p.title)+'</div>';
     if(p.body) h+='<div style="font-size:.72rem;color:var(--t2);margin-bottom:6px;line-height:1.5;max-height:40px;overflow:hidden">'+escHtml(p.body)+'</div>';
@@ -3961,7 +3961,7 @@ const stateI18n = {
   'Osaka': {'ar': 'أوساكا', 'de': 'Osaka', 'es': 'Osaka', 'fr': 'Osaka', 'ja': '大阪', 'ko': '오사카', 'ru': 'Осака', 'th': 'โอซาก้า', 'vi': 'Osaka', 'zh': '大阪'},
   'Penang': {'de': 'Penang', 'fr': 'Penang', 'ja': 'ペナン', 'ko': '페낭', 'ru': 'Пинанг', 'th': 'ปีนัง', 'vi': 'Penang', 'zh': '槟城'},
   'Phuket': {'ar': 'فوكيت', 'de': 'Phuket', 'fr': 'Phuket', 'ja': 'プーケット', 'ko': '푸켓', 'ru': 'Пхукет', 'th': 'ภูเก็ต', 'vi': 'Phuket', 'zh': '普吉'},
-  'Provence-Alpes-Côte d'Azur': {'de': 'Provence-Alpes-Côte d'Azur', 'fr': "Provence-Alpes-Côte d'Azur", 'ja': 'プロヴァンス＝アルプ＝コート・ダジュール', 'ko': '프로방스알프코트다쥐르', 'ru': 'Прованс-Альпы-Лазурный Берег', 'th': 'พรอว็องซาลป์-โกตดาซูร์', 'vi': "Provence-Alpes-Côte d'Azur", 'zh': '普罗旺斯-阿尔卑斯-蔚蓝海岸'},
+  "Provence-Alpes-Côte d'Azur": {'de': "Provence-Alpes-Côte d'Azur", 'fr': "Provence-Alpes-Côte d'Azur", 'ja': 'プロヴァンス＝アルプ＝コート・ダジュール', 'ko': '프로방스알프코트다쥐르', 'ru': 'Прованс-Альпы-Лазурный Берег', 'th': 'พรอว็องซาลป์-โกตดาซูร์', 'vi': "Provence-Alpes-Côte d'Azur", 'zh': '普罗旺斯-阿尔卑斯-蔚蓝海岸'},
   'Quebec': {'ar': 'كيبيك', 'de': 'Québec', 'es': 'Quebec', 'fr': 'Québec', 'ja': 'ケベック', 'ko': '퀘벡', 'ru': 'Квебек', 'th': 'ควิเบก', 'vi': 'Québec', 'zh': '魁北克'},
   'Queensland': {'ar': 'كوينزلاند', 'de': 'Queensland', 'es': 'Queensland', 'fr': 'Queensland', 'ja': 'クイーンズランド', 'ko': '퀸즐랜드', 'ru': 'Квинсленд', 'th': 'ควีนส์แลนด์', 'vi': 'Queensland', 'zh': '昆士兰'},
   'Rio de Janeiro': {'ar': 'ريو دي جانيرو', 'de': 'Rio de Janeiro', 'es': 'Río de Janeiro', 'fr': 'Rio de Janeiro', 'ja': 'リオデジャネイロ', 'ko': '리우데자네이루', 'ru': 'Рио-де-Жанейро', 'th': 'รีโอเดจาเนโร', 'vi': 'Rio de Janeiro', 'zh': '里约热内卢'},
