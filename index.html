@@ -567,6 +567,118 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
 </div></div>
 
+<!-- ============ MEMBER PAGE ============ -->
+<div class="pg" id="page-member">
+<button class="bbtn" onclick="sp('market');togNav(true)" style="margin-bottom:10px" data-key="bck">&#8592; Back</button>
+
+<div style="margin-bottom:12px">
+  <h2 style="font-size:1.5rem;font-weight:800;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;word-break:break-word" data-key="mbt">会员中心</h2>
+  <p style="color:var(--t2);font-size:.8rem;margin-top:2px;word-break:break-word;line-height:1.5" data-key="mbsubtitle">累计充值自动升级会员等级,享受专属权益</p>
+</div>
+
+<div class="card" style="margin-bottom:10px;background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(236,72,153,.08));border:1px solid rgba(139,92,246,.25)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap">
+    <div id="m-current-badge" style="font-size:2.2rem;line-height:1">💎</div>
+    <div style="flex:1;min-width:140px">
+      <div style="font-size:.7rem;color:var(--t3);margin-bottom:2px" data-key="mcurrentlv">当前等级</div>
+      <div id="m-current-name" style="font-size:1.1rem;font-weight:800;color:var(--t1)">-</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:.7rem;color:var(--t3);margin-bottom:2px" data-key="mtotalmb">会员总人数</div>
+      <div id="m-total-count" style="font-size:1.2rem;font-weight:800;color:var(--ap);font-family:var(--fm)">0</div>
+    </div>
+  </div>
+  <div style="background:var(--bg);border-radius:10px;padding:10px;margin-bottom:8px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span style="font-size:.7rem;color:var(--t3)" data-key="mrech">累计充值</span>
+      <span id="m-recharge-total" style="font-size:.95rem;font-weight:800;color:var(--ap);font-family:var(--fm)">0.00</span>
+    </div>
+    <div id="m-progress-bar" style="height:6px;background:var(--bgc);border-radius:3px;overflow:hidden">
+      <div id="m-progress-fill" style="height:100%;width:0%;background:linear-gradient(90deg,var(--ap),var(--ag));transition:width .4s"></div>
+    </div>
+    <div id="m-next-hint" style="font-size:.7rem;color:var(--t3);margin-top:6px">距离下一级还需 0.00 CNY</div>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:10px">
+  <div class="card" style="cursor:pointer;text-align:center;padding:14px 8px" onclick="openMemberModule('wallet')">
+    <div style="font-size:1.8rem;margin-bottom:6px">💰</div>
+    <div style="font-size:.85rem;font-weight:700;margin-bottom:2px" data-key="mwallet">会员余额(钱包)</div>
+    <div id="m-wallet-bal" style="font-size:.7rem;color:var(--t2);font-family:var(--fm)">0.00 CNY</div>
+  </div>
+  <div class="card" style="cursor:pointer;text-align:center;padding:14px 8px" onclick="openMemberModule('rwc')">
+    <div style="font-size:1.8rem;margin-bottom:6px">💳</div>
+    <div style="font-size:.85rem;font-weight:700;margin-bottom:2px" data-key="mrwc">充值 / 提现</div>
+    <div style="font-size:.7rem;color:var(--t2)" data-key="mrwcsub">中心</div>
+  </div>
+  <div class="card" style="cursor:pointer;text-align:center;padding:14px 8px" onclick="openMemberModule('vault')">
+    <div style="font-size:1.8rem;margin-bottom:6px">🏦</div>
+    <div style="font-size:.85rem;font-weight:700;margin-bottom:2px" data-key="mtknpck">代币存库包</div>
+    <div style="font-size:.7rem;color:var(--t2)" data-key="mtknpcks">安全储存代币</div>
+  </div>
+  <div class="card" style="cursor:pointer;text-align:center;padding:14px 8px" onclick="openMemberModule('energy')">
+    <div style="font-size:1.8rem;margin-bottom:6px">⚡</div>
+    <div style="font-size:.85rem;font-weight:700;margin-bottom:2px" data-key="mtknenergy">Token 能量包</div>
+    <div id="m-energy-bal" style="font-size:.7rem;color:var(--t2);font-family:var(--fm)">0 Token</div>
+  </div>
+  <div class="card" style="cursor:pointer;text-align:center;padding:14px 8px" onclick="openMemberModule('subscribe')">
+    <div style="font-size:1.8rem;margin-bottom:6px">🤖</div>
+    <div style="font-size:.85rem;font-weight:700;margin-bottom:2px" data-key="msub2">订阅大模型工具箱</div>
+    <div style="font-size:.7rem;color:var(--t2)" data-key="msub2sub">月度/年度自动续费</div>
+  </div>
+  <div class="card" style="cursor:pointer;text-align:center;padding:14px 8px" onclick="openMemberModule('stake')">
+    <div style="font-size:1.8rem;margin-bottom:6px">📈</div>
+    <div style="font-size:.85rem;font-weight:700;margin-bottom:2px" data-key="mlock">代币抵押银行</div>
+    <div style="font-size:.7rem;color:var(--t2)" data-key="mlocksub">日息实时更新</div>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:10px">
+  <div class="ch"><div class="ct" data-key="msettle">资金池账户</div></div>
+  <div style="background:var(--bg);border-radius:10px;padding:12px">
+    <div style="font-size:.7rem;color:var(--t3);margin-bottom:4px" data-key="mplatform">平台资金池</div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
+      <div id="m-pool-addr" style="flex:1;min-width:160px;font-family:var(--fm);font-size:.8rem;word-break:break-all;color:var(--ap)">TXyZ1234567890abcdefghijklmnopqrstuvwx</div>
+      <button class="btn bo bs" style="font-size:.7rem" onclick="copyPoolAddr()" data-key="mpoolcopy">复制池地址</button>
+    </div>
+    <div style="font-size:.65rem;color:var(--t3);line-height:1.5" data-key="msettlesub">平台统一收款地址 · 请向此地址充值USDT(TRC20)完成入金</div>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:10px">
+  <div class="ch"><div class="ct" data-key="mblv">会员等级</div></div>
+  <div id="member-levels" class="g2" style="grid-template-columns:repeat(5,minmax(0,1fr));gap:6px"></div>
+  <div style="font-size:.7rem;color:var(--t3);margin-top:8px;text-align:center" data-key="mrechargrule">累计充值自动升级</div>
+</div>
+
+<div class="card" style="margin-bottom:10px">
+  <div class="ch"><div class="ct" data-key="mbinvite">邀请奖励</div></div>
+  <div class="g2" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:10px">
+    <div style="background:var(--bg);border-radius:10px;padding:12px;text-align:center"><div style="font-size:.7rem;color:var(--t3);margin-bottom:4px" data-key="invtotal">总收益</div><div style="font-size:1.3rem;font-weight:800;color:var(--ap);font-family:var(--fm)" id="invite-total">0.00</div><div style="font-size:.65rem;color:var(--t3)">CNY</div></div>
+    <div style="background:var(--bg);border-radius:10px;padding:12px;text-align:center"><div style="font-size:.7rem;color:var(--t3);margin-bottom:4px" data-key="invpending">待使用收益</div><div style="font-size:1.3rem;font-weight:800;color:var(--ag);font-family:var(--fm)" id="invite-pending">0.00</div><div style="font-size:.65rem;color:var(--t3)">CNY</div></div>
+    <div style="background:var(--bg);border-radius:10px;padding:12px;text-align:center"><div style="font-size:.7rem;color:var(--t3);margin-bottom:4px" data-key="invcount">邀请人数</div><div style="font-size:1.3rem;font-weight:800;color:#fff;font-family:var(--fm)" id="invite-count">0</div><div style="font-size:.65rem;color:var(--t3)">users</div></div>
+  </div>
+  <div style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:10px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
+      <div style="flex:1;min-width:120px"><div style="font-size:.7rem;color:var(--t3);margin-bottom:4px" data-key="invcode">邀请码</div><div style="font-family:var(--fm);font-weight:700;font-size:1rem;letter-spacing:2px" id="invite-code">&#8212;</div></div>
+      <button class="btn bo bs" onclick="copyInvite()" data-key="invcopy">复制链接</button>
+    </div>
+    <div style="font-size:.7rem;color:var(--t3);margin-bottom:4px" data-key="invlink">邀请链接</div>
+    <input type="text" id="invite-link" readonly style="font-family:var(--fm);font-size:.72rem;background:var(--bgc);color:var(--t2)">
+  </div>
+  <div style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:10px;font-size:.78rem;line-height:1.7;color:var(--t2)">
+    <div style="font-weight:700;margin-bottom:6px;color:var(--t1)">&#8226; <span data-key="invrule1">邀请好友注册,好友充值后您可获得相应奖励</span></div>
+    <div style="font-weight:700;margin-bottom:6px;color:var(--t1)">&#8226; <span data-key="invrule2">通过划转功能将奖励额度转入到您的账户余额中</span></div>
+    <div style="font-weight:700;color:var(--t1)">&#8226; <span data-key="invrule3">邀请的好友越多,获得的奖励越多</span></div>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button class="btn bg bw" onclick="transferInvite()" data-key="invtransfer">划转到余额</button>
+    <button class="btn bo bs" onclick="addDemoInvite()" data-key="invdemo">模拟邀请+1(演示)</button>
+  </div>
+</div>
+</div>
+
+
 <!-- ============ FORUM PAGE ============ -->
 <div class="pg" id="page-forum">
 <button class="bbtn" onclick="sp('market');togNav(true)" style="margin-bottom:10px" data-key="bck">&#8592; Back</button>
