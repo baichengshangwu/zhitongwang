@@ -6603,7 +6603,6 @@ function onAjRegCascade(src, tier, childId) {
   if (!region || !region.s.length) { child.disabled = true; child.innerHTML = child.querySelector('option[data-key]').outerHTML; return; }
   child.disabled = false;
   let countryLabel = ajRegionsI18n[val] ? (ajRegionsI18n[val][curLang] || val) : val;
-  let countryLabel = ajRegionsI18n[val] ? (ajRegionsI18n[val][curLang] || val) : val;
   let opts = region.s.map(s => `<option value="${s.n}">${countryLabel} / ${s.n}</option>`).join('');
   child.innerHTML = child.querySelector('option[data-key]').outerHTML + opts;
   // Reset grandchild if exists
