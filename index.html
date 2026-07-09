@@ -715,9 +715,13 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <h3 id="forum-post-title" data-key="fmnewpost">发布新内容</h3>
   <div class="ig"><label data-key="fmtitle">标题</label><input type="text" id="forum-post-title-inp" data-key-ph="fmtitleph" placeholder="输入标题..."></div>
   <div class="ig"><label data-key="fmbody">正文内容</label><textarea id="forum-post-body" rows="5" data-key-ph="fmbodyph" placeholder="分享你的想法..."></textarea></div>
-  <div class="ig"><label data-key="fmmedia">上传图片/视频/音频 (多图可选)</label><input type="file" id="forum-media-inp" accept="image/*,video/*,audio/*" multiple onchange="handleForumMedia(event)" style="font-size:.7rem"></div>
-  <div id="forum-media-preview" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"></div>
-  <div class="ig"><label data-key="fmcover">封面图 (视频/课程必选)</label><input type="file" id="forum-cover-inp" accept="image/*" onchange="handleForumCover(event)" style="font-size:.7rem"></div>
+  <div class="ig"><label>📷 图片 (多图可选)</label><input type="file" id="forum-img-inp" accept="image/*" multiple onchange="handleForumMediaInput(event,'image')" style="font-size:.7rem"></div>
+  <div id="forum-img-preview" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px"></div>
+  <div class="ig"><label>🎬 视频文件</label><input type="file" id="forum-video-inp" accept="video/*" multiple onchange="handleForumMediaInput(event,'video')" style="font-size:.7rem"></div>
+  <div id="forum-video-preview" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px"></div>
+  <div class="ig"><label>🎵 音频文件</label><input type="file" id="forum-audio-inp" accept="audio/*" multiple onchange="handleForumMediaInput(event,'audio')" style="font-size:.7rem"></div>
+  <div id="forum-audio-preview" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px"></div>
+  <div class="ig"><label data-key="fmcover">封面图 (视频/课程/音频可选)</label><input type="file" id="forum-cover-inp" accept="image/*" onchange="handleForumCover(event)" style="font-size:.7rem"></div>
   <div id="forum-cover-preview" style="margin-bottom:8px"><img id="forum-cover-img" style="display:none;max-width:100%;max-height:120px;border-radius:8px"></div>
   <button class="btn bg bw" onclick="publishForumPost()" style="margin-top:8px" data-key="fmpublish">发布</button>
   <div class="br2"><button class="btn bo" onclick="closeModal('mo-forum-post')" data-key="mcancel">Cancel</button></div>
@@ -2660,27 +2664,54 @@ document.addEventListener('click', function(e){
   }
 });
 
-function handleForumMedia(e){
+// Forum media file accumulators (stored by type)
+var forumMediaMap = {image:[],video:[],audio:[]};
+
+function handleForumMediaInput(e, type){
   var files = e.target.files;
-  var preview = document.getElementById('forum-media-preview');
+  var previewId = 'forum-'+type+'-preview';
+  var preview = document.getElementById(previewId);
+  // Accumulate new files into the map
+  for(var i=0;i<files.length;i++){
+    forumMediaMap[type].push(files[i]);
+  }
+  // Rerender preview for this type
+  renderForumMediaPreview(type);
+  // Reset input so same file can be re-selected
+  e.target.value = '';
+}
+
+function renderForumMediaPreview(type){
+  var files = forumMediaMap[type];
+  var previewId = 'forum-'+type+'-preview';
+  var preview = document.getElementById(previewId);
   preview.innerHTML = '';
+  var icons = {image:'🖼️',video:'🎬',audio:'🎵'};
   for(var i=0;i<files.length;i++){
     var f = files[i];
     var el = document.createElement('div');
-    el.style.cssText = 'position:relative;width:80px;height:80px;border-radius:8px;overflow:hidden;background:var(--bgc)';
-    if(f.type.startsWith('image/')){
+    el.style.cssText = 'position:relative;width:80px;height:80px;border-radius:8px;overflow:hidden;background:var(--bgc);border:1px solid var(--bd);flex-shrink:0';
+    if(type==='image'){
       var img = document.createElement('img');
       img.style.cssText = 'width:100%;height:100%;object-fit:cover';
       img.src = URL.createObjectURL(f);
       el.appendChild(img);
-    } else if(f.type.startsWith('video/')){
-      el.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.5rem">🎬</div>';
     } else {
-      el.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.5rem">🎵</div>';
+      var label = (type==='video'?'🎬 视频':'🎵 音频');
+      el.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:.55rem;text-align:center;color:var(--t2);flex-direction:column;gap:2px"><span style="font-size:1.2rem">'+icons[type]+'</span><span>...</span></div>';
     }
+    // Remove button
+    var rm = document.createElement('div');
+    rm.style.cssText = 'position:absolute;top:0;right:0;width:20px;height:20px;background:rgba(0,0,0,.7);border-radius:0 8px 0 6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.55rem;color:#fff';
+    rm.textContent = '✕';
+    rm.onclick = (function(idx){ return function(e){ e.stopPropagation(); forumMediaMap[type].splice(idx,1); renderForumMediaPreview(type); }; })(i);
+    el.appendChild(rm);
     preview.appendChild(el);
   }
 }
+
+// Keep old function as no-op for backward compat
+function handleForumMedia(e){}
 
 function handleForumCover(e){
   var f = e.target.files[0];
@@ -2726,6 +2757,29 @@ async function publishForumPost(){
   }
 
   var type = document.getElementById('mo-forum-post').dataset.type || 'article';
+  
+  // Convert media files to base64 data URIs for localStorage storage
+  var mediaData = {image:[],video:[],audio:[]};
+  var coverData = '';
+  var coverInp = document.getElementById('forum-cover-inp');
+  if(coverInp && coverInp.files && coverInp.files[0]){
+    coverData = URL.createObjectURL(coverInp.files[0]);
+  }
+  // We'll store file metadata (name/size/type) + blob URL for current session
+  // For localStorage, store only metadata; files live as blob URLs in session
+  for(var mt in forumMediaMap){
+    for(var mi=0; mi<forumMediaMap[mt].length; mi++){
+      var f = forumMediaMap[mt][mi];
+      var blobUrl = URL.createObjectURL(f);
+      mediaData[mt].push({
+        name: f.name,
+        size: f.size,
+        type: f.type,
+        url: blobUrl
+      });
+    }
+  }
+  
   var post = {
     id: 'fp_'+Date.now(),
     type: type,
@@ -2736,7 +2790,9 @@ async function publishForumPost(){
     createdAt: new Date().toISOString(),
     likes: 0,
     comments: [],
-    moderated: false
+    moderated: false,
+    media: mediaData,
+    cover: coverData
   };
   forumPosts.unshift(post);
   closeModal('mo-forum-post');
@@ -2768,7 +2824,17 @@ function loadForumFeed(){
     h+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:.85rem">'+typeIcon+'</span><span style="font-size:.62rem;background:var(--ap);color:#fff;padding:1px 6px;border-radius:8px">'+typeLabel+'</span></div>';
     h+='<div style="font-weight:700;font-size:.85rem;margin-bottom:4px;color:#fff">'+escHtml(p.title)+'</div>';
     if(p.body) h+='<div style="font-size:.72rem;color:var(--t2);margin-bottom:6px;line-height:1.5;max-height:40px;overflow:hidden">'+escHtml(p.body)+'</div>';
-    h+='<div style="display:flex;justify-content:space-between;font-size:.62rem;color:var(--t3)"><span>'+escHtml(p.authorName)+'</span><span>'+p.createdAt.substring(0,10)+'</span></div>';
+    // Show media count badges
+    var mediaBadges = '';
+    if(p.media){
+      var imgCount = p.media.image?p.media.image.length:0;
+      var vidCount = p.media.video?p.media.video.length:0;
+      var audCount = p.media.audio?p.media.audio.length:0;
+      if(imgCount>0) mediaBadges+='<span style="font-size:.58rem;background:rgba(16,185,129,.12);color:var(--ag);padding:1px 5px;border-radius:4px">📷'+imgCount+'</span>';
+      if(vidCount>0) mediaBadges+='<span style="font-size:.58rem;background:rgba(59,130,246,.12);color:var(--ab);padding:1px 5px;border-radius:4px">🎬'+vidCount+'</span>';
+      if(audCount>0) mediaBadges+='<span style="font-size:.58rem;background:rgba(139,92,246,.12);color:var(--ap);padding:1px 5px;border-radius:4px">🎵'+audCount+'</span>';
+    }
+    h+='<div style="display:flex;justify-content:space-between;font-size:.62rem;color:var(--t3)"><span>'+escHtml(p.authorName)+'</span><span style="display:flex;gap:4px;align-items:center">'+mediaBadges+' '+p.createdAt.substring(0,10)+'</span></div>';
     h+='</div>';
   }
   div.innerHTML = h;
