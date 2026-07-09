@@ -1313,6 +1313,7 @@ function oam(type){
   if(map[type]){var el=document.getElementById(map[type]);if(el)el.classList.add('show');}
 }
 function cma(){ document.querySelectorAll('.mo').forEach(m=>m.classList.remove('show')); }
+function closeModal(id){ var el=document.getElementById(id); if(el){ el.style.display='none'; el.classList.remove('show'); } }
 function togNav(forceClose){
   let nls=document.getElementById('nls');
   if(forceClose){nls.classList.remove('show');return;}
@@ -2448,8 +2449,11 @@ function closePublishMenu(){
   var menu = document.getElementById('pub-menu');
   if(menu) menu.classList.remove('show');
 }
+// Close dropdown when clicking outside
 document.addEventListener('click', function(e){
-  if(!e.target.closest('.pub-dropdown')) closePublishMenu();
+  if(!e.target.closest('.pub-dropdown')){
+    closePublishMenu();
+  }
 });
 
 function handleForumMedia(e){
@@ -2483,33 +2487,23 @@ function handleForumCover(e){
 }
 
 // Content moderation - detect illegal/sensitive content
-var MODERATION_RULES = [
-  // Political sensitivity terms
-  {pattern:/领导|主席|总理|书记|常委|政治局|人大|政协|军委|中央|政府|共产党|中共|gcd|ccp|党中央|总书记|国家主席|国务院|中南海|xjp|xi jinping|习近平|胡锦涛|温家宝|李克强|江泽民|邓小平|mao|毛泽东|周恩来|六四|天安门|法轮功|flg|falungong|藏独|疆独|台独|港独|td|zd|jd|六四事件|8964/g, label:'政治敏感'},
-  // Gore/violence
-  {pattern:/杀人|砍人|割喉|分尸|肢解|剥皮|挖眼|斩首|虐杀|碎尸|焚尸|血淋淋|内脏|肠子|脑浆|眼球|碎肉|人肉|血腥|gore|mutilat|dismember|behead/g, label:'血腥暴力'},
-  // Terrorism
-  {pattern:/恐怖|圣战|jihad|isil|isis|基地组织|塔利班|东突|炸弹|爆炸|恐怖袭击|terrorist|terrorism|bomb attack/g, label:'恐怖主义'},
-  // Infringement
-  {pattern:/盗版|crack|破解版|注册机|keygen|补丁|patch|序列号|激活码|注册码|license key|破解补丁|绿色版|去广告版|vip破解|会员破解/g, label:'侵权内容'},
-  // Fraud
-  {pattern:/赚钱|发财|暴富|日赚|月入|躺赚|稳赚|必赚|包赚|高收益|高回报|翻倍|投资理财|股票推荐|crypto|刷单|兼职|网赚|返利|传销|庞氏/g, label:'诈骗风险'},
-  // Gambling
-  {pattern:/赌博|赌场|彩票|博彩|六合彩|百家乐|赌球|德州扑克|赌城|casino|gambling|bet365|1xbet/g, label:'赌博内容'},
-  // Drugs
-  {pattern:/毒品|大麻|冰毒|海洛因|k粉|摇头丸|吗啡|可卡因|吸毒|cocaine|heroin|meth|drug abuse/g, label:'毒品内容'},
-  // Porn
-  {pattern:/裸体|裸聊|色情|情色|成人|av|porn|sex视频|约炮|一夜情|援交|卖淫|嫖娼|外围女|福利姬/g, label:'色情内容'},
-  // Weapons
-  {pattern:/枪支|枪械|手枪|步枪|子弹|弹药|炸药|雷管|炸弹制作|制毒|造枪/g, label:'违禁品'}
+var MODERATION_PATTERNS = [
+  /领导|主席|总理|书记|常委|政治局|人大|政协|军委|中央|政府|共产党|中共|gcd|ccp|党中央|总书记|国家主席|国务院|中南海|xjp|xi jinping|习近平|胡锦涛|温家宝|李克强|江泽民|邓小平|mao|毛泽东|周恩来|六四|天安门|法轮功|flg|falungong|藏独|疆独|台独|港独|td|zd|jd|六四事件|8964/i,
+  /杀人|砍人|割喉|分尸|肢解|剥皮|挖眼|斩首|虐杀|碎尸|焚尸|血淋淋|内脏|肠子|脑浆|眼球|碎肉|人肉|血腥|gore|mutilat|dismember|behead/i,
+  /恐怖|圣战|jihad|isil|isis|基地组织|塔利班|东突|炸弹|爆炸|恐怖袭击|terrorist|terrorism|bomb attack/i,
+  /盗版|crack|破解版|注册机|keygen|补丁|patch|序列号|激活码|注册码|license key|破解补丁|绿色版|去广告版|vip破解|会员破解/i,
+  /赚钱|发财|暴富|日赚|月入|躺赚|稳赚|必赚|包赚|高收益|高回报|翻倍|投资理财|股票推荐|crypto|刷单|兼职|网赚|返利|传销|庞氏/i,
+  /赌博|赌场|彩票|博彩|六合彩|百家乐|赌球|德州扑克|赌城|casino|gambling|bet365|1xbet/i,
+  /毒品|大麻|冰毒|海洛因|k粉|摇头丸|吗啡|可卡因|吸毒|cocaine|heroin|meth|drug abuse/i,
+  /裸体|裸聊|色情|情色|成人|av|porn|sex视频|约炮|一夜情|援交|卖淫|嫖娼|外围女|福利姬/i,
+  /枪支|枪械|手枪|步枪|子弹|弹药|炸药|雷管|炸弹制作|制毒|造枪/i
 ];
+var MODERATION_LABELS = ['政治敏感','血腥暴力','恐怖主义','侵权内容','诈骗风险','赌博内容','毒品内容','色情内容','违禁品'];
 
 function moderateContent(text){
-  var combined = text.toLowerCase();
-  for(var i=0; i<MODERATION_RULES.length; i++){
-    var rule = MODERATION_RULES[i];
-    if(rule.pattern.test(combined)){
-      return { blocked: true, reason: rule.label };
+  for(var i=0; i<MODERATION_PATTERNS.length; i++){
+    if(MODERATION_PATTERNS[i].test(text)){
+      return { blocked: true, reason: MODERATION_LABELS[i] };
     }
   }
   return { blocked: false, reason: '' };
