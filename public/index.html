@@ -3675,7 +3675,7 @@ function setLang(l){
   curLang=l; localStorage.setItem('nexus_lang',l);
   document.getElementById('cln').textContent=l.toUpperCase();
   document.getElementById('lm').classList.remove('show');
-  buildLangMenu(); applyI18N(); rAll();
+  buildLangMenu(); applyI18N(); rAll(); try{if(typeof initAjRegionSelectors==="function")initAjRegionSelectors();}catch(e){}
   if(curPage==='member'){try{renderMemberPage();}catch(e){console.error(e);}}
   // Re-render pub community if user is on that tab
   if(p2pTabV==='pub'){try{renderP2PPub();}catch(e){}}
@@ -6020,17 +6020,51 @@ const stateI18n = {
   'Île-de-France': {'de': 'Île-de-France', 'es': 'Isla de Francia', 'fr': 'Île-de-France', 'ja': 'イル＝ド＝フランス', 'ko': '일드프랑스', 'ru': 'Иль-де-Франс', 'th': 'อีล-เดอ-ฟร็องส์', 'vi': 'Île-de-France', 'zh': '法兰西岛'}
 };
 
+// Reverse map: Chinese state/city names -> English keys for i18n lookup
+const regionReverseMap = {};
+(function buildReverseMap() {
+  for (const [eng, trans] of Object.entries(stateI18n)) {
+    if (trans.zh) regionReverseMap[trans.zh] = eng;
+  }
+  // Also add ajRegionsI18n country entries
+  if (typeof ajRegionsI18n !== 'undefined') {
+    for (const [eng, trans] of Object.entries(ajRegionsI18n)) {
+      if (trans.zh) regionReverseMap[trans.zh] = eng;
+      if (trans.en) regionReverseMap[trans.en] = eng;
+    }
+  }
+})();
+
+
 function tRegion(name) {
   if (!name || curLang === 'en') return name;
-  const iso = regionIsoMap[name];
+  // Try direct ajRegionsI18n lookup (country names)
+  if (typeof ajRegionsI18n !== 'undefined' && ajRegionsI18n[name] && ajRegionsI18n[name][curLang]) {
+    return ajRegionsI18n[name][curLang];
+  }
+  // Try reverse mapping (Chinese->English) then stateI18n/country lookup
+  const engName = (typeof regionReverseMap !== 'undefined' && regionReverseMap[name]) || name;
+  const iso = regionIsoMap[engName];
   if (iso) {
     try {
       const lang = curLang === 'ko' ? 'ko' : curLang === 'ja' ? 'ja' : curLang === 'zh' ? 'zh-Hans' : curLang === 'ar' ? 'ar' : curLang === 'th' ? 'th' : curLang === 'vi' ? 'vi' : curLang === 'id' ? 'id' : curLang === 'pt' ? 'pt' : curLang === 'ru' ? 'ru' : curLang === 'hi' ? 'hi' : curLang === 'es' ? 'es' : curLang === 'fr' ? 'fr' : curLang === 'de' ? 'de' : curLang === 'it' ? 'it' : curLang;
       const dn = new Intl.DisplayNames([lang], { type: 'region' });
       const result = dn.of(iso);
-      if (result && result !== name && result !== iso) return result;
+      if (result && result !== engName && result !== iso) return result;
     } catch(e) {}
   }
+  // Try stateI18n with English name
+  const stateMap = stateI18n[engName];
+  if (stateMap && stateMap[curLang]) return stateMap[curLang];
+  // Try ajRegionsI18n with English name
+  if (typeof ajRegionsI18n !== 'undefined' && ajRegionsI18n[engName] && ajRegionsI18n[engName][curLang]) {
+    return ajRegionsI18n[engName][curLang];
+  }
+  // Try stateI18n with original name (for states already in English)
+  const stateMap2 = stateI18n[name];
+  if (stateMap2 && stateMap2[curLang]) return stateMap2[curLang];
+  return name;
+}
   const stateMap = stateI18n[name];
   if (stateMap && stateMap[curLang]) return stateMap[curLang];
   return name;
@@ -6270,7 +6304,7 @@ function renderCommunityPosts(){
     var subLabel = sub?t(sub.label_i18n_key):'';
     h += '<div class="card" style="cursor:pointer;padding:12px;transition:var(--tt)" onmouseover="this.style.borderColor=\x27var(--ap)\x27" onmouseout="this.style.borderColor=\x27var(--bd)\x27" onclick="viewCommunityDetail(\x27'+p.id+'\x27)">';
     h += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:.85rem">'+catIcon+'</span><span style="font-size:.62rem;background:var(--ap);color:#fff;padding:1px 6px;border-radius:8px">'+escHtml(subLabel)+'</span></div>';
-    h += '<div style="font-weight:700;font-size:.85rem;margin-bottom:4px;color:#fff">'+escHtml(p.title)+'</div>';
+    h += '<div class="dyn-tr" style="font-weight:700;font-size:.85rem;margin-bottom:4px;color:#fff" data-orig="'+escHtml(p.title)+'">'+escHtml(p.title)+'</div>';
     if(p.desc) h += '<div style="font-size:.72rem;color:var(--t2);margin-bottom:6px;line-height:1.5;max-height:40px;overflow:hidden">'+escHtml(p.desc)+'</div>';
     if(p.contact) h += '<div style="font-size:.65rem;color:var(--t3);margin-bottom:4px">\\ud83d\\udcde '+escHtml(p.contact)+'</div>';
     h += '<div style="display:flex;justify-content:space-between;font-size:.62rem;color:var(--t3)"><span>'+escHtml(p.authorName)+'</span><span>'+p.createdAt.substring(0,10)+'</span></div>';
@@ -6515,12 +6549,13 @@ function loadForumFeed(){
     h+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:.85rem">'+typeIcon+'</span><span style="font-size:.62rem;background:var(--ap);color:#fff;padding:1px 6px;border-radius:8px">'+typeLabel+'</span>';
     if(mediaCount>0) h+='<span style="font-size:.6rem;background:rgba(255,255,255,.1);color:var(--t3);padding:1px 5px;border-radius:6px">📎'+mediaCount+'</span>';
     h+='</div>';
-    h+='<div style="font-weight:700;font-size:.85rem;margin-bottom:4px;color:#fff">'+escHtml(p.title)+'</div>';
-    if(p.body) h+='<div style="font-size:.72rem;color:var(--t2);margin-bottom:6px;line-height:1.5;max-height:40px;overflow:hidden">'+escHtml(p.body)+'</div>';
+    h+='<div class="dyn-tr" style="font-weight:700;font-size:.85rem;margin-bottom:4px;color:#fff" data-orig="'+escHtml(p.title)+'">'+escHtml(p.title)+'</div>';
+    if(p.body) h+='<div class="dyn-tr" style="font-size:.72rem;color:var(--t2);margin-bottom:6px;line-height:1.5;max-height:40px;overflow:hidden" data-orig="'+escHtml(p.body)+'">'+escHtml(p.body)+'</div>';
     h+='<div style="display:flex;justify-content:space-between;font-size:.62rem;color:var(--t3)"><span>'+escHtml(p.authorName)+'</span><span>'+p.createdAt.substring(0,10)+'</span></div>';
     h+='</div>';
   }
   div.innerHTML = h;
+  setTimeout(function(){try{translateCommunityContent();}catch(e){}}, 100);
 }
 
 function openForumLive(){
