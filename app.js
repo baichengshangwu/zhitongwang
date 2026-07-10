@@ -1,0 +1,2261 @@
+/* Extracted from www.zhitongwang.cn */
+
+/* --- Block 1 --- */
+// ============ DATA STORE ============
+const initTools = [
+  {id:'gpt-5.2',icon:'&#x1F9E0;',name:'GPT-5.2',cat:'text',desc:'OpenAI GPT-5.2 | XToken: $0.24/M in $1.92/M out (1.9 fold discount)',price:0.24,color:'#10a37f',use:0,apy:0,rating:5.0,badge:'',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'gpt-5.3-codex-spark',icon:'&#x1F9E0;',name:'GPT-5.3 Codex Spark',cat:'text',desc:'OpenAI GPT-5.3 Codex | XToken: $0.20/M in $1.60/M out (2.0 fold discount)',price:0.2,color:'#10a37f',use:0,apy:0,rating:5.0,badge:'HOT',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'gpt-5.4',icon:'&#x1F9E0;',name:'GPT-5.4',cat:'text',desc:'OpenAI GPT-5.4 | XToken: $0.30/M in $1.80/M out (1.2 fold discount)',price:0.3,color:'#10a37f',use:0,apy:0,rating:5.0,badge:'',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'gpt-5.4-mini',icon:'&#x1F9E0;',name:'GPT-5.4 Mini',cat:'text',desc:'OpenAI GPT-5.4 Mini | XToken: $0.10/M in $0.60/M out (1.3 fold discount)',price:0.1,color:'#10a37f',use:0,apy:0,rating:5.0,badge:'',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'gpt-5.5',icon:'&#x1F9E0;',name:'GPT-5.5',cat:'text',desc:'OpenAI GPT-5.5 | XToken: $0.50/M in $3.00/M out (1.0 fold discount)',price:0.5,color:'#10a37f',use:0,apy:0,rating:5.0,badge:'NEW',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'claude-opus-4-6',icon:'&#x1F9E0;',name:'Claude Opus 4.6 (Reverse)',cat:'text',desc:'Anthropic Claude Opus 4.6 Reverse | XToken: $1.20/M in $6.00/M out (2.4 fold discount)',price:1.2,color:'#d97757',use:0,apy:0,rating:5.0,badge:'',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'claude-opus-4-7',icon:'&#x1F9E0;',name:'Claude Opus 4.7 (Reverse)',cat:'text',desc:'Anthropic Claude Opus 4.7 Reverse | XToken: $1.20/M in $6.00/M out (2.4 fold discount)',price:1.2,color:'#d97757',use:0,apy:0,rating:5.0,badge:'HOT',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'claude-sonnet-4-6',icon:'&#x1F9E0;',name:'Claude Sonnet 4.6 (Reverse)',cat:'text',desc:'Anthropic Claude Sonnet 4.6 Reverse | XToken: $0.80/M in $4.00/M out (2.7 fold discount)',price:0.8,color:'#d97757',use:0,apy:0,rating:5.0,badge:'',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'claude-opus-4-8',icon:'&#x1F9E0;',name:'Claude Opus 4.8 (Reverse)',cat:'text',desc:'Anthropic Claude Opus 4.8 via XToken API gateway',price:1.2,color:'#d97757',use:0,apy:0,rating:5.0,badge:'NEW',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'claude-sonnet-5',icon:'&#x1F9E0;',name:'Claude Sonnet 5 (Reverse)',cat:'text',desc:'Anthropic Claude Sonnet 5 via XToken API gateway',price:0.8,color:'#d97757',use:0,apy:0,rating:5.0,badge:'NEW',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'claude-fable-5',icon:'&#x1F9E0;',name:'Claude Fable 5 (Reverse)',cat:'text',desc:'Anthropic Claude Fable 5 via XToken API gateway',price:0.4,color:'#d97757',use:0,apy:0,rating:5.0,badge:'NEW',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'claude-opus-4-6-official',icon:'&#x1F9E0;',name:'Claude Opus 4.6 (Official)',cat:'text',desc:'Anthropic Claude Opus 4.6 Official | XToken: $3.00/M in $15.00/M out (6 fold)',price:3.0,color:'#d97757',use:0,apy:0,rating:5.0,badge:'OFFICIAL',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'claude-opus-4-7-official',icon:'&#x1F9E0;',name:'Claude Opus 4.7 (Official)',cat:'text',desc:'Anthropic Claude Opus 4.7 Official | XToken: $3.00/M in $15.00/M out (6 fold)',price:3.0,color:'#d97757',use:0,apy:0,rating:5.0,badge:'OFFICIAL',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'claude-sonnet-4.6-official',icon:'&#x1F9E0;',name:'Claude Sonnet 4.6 (Official)',cat:'text',desc:'Anthropic Claude Sonnet 4.6 Official | XToken: $2.00/M in $10.00/M out (6.7 fold)',price:2.0,color:'#d97757',use:0,apy:0,rating:5.0,badge:'OFFICIAL',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'deepseek-v4-pro',icon:'&#x1F9E0;',name:'DeepSeek V4 Pro',cat:'text',desc:'DeepSeek V4 Pro | XToken: $1.68/M in $3.36/M out (9.7 fold discount)',price:1.68,color:'#4f46e5',use:0,apy:0,rating:5.0,badge:'HOT',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'gemini-2.5-flash',icon:'&#x1F9E0;',name:'Gemini 2.5 Flash',cat:'text',desc:'Google Gemini 2.5 Flash | XToken: $0.30/M in $2.50/M out (approx same)',price:0.3,color:'#4285f4',use:0,apy:0,rating:5.0,badge:'',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'gemini-2.5-pro',icon:'&#x1F9E0;',name:'Gemini 2.5 Pro',cat:'text',desc:'Google Gemini 2.5 Pro | XToken: $1.25/M in $10.00/M out (approx same)',price:1.25,color:'#4285f4',use:0,apy:0,rating:5.0,badge:'',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'GLM-5.1',icon:'&#x1F9E0;',name:'GLM-5.1',cat:'text',desc:'Zhipu GLM-5.1 | XToken: $0.96/M in $3.84/M out (6.9 fold discount)',price:0.96,color:'#3b82f6',use:0,apy:0,rating:5.0,badge:'',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'kimi-k2.5',icon:'&#x1F9E0;',name:'Kimi K2.5',cat:'text',desc:'Moonshot Kimi K2.5 | XToken: $0.48/M in $2.40/M out (8.2 fold discount)',price:0.48,color:'#8b5cf6',use:0,apy:0,rating:5.0,badge:'',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'kimi-k2.6',icon:'&#x1F9E0;',name:'Kimi K2.6',cat:'text',desc:'Moonshot Kimi K2.6 | XToken: $0.48/M in $2.40/M out (5.0 fold discount)',price:0.48,color:'#8b5cf6',use:0,apy:0,rating:5.0,badge:'NEW',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'mimo-v2-omni',icon:'&#x1F9E0;',name:'MiMo V2 Omni',cat:'text',desc:'Xiaomi MiMo V2 Omni | XToken: $0.256/M in $1.28/M out',price:0.256,color:'#ff6900',use:0,apy:0,rating:5.0,badge:'',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'mimo-v2-pro',icon:'&#x1F9E0;',name:'MiMo V2 Pro',cat:'text',desc:'Xiaomi MiMo V2 Pro | XToken: $0.80/M in $2.40/M out',price:0.8,color:'#ff6900',use:0,apy:0,rating:5.0,badge:'',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'mimo-v2.5',icon:'&#x1F9E0;',name:'MiMo V2.5',cat:'text',desc:'Xiaomi MiMo V2.5 | XToken: $0.256/M in $1.28/M out',price:0.256,color:'#ff6900',use:0,apy:0,rating:5.0,badge:'NEW',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'mimo-v2.5-pro',icon:'&#x1F9E0;',name:'MiMo V2.5 Pro',cat:'text',desc:'Xiaomi MiMo V2.5 Pro | XToken: $0.80/M in $2.40/M out',price:0.8,color:'#ff6900',use:0,apy:0,rating:5.0,badge:'NEW',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'MiniMax-M2.5',icon:'&#x1F9E0;',name:'MiniMax M2.5',cat:'text',desc:'MiniMax M2.5 | XToken: $0.24/M in $1.248/M out (7.8 fold discount)',price:0.24,color:'#06b6d4',use:0,apy:0,rating:5.0,badge:'',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'MiniMax-M2.7',icon:'&#x1F9E0;',name:'MiniMax M2.7',cat:'text',desc:'MiniMax M2.7 | XToken: $0.24/M in $1.248/M out (7.8 fold discount)',price:0.24,color:'#06b6d4',use:0,apy:0,rating:5.0,badge:'NEW',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'qwen3.8-plus',icon:'&#x1F9E0;',name:'Qwen 3.8 Plus',cat:'text',desc:'Alibaba Qwen 3.8 Plus | XToken: $0.96/M in $3.84/M out (7.7 fold discount)',price:0.96,color:'#ff6a00',use:0,apy:0,rating:5.0,badge:'',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'gpt-image-2',icon:'&#x1F3A8;',name:'GPT Image 2',cat:'image',desc:'OpenAI GPT Image 2 | XToken: $0.014/call',price:0.014,color:'#10a37f',use:0,apy:0,rating:5.0,badge:'',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'gpt-image-2-2k',icon:'&#x1F3A8;',name:'GPT Image 2 (2K)',cat:'image',desc:'OpenAI GPT Image 2 2K resolution via XToken API',price:0.014,color:'#10a37f',use:0,apy:0,rating:5.0,badge:'',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'gpt-image-2-4k',icon:'&#x1F3A8;',name:'GPT Image 2 (4K)',cat:'image',desc:'OpenAI GPT Image 2 4K resolution via XToken API',price:0.02,color:'#10a37f',use:0,apy:0,rating:5.0,badge:'NEW',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'gpt-image-2-pro',icon:'&#x1F3A8;',name:'GPT Image 2 Pro',cat:'image',desc:'OpenAI GPT Image 2 Pro | XToken: $0.030/call',price:0.03,color:'#10a37f',use:0,apy:0,rating:5.0,badge:'PRO',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'},
+  {id:'Nano-Banana-2',icon:'&#x1F3A8;',name:'Nano Banana 2',cat:'image',desc:'Google Nano Banana 2 | XToken: $0.120/call',price:0.12,color:'#4285f4',use:0,apy:0,rating:5.0,badge:'',apiEndpoint:'https://xtokens.shop/v1',apiKey:'sk-JFgKG7h5cgkymE150kYzapGxErwaW6N2pT7PsjDURpRF18WV'}
+];
+
+const initEvents = [
+  {id:'ev1',title:'AI DevCon 2026',date:'2026-09-15',loc:'San Francisco, CA',emoji:'&#x1F680;',attendees:5200,tokens:15000,price:'$299',status:'live',desc:'The largest AI developer conference. Access to 50+ workshops, keynotes, and networking.'},
+  {id:'ev2',title:'GenAI Summit Asia',date:'2026-10-22',loc:'Singapore',emoji:'&#x1F1F8;&#x1F1EC;',attendees:3800,tokens:10000,price:'$199',status:'live',desc:'Asia-Pacific premier generative AI conference. Connect with leading researchers and investors.'},
+  {id:'ev3',title:'Prompt Engineering Lab',date:'2026-07-30',loc:'London, UK',emoji:'&#x1F9EA;',attendees:1200,tokens:5000,price:'$149',status:'upcoming',desc:'Hands-on workshop mastering prompt engineering across models. Certificate included.'},
+  {id:'ev4',title:'AI & Web3 Fusion',date:'2026-11-05',loc:'Dubai, UAE',emoji:'&#x26F0;',attendees:2500,tokens:8000,price:'$249',status:'upcoming',desc:'Where AI meets blockchain. Explore tokenized AI services and decentralized intelligence.'},
+  {id:'ev5',title:'Enterprise AI Summit',date:'2026-08-18',loc:'New York, NY',emoji:'&#x1F3E2;',attendees:4200,tokens:12000,price:'$399',status:'live',desc:'Enterprise AI adoption strategies. CTO keynotes, case studies, and vendor showcase.'},
+  {id:'ev6',title:'Creative AI Fest',date:'2026-12-01',loc:'Berlin, DE',emoji:'&#x1F3A8;',attendees:1800,tokens:6000,price:'$129',status:'upcoming',desc:'Celebrating AI in art, music, design. Exhibition, live demos, and creative hackathon.'},
+];
+
+// User-created content
+let userTools = [];
+let userEvents = [];
+async function loadUserToolsFromBackend(){
+  if(!apiToken) return;
+  try{ let res=await API.userCreations(); if(res&&res.tools) userTools=res.tools.map(t=>({id:t.id,icon:t.icon,name:t.name,cat:t.cat,desc:t.desc,price:t.price,color:t.color,use:0,apy:0,rating:5.0,badge:'NEW'})); }catch(e){console.error('loadUserTools failed',e);}
+}
+async function loadUserEventsFromBackend(){
+  if(!apiToken) return;
+  try{ let res=await API.eventCreations(); if(res&&res.events) userEvents=res.events.map(e=>({id:e.id,title:e.title,emoji:e.emoji,date:e.date,loc:e.loc,desc:e.desc,tokens:e.tokens,price:e.price,status:e.status})); }catch(e){console.error('loadUserEvents failed',e);}
+}
+
+const TICKERS = [
+  {n:'NEXUS',p:'0.4238',c:'+2.45%',u:true},{n:'GPT4',p:'0.1850',c:'-1.20%',u:false},{n:'CLD3',p:'0.1560',c:'+0.80%',u:true},
+  {n:'MJNY',p:'0.2780',c:'+5.60%',u:true},{n:'PERP',p:'0.0920',c:'-0.45%',u:false},{n:'CSRA',p:'0.2110',c:'+3.20%',u:true},
+  {n:'DAL3',p:'0.1650',c:'+1.80%',u:true},{n:'RNWY',p:'0.3120',c:'+8.40%',u:true},{n:'SUNO',p:'0.0680',c:'-2.10%',u:false},
+  {n:'JSPR',p:'0.4450',c:'+4.30%',u:true},{n:'DVIN',p:'2.8500',c:'+12.50%',u:true},{n:'REPL',p:'0.0980',c:'-0.90%',u:false},
+];
+
+// ============ STATE ============
+let curUser = null;
+let curLang = 'zh';
+let curPage = 'market';
+let curListing = null;
+let confirmCB = null;
+let tradeSideV = 'buy';
+let tradeTypeV = 'limit';
+let p2pTabV = 'buy';
+let listings = loadLS('nexus_p2p_listings', []);
+if(listings.length===0){
+  listings=[
+    {id:'p2p_demo1',toolId:'gpt4',toolName:'GPT-4 Pro',toolIcon:'&#x1F9E0;',toolColor:'#10b981',seller:'demo@ai.com',sellerRating:'4.9',price:12.00,qty:5,dur:30,sold:23,created:Date.now()-86400000},
+    {id:'p2p_demo2',toolId:'claude',toolName:'Claude 4 Opus',toolIcon:'&#x1F310;',toolColor:'#8b5cf6',seller:'trader@ai.com',sellerRating:'4.8',price:9.50,qty:8,dur:30,sold:15,created:Date.now()-172800000},
+    {id:'p2p_demo3',toolId:'midjourney',toolName:'Midjourney v7',toolIcon:'&#x1F3A8;',toolColor:'#ec4899',seller:'artist@ai.com',sellerRating:'4.7',price:8.00,qty:10,dur:30,sold:31,created:Date.now()-259200000},
+    {id:'p2p_demo4',toolId:'copilot',toolName:'GitHub Copilot X',toolIcon:'&#x1F4BB;',toolColor:'#3b82f6',seller:'dev@ai.com',sellerRating:'4.9',price:6.00,qty:12,dur:30,sold:42,created:Date.now()-345600000},
+    {id:'p2p_demo5',toolId:'runway',toolName:'Runway Gen-3',toolIcon:'&#x1F3AC;',toolColor:'#06b6d4',seller:'video@ai.com',sellerRating:'4.6',price:15.00,qty:3,dur:30,sold:8,created:Date.now()-432000000}
+  ];
+  saveLS('nexus_p2p_listings',listings);
+}
+let users = loadLS('nexus_users', {});
+let p2pFilter = '';
+let tradeTFVal = '1h';
+const USD_TO_CNY = 6.80;
+
+function loadLS(k, d){ try{let v=localStorage.getItem(k); return v?JSON.parse(v):d;}catch(e){console.error('loadLS failed',k,e);return d;} }
+function saveLS(k, v){ try{localStorage.setItem(k, JSON.stringify(v));if(k==='nexus_users')saveAuthCookie();}catch(e){console.error('saveLS failed',k,e);} }
+function saveSession(){ if(curUser){ try{localStorage.setItem('nexus_cur_user_email',curUser._email);localStorage.setItem('nexus_users',JSON.stringify(users));if(typeof apiToken!=='undefined'&&apiToken)localStorage.setItem('nexus_api_token',apiToken);saveAuthCookie();}catch(e){console.error('saveSession failed',e);} } }
+// Cookie backup for mobile WebView localStorage wipe resistance
+function saveAuthCookie(){
+  try{let m={};for(let e in users){m[e]=users[e].pass;}let d=new Date();d.setFullYear(d.getFullYear()+1);document.cookie='nu_auth='+encodeURIComponent(btoa(JSON.stringify(m)))+';expires='+d.toUTCString()+';path=/;SameSite=Lax';}catch(e){console.error('saveAuthCookie failed',e);}
+}
+function loadAuthCookie(){
+  try{let c=document.cookie.split(';').find(r=>r.trim().startsWith('nu_auth='));if(!c)return null;let v=decodeURIComponent(c.split('=')[1].trim());let j=JSON.parse(atob(v));return j||null;}catch(e){console.error('loadAuthCookie failed',e);return null;}
+}
+
+// Init from cookie backup if localStorage is empty
+if(Object.keys(users).length===0){
+  let cookieData=loadAuthCookie();
+  if(cookieData&&Object.keys(cookieData).length>0){
+    for(let e in cookieData){
+      users[e]={name:e.split('@')[0],email:e,pass:cookieData[e],wallet:'',bal:1000,holds:{NEXUS:1000},txs:[],kyc:'Bronze',bio:'',joined:new Date().toISOString().split('T')[0]};
+    }
+    saveLS('nexus_users',users);
+    console.log('Restored '+Object.keys(cookieData).length+' user(s) from cookie backup');
+  }
+}
+// Init demo users only if completely empty (no localstorage, no cookie)
+if(Object.keys(users).length===0){
+  users['demo@ai.com']={name:'DemoUser',email:'demo@ai.com',pass:'demo123',wallet:'',bal:5000,holds:{NEXUS:10000,GPT4:100},txs:[{type:'deposit',token:'CNY',amt:5000,time:'2026-06-10T10:00:00Z'}],kyc:'Bronze',bio:'',joined:'2026-06-01'};
+  saveLS('nexus_users', users);
+}
+
+// Seed P2P listings if empty
+if(listings.length===0){
+  const sellers = ['crypto_fan@web3.io','ai_trader@proton.me','token_wiz@pm.me','gpt_lover@mail.com'];
+  for(let i=0;i<6;i++){
+    const t = initTools[Math.floor(Math.random()*initTools.length)];
+    listings.push({
+      id:'p2p_'+Date.now()+'_'+i,
+      toolId:t.id, toolName:t.name, toolIcon:t.icon, toolColor:t.color,
+      seller:sellers[i%4], sellerRating:(4+Math.random()).toFixed(1),
+      price:(t.price*(0.4+Math.random()*0.5)).toFixed(2),
+      qty:Math.floor(Math.random()*5)+1, dur:30+Math.floor(Math.random()*60),
+      sold:Math.floor(Math.random()*20), created:Date.now()-Math.random()*7*86400000
+    });
+  }
+  saveLS('nexus_p2p_listings', listings);
+}
+// Try loading P2P listings from backend (merges with localStorage as fallback)
+(async function(){
+  try{ await loadP2PFromBackend(); await loadUserToolsFromBackend(); await loadUserEventsFromBackend(); }catch(e){console.error('init P2P load failed',e);}
+})();
+
+// ============ I18N ============
+const LANG = {
+  zh:{nm:'行情',nto:'工具',np2p:'P2P',ntr:'交易',nev:'活动',ndb:'面板',tlk:'实时行情',blg:'登录',bck:'← 返回',bsu:'注册',umd:'面板',ump:'个人资料',uml:'退出',hbad:'AI 共享经济协议',hhd:'拥有Token，掌控AI',hsd:'在全球首个去中心化 AI 访问市场中买卖 AI 应用订阅。掌握你的生产力。',stools:'AI 工具',susers:'持有者',svol:'24h 成交量',smcap:'市值',ttp:'热门套餐',vall:'查看全部',tpe:'价格走势',tre:'近期交易',taia:'全部 AI 应用',taid:'浏览并订阅高级 AI 工具。分享订阅即可赚取代币。',fall:'全部类别',spop:'最受欢迎',snew:'最新',sprice:'价格最低',sapy:'收益最高',p2pt:'P2P 市场',p2pd:'直接与其他用户买卖 AI 应用访问代币。无中间商，更低价格。',p2pbu:'求购列表',p2psl:'出售列表',p2pcm:'社区',p2pbe:'发布活动',pricel:'价格：从低到高',priceh:'价格：从高到低',p2pcr:'创建挂单',tool:'工具',pricel2:'价格 (CNY)',qty:'数量',dur:'时长 (天)',p2pbcr:'创建挂单',trdt:'交易',tbuy:'买入',tsell:'卖出',tlim:'限价单',tmar:'市价单',tprice:'价格 (CNY)',tamt:'数量 (NEXUS)',ttot:'总额',tbal:'可用余额',tbuy2:'买入 NEXUS',tord:'订单簿',thst:'交易历史',evt:'AI 聚会',evd:'参与独家 AI 社区活动。每场活动都有限量版代币和社交机会。',dbt:'我的面板',dph:'持仓资产',dtoken:'代币',dbal:'余额',dval:'估值',dpnl:'盈亏',dth:'交易记录',dkc:'KYC 验证',kycd:'完成 KYC 验证以解锁更高交易限额',kycb:'升级 KYC',dwl:'钱包',dwa:'钱包地址',dwah:'绑定真实钱包地址以进行提现和领取奖励',dws:'保存钱包',mlog:'登录',mlog2:'登录',memail:'邮箱',mpass:'密码',mforgot:'忘记密码？',mnoacc:'还没有账号？',mregi:'立即注册',mreg:'注册',muname:'用户名',mref:'推荐码 (选填)',mreg2:'创建账号',mprocessing:'正在处理...',mhacc:'已有账号？',mres:'重置密码',mres2:'发送重置链接',mprf:'编辑资料',mbio:'个人简介',msave:'保存',mkyc:'KYC 验证',mkid:'证件类型',mknum:'证件号码',mkname:'姓名 (与证件一致)',mkaddr:'地址',mksub:'提交 KYC',mconf:'确认',mcyes:'确认',mcancel:'取消',mlist:'挂单详情',mbuy:'立即购买',sub:'订阅',share:'分享',days:'天',cny:'CNY',sell:'出售者',rating:'评分',sold2:'已售',deposit:'充值',withdraw:'提现',buy:'买入',sell2:'卖出',reward:'奖励',bt:'买入',sd:'卖出',on:'开',mlog3:'请先登录',bs:'买入成功！',ss:'卖出成功！',pln:'挂单已创建',prs:'密码重置链接已发送至',rgs:'注册成功！欢迎加入 AI Nexus',notimpl:'此功能需要后端 API 支持，当前为演示模式',noauth:'请先登录',mvercode:'验证码',mvercode2:'发送验证码',mvercode3:'输入验证码',mverr:'验证码错误',mversent:'验证码已发送至',nag:'代理',nsoc:'社交',sod:'社交 — 好友与聊天',sosearch:'搜索',sosearchph:'通过邮箱搜索...',sofriends:'我的好友',sorequests:'好友请求',sochat:'聊天',sonofriends:'暂无好友',soadd:'添加好友',soaccept:'接受',soreject:'拒绝',somsgph:'输入消息...',sosend:'发送',sonomsg:'选择好友开始聊天',soonl:'在线',soffl:'离线',soselect:'选择好友',soadded:'已添加好友！',soreqsent:'好友请求已发送',sologin:'请登录后使用社交功能',agtit:'AI联盟代理',agdesc:'加入我们的代理计划。成为AI联盟代理，赚取50%佣金。',agnreg:'成为AI联盟代理',agnregd:'加入AI Nexus代理计划，每位推荐用户赚取50%持续佣金。立即开启您的AI事业。',agstep1:'付费加入',agstep1d:'一次性付费成为代理',agstep2:'获得子账户',agstep2d:'为客户创建子账户',agstep3:'赚取50%',agstep3d:'每笔销售50%持续佣金',agjoin:'立即加入 - 成为代理',agpp:'您的PayPal按钮',agbind:'+ 绑定PayPal',agnopp:'暂无绑定的PayPal按钮',agcomm:'佣金历史',aglive:'实时PayPal按钮（公开）',agnolive:'暂无实时按钮',agbpt:'绑定PayPal按钮',agbpn:'按钮名称',agbpnph:'我的按钮',agbpid:'托管按钮ID',agbpidph:'HOSTED-BUTTON-ID',agbphelp:'在PayPal面板 > 收款 > PayPal按钮 中找到您的托管按钮ID',agbpb:'绑定按钮',agid:'代理ID',agte:'总收益',agrate:'佣金率',agstat:'状态',agtxns:'交易数',agrev:'总收入',agearn:'已赚',agregok:'代理注册成功！',agdelcf:'删除此PayPal按钮？',agfill:'请填写所有字段',agbinds:'PayPal按钮已绑定！',agnocomm:'暂无佣金记录',agpcard:'成为AI联盟代理',agpcardd:'付费加入 → 获得子账户 → 每笔销售赚取50%持续佣金。',agpjoin:'立即加入',ppagent:'成为AI联盟代理',ppdonate:'赞助/捐赠',mavatar:'头像',mupload:'上传',mclear:'清除',msigimg:'签名图片',msigvid:'签名视频',mbio_ph:'介绍一下你自己',mpsaved:'资料已保存',mup_success:'上传成功',mup_fail:'上传失败',mexists:'该邮箱已注册 — 请直接登录',mnofile:'请选择文件',mpview:'个人资料',appdlt:'AI Nexus APP',appdlname:'AI Nexus 移动端 v1.0.0',appdlmeta:'Android · APK · 3.7 MB',appdldesc:'下载 AI Nexus 移动客户端，随时随地体验市场、P2P、Trade、代理业务及 AI 工具订阅。',appdlwarn:'⚠ 本 APK 为调试版 (Debug)，只能在你授权后安装。使用前请仔细阅读下方安装教程。',appdlbtn:'下载 APK (3.7 MB)',appdlv:'版本: v1.0.0',appdlclose:'关闭',appdltt:'AI Nexus APP',appdlds:'v1.0.0 · Android APK · 3.7 MB',tutt:'安装使用教程',tutsub:'从下载到注册，五步开始使用 AI Nexus 移动客户端。',tut1t:'下载 APK',tut1d:'点击顶部 <b>+</b> 按钮 → 选择 "AI Nexus APP" 下载 APK 文件 (约 3.7 MB)。',tut2t:'允许安装未知来源应用',tut2d:'进入手机 <b>设置 → 安全 → 更多安全设置 → 安装未知应用</b>，打开开关。也可以在安装时会提示，跳转后直接授权。',tut3t:'点击 APK 完成安装',tut3d:'打开下载的 <b>app-debug.apk</b>，点击 "安装"。第一次会提示是否安装，选 "仍要安装" 即可。',tut4t:'打开 APP 并登录',tut4d:'启动后首次会进入欢迎页，右上角设置中可切换语言。使用网页端同步的账号登录，或者本机注册新账号。',tut5t:'开始体验',tut5d:'会话、P2P 买卖、Trade 挂单、代理业务、事件报名、社交聊天等全部功能在移动端均可使用。',tutfaqt:'常见问题：',tutfaq1:'· iOS 用户暂不可用，请稍后。',tutfaq2:'· 安装失败请检查手机存储空间 ≥ 20 MB。',tutfaq3:'· 需要帮助请联系客服或访问网页端帮助中心。',tuttt:'安装使用教程',tutds:'安装与使用教程',tutgobtn:'立即下载',mbqty:'Token 数量',mbconfirm:'确认购买',mbt:'会员中心',mbsubtitle:'升级会员享受 Token 折扣',mblv:'会员等级',mbd5:'5折',mbd4:'4折',mbd3:'3折',mbd2:'2折',mbd1:'1折',mbprice:'价格',mbtoken:'Token 数量',mbbuy:'立即购买',mbcurrent:'当前等级',mbinvite:'邀请奖励',invtotal:'总收益',invpending:'待使用收益',invcount:'邀请人数',invcode:'邀请码',invlink:'邀请链接',invcopy:'复制链接',invrule1:'邀请好友注册，好友充值后您可获得相应奖励',invrule2:'通过划转功能将奖励额度转入到您的账户余额中',invrule3:'邀请的好友越多，获得的奖励越多',invtransfer:'划转到余额',invdemo:'模拟邀请+1（演示）',mpedit:'编辑',mpkyc:'KYC 等级',mpjoined:'注册时间',soresult:'搜索结果',soadd2:'添加好友',sosearching:'搜索中...',soself:'不能添加自己',sopending:'申请已发出，等待对方确认',ppagent_desc:"一次性支付 $199 加入 AI Nexus 代理计划，赚取 50% 持续佣金。",ppdonate_desc:"支持 AI Nexus 开发。金额随意，感谢支持！",pppay:"通过 PayPal 支付",pppay_after:"支付完成后，复制您的交易ID并在下方确认",pptxnid:"PayPal 交易ID",ppagent_confirm:"确认支付并注册",ppdonate_confirm:"确认捐赠",insufbal:'余额不足',chtesting:'测试中...',chconn:'已连接 — {n} 个模型可用',chfail:'HTTP {code}: {msg}',chconnfail:'连接失败: {msg}',apireq:'API 地址必填',chsaved:'渠道配置已保存',createreq:'名称和描述为必填项',toolpub:'工具已发布！',eventreq:'标题、日期和描述为必填项',eventpub:'活动已创建！',chtitle:'API 渠道配置',chendpoint:'API 地址',chkey:'API 密钥',chtestconn:'连接测试',chtestbtn:'测试 API',chsavebtn:'保存配置',chidprefix:'ID: ',agpauto:'收益平台自动结算，划拨到个人平台账户',agpbeagent:'成为代理',agpcity:'区/市',agpcountry:'国家/地区',agpcurr:'当前等级',agpfee:'发展代理收益 50%',agpolicyt:'代理政策',agpolsub:'三级代理政策 · 平台自动结算 · 划拨个人账户',agpsel:'请选择代理等级',agpstate:'洲/省',agpt1d:'享受代理区域内平台收入利润的 50%。发展下级代理可获代理费 50% 收益。',agpt1n:'区/市级代理',agpt1r:'区域利润 50%',agpt2d:'享受代理区域内平台收入利润的 20%。发展下级代理可获代理费 50% 收益。',agpt2n:'洲/省（直辖市）级代理',agpt2r:'区域利润 20%',agpt3d:'享受代理区域内平台收入的 10%。发展下级代理可获代理费 50% 收益。',agpt3n:'国家/地区级代理',agpt3r:'区域收入 10%',navp:'推广',mbsubtitle:'累计充值自动升级会员等级,享受专属权益',mcurrentlv:'当前等级',mrank1:'普通会员',mrank2:'初级矿石',mrank3:'中级玉石',mrank4:'高级宝石',mrank5:'顶级钻石',mtotalmb:'会员总人数',mrech:'累计充值',mwallet:'会员余额(钱包)',mrwc:'充值 / 提现',mrwcsub:'中心',mtknpck:'代币存库包',mtknpcks:'安全储存代币',mtknenergy:'Token 能量包',msub2:'订阅大模型工具箱',msub2sub:'月度/年度自动续费',mlock:'代币抵押银行',mlocksub:'日息实时更新',msettle:'资金池账户',mplatform:'平台资金池',mpoolcopy:'复制池地址',msettlesub:'平台统一收款地址 · 请向此地址充值USDT(TRC20)完成入金',mrechargrule:'累计充值自动升级',nmb:'会员中心'},sonoauth:'身份验证失败，请先登录',sotokenexpired:'令牌无效或已过期，请重新登录',somaintenance:'系统升级维护中',somaintenance_sub:'请稍后再访问',
+  en:{nm:'Market',nto:'Tools',np2p:'P2P',ntr:'Trade',nev:'Events',ndb:'Dashboard',tlk:'Live Ticker',blg:'Login',bck:'← Back',bsu:'Sign Up',umd:'Dashboard',ump:'Profile',uml:'Logout',hbad:'AI Sharing Economy Protocol',hhd:'Own Token, Control AI.',hsd:'Buy, sell, and trade AI app subscriptions in the world\'s first decentralized AI access marketplace. Own your productivity.',stools:'AI Tools',susers:'Holders',svol:'24h Volume',smcap:'Market Cap',ttp:'Trending Packages',vall:'View All',tpe:'Price Evolution',tre:'Recent Transactions',taia:'All AI Apps',taid:'Browse and subscribe to premium AI tools. Share your subscriptions to earn tokens.',fall:'All Categories',spop:'Popular',snew:'Newest',sprice:'Price Low',sapy:'Yield High',p2pt:'P2P Marketplace',p2pd:'Buy and sell AI app access tokens directly with other users. No middlemen, lower prices.',p2pbu:'Buy Listings',p2psl:'Sell Listings',p2pcm:'Community',p2pbe:'Publish Event',pricel:'Price: Low',priceh:'Price: High',p2pcr:'Create Listing',tool:'Tool',pricel2:'Price (CNY)',qty:'Quantity',dur:'Duration (days)',p2pbcr:'Create Listing',trdt:'Trade',tbuy:'Buy',tsell:'Sell',tlim:'Limit',tmar:'Market',tprice:'Price (CNY)',tamt:'Amount (NEXUS)',ttot:'Total',tbal:'Available',tbuy2:'Buy NEXUS',tord:'Order Book',thst:'Trade History',evt:'AI Gatherings',evd:'Join exclusive AI community events. Each event features limited edition tokens and networking opportunities.',dbt:'My Dashboard',dph:'Portfolio Holdings',dtoken:'Token',dbal:'Balance',dval:'Value',dpnl:'P&L',dth:'Transaction History',dkc:'KYC & Verification',kycd:'Complete KYC to unlock higher trading limits',kycb:'Upgrade KYC',dwl:'Wallet',dwa:'Wallet Address',dwah:'Connect your real wallet address for withdrawals and rewards',dws:'Save Wallet',mlog:'Login',mlog2:'Login',memail:'Email',mpass:'Password',mforgot:'Forgot Password?',mnoacc:'No account?',mregi:'Register',mreg:'Register',muname:'Username',mref:'Referral Code (optional)',mreg2:'Create Account',mprocessing:'Processing...',mhacc:'Already have an account?',mres:'Reset Password',mres2:'Send Reset Link',mprf:'Edit Profile',mbio:'Bio',msave:'Save',mkyc:'KYC Verification',mkid:'ID Type',mknum:'ID Number',mkname:'Full Name (as on ID)',mkaddr:'Address',mksub:'Submit KYC',mconf:'Confirm',mcyes:'Confirm',mcancel:'Cancel',mlist:'Listing Details',mbuy:'Buy Now',sub:'Subscribe',share:'Share',days:'days',cny:'CNY',sell:'Seller',rating:'Rating',sold2:'Sold',deposit:'Deposit',withdraw:'Withdraw',buy:'Buy',sell2:'Sell',reward:'Reward',bt:'Buy',sd:'Sell',on:'On',mlog3:'Please login first',bs:'Buy successful!',ss:'Sell successful!',pln:'Listing created',prs:'Password reset link sent to',rgs:'Registration successful! Welcome to AI Nexus',notimpl:'This feature requires backend API. Demo mode active.',noauth:'Please login first',mvercode:'Verification Code',mvercode2:'Send Code',mvercode3:'Enter code',mverr:'Invalid verification code',mversent:'Verification code sent to',nag:'Agent',nsoc:'Social',sod:'Friends & Chat — Connect with the community',sosearch:'Search',sosearchph:'Search by email...',sofriends:'My Friends',sorequests:'Friend Requests',sochat:'Chat',sonofriends:'No friends yet',soadd:'Add Friend',soaccept:'Accept',soreject:'Reject',somsgph:'Type a message...',sosend:'Send',sonomsg:'Select a friend to chat',soonl:'Online',soffl:'Offline',soselect:'Select a friend',soadded:'Friend added!',soreqsent:'Friend request sent',sologin:'Login to use Social',agtit:'AI Alliance Agent',agdesc:'Join our agent program. Become an AI Alliance agent and earn 50% commission.',agnreg:'Become an AI Alliance Agent',agnregd:'Join the AI Nexus agent program, earn 50% recurring commission on every referred user. Build your AI business today.',agstep1:'Pay & Join',agstep1d:'One-time payment to become an agent',agstep2:'Get Sub-Accounts',agstep2d:'Create sub-accounts for customers',agstep3:'Earn 50%',agstep3d:'50% recurring commission on every sale',agjoin:'Join Now - Become an Agent',agpp:'Your PayPal Buttons',agbind:'+ Bind PayPal',agnopp:'No PayPal buttons bound yet',agcomm:'Commission History',aglive:'Live PayPal Buttons (Public)',agnolive:'No live buttons available',agbpt:'Bind PayPal Button',agbpn:'Button Name',agbpnph:'My Button',agbpid:'Hosted Button ID',agbpidph:'HOSTED-BUTTON-ID',agbphelp:'Find your hosted button ID in PayPal Dashboard > Pay & Get Paid > PayPal Buttons',agbpb:'Bind Button',agid:'Agent ID',agte:'Total Earnings',agrate:'Commission Rate',agstat:'Status',agtxns:'Txns',agrev:'Revenue',agearn:'Earned',agregok:'Agent registration successful!',agdelcf:'Delete this PayPal button?',agfill:'Please fill all fields',agbinds:'PayPal button bound!',agnocomm:'No commission records yet',agpcard:'Become AI Alliance Agent',agpcardd:'Pay to join \u2192 Get sub-accounts \u2192 Earn 50% recurring commission on every sale.',agpjoin:'Join Now',ppagent:'Become AI Alliance Agent',ppdonate:'Sponsor / Donate',mavatar:'Avatar',mupload:'Upload',mclear:'Clear',msigimg:'Signature Image',msigvid:'Signature Video',mbio_ph:'Tell us about yourself',mpsaved:'Profile saved',mup_success:'Upload successful',mup_fail:'Upload failed',mexists:'Email already registered — try logging in',mnofile:'Please select a file',mpview:'Profile',appdlt:'AI Nexus APP',appdlname:'AI Nexus Mobile v1.0.0',appdlmeta:'Android · APK · 3.7 MB',appdldesc:'Download AI Nexus mobile client to experience Market, P2P, Trade, Agent services and AI tool subscriptions on the go.',appdlwarn:'⚠ This APK is a debug build and requires your permission to install. Please read the tutorial below before installing.',appdlbtn:'Download APK (3.7 MB)',appdlv:'Version: v1.0.0',appdlclose:'Close',appdltt:'AI Nexus APP',appdlds:'v1.0.0 · Android APK · 3.7 MB',tutt:'Installation & Usage Guide',tutsub:'From download to registration, start using AI Nexus mobile client in 5 steps.',tut1t:'Download APK',tut1d:'Click the top <b>+</b> button → select "AI Nexus APP" to download the APK file (about 3.7 MB).',tut2t:'Allow Unknown Sources',tut2d:'Go to phone <b>Settings → Security → More security settings → Install unknown apps</b>, turn on the toggle. You may also be prompted during installation.',tut3t:'Tap APK to Install',tut3d:'Open the downloaded <b>app-debug.apk</b> and tap "Install". The first time, you will be asked to confirm — choose "Install anyway".',tut4t:'Open APP & Login',tut4d:'On first launch, the welcome page will appear. You can switch languages in the top-right settings. Log in with your web account, or register a new one on device.',tut5t:'Start Exploring',tut5d:'Chat, P2P trading, Trade orders, Agent services, event registration, social chat and more are all available on mobile.',tutfaqt:'FAQ:',tutfaq1:'· iOS users: not available yet, please wait.',tutfaq2:'· Installation failed: ensure your phone has at least 20 MB free storage.',tutfaq3:'· Need help? Contact support or visit the web Help Center.',tuttt:'Installation & Usage Guide',tutds:'Installation & Usage Guide',tutgobtn:'Download Now',mbqty:'Token Amount',mbconfirm:'Confirm Purchase',mbt:'Member Center',mbsubtitle:'Upgrade for Token discounts',mblv:'Member Level',mbd5:'50% OFF',mbd4:'60% OFF',mbd3:'70% OFF',mbd2:'80% OFF',mbd1:'90% OFF',mbprice:'Price',mbtoken:'Tokens',mbbuy:'Buy Now',mbcurrent:'Current',mbinvite:'Invite Rewards',invtotal:'Total Earnings',invpending:'Pending Earnings',invcount:'Invites',invcode:'Invite Code',invlink:'Invite Link',invcopy:'Copy Link',invrule1:'Invite friends, earn rewards when they deposit',invrule2:'Transfer pending earnings to your wallet balance',invrule3:'The more friends you invite, the more you earn',invtransfer:'Transfer to Balance',invdemo:'Demo: +1 Invite',mpedit:'Edit',mpkyc:'KYC Level',mpjoined:'Joined',soresult:'Search Result',soadd2:'Add Friend',sosearching:'Searching...',soself:'Cannot add yourself',sopending:'Request pending, waiting for approval',ppagent_desc:"One-time payment of $199 to join the AI Nexus agent program and earn 50% recurring commission.",ppdonate_desc:"Support AI Nexus development. Any amount is appreciated!",pppay:"Pay with PayPal",pppay_after:"After payment, copy your transaction ID and confirm below",pptxnid:"PayPal Transaction ID",ppagent_confirm:"Confirm Payment & Register",ppdonate_confirm:"Confirm Donation",insufbal:'Insufficient balance',chtesting:'Testing...',chconn:'Connected — {n} models available',chfail:'HTTP {code}: {msg}',chconnfail:'Connection failed: {msg}',apireq:'API Endpoint required',chsaved:'Channel config saved',createreq:'Name and description required',toolpub:'Tool published!',eventreq:'Title, date and description required',eventpub:'Event created!',chtitle:'API Channel Config',chendpoint:'API Endpoint',chkey:'API Key',chtestconn:'Test Connection',chtestbtn:'Test API',chsavebtn:'Save Config',chidprefix:'ID: ',agpauto:'Earnings auto-settled by platform, paid into your account',agpbeagent:'Become an Agent',agpcity:'City',agpcountry:'Country',agpcurr:'Current Tier',agpfee:'50% Sub-Agent Fee',agpolicyt:'Agent Policy',agpolsub:'3-tier Agent Program · Auto-settled · Paid to Your Account',agpsel:'Select Agent Tier',agpstate:'State',agpt1d:'Earn 50% of platform profit in your region. Get 50% of sub-agent registration fees.',agpt1n:'City / District Agent',agpt1r:'50% Regional Profit',agpt2d:'Earn 20% of platform profit in your region. Get 50% of sub-agent registration fees.',agpt2n:'State / Province Agent',agpt2r:'20% Regional Profit',agpt3d:'Earn 10% of platform revenue in your region. Get 50% of sub-agent registration fees.',agpt3n:'Country / Region Agent',agpt3r:'10% Regional Revenue',navp:'Promote',mbsubtitle:'Auto-upgrade by recharge, enjoy exclusive benefits',mcurrentlv:'Current Level',mrank1:'Normal Member',mrank2:'Mineral',mrank3:'Jade',mrank4:'Gem',mrank5:'Diamond',mtotalmb:'Total Members',mrech:'Total Recharge',mwallet:'Member Wallet',mrwc:'Recharge / Withdraw',mrwcsub:'Center',mtknpck:'Token Vault',mtknpcks:'Safely store tokens',mtknenergy:'Token Energy Pack',msub2:'Subscribe AI Toolkit',msub2sub:'Monthly/Annual auto-renew',mlock:'Token Stake Bank',mlocksub:'Daily interest in real-time',msettle:'Pool Account',mplatform:'Platform Pool',mpoolcopy:'Copy Pool Address',msettlesub:'Platform unified address · Send USDT (TRC20) to deposit',mrechargrule:'Auto-upgrade by recharge',nmb:'Member Center'},sonoauth:'Authentication failed. Please login first',sotokenexpired:'Invalid or expired token. Please login again',somaintenance:'System Under Maintenance',somaintenance_sub:'Please come back later',
+  ja:{nm:'マーケット',nto:'ツール',np2p:'P2P',ntr:'取引',nev:'イベント',ndb:'ダッシュボード',tlk:'ライブティッカー',blg:'ログイン',bck:'← 戻る',bsu:'登録',umd:'ダッシュボード',ump:'プロフィール',uml:'ログアウト',hbad:'AI共有経済プロトコル',hhd:'1トークン、無限AI',hsd:'世界初の分散型AIアクセスマーケット。生産性を掌握せよ。',stools:'AIツール',susers:'保有者',svol:'24h出来高',smcap:'時価総額',ttp:'人気パッケージ',vall:'すべて見る',tpe:'価格推移',tre:'最近の取引',taia:'全AIアプリ',taid:'プレミアムAIツールを購読。共有してトークン獲得。',fall:'全カテゴリ',spop:'人気',snew:'最新',sprice:'価格低',sapy:'利回り高',p2pt:'P2Pマーケット',p2pd:'他ユーザーと直接売買。仲介者なし低価格。',p2pbu:'購入一覧',p2psl:'販売一覧',p2pcm:'コミュニティ',p2pbe:'イベントを公開',pricel:'価格：低',priceh:'価格：高',p2pcr:'出品作成',tool:'ツール',pricel2:'価格(CNY)',qty:'数量',dur:'期間(日)',p2pbcr:'出品作成',trdt:'取引',tbuy:'購入',tsell:'販売',tlim:'指値',tmar:'成行',tprice:'価格(CNY)',tamt:'数量(NEXUS)',ttot:'合計',tbal:'利用可能',tbuy2:'NEXUS購入',tord:'注文板',thst:'取引履歴',evt:'AI集会',evd:'限定AIコミュニティイベント。各回限定トークンと交流機会。',dbt:'マイダッシュボード',dph:'保有資産',dtoken:'トークン',dbal:'残高',dval:'評価額',dpnl:'損益',dth:'取引履歴',dkc:'KYC認証',kycd:'KYC完了で取引上限引上',kycb:'KYCアップグレード',dwl:'ウォレット',dwa:'ウォレットアドレス',dwah:'実際のウォレットを接続',dws:'ウォレット保存',mlog:'ログイン',mlog2:'ログイン',memail:'メール',mpass:'パスワード',mforgot:'パスワード忘れ？',mnoacc:'未登録？',mregi:'登録',mreg:'登録',muname:'ユーザー名',mref:'紹介コード(任意)',mreg2:'アカウント作成',mhacc:'アカウント有？',mres:'リセット',mres2:'リンク送信',mprf:'プロフィール編集',mbio:'自己紹介',msave:'保存',mkyc:'KYC認証',mkid:'身分証種類',mknum:'番号',mkname:'氏名(身分証一致)',mkaddr:'住所',mksub:'KYC提出',mconf:'確認',mcyes:'確認',mcancel:'取消',mlist:'出品詳細',mbuy:'今すぐ購入',sub:'購読',share:'共有',days:'日',cny:'CNY',sell:'販売者',rating:'評価',sold2:'販売済',deposit:'入金',withdraw:'出金',buy:'購入',sell2:'販売',reward:'報酬',bt:'買',sd:'売',on:'オン',mlog3:'要ログイン',bs:'購入成功！',ss:'販売成功！',pln:'出品完了',prs:'リンク送信先：',rgs:'登録成功！AI Nexusへようこそ',notimpl:'バックエンドAPI要。デモモード',noauth:'要ログイン',mvercode:'認証コード',mvercode2:'コード送信',mvercode3:'コード入力',mverr:'認証コードが無効',mversent:'認証コードを送信: ',nag:'エージェント',nsoc:'ソーシャル',sod:'ソーシャル — 友達とチャット',sosearch:'検索',sosearchph:'メールで検索...',sofriends:'友達',sorequests:'友達リクエスト',sochat:'チャット',sonofriends:'友達なし',soadd:'友達追加',soaccept:'承認',soreject:'拒否',somsgph:'メッセージ...',sosend:'送信',sonomsg:'友達を選択',soonl:'オンライン',soffl:'オフライン',soselect:'友達選択',soadded:'友達追加完了',soreqsent:'リクエスト送信済',sologin:'ログインが必要',agtit:'AIアライアンスエージェント',agdesc:'エージェントプログラムに参加。AIアライアンスエージェントとして50%のコミッションを獲得。',agnreg:'AIアライアンスエージェントになる',agnregd:'AI Nexusエージェントプログラムに参加し、紹介ユーザーごとに50%の継続的コミッションを獲得。',agstep1:'支払い＆参加',agstep1d:'エージェントになるための一回払い',agstep2:'サブアカウント取得',agstep2d:'顧客用サブアカウント作成',agstep3:'50%獲得',agstep3d:'各販売で50%継続コミッション',agjoin:'今すぐ参加 - エージェントになる',agpp:'PayPalボタン',agbind:'+ PayPalをバインド',agnopp:'バインドされたPayPalボタンはありません',agcomm:'コミッション履歴',aglive:'ライブPayPalボタン（公開）',agnolive:'ライブボタンはありません',agbpt:'PayPalボタンをバインド',agbpn:'ボタン名',agbpnph:'マイボタン',agbpid:'ホスト型ボタンID',agbpidph:'HOSTED-BUTTON-ID',agbphelp:'PayPalダッシュボード > 支払い受取 > PayPalボタンでホスト型ボタンIDを確認',agbpb:'バインド',agid:'エージェントID',agte:'総収益',agrate:'コミッション率',agstat:'ステータス',agtxns:'取引数',agrev:'収入',agearn:'獲得額',agregok:'エージェント登録成功！',agdelcf:'このPayPalボタンを削除しますか？',agfill:'すべての項目を入力してください',agbinds:'PayPalボタンがバインドされました！',agnocomm:'コミッション記録はまだありません',agpcard:'AIアライアンスエージェントになる',agpcardd:'支払い参加 → サブアカウント取得 → 各販売で50%継続コミッション。',agpjoin:'今すぐ参加',ppagent:'AIアライアンスエージェントになる',ppdonate:'スポンサー/寄付',mavatar:'アバター',mupload:'アップロード',mclear:'クリア',msigimg:'署名画像',msigvid:'署名動画',mbio_ph:'自己紹介',mpsaved:'プロフィール保存',mup_success:'アップロード成功',mup_fail:'アップロード失敗',mexists:'このメールアドレスは登録済みです — ログインしてください',mnofile:'ファイルを選択',mpview:'プロフィール',appdlt:'AI Nexus APP',appdlname:'AI Nexus モバイル v1.0.0',appdlmeta:'Android · APK · 3.7 MB',appdldesc:'AI Nexus モバイルクライアントをダウンロードして、市場、P2P、トレード、代理店サービス、AI ツール購読をいつでもどこでもご利用ください。',appdlwarn:'⚠ 本 APK はデバッグ版で、許可後にのみインストールできます。インストール前に下記のチュートリアルをお読みください。',appdlbtn:'APK をダウンロード (3.7 MB)',appdlv:'バージョン: v1.0.0',appdlclose:'閉じる',appdltt:'AI Nexus APP',appdlds:'v1.0.0 · Android APK · 3.7 MB',tutt:'インストール・使い方ガイド',tutsub:'ダウンロードから登録まで、5 ステップで AI Nexus モバイルクライアントを始めましょう。',tut1t:'APK をダウンロード',tut1d:'上部の <b>+</b> ボタンをクリック →「AI Nexus APP」を選択して APK ファイル (約 3.7 MB) をダウンロードします。',tut2t:'不明ソースのインストールを許可',tut2d:'スマートフォンの <b>設定 → セキュリティ → その他のセキュリティ設定 → 不明アプリのインストール</b> でスイッチをオンにします。インストール時にも案内されます。',tut3t:'APK をタップしてインストール',tut3d:'ダウンロードした <b>app-debug.apk</b> を開き、「インストール」をタップします。初回は確認が出るので「それでもインストール」を選択してください。',tut4t:'APP を開いてログイン',tut4d:'初回起動時はウェルカムページが表示されます。右上の設定で言語を切り替えられます。ウェブと同じアカウントでログインするか、新規登録してください。',tut5t:'使い始める',tut5d:'チャット、P2P 取引、トレード注文、代理店サービス、イベント参加、ソーシャルチャットなど、すべての機能がモバイルで利用可能です。',tutfaqt:'よくある質問：',tutfaq1:'· iOS ユーザー：現在ご利用いただけません。少々お待ちください。',tutfaq2:'· インストール失敗：端末の空き容量が 20 MB 以上あるかご確認ください。',tutfaq3:'· サポートが必要な場合は、カスタマーサービスまたはウェブのヘルプセンターまでお問い合わせください。',tuttt:'インストール・使い方ガイド',tutds:'インストール・使い方ガイド',tutgobtn:'今すぐダウンロード',mbqty:'トークン数量',mbconfirm:'購入確認',mbt:'会員センター',mbsubtitle:'アップグレードでトークン割引',mblv:'会員レベル',mbd5:'50%OFF',mbd4:'60%OFF',mbd3:'70%OFF',mbd2:'80%OFF',mbd1:'90%OFF',mbprice:'価格',mbtoken:'トークン',mbbuy:'今すぐ購入',mbcurrent:'現在のレベル',mbinvite:'招待報酬',invtotal:'累計報酬',invpending:'未使用報酬',invcount:'招待人数',invcode:'招待コード',invlink:'招待リンク',invcopy:'リンクをコピー',invrule1:'友人を招待すると、友人の入金時に報酬を獲得',invrule2:'未使用報酬をウォレット残高に送金',invrule3:'友人を多く招待するほど、多くの報酬を獲得',invtransfer:'残高に送金',invdemo:'デモ：招待+1',mpedit:'編集',mpkyc:'KYCレベル',mpjoined:'登録日',soresult:'検索結果',soadd2:'友達追加',sosearching:'検索中...',soself:'自分は追加不可',sopending:'申請済み',ppagent_desc:"AI Nexusエージェントプログラムに参加するための$199の一回払い。50%の継続的コミッションを獲得。",ppdonate_desc:"AI Nexusの開発をサポート。任意の金額で結構です！",pppay:"PayPalで支払う",pppay_after:"支払い後、取引IDをコピーして以下で確認してください",pptxnid:"PayPal取引ID",ppagent_confirm:"支払い確認と登録",ppdonate_confirm:"寄付を確認",insufbal:'残高不足',chtesting:'テスト中...',chconn:'接続完了 — {n}モデル利用可能',chfail:'HTTP {code}: {msg}',chconnfail:'接続失敗: {msg}',apireq:'APIエンドポイント必須',chsaved:'チャンネル設定を保存しました',createreq:'名前と説明は必須',toolpub:'ツール公開完了！',eventreq:'タイトル、日付、説明は必須',eventpub:'イベント作成完了！',chtitle:'APIチャンネル設定',chendpoint:'APIエンドポイント',chkey:'APIキー',chtestconn:'接続テスト',chtestbtn:'APIテスト',chsavebtn:'設定を保存',chidprefix:'ID: ',agpauto:'収益はプラットフォームが自動精算し、個人口座へ支給',agpbeagent:'代理店になる',agpcity:'区・市',agpcountry:'国・地域',agpcurr:'現在のレベル',agpfee:'下級代理店手数料 50%',agpolicyt:'代理店ポリシー',agpolsub:'3段階代理店制度 · 自動精算 · 個人口座に支給',agpsel:'代理店レベルを選択',agpstate:'州・省',agpt1d:'管轄区域内プラットフォーム利益の 50% を得る。下級代理店手数料の 50% も獲得。',agpt1n:'区・市レベル代理店',agpt1r:'区域内利益 50%',agpt2d:'管轄区域内プラットフォーム利益の 20% を得る。下級代理店手数料の 50% も獲得。',agpt2n:'州・省（直轄市）レベル代理店',agpt2r:'区域内利益 20%',agpt3d:'管轄区域内プラットフォーム収入の 10% を得る。下級代理店手数料の 50% も獲得。',agpt3n:'国家・地域レベル代理店',agpt3r:'区域内収入 10%',navp:'推广',mbsubtitle:'累計チャージで自動昇格',mcurrentlv:'現在のレベル',mrank1:'一般会員',mrank2:'初級鉱石',mrank3:'中級玉石',mrank4:'高級宝石',mrank5:'ダイヤモンド',mtotalmb:'会員総数',mrech:'累計チャージ',mwallet:'会員ウォレット',mrwc:'チャージ / 出金',mrwcsub:'センター',mtknpck:'トークン保管庫',mtknpcks:'トークンを安全に保管',mtknenergy:'Token エネルギーパック',msub2:'AIツールボックス',msub2sub:'月/年自動更新',mlock:'トークンステーク銀行',mlocksub:'リアルタイム日利',msettle:'プール口座',mplatform:'プラットフォームプール',mpoolcopy:'プールアドレスをコピー',msettlesub:'プラットフォーム統一アドレス · USDT(TRC20)を送金',mrechargrule:'累計チャージで自動昇格',nmb:'会員センター'},sonoauth:'認証に失敗しました。ログインしてください',sotokenexpired:'トークンが無効または期限切れです。再ログインしてください',somaintenance:'システムメンテナンス中',somaintenance_sub:'後ほど再度お越しください',
+  ko:{nm:'마켓',nto:'도구',np2p:'P2P',ntr:'거래',nev:'이벤트',ndb:'대시보드',tlk:'실시간 시세',blg:'로그인',bck:'← 뒤로',bsu:'회원가입',umd:'대시보드',ump:'프로필',uml:'로그아웃',hbad:'AI 공유 경제 프로토콜',hhd:'하나의 토큰, 무한한 AI',hsd:'세계 최초 분산형 AI 접근 마켓에서 AI 앱 구독을 사고팔고 거래하세요. 생산성을 장악하세요.',stools:'AI 도구',susers:'보유자',svol:'24시간 거래량',smcap:'시가총액',ttp:'인기 패키지',vall:'전체 보기',tpe:'가격 추이',tre:'최근 거래',taia:'전체 AI 앱',taid:'프리미엄 AI 도구를 구독하세요. 구독을 공유하여 토큰을 획득하세요.',fall:'전체 카테고리',spop:'인기',snew:'최신',sprice:'낮은 가격',sapy:'높은 수익',p2pt:'P2P 마켓',p2pd:'다른 사용자와 직접 AI 접근 토큰을 거래하세요. 중개인 없이 더 낮은 가격.',p2pbu:'구매 목록',p2psl:'판매 목록',p2pcm:'커뮤니티',p2pbe:'이벤트 게시',pricel:'가격: 낮은 순',priceh:'가격: 높은 순',p2pcr:'판매 등록',tool:'도구',pricel2:'가격 (CNY)',qty:'수량',dur:'기간 (일)',p2pbcr:'판매 등록',trdt:'거래',tbuy:'구매',tsell:'판매',tlim:'지정가',tmar:'시장가',tprice:'가격 (CNY)',tamt:'수량 (NEXUS)',ttot:'총액',tbal:'사용 가능',tbuy2:'NEXUS 구매',tord:'주문장',thst:'거래 내역',evt:'AI 모임',evd:'독점 AI 커뮤니티 이벤트에 참여하세요. 각 이벤트마다 한정판 토큰과 네트워킹 기회.',dbt:'내 대시보드',dph:'포트폴리오 보유',dtoken:'토큰',dbal:'잔액',dval:'가치',dpnl:'손익',dth:'거래 내역',dkc:'KYC 인증',kycd:'KYC 완료 시 거래 한도 상향',kycb:'KYC 업그레이드',dwl:'지갑',dwa:'지갑 주소',dwah:'출금 및 보상을 위해 실제 지갑 주소 연결',dws:'지갑 저장',mlog:'로그인',mlog2:'로그인',memail:'이메일',mpass:'비밀번호',mforgot:'비밀번호 찾기',mnoacc:'계정이 없으신가요?',mregi:'회원가입',mreg:'회원가입',muname:'사용자명',mref:'추천 코드 (선택)',mreg2:'계정 생성',mhacc:'이미 계정이 있으신가요?',mres:'비밀번호 재설정',mres2:'재설정 링크 전송',mprf:'프로필 편집',mbio:'소개',msave:'저장',mkyc:'KYC 인증',mkid:'신분증 유형',mknum:'신분증 번호',mkname:'이름 (신분증과 일치)',mkaddr:'주소',mksub:'KYC 제출',mconf:'확인',mcyes:'확인',mcancel:'취소',mlist:'판매 상세',mbuy:'즉시 구매',sub:'구독',share:'공유',days:'일',cny:'CNY',sell:'판매자',rating:'평점',sold2:'판매 완료',deposit:'입금',withdraw:'출금',buy:'구매',sell2:'판매',reward:'보상',bt:'매수',sd:'매도',on:'켜짐',mlog3:'먼저 로그인하세요',bs:'구매 성공!',ss:'판매 성공!',pln:'판매 등록 완료',prs:'비밀번호 재설정 링크 전송 대상:',rgs:'회원가입 성공! AI Nexus에 오신 것을 환영합니다',notimpl:'백엔드 API 필요. 데모 모드',noauth:'먼저 로그인하세요',mvercode:'인증 코드',mvercode2:'코드 전송',mvercode3:'코드 입력',mverr:'잘못된 인증 코드',mversent:'인증 코드 전송됨: ',nag:'에이전트',nsoc:'소셜',sod:'소셜 — 친구와 채팅',sosearch:'검색',sosearchph:'이메일로 검색...',sofriends:'내 친구',sorequests:'친구 요청',sochat:'채팅',sonofriends:'친구 없음',soadd:'친구 추가',soaccept:'수락',soreject:'거절',somsgph:'메시지 입력...',sosend:'보내기',sonomsg:'친구 선택',soonl:'온라인',soffl:'오프라인',soselect:'친구 선택',soadded:'친구 추가 완료',soreqsent:'요청 전송됨',sologin:'로그인이 필요합니다',agtit:'AI 얼라이언스 에이전트',agdesc:'에이전트 프로그램에 참여하세요. AI 얼라이언스 에이전트가 되어 50% 수수료를 받으세요.',agnreg:'AI 얼라이언스 에이전트 되기',agnregd:'AI Nexus 에이전트 프로그램에 참여하여 추천 사용자당 50% 반복 수수료를 받으세요.',agstep1:'결제 및 참여',agstep1d:'에이전트가 되기 위한 일회성 결제',agstep2:'하위 계정 받기',agstep2d:'고객용 하위 계정 생성',agstep3:'50% 수익',agstep3d:'판매당 50% 반복 수수료',agjoin:'지금 참여 - 에이전트 되기',agpp:'PayPal 버튼',agbind:'+ PayPal 바인딩',agnopp:'바인딩된 PayPal 버튼 없음',agcomm:'수수료 내역',aglive:'실시간 PayPal 버튼 (공개)',agnolive:'실시간 버튼 없음',agbpt:'PayPal 버튼 바인딩',agbpn:'버튼 이름',agbpnph:'내 버튼',agbpid:'호스팅 버튼 ID',agbpidph:'HOSTED-BUTTON-ID',agbphelp:'PayPal 대시보드 > 결제 수신 > PayPal 버튼에서 호스팅 버튼 ID 확인',agbpb:'바인딩',agid:'에이전트 ID',agte:'총 수익',agrate:'수수료율',agstat:'상태',agtxns:'거래',agrev:'수익',agearn:'획득액',agregok:'에이전트 등록 성공!',agdelcf:'이 PayPal 버튼을 삭제하시겠습니까?',agfill:'모든 필드를 입력하세요',agbinds:'PayPal 버튼 바인딩 완료!',agnocomm:'수수료 기록 없음',agpcard:'AI 얼라이언스 에이전트 되기',agpcardd:'결제 참여 → 하위 계정 → 판매당 50% 반복 수수료.',agpjoin:'지금 참여',ppagent:'AI 얼라이언스 에이전트 되기',ppdonate:'후원/기부',mavatar:'아바타',mupload:'업로드',mclear:'지우기',msigimg:'서명 이미지',msigvid:'서명 비디오',mbio_ph:'자기소개',mpsaved:'프로필 저장',mup_success:'업로드 성공',mup_fail:'업로드 실패',mexists:'이미 등록된 이메일입니다 — 로그인하세요',mnofile:'파일을 선택하세요',mpview:'프로필',appdlt:'AI Nexus APP',appdlname:'AI Nexus 모바일 v1.0.0',appdlmeta:'Android · APK · 3.7 MB',appdldesc:'AI Nexus 모바일 클라이언트를 다운로드하여 마켓, P2P, 트레이드, 에이전트 서비스 및 AI 도구 구독을 어디서나 이용하세요.',appdlwarn:'⚠ 본 APK는 디버그 버전으로, 사용자 권한이 있어야 설치할 수 있습니다. 설치 전 아래 튜토리얼을 읽어 주세요.',appdlbtn:'APK 다운로드 (3.7 MB)',appdlv:'버전: v1.0.0',appdlclose:'닫기',appdltt:'AI Nexus APP',appdlds:'v1.0.0 · Android APK · 3.7 MB',tutt:'설치 및 사용 가이드',tutsub:'다운로드부터 가입까지, 5단계로 AI Nexus 모바일 클라이언트를 시작하세요.',tut1t:'APK 다운로드',tut1d:'상단의 <b>+</b> 버튼 클릭 → "AI Nexus APP"을 선택하여 APK 파일(약 3.7 MB)을 다운로드합니다.',tut2t:'알 수 없는 출처 허용',tut2d:'스마트폰 <b>설정 → 보안 → 추가 보안 설정 → 알 수 없는 앱 설치</b>에서 토글을 켭니다. 설치 중에도 안내가 표시될 수 있습니다.',tut3t:'APK 탭하여 설치',tut3d:'다운로드한 <b>app-debug.apk</b>를 열고 "설치"를 탭합니다. 처음에는 확인 창이 나타나며 "그래도 설치"를 선택하세요.',tut4t:'APP 실행 및 로그인',tut4d:'최초 실행 시 환영 페이지가 나타납니다. 우측 상단 설정에서 언어를 전환할 수 있습니다. 웹 계정으로 로그인하거나 새로 가입하세요.',tut5t:'시작하기',tut5d:'채팅, P2P 거래, 트레이드 주문, 에이전트 서비스, 이벤트 등록, 소셜 채팅 등 모든 기능을 모바일에서 이용할 수 있습니다.',tutfaqt:'자주 묻는 질문:',tutfaq1:'· iOS 사용자는 현재 지원되지 않습니다. 잠시만 기다려 주세요.',tutfaq2:'· 설치 실패: 기기 저장 공간이 20 MB 이상 남아 있는지 확인하세요.',tutfaq3:'· 도움이 필요하면 고객 지원 또는 웹 헬프 센터를 방문하세요.',tuttt:'설치 및 사용 가이드',tutds:'설치 및 사용 가이드',tutgobtn:'지금 다운로드',mpedit:'편집',mpkyc:'KYC 등급',mpjoined:'가입일',soresult:'검색 결과',soadd2:'친구 추가',sosearching:'검색 중...',soself:'자신을 추가할 수 없습니다',sopending:'요청 대기 중',ppagent_desc:"AI Nexus 에이전트 프로그램 가입을 위한 $199 일회성 결제. 50% 반복 수수료 획득.",ppdonate_desc:"AI Nexus 개발 지원. 금액은 자유롭게!",pppay:"PayPal로 결제",pppay_after:"결제 후 거래 ID를 복사하여 아래에서 확인하세요",pptxnid:"PayPal 거래 ID",ppagent_confirm:"결제 확인 및 등록",ppdonate_confirm:"기부 확인",insufbal:'잔액 부족',chtesting:'테스트 중...',chconn:'연결됨 — {n}개 모델 사용 가능',chfail:'HTTP {code}: {msg}',chconnfail:'연결 실패: {msg}',apireq:'API 엔드포인트 필수',chsaved:'채널 설정 저장됨',createreq:'이름과 설명 필수',toolpub:'도구 게시 완료!',eventreq:'제목, 날짜, 설명 필수',eventpub:'이벤트 생성 완료!',chtitle:'API 채널 설정',chendpoint:'API 엔드포인트',chkey:'API 키',chtestconn:'연결 테스트',chtestbtn:'API 테스트',chsavebtn:'설정 저장',chidprefix:'ID: ',agpauto:'수익은 플랫폼이 자동 정산하여 개인 계좌로 지급',agpbeagent:'에이전트 가입',agpcity:'구/시',agpcountry:'국가/지역',agpcurr:'현재 등급',agpfee:'하위 에이전트 수수료 50%',agpolicyt:'에이전트 정책',agpolsub:'3단계 에이전트 제도 · 자동 정산 · 개인 계좌 지급',agpsel:'에이전트 등급 선택',agpstate:'주/성',agpt1d:'관할 구역 플랫폼 수익의 50%를 획득. 하위 에이전트 수수료의 50%도 획득.',agpt1n:'구/시급 에이전트',agpt1r:'구역 수익 50%',agpt2d:'관할 구역 플랫폼 수익의 20%를 획득. 하위 에이전트 수수료의 50%도 획득.',agpt2n:'주/성(직할시)급 에이전트',agpt2r:'구역 수익 20%',agpt3d:'관할 구역 플랫폼 수입의 10%를 획득. 하위 에이전트 수수료의 50%도 획득.',agpt3n:'국가/지역급 에이전트',agpt3r:'구역 수입 10%',navp:'推广',mbsubtitle:'충전에 따라 자동 승급',mcurrentlv:'현재 레벨',mrank1:'일반 회원',mrank2:'초급 광석',mrank3:'중급 옥석',mrank4:'고급 보석',mrank5:'최고급 다이아몬드',mtotalmb:'총 회원',mrech:'총 충전',mwallet:'회원 지갑',mrwc:'충전 / 출금',mrwcsub:'센터',mtknpck:'토큰 금고',mtknpcks:'토큰 안전 보관',mtknenergy:'Token 에너지 팩',msub2:'AI 툴킷 구독',msub2sub:'월/연 자동 갱신',mlock:'토큰 스테이크 뱅크',mlocksub:'실시간 일일 이자',msettle:'풀 계정',mplatform:'플랫폼 풀',mpoolcopy:'풀 주소 복사',msettlesub:'플랫폼 통합 주소 · USDT(TRC20) 송금',mrechargrule:'충전 자동 승급',nmb:'회원 센터',mbt:'회원 센터',mbinvite:'초대 보상',invcode:'초대 코드',invlink:'초대 링크',invcopy:'링크 복사',invcount:'초대 수',invpending:'미사용 보상',invtotal:'총 보상',invtransfer:'잔액으로 송금',invrule1:'친구를 초대하고 친구가 입금하면 보상을 받으세요',invrule2:'송금 기능을 통해 미사용 보상을 지갑 잔액으로 이체하세요',invrule3:'더 많은 친구를 초대할수록 더 많은 보상을 받습니다',invdemo:'데모: 초대 +1'},sonoauth:'인증 실패. 로그인해 주세요',sotokenexpired:'토큰이 유효하지 않거나 만료되었습니다. 다시 로그인하세요',somaintenance:'시스템 점검 중',somaintenance_sub:'잠시 후 다시 방문해 주세요',
+  es:{nm:'Mercado',nto:'Herramientas',np2p:'P2P',ntr:'Comercio',nev:'Eventos',ndb:'Panel',tlk:'Ticker en Vivo',blg:'Iniciar Sesión',bck:'← Volver',bsu:'Registrarse',umd:'Panel',ump:'Perfil',uml:'Cerrar Sesión',hbad:'Protocolo de Economía Compartida de IA',hhd:'Un Token. IA Infinita.',hsd:'Compra, vende e intercambia suscripciones de IA en el primer mercado descentralizado de acceso a IA del mundo. Domina tu productividad.',stools:'Herramientas IA',susers:'Titulares',svol:'Volumen 24h',smcap:'Cap. de Mercado',ttp:'Paquetes Populares',vall:'Ver Todo',tpe:'Evolución de Precio',tre:'Transacciones Recientes',taia:'Todas las Apps IA',taid:'Explora y suscríbete a herramientas IA premium. Comparte tus suscripciones para ganar tokens.',fall:'Todas las Categorías',spop:'Popular',snew:'Más Nuevo',sprice:'Precio Bajo',sapy:'Rendimiento Alto',p2pt:'Mercado P2P',p2pd:'Compra y vende tokens de acceso IA directamente con otros usuarios. Sin intermediarios, precios más bajos.',p2pbu:'Listados de Compra',p2psl:'Listados de Venta',p2pcm:'Comunidad',p2pbe:'Publicar Evento',pricel:'Precio: Bajo',priceh:'Precio: Alto',p2pcr:'Crear Anuncio',tool:'Herramienta',pricel2:'Precio (CNY)',qty:'Cantidad',dur:'Duración (días)',p2pbcr:'Crear Anuncio',trdt:'Comercio',tbuy:'Comprar',tsell:'Vender',tlim:'Límite',tmar:'Mercado',tprice:'Precio (CNY)',tamt:'Cantidad (NEXUS)',ttot:'Total',tbal:'Disponible',tbuy2:'Comprar NEXUS',tord:'Libro de Órdenes',thst:'Historial de Comercio',evt:'Encuentros IA',evd:'Únete a eventos exclusivos de la comunidad IA. Cada evento presenta tokens de edición limitada y oportunidades de networking.',dbt:'Mi Panel',dph:'Activos en Cartera',dtoken:'Token',dbal:'Saldo',dval:'Valor',dpnl:'P&L',dth:'Historial de Transacciones',dkc:'KYC y Verificación',kycd:'Completa KYC para desbloquear límites más altos',kycb:'Mejorar KYC',dwl:'Billetera',dwa:'Dirección de Billetera',dwah:'Conecta tu billetera real para retiros y recompensas',dws:'Guardar Billetera',mlog:'Iniciar Sesión',mlog2:'Iniciar Sesión',memail:'Correo Electrónico',mpass:'Contraseña',mforgot:'¿Olvidaste tu contraseña?',mnoacc:'¿No tienes cuenta?',mregi:'Registrarse',mreg:'Registro',muname:'Nombre de Usuario',mref:'Código de Referido (opcional)',mreg2:'Crear Cuenta',mhacc:'¿Ya tienes cuenta?',mres:'Restablecer Contraseña',mres2:'Enviar Enlace de Restablecimiento',mprf:'Editar Perfil',mbio:'Biografía',msave:'Guardar',mkyc:'Verificación KYC',mkid:'Tipo de ID',mknum:'Número de ID',mkname:'Nombre Completo (según ID)',mkaddr:'Dirección',mksub:'Enviar KYC',mconf:'Confirmar',mcyes:'Confirmar',mcancel:'Cancelar',mlist:'Detalles del Anuncio',mbuy:'Comprar Ahora',sub:'Suscribirse',share:'Compartir',days:'días',cny:'CNY',sell:'Vendedor',rating:'Calificación',sold2:'Vendido',deposit:'Depositar',withdraw:'Retirar',buy:'Comprar',sell2:'Vender',reward:'Recompensa',bt:'Comprar',sd:'Vender',on:'Abierto',mlog3:'Inicia sesión primero',bs:'¡Compra exitosa!',ss:'¡Venta exitosa!',pln:'Anuncio creado',prs:'Enlace de restablecimiento enviado a',rgs:'¡Registro exitoso! Bienvenido a AI Nexus',notimpl:'Requiere API de backend. Modo demo activo.',noauth:'Inicia sesión primero',mvercode:'Código de Verificación',mvercode2:'Enviar Código',mvercode3:'Ingrese código',mverr:'Código de verificación inválido',mversent:'Código enviado a',nag:'Agente',nsoc:'Social',sod:'Social — Amigos y Chat',sosearch:'Buscar',sosearchph:'Buscar por email...',sofriends:'Mis Amigos',sorequests:'Solicitudes',sochat:'Chat',sonofriends:'Sin amigos',soadd:'Agregar',soaccept:'Aceptar',soreject:'Rechazar',somsgph:'Escribe...',sosend:'Enviar',sonomsg:'Selecciona amigo',soonl:'En línea',soffl:'Desconectado',soselect:'Seleccionar',soadded:'¡Amigo agregado!',soreqsent:'Solicitud enviada',sologin:'Inicia sesión',agtit:'Agente de Alianza IA',agdesc:'Únete a nuestro programa de agentes. Conviértete en agente de AI Alliance y gana 50% de comisión.',agnreg:'Conviértete en Agente de AI Alliance',agnregd:'Únete al programa de agentes AI Nexus, gana 50% de comisión recurrente por cada usuario referido.',agstep1:'Paga y Únete',agstep1d:'Pago único para ser agente',agstep2:'Obtén Subcuentas',agstep2d:'Crea subcuentas para clientes',agstep3:'Gana 50%',agstep3d:'50% de comisión recurrente en cada venta',agjoin:'Únete Ahora - Sé Agente',agpp:'Tus Botones PayPal',agbind:'+ Vincular PayPal',agnopp:'Sin botones PayPal vinculados',agcomm:'Historial de Comisiones',aglive:'Botones PayPal en Vivo (Público)',agnolive:'Sin botones en vivo',agbpt:'Vincular Botón PayPal',agbpn:'Nombre del Botón',agbpnph:'Mi Botón',agbpid:'ID de Botón Alojado',agbpidph:'HOSTED-BUTTON-ID',agbphelp:'Encuentra tu ID en Panel PayPal > Cobros > Botones PayPal',agbpb:'Vincular',agid:'ID de Agente',agte:'Ganancias Totales',agrate:'Tasa de Comisión',agstat:'Estado',agtxns:'Trans.',agrev:'Ingresos',agearn:'Ganado',agregok:'¡Registro de agente exitoso!',agdelcf:'¿Eliminar este botón PayPal?',agfill:'Complete todos los campos',agbinds:'¡Botón PayPal vinculado!',agnocomm:'Sin registros de comisión',agpcard:'Conviértete en Agente AI Alliance',agpcardd:'Paga para unirte → Subcuentas → 50% comisión recurrente.',agpjoin:'Únete Ahora',ppagent:'Conviértete en Agente AI Alliance',ppdonate:'Patrocinar/Donar',mavatar:'Avatar',mupload:'Subir',mclear:'Limpiar',msigimg:'Imagen Firma',msigvid:'Video Firma',mbio_ph:'Cuéntanos sobre ti',mpsaved:'Perfil guardado',mup_success:'Carga exitosa',mup_fail:'Carga fallida',mexists:'Este correo ya está registrado — inicia sesión',mnofile:'Seleccione archivo',mpview:'Perfil',appdlt:'AI Nexus APP',appdlname:'AI Nexus Móvil v1.0.0',appdlmeta:'Android · APK · 3.7 MB',appdldesc:'Descarga el cliente móvil de AI Nexus para disfrutar de Market, P2P, Trade, servicios de agente y suscripciones de herramientas de IA en cualquier lugar.',appdlwarn:'⚠ Este APK es una versión de depuración y requiere tu permiso para instalarse. Lee el tutorial a continuación antes de instalar.',appdlbtn:'Descargar APK (3.7 MB)',appdlv:'Versión: v1.0.0',appdlclose:'Cerrar',appdltt:'AI Nexus APP',appdlds:'v1.0.0 · Android APK · 3.7 MB',tutt:'Guía de Instalación y Uso',tutsub:'Desde la descarga hasta el registro, empieza a usar el cliente móvil de AI Nexus en 5 pasos.',tut1t:'Descargar APK',tut1d:'Haz clic en el botón <b>+</b> en la parte superior → selecciona "AI Nexus APP" para descargar el archivo APK (aprox. 3.7 MB).',tut2t:'Permitir Orígenes Desconocidos',tut2d:'Ve a <b>Ajustes → Seguridad → Más ajustes de seguridad → Instalar apps desconocidas</b> y activa el interruptor. También se te puede pedir durante la instalación.',tut3t:'Toca el APK para Instalar',tut3d:'Abre el <b>app-debug.apk</b> descargado y toca "Instalar". La primera vez te pedirá confirmación, elige "Instalar de todos modos".',tut4t:'Abrir APP e Iniciar Sesión',tut4d:'En el primer inicio aparecerá la página de bienvenida. Puedes cambiar el idioma en la configuración superior derecha. Inicia sesión con tu cuenta web o regístrate.',tut5t:'Empezar a Explorar',tut5d:'Chat, trading P2P, órdenes de Trade, servicios de agente, registro de eventos, chat social y más están disponibles en móvil.',tutfaqt:'Preguntas frecuentes:',tutfaq1:'· Usuarios de iOS: aún no disponible, por favor espere.',tutfaq2:'· Error de instalación: asegúrate de que tu teléfono tenga al menos 20 MB libres.',tutfaq3:'· ¿Necesitas ayuda? Contacta al soporte o visita el Centro de Ayuda web.',tuttt:'Guía de Instalación y Uso',tutds:'Guía de Instalación y Uso',tutgobtn:'Descargar Ahora',mpedit:'Editar',mpkyc:'Nivel KYC',mpjoined:'Registrado',soresult:'Resultado',soadd2:'Agregar Amigo',sosearching:'Buscando...',soself:'No puedes agregarte',sopending:'Solicitud pendiente',ppagent_desc:"Pago único de $199 para unirse al programa de agentes AI Nexus y ganar 50% de comisión recurrente.",ppdonate_desc:"Apoya el desarrollo de AI Nexus. ¡Cualquier cantidad es bienvenida!",pppay:"Pagar con PayPal",pppay_after:"Después del pago, copia tu ID de transacción y confirma abajo",pptxnid:"ID de Transacción PayPal",ppagent_confirm:"Confirmar Pago y Registro",ppdonate_confirm:"Confirmar Donación",insufbal:'Saldo insuficiente',chtesting:'Probando...',chconn:'Conectado — {n} modelos disponibles',chfail:'HTTP {code}: {msg}',chconnfail:'Error de conexión: {msg}',apireq:'Se requiere API Endpoint',chsaved:'Configuración del canal guardada',createreq:'Nombre y descripción requeridos',toolpub:'¡Herramienta publicada!',eventreq:'Título, fecha y descripción requeridos',eventpub:'¡Evento creado!',chtitle:'Config. Canal API',chendpoint:'Endpoint API',chkey:'Clave API',chtestconn:'Probar Conexión',chtestbtn:'Probar API',chsavebtn:'Guardar Config.',chidprefix:'ID: ',agpauto:'Ganancias liquidadas automáticamente, pagadas a tu cuenta',agpbeagent:'Convertirse en Agente',agpcity:'Ciudad',agpcountry:'País',agpcurr:'Nivel Actual',agpfee:'50% Tarifa Sub-Agente',agpolicyt:'Política de Agentes',agpolsub:'Programa de Agentes de 3 niveles · Liquidación automática · Pagado a tu cuenta',agpsel:'Seleccionar Nivel de Agente',agpstate:'Estado',agpt1d:'Obtén el 50% de las ganancias de la plataforma en tu región. 50% de las tarifas de sub-agentes.',agpt1n:'Agente Ciudad / Distrito',agpt1r:'50% Ganancia Regional',agpt2d:'Obtén el 20% de las ganancias de la plataforma en tu región. 50% de las tarifas de sub-agentes.',agpt2n:'Agente Estado / Provincia',agpt2r:'20% Ganancia Regional',agpt3d:'Obtén el 10% de los ingresos de la plataforma en tu región. 50% de las tarifas de sub-agentes.',agpt3n:'Agente País / Región',agpt3r:'10% Ingreso Regional',navp:'Promote',mbsubtitle:'Actualización automática por recarga',mcurrentlv:'Nivel Actual',mrank1:'Miembro Normal',mrank2:'Mineral Inicial',mrank3:'Jade Intermedio',mrank4:'Gema Avanzada',mrank5:'Diamante Supremo',mtotalmb:'Miembros Totales',mrech:'Recarga Total',mwallet:'Billetera Miembro',mrwc:'Recargar / Retirar',mrwcsub:'Centro',mtknpck:'Bóveda de Tokens',mtknpcks:'Guardar tokens seguro',mtknenergy:'Paquete Energía Token',msub2:'Suscripción Toolkit IA',msub2sub:'Renovación auto mensual/anual',mlock:'Banco Stake Token',mlocksub:'Interés diario en tiempo real',msettle:'Cuenta de Pool',mplatform:'Pool de Plataforma',mpoolcopy:'Copiar dirección Pool',msettlesub:'Dirección unificada · Envía USDT (TRC20)',mrechargrule:'Actualización auto por recarga',nmb:'Centro de Miembros',mbt:'Centro de Miembros',mbinvite:'Recompensa por Invitación',invcode:'Código de invitación',invlink:'Enlace de invitación',invcopy:'Copiar enlace',invcount:'Invitaciones',invpending:'Recompensas pendientes',invtotal:'Recompensas totales',invtransfer:'Transferir al saldo',invrule1:'Invita a amigos y gana recompensas cuando depositen',invrule2:'Transfiera las recompensas pendientes a su saldo de billetera',invrule3:'Cuantos más amigos invites, más recompensas ganarás',invdemo:'Demo: +1 Invitación'},sonoauth:'Error de autenticación. Inicia sesión',sotokenexpired:'Token inválido o expirado. Inicie sesión de nuevo',somaintenance:'Sistema en Mantenimiento',somaintenance_sub:'Por favor, vuelve más tarde',
+  fr:{nm:'Marché',nto:'Outils',np2p:'P2P',ntr:'Échange',nev:'Événements',ndb:'Tableau de Bord',tlk:'Ticker en Direct',blg:'Connexion',bck:'← Retour',bsu:'S\'inscrire',umd:'Tableau de Bord',ump:'Profil',uml:'Déconnexion',hbad:'Protocole d\'Économie de Partage IA',hhd:'Un Token. IA Infinie.',hsd:'Achetez, vendez et échangez des abonnements IA sur le premier marché d\'accès IA décentralisé au monde. Maîtrisez votre productivité.',stools:'Outils IA',susers:'Détenteurs',svol:'Volume 24h',smcap:'Capitalisation',ttp:'Forfaits Tendance',vall:'Tout Voir',tpe:'Évolution du Prix',tre:'Transactions Récentes',taia:'Toutes les Apps IA',taid:'Parcourez et abonnez-vous aux outils IA premium. Partagez vos abonnements pour gagner des tokens.',fall:'Toutes Catégories',spop:'Populaire',snew:'Plus Récent',sprice:'Prix Bas',sapy:'Rendement Élevé',p2pt:'Marché P2P',p2pd:'Achetez et vendez des tokens d\'accès IA directement avec d\'autres utilisateurs. Sans intermédiaires, prix réduits.',p2pbu:'Annonces d\'Achat',p2psl:'Annonces de Vente',p2pcm:'Communauté',p2pbe:'Publier Événement',pricel:'Prix : Bas',priceh:'Prix : Élevé',p2pcr:'Créer une Annonce',tool:'Outil',pricel2:'Prix (CNY)',qty:'Quantité',dur:'Durée (jours)',p2pbcr:'Créer une Annonce',trdt:'Échange',tbuy:'Acheter',tsell:'Vendre',tlim:'Limite',tmar:'Marché',tprice:'Prix (CNY)',tamt:'Montant (NEXUS)',ttot:'Total',tbal:'Disponible',tbuy2:'Acheter NEXUS',tord:'Carnet d\'Ordres',thst:'Historique d\'Échange',evt:'Rassemblements IA',evd:'Rejoignez des événements exclusifs de la communauté IA. Chaque événement propose des tokens en édition limitée et des opportunités de réseautage.',dbt:'Mon Tableau de Bord',dph:'Actifs du Portefeuille',dtoken:'Token',dbal:'Solde',dval:'Valeur',dpnl:'P&L',dth:'Historique de Transactions',dkc:'KYC & Vérification',kycd:'Complétez KYC pour débloquer des limites supérieures',kycb:'Améliorer KYC',dwl:'Portefeuille',dwa:'Adresse du Portefeuille',dwah:'Connectez votre portefeuille réel pour les retraits et récompenses',dws:'Enregistrer',mlog:'Connexion',mlog2:'Connexion',memail:'Email',mpass:'Mot de Passe',mforgot:'Mot de passe oublié ?',mnoacc:'Pas de compte ?',mregi:'S\'inscrire',mreg:'Inscription',muname:'Nom d\'utilisateur',mref:'Code de Parrainage (optionnel)',mreg2:'Créer un Compte',mhacc:'Déjà un compte ?',mres:'Réinitialiser',mres2:'Envoyer le Lien',mprf:'Modifier le Profil',mbio:'Bio',msave:'Enregistrer',mkyc:'Vérification KYC',mkid:'Type de Pièce d\'Identité',mknum:'Numéro d\'Identité',mkname:'Nom Complet (comme sur l\'ID)',mkaddr:'Adresse',mksub:'Soumettre KYC',mconf:'Confirmer',mcyes:'Confirmer',mcancel:'Annuler',mlist:'Détails de l\'Annonce',mbuy:'Acheter Maintenant',sub:'S\'abonner',share:'Partager',days:'jours',cny:'CNY',sell:'Vendeur',rating:'Évaluation',sold2:'Vendu',deposit:'Déposer',withdraw:'Retirer',buy:'Acheter',sell2:'Vendre',reward:'Récompense',bt:'Acheter',sd:'Vendre',on:'Ouvert',mlog3:'Veuillez vous connecter',bs:'Achat réussi !',ss:'Vente réussie !',pln:'Annonce créée',prs:'Lien de réinitialisation envoyé à',rgs:'Inscription réussie ! Bienvenue sur AI Nexus',notimpl:'API backend requise. Mode démo actif.',noauth:'Veuillez vous connecter',mvercode:'Code de Vérification',mvercode2:'Envoyer le Code',mvercode3:'Entrez le code',mverr:'Code de vérification invalide',mversent:'Code envoyé à',nag:'Agent',nsoc:'Social',sod:'Social — Amis & Chat',sosearch:'Rechercher',sosearchph:'Rechercher par email...',sofriends:'Mes Amis',sorequests:'Demandes',sochat:'Chat',sonofriends:'Pas d\'amis',soadd:'Ajouter',soaccept:'Accepter',soreject:'Refuser',somsgph:'Écrire...',sosend:'Envoyer',sonomsg:'Sélectionner un ami',soonl:'En ligne',soffl:'Hors ligne',soselect:'Sélectionner',soadded:'Ami ajouté!',soreqsent:'Demande envoyée',sologin:'Connectez-vous',agtit:'Agent Alliance IA',agdesc:'Rejoignez notre programme d\'agents. Devenez agent AI Alliance et gagnez 50% de commission.',agnreg:'Devenir Agent AI Alliance',agnregd:'Rejoignez le programme agent AI Nexus, gagnez 50% de commission récurrente par utilisateur référé.',agstep1:'Payer et Rejoindre',agstep1d:'Paiement unique pour devenir agent',agstep2:'Sous-comptes',agstep2d:'Créez des sous-comptes clients',agstep3:'50% de gains',agstep3d:'50% de commission récurrente',agjoin:'Rejoindre - Devenir Agent',agpp:'Vos Boutons PayPal',agbind:'+ Lier PayPal',agnopp:'Aucun bouton PayPal lié',agcomm:'Historique des Commissions',aglive:'Boutons PayPal en Direct',agnolive:'Aucun bouton en direct',agbpt:'Lier Bouton PayPal',agbpn:'Nom du Bouton',agbpnph:'Mon Bouton',agbpid:'ID Bouton Hébergé',agbpidph:'HOSTED-BUTTON-ID',agbphelp:'Trouvez votre ID dans Tableau de Bord PayPal > Paiements > Boutons PayPal',agbpb:'Lier',agid:'ID Agent',agte:'Gains Totaux',agrate:'Taux de Commission',agstat:'Statut',agtxns:'Trans.',agrev:'Revenu',agearn:'Gagné',agregok:'Inscription agent réussie!',agdelcf:'Supprimer ce bouton PayPal?',agfill:'Veuillez remplir tous les champs',agbinds:'Bouton PayPal lié!',agnocomm:'Aucune commission enregistrée',agpcard:'Devenir Agent AI Alliance',agpcardd:'Payer pour rejoindre → Sous-comptes → 50% commission récurrente.',agpjoin:'Rejoindre',ppagent:'Devenir Agent AI Alliance',ppdonate:'Sponsoriser/Faire un don',mavatar:'Avatar',mupload:'Télécharger',mclear:'Effacer',msigimg:'Image Signature',msigvid:'Vidéo Signature',mbio_ph:'Parlez-nous de vous',mpsaved:'Profil enregistré',mup_success:'Téléchargement réussi',mup_fail:'Échec du téléchargement',mexists:'Cet email est déjà enregistré — connectez-vous',mnofile:'Sélectionnez un fichier',mpview:'Profil',appdlt:'AI Nexus APP',appdlname:'AI Nexus Mobile v1.0.0',appdlmeta:'Android · APK · 3,7 Mo',appdldesc:'Téléchargez le client mobile AI Nexus pour profiter du marché, du P2P, du trading, des services d\'agent et des abonnements aux outils IA partout.',appdlwarn:'⚠ Cet APK est une version de débogage et nécessite votre autorisation pour être installé. Veuillez lire le tutoriel ci-dessous avant l\'installation.',appdlbtn:'Télécharger l\'APK (3,7 Mo)',appdlv:'Version : v1.0.0',appdlclose:'Fermer',appdltt:'AI Nexus APP',appdlds:'v1.0.0 · Android APK · 3,7 Mo',tutt:'Guide d\'installation et d\'utilisation',tutsub:'Du téléchargement à l\'inscription, commencez à utiliser le client mobile AI Nexus en 5 étapes.',tut1t:'Télécharger l\'APK',tut1d:'Cliquez sur le bouton <b>+</b> en haut → sélectionnez « AI Nexus APP » pour télécharger le fichier APK (environ 3,7 Mo).',tut2t:'Autoriser les sources inconnues',tut2d:'Allez dans <b>Paramètres → Sécurité → Plus de paramètres de sécurité → Installer des applications inconnues</b> et activez le commutateur. Vous pouvez aussi être invité lors de l\'installation.',tut3t:'Appuyer sur l\'APK pour installer',tut3d:'Ouvrez le fichier <b>app-debug.apk</b> téléchargé et appuyez sur « Installer ». La première fois, il vous sera demandé de confirmer – choisissez « Installer quand même ».',tut4t:'Ouvrir l\'APP et se connecter',tut4d:'Au premier lancement, la page de bienvenue apparaît. Vous pouvez changer de langue dans les paramètres en haut à droite. Connectez-vous avec votre compte web ou inscrivez-vous.',tut5t:'Commencer à explorer',tut5d:'Chat, trading P2P, ordres Trade, services d\'agent, inscription aux événements, chat social et plus sont disponibles sur mobile.',tutfaqt:'FAQ :',tutfaq1:'· Utilisateurs iOS : pas encore disponible, veuillez patienter.',tutfaq2:'· Échec de l\'installation : vérifiez que votre téléphone dispose d\'au moins 20 Mo libres.',tutfaq3:'· Besoin d\'aide ? Contactez le support ou visitez le Centre d\'aide web.',tuttt:'Guide d\'installation et d\'utilisation',tutds:'Guide d\'installation et d\'utilisation',tutgobtn:'Télécharger maintenant',mpedit:'Modifier',mpkyc:'Niveau KYC',mpjoined:'Inscrit',soresult:'Résultat',soadd2:'Ajouter',sosearching:'Recherche...',soself:'Impossible de s\'ajouter soi-même',sopending:'Demande en attente',ppagent_desc:"Paiement unique de $199 pour rejoindre le programme agent AI Nexus et gagner 50% de commission récurrente.",ppdonate_desc:"Soutenez le développement d\'AI Nexus. Tout montant est apprécié !",pppay:"Payer avec PayPal",pppay_after:"Après le paiement, copiez votre ID de transaction et confirmez ci-dessous",pptxnid:"ID de Transaction PayPal",ppagent_confirm:"Confirmer le Paiement et l\'Inscription",ppdonate_confirm:"Confirmer le Don",insufbal:'Solde insuffisant',chtesting:'Test en cours...',chconn:'Connecté — {n} modèles disponibles',chfail:'HTTP {code}: {msg}',chconnfail:'Échec de connexion: {msg}',apireq:'API Endpoint requis',chsaved:'Configuration du canal enregistrée',createreq:'Nom et description requis',toolpub:'Outil publié !',eventreq:'Titre, date et description requis',eventpub:'Événement créé !',chtitle:'Config. Canal API',chendpoint:'Endpoint API',chkey:'Clé API',chtestconn:'Test Connexion',chtestbtn:'Tester API',chsavebtn:'Enregistrer',chidprefix:'ID: ',agpauto:'Gains réglés automatiquement par la plateforme, versés sur votre compte',agpbeagent:'Devenir Agent',agpcity:'Ville',agpcountry:'Pays',agpcurr:'Niveau Actuel',agpfee:'50% Frais de Sous-Agent',agpolicyt:'Politique des Agents',agpolsub:'Programme d\'agents à 3 niveaux · Règlement automatique · Versé sur votre compte',agpsel:'Sélectionner le Niveau d\'Agent',agpstate:'État',agpt1d:'Gagnez 50% du profit de la plateforme dans votre région. 50% des frais de sous-agents.',agpt1n:'Agent Ville / District',agpt1r:'50% Profit Régional',agpt2d:'Gagnez 20% du profit de la plateforme dans votre région. 50% des frais de sous-agents.',agpt2n:'Agent État / Province',agpt2r:'20% Profit Régional',agpt3d:'Gagnez 10% des revenus de la plateforme dans votre région. 50% des frais de sous-agents.',agpt3n:'Agent Pays / Région',agpt3r:'10% Revenu Régional',navp:'Promote',mbsubtitle:'Mise à niveau automatique par recharge',mcurrentlv:'Niveau Actuel',mrank1:'Membre Normal',mrank2:'Minéral Débutant',mrank3:'Jade Intermédiaire',mrank4:'Gemme Avancée',mrank5:'Diamant Suprême',mtotalmb:'Total Membres',mrech:'Recharge Totale',mwallet:'Portefeuille Membre',mrwc:'Recharger / Retirer',mrwcsub:'Centre',mtknpck:'Coffre Tokens',mtknpcks:'Stocker tokens en sécurité',mtknenergy:'Pack Énergie Token',msub2:'S\'abonner Boîte IA',msub2sub:'Renouvellement auto mensuel/annuel',mlock:'Banque Stake Token',mlocksub:'Intérêt quotidien en temps réel',msettle:'Compte Pool',mplatform:'Pool Plateforme',mpoolcopy:'Copier l\'adresse Pool',msettlesub:'Adresse unifiée · Envoyez USDT (TRC20)',mrechargrule:'Mise à niveau auto par recharge',nmb:'Centre Membres',mbt:'Centre Membres',mbinvite:'Récompense de Parrainage',invcode:'Code de parrainage',invlink:'Lien de parrainage',invcopy:'Copier le lien',invcount:'Parrainages',invpending:'Récompenses en attente',invtotal:'Récompenses totales',invtransfer:'Transférer au solde',invrule1:'Invitez des amis et gagnez des récompenses lors de leurs dépôts',invrule2:'Transférez les récompenses en attente vers votre solde portefeuille',invrule3:'Plus vous invitez d\'amis, plus vous gagnez de récompenses',invdemo:'Démo : +1 Parrainage'},sonoauth:'Échec d\'authentification. Veuillez vous connecter',sotokenexpired:'Jeton invalide ou expiré. Veuillez vous reconnecter',somaintenance:'Système en Maintenance',somaintenance_sub:'Veuillez revenir plus tard',
+  de:{nm:'Markt',nto:'Werkzeuge',np2p:'P2P',ntr:'Handel',nev:'Events',ndb:'Dashboard',tlk:'Live-Ticker',blg:'Anmelden',bck:'← Zurück',bsu:'Registrieren',umd:'Dashboard',ump:'Profil',uml:'Abmelden',hbad:'KI-Sharing-Economy-Protokoll',hhd:'Ein Token. Unendliche KI.',hsd:'Kaufen, verkaufen und handeln Sie KI-App-Abonnements auf dem weltweit ersten dezentralen KI-Zugangsmarkt. Übernehmen Sie Ihre Produktivität.',stools:'KI-Werkzeuge',susers:'Inhaber',svol:'24h-Volumen',smcap:'Marktkapitalisierung',ttp:'Beliebte Pakete',vall:'Alle Anzeigen',tpe:'Preisentwicklung',tre:'Letzte Transaktionen',taia:'Alle KI-Apps',taid:'Durchsuchen und abonnieren Sie Premium-KI-Werkzeuge. Teilen Sie Abonnements, um Tokens zu verdienen.',fall:'Alle Kategorien',spop:'Beliebt',snew:'Neueste',sprice:'Preis Niedrig',sapy:'Rendite Hoch',p2pt:'P2P-Marktplatz',p2pd:'Kaufen und verkaufen Sie KI-Zugangstokens direkt mit anderen Nutzern. Keine Zwischenhändler, niedrigere Preise.',p2pbu:'Kauf-Angebote',p2psl:'Verkaufs-Angebote',p2pcm:'Community',p2pbe:'Event veröffentlichen',pricel:'Preis: Niedrig',priceh:'Preis: Hoch',p2pcr:'Angebot Erstellen',tool:'Werkzeug',pricel2:'Preis (CNY)',qty:'Menge',dur:'Dauer (Tage)',p2pbcr:'Angebot Erstellen',trdt:'Handel',tbuy:'Kaufen',tsell:'Verkaufen',tlim:'Limit',tmar:'Markt',tprice:'Preis (CNY)',tamt:'Betrag (NEXUS)',ttot:'Gesamt',tbal:'Verfügbar',tbuy2:'NEXUS Kaufen',tord:'Orderbuch',thst:'Handelsverlauf',evt:'KI-Treffen',evd:'Nehmen Sie an exklusiven KI-Community-Events teil. Jedes Event bietet limitierte Tokens und Networking-Möglichkeiten.',dbt:'Mein Dashboard',dph:'Portfolio-Bestände',dtoken:'Token',dbal:'Guthaben',dval:'Wert',dpnl:'G&V',dth:'Transaktionsverlauf',dkc:'KYC & Verifizierung',kycd:'KYC abschließen für höhere Limits',kycb:'KYC-Upgrade',dwl:'Wallet',dwa:'Wallet-Adresse',dwah:'Verbinden Sie Ihr echtes Wallet für Auszahlungen und Belohnungen',dws:'Wallet Speichern',mlog:'Anmelden',mlog2:'Anmelden',memail:'E-Mail',mpass:'Passwort',mforgot:'Passwort vergessen?',mnoacc:'Kein Konto?',mregi:'Registrieren',mreg:'Registrierung',muname:'Benutzername',mref:'Empfehlungscode (optional)',mreg2:'Konto Erstellen',mhacc:'Bereits ein Konto?',mres:'Zurücksetzen',mres2:'Link Senden',mprf:'Profil Bearbeiten',mbio:'Bio',msave:'Speichern',mkyc:'KYC-Verifizierung',mkid:'Ausweistyp',mknum:'Ausweisnummer',mkname:'Vollständiger Name (wie im Ausweis)',mkaddr:'Adresse',mksub:'KYC Einreichen',mconf:'Bestätigen',mcyes:'Bestätigen',mcancel:'Abbrechen',mlist:'Angebotsdetails',mbuy:'Jetzt Kaufen',sub:'Abonnieren',share:'Teilen',days:'Tage',cny:'CNY',sell:'Verkäufer',rating:'Bewertung',sold2:'Verkauft',deposit:'Einzahlen',withdraw:'Auszahlen',buy:'Kaufen',sell2:'Verkaufen',reward:'Belohnung',bt:'Kaufen',sd:'Verkaufen',on:'An',mlog3:'Bitte zuerst anmelden',bs:'Kauf erfolgreich!',ss:'Verkauf erfolgreich!',pln:'Angebot erstellt',prs:'Zurücksetzungslink gesendet an',rgs:'Registrierung erfolgreich! Willkommen bei AI Nexus',notimpl:'Backend-API erforderlich. Demo-Modus aktiv.',noauth:'Bitte zuerst anmelden',mvercode:'Bestätigungscode',mvercode2:'Code Senden',mvercode3:'Code eingeben',mverr:'Ungültiger Bestätigungscode',mversent:'Code gesendet an',nag:'Agent',nsoc:'Sozial',sod:'Sozial — Freunde & Chat',sosearch:'Suchen',sosearchph:'Per E-Mail suchen...',sofriends:'Meine Freunde',sorequests:'Anfragen',sochat:'Chat',sonofriends:'Keine Freunde',soadd:'Hinzufügen',soaccept:'Annehmen',soreject:'Ablehnen',somsgph:'Nachricht...',sosend:'Senden',sonomsg:'Freund wählen',soonl:'Online',soffl:'Offline',soselect:'Auswählen',soadded:'Freund hinzugefügt!',soreqsent:'Anfrage gesendet',sologin:'Bitte anmelden',agtit:'KI-Allianz-Agent',agdesc:'Nehmen Sie an unserem Agentenprogramm teil. Werden Sie KI-Allianz-Agent und verdienen Sie 50% Provision.',agnreg:'KI-Allianz-Agent werden',agnregd:'Treten Sie dem AI Nexus Agentenprogramm bei, verdienen Sie 50% wiederkehrende Provision pro geworbenem Nutzer.',agstep1:'Bezahlen & Beitreten',agstep1d:'Einmalzahlung zum Agent werden',agstep2:'Unterkonten',agstep2d:'Unterkonten für Kunden erstellen',agstep3:'50% verdienen',agstep3d:'50% wiederkehrende Provision',agjoin:'Jetzt beitreten - Agent werden',agpp:'Ihre PayPal-Buttons',agbind:'+ PayPal binden',agnopp:'Keine PayPal-Buttons gebunden',agcomm:'Provisionsverlauf',aglive:'Live PayPal-Buttons (Öffentlich)',agnolive:'Keine Live-Buttons',agbpt:'PayPal-Button binden',agbpn:'Button-Name',agbpnph:'Mein Button',agbpid:'Gehostete Button-ID',agbpidph:'HOSTED-BUTTON-ID',agbphelp:'Finden Sie Ihre ID im PayPal-Dashboard > Zahlungen erhalten > PayPal-Buttons',agbpb:'Binden',agid:'Agenten-ID',agte:'Gesamteinnahmen',agrate:'Provisionssatz',agstat:'Status',agtxns:'Trans.',agrev:'Einnahmen',agearn:'Verdient',agregok:'Agentenregistrierung erfolgreich!',agdelcf:'Diesen PayPal-Button löschen?',agfill:'Bitte alle Felder ausfüllen',agbinds:'PayPal-Button gebunden!',agnocomm:'Keine Provisionsaufzeichnungen',agpcard:'KI-Allianz-Agent werden',agpcardd:'Bezahlen & beitreten → Unterkonten → 50% Provision.',agpjoin:'Jetzt beitreten',ppagent:'KI-Allianz-Agent werden',ppdonate:'Sponsern/Spenden',mavatar:'Avatar',mupload:'Hochladen',mclear:'Löschen',msigimg:'Signaturbild',msigvid:'Signaturvideo',mbio_ph:'Erzähl uns von dir',mpsaved:'Profil gespeichert',mup_success:'Upload erfolgreich',mup_fail:'Upload fehlgeschlagen',mexists:'E-Mail bereits registriert — bitte anmelden',mnofile:'Datei auswählen',mpview:'Profil',appdlt:'AI Nexus APP',appdlname:'AI Nexus Mobil v1.0.0',appdlmeta:'Android · APK · 3,7 MB',appdldesc:'Lade den AI Nexus Mobil-Client herunter, um Markt, P2P, Trade, Agentendienste und KI-Tool-Abonnements überall zu nutzen.',appdlwarn:'⚠ Diese APK ist eine Debug-Version und benötigt deine Berechtigung zur Installation. Lies bitte zuerst das Tutorial unten.',appdlbtn:'APK herunterladen (3,7 MB)',appdlv:'Version: v1.0.0',appdlclose:'Schließen',appdltt:'AI Nexus APP',appdlds:'v1.0.0 · Android APK · 3,7 MB',tutt:'Installations- & Nutzungsanleitung',tutsub:'Vom Download bis zur Registrierung – starte den AI Nexus Mobil-Client in 5 Schritten.',tut1t:'APK herunterladen',tut1d:'Klicke oben auf die <b>+</b>-Schaltfläche → wähle „AI Nexus APP", um die APK-Datei (ca. 3,7 MB) herunterzuladen.',tut2t:'Unbekannte Quellen erlauben',tut2d:'Gehe zu <b>Einstellungen → Sicherheit → Weitere Sicherheitseinstellungen → Unbekannte Apps installieren</b> und aktiviere den Schalter. Du wirst ggf. auch bei der Installation gefragt.',tut3t:'APK antippen zum Installieren',tut3d:'Öffne die heruntergeladene <b>app-debug.apk</b> und tippe auf „Installieren". Beim ersten Mal wirst du gefragt – wähle „Trotzdem installieren".',tut4t:'APP öffnen & anmelden',tut4d:'Beim ersten Start erscheint die Willkommensseite. In den Einstellungen oben rechts kannst du die Sprache wechseln. Melde dich mit deinem Web-Konto an oder registriere dich neu.',tut5t:'Loslegen',tut5d:'Chat, P2P-Handel, Trade-Orders, Agentendienste, Event-Anmeldung, Social-Chat und mehr sind alle mobil verfügbar.',tutfaqt:'Häufige Fragen:',tutfaq1:'· iOS-Nutzer: noch nicht verfügbar, bitte warten.',tutfaq2:'· Installation fehlgeschlagen: Stelle sicher, dass mindestens 20 MB Speicher frei sind.',tutfaq3:'· Brauchst du Hilfe? Kontaktiere den Support oder besuche das Web-Hilfecenter.',tuttt:'Installations- & Nutzungsanleitung',tutds:'Installations- & Nutzungsanleitung',tutgobtn:'Jetzt herunterladen',mpedit:'Bearbeiten',mpkyc:'KYC-Stufe',mpjoined:'Beigetreten',soresult:'Suchergebnis',soadd2:'Freund hinzufügen',sosearching:'Suche...',soself:'Kann sich nicht selbst hinzufügen',sopending:'Anfrage ausstehend',ppagent_desc:"Einmalzahlung von $199 für das AI Nexus Agentenprogramm mit 50% wiederkehrender Provision.",ppdonate_desc:"Unterstützen Sie die AI Nexus-Entwicklung. Jeder Betrag willkommen!",pppay:"Mit PayPal bezahlen",pppay_after:"Nach der Zahlung kopieren Sie Ihre Transaktions-ID und bestätigen Sie unten",pptxnid:"PayPal-Transaktions-ID",ppagent_confirm:"Zahlung bestätigen & registrieren",ppdonate_confirm:"Spende bestätigen",insufbal:'Ungenügendes Guthaben',chtesting:'Teste...',chconn:'Verbunden — {n} Modelle verfügbar',chfail:'HTTP {code}: {msg}',chconnfail:'Verbindungsfehler: {msg}',apireq:'API-Endpunkt erforderlich',chsaved:'Kanal-Konfiguration gespeichert',createreq:'Name und Beschreibung erforderlich',toolpub:'Werkzeug veröffentlicht!',eventreq:'Titel, Datum und Beschreibung erforderlich',eventpub:'Event erstellt!',chtitle:'API-Kanal-Konfig.',chendpoint:'API-Endpunkt',chkey:'API-Schlüssel',chtestconn:'Verbindung testen',chtestbtn:'API testen',chsavebtn:'Konfig. speichern',chidprefix:'ID: ',agpauto:'Erträge werden automatisch abgerechnet und auf Ihr Konto ausgezahlt',agpbeagent:'Agent werden',agpcity:'Stadt',agpcountry:'Land',agpcurr:'Aktuelle Stufe',agpfee:'50% Unteragentur-Gebühr',agpolicyt:'Agenturrichtlinie',agpolsub:'3-stufiges Agenturprogramm · Auto-Abrechnung · Auszahlung auf Ihr Konto',agpsel:'Agenturstufe wählen',agpstate:'Staat',agpt1d:'Erhalten Sie 50% des Plattformgewinns in Ihrer Region. 50% der Unteragentur-Gebühren.',agpt1n:'Stadt-/Bezirks-Agent',agpt1r:'50% Regionsgewinn',agpt2d:'Erhalten Sie 20% des Plattformgewinns in Ihrer Region. 50% der Unteragentur-Gebühren.',agpt2n:'Staats-/Provinz-Agent',agpt2r:'20% Regionsgewinn',agpt3d:'Erhalten Sie 10% der Plattformeinnahmen in Ihrer Region. 50% der Unteragentur-Gebühren.',agpt3n:'Landes-/Regions-Agent',agpt3r:'10% Regionseinnahmen',navp:'Promote',mbsubtitle:'Automatisches Upgrade durch Aufladung',mcurrentlv:'Aktuelle Stufe',mrank1:'Normal Mitglied',mrank2:'Anfänger-Mineral',mrank3:'Mittelstufe-Jade',mrank4:'Fortgeschritten-Edelstein',mrank5:'Top-Diamant',mtotalmb:'Gesamtzahl Mitglieder',mrech:'Gesamtaufladung',mwallet:'Mitgliedergeldbörse',mrwc:'Aufladen / Abheben',mrwcsub:'Zentrum',mtknpck:'Token-Tresor',mtknpcks:'Token sicher speichern',mtknenergy:'Token-Energiepack',msub2:'AI-Toolbox abonnieren',msub2sub:'Monatliche/jährliche Auto-Verlängerung',mlock:'Token-Stake-Bank',mlocksub:'Tageszinsen in Echtzeit',msettle:'Pool-Konto',mplatform:'Plattform-Pool',mpoolcopy:'Pool-Adresse kopieren',msettlesub:'Plattform-Einheitsadresse · USDT (TRC20) senden',mrechargrule:'Auto-Upgrade durch Aufladung',nmb:'Mitgliederzentrum',mbt:'Mitgliederzentrum',mbinvite:'Einladungsbelohnung',invcode:'Einladungscode',invlink:'Einladungslink',invcopy:'Link kopieren',invcount:'Einladungen',invpending:'Ausstehende Belohnungen',invtotal:'Gesamtbelohnungen',invtransfer:'Auf Guthaben übertragen',invrule1:'Freunde einladen und Belohnungen bei Einzahlung erhalten',invrule2:'Übertragen Sie ausstehende Belohnungen auf Ihr Wallet-Guthaben',invrule3:'Je mehr Freunde Sie einladen, desto mehr Belohnungen erhalten Sie',invdemo:'Demo: +1 Einladung'},sonoauth:'Authentifizierung fehlgeschlagen. Bitte anmelden',sotokenexpired:'Ungültiges oder abgelaufenes Token. Bitte erneut anmelden',somaintenance:'Systemwartung',somaintenance_sub:'Bitte kommen Sie später wieder',
+  pt:{nm:'Mercado',nto:'Ferramentas',np2p:'P2P',ntr:'Negociação',nev:'Eventos',ndb:'Painel',tlk:'Ticker ao Vivo',blg:'Entrar',bck:'← Voltar',bsu:'Cadastrar',umd:'Painel',ump:'Perfil',uml:'Sair',hbad:'Protocolo de Economia Compartilhada de IA',hhd:'Um Token. IA Infinita.',hsd:'Compre, venda e negocie assinaturas de IA no primeiro mercado descentralizado de acesso à IA do mundo. Domine sua produtividade.',stools:'Ferramentas IA',susers:'Titulares',svol:'Volume 24h',smcap:'Capitalização',ttp:'Pacotes em Alta',vall:'Ver Tudo',tpe:'Evolução do Preço',tre:'Transações Recentes',taia:'Todos os Apps IA',taid:'Navegue e assine ferramentas IA premium. Compartilhe assinaturas para ganhar tokens.',fall:'Todas Categorias',spop:'Popular',snew:'Mais Novo',sprice:'Menor Preço',sapy:'Maior Rendimento',p2pt:'Mercado P2P',p2pd:'Compre e venda tokens de acesso IA diretamente com outros usuários. Sem intermediários, preços mais baixos.',p2pbu:'Anúncios de Compra',p2psl:'Anúncios de Venda',p2pcm:'Comunidade',p2pbe:'Publicar Evento',pricel:'Preço: Baixo',priceh:'Preço: Alto',p2pcr:'Criar Anúncio',tool:'Ferramenta',pricel2:'Preço (CNY)',qty:'Quantidade',dur:'Duração (dias)',p2pbcr:'Criar Anúncio',trdt:'Negociação',tbuy:'Comprar',tsell:'Vender',tlim:'Limite',tmar:'Mercado',tprice:'Preço (CNY)',tamt:'Quantia (NEXUS)',ttot:'Total',tbal:'Disponível',tbuy2:'Comprar NEXUS',tord:'Livro de Ofertas',thst:'Histórico de Negociação',evt:'Encontros IA',evd:'Participe de eventos exclusivos da comunidade IA. Cada evento oferece tokens de edição limitada e networking.',dbt:'Meu Painel',dph:'Ativos em Carteira',dtoken:'Token',dbal:'Saldo',dval:'Valor',dpnl:'Lucro/Perda',dth:'Histórico de Transações',dkc:'KYC e Verificação',kycd:'Complete KYC para desbloquear limites maiores',kycb:'Melhorar KYC',dwl:'Carteira',dwa:'Endereço da Carteira',dwah:'Conecte sua carteira real para saques e recompensas',dws:'Salvar Carteira',mlog:'Entrar',mlog2:'Entrar',memail:'Email',mpass:'Senha',mforgot:'Esqueceu a senha?',mnoacc:'Não tem conta?',mregi:'Cadastrar',mreg:'Cadastro',muname:'Nome de Usuário',mref:'Código de Indicação (opcional)',mreg2:'Criar Conta',mhacc:'Já tem conta?',mres:'Redefinir Senha',mres2:'Enviar Link',mprf:'Editar Perfil',mbio:'Bio',msave:'Salvar',mkyc:'Verificação KYC',mkid:'Tipo de Documento',mknum:'Número do Documento',mkname:'Nome Completo (conforme documento)',mkaddr:'Endereço',mksub:'Enviar KYC',mconf:'Confirmar',mcyes:'Confirmar',mcancel:'Cancelar',mlist:'Detalhes do Anúncio',mbuy:'Comprar Agora',sub:'Assinar',share:'Compartilhar',days:'dias',cny:'CNY',sell:'Vendedor',rating:'Avaliação',sold2:'Vendido',deposit:'Depositar',withdraw:'Sacar',buy:'Comprar',sell2:'Vender',reward:'Recompensa',bt:'Comprar',sd:'Vender',on:'Aberto',mlog3:'Faça login primeiro',bs:'Compra bem-sucedida!',ss:'Venda bem-sucedida!',pln:'Anúncio criado',prs:'Link de redefinição enviado para',rgs:'Cadastro bem-sucedido! Bem-vindo ao AI Nexus',notimpl:'Requer API de backend. Modo demo ativo.',noauth:'Faça login primeiro',mvercode:'Código de Verificação',mvercode2:'Enviar Código',mvercode3:'Digite o código',mverr:'Código de verificação inválido',mversent:'Código enviado para',nag:'Agente',nsoc:'Social',sod:'Social — Amigos & Chat',sosearch:'Buscar',sosearchph:'Buscar por email...',sofriends:'Meus Amigos',sorequests:'Solicitações',sochat:'Chat',sonofriends:'Sem amigos',soadd:'Adicionar',soaccept:'Aceitar',soreject:'Recusar',somsgph:'Digite...',sosend:'Enviar',sonomsg:'Selecione amigo',soonl:'Online',soffl:'Offline',soselect:'Selecionar',soadded:'Amigo adicionado!',soreqsent:'Solicitação enviada',sologin:'Faça login',agtit:'Agente Aliança IA',agdesc:'Junte-se ao programa de agentes. Torne-se agente AI Alliance e ganhe 50% de comissão.',agnreg:'Tornar-se Agente AI Alliance',agnregd:'Junte-se ao programa de agentes AI Nexus, ganhe 50% de comissão recorrente por usuário indicado.',agstep1:'Pagar e Entrar',agstep1d:'Pagamento único para ser agente',agstep2:'Subcontas',agstep2d:'Criar subcontas para clientes',agstep3:'Ganhar 50%',agstep3d:'50% de comissão recorrente',agjoin:'Entrar Agora - Ser Agente',agpp:'Seus Botões PayPal',agbind:'+ Vincular PayPal',agnopp:'Nenhum botão PayPal vinculado',agcomm:'Histórico de Comissões',aglive:'Botões PayPal ao Vivo',agnolive:'Nenhum botão ao vivo',agbpt:'Vincular Botão PayPal',agbpn:'Nome do Botão',agbpnph:'Meu Botão',agbpid:'ID do Botão Hospedado',agbpidph:'HOSTED-BUTTON-ID',agbphelp:'Encontre seu ID no Painel PayPal > Receber > Botões PayPal',agbpb:'Vincular',agid:'ID do Agente',agte:'Ganhos Totais',agrate:'Taxa de Comissão',agstat:'Status',agtxns:'Trans.',agrev:'Receita',agearn:'Ganho',agregok:'Registro de agente bem-sucedido!',agdelcf:'Excluir este botão PayPal?',agfill:'Preencha todos os campos',agbinds:'Botão PayPal vinculado!',agnocomm:'Sem registros de comissão',agpcard:'Tornar-se Agente AI Alliance',agpcardd:'Pagar para entrar → Subcontas → 50% comissão.',agpjoin:'Entrar Agora',ppagent:'Tornar-se Agente AI Alliance',ppdonate:'Patrocinar/Doar',mavatar:'Avatar',mupload:'Enviar',mclear:'Limpar',msigimg:'Imagem Assinatura',msigvid:'Vídeo Assinatura',mbio_ph:'Fale sobre você',mpsaved:'Perfil salvo',mup_success:'Upload bem-sucedido',mup_fail:'Falha no upload',mexists:'Este email já está cadastrado — faça login',mnofile:'Selecionar arquivo',mpview:'Perfil',appdlt:'AI Nexus APP',appdlname:'AI Nexus Mobile v1.0.0',appdlmeta:'Android · APK · 3,7 MB',appdldesc:'Baixe o cliente móvel AI Nexus para aproveitar Mercado, P2P, Trade, serviços de agente e assinaturas de ferramentas de IA em qualquer lugar.',appdlwarn:'⚠ Este APK é uma versão de depuração e requer sua permissão para ser instalado. Leia o tutorial abaixo antes de instalar.',appdlbtn:'Baixar APK (3,7 MB)',appdlv:'Versão: v1.0.0',appdlclose:'Fechar',appdltt:'AI Nexus APP',appdlds:'v1.0.0 · Android APK · 3,7 MB',tutt:'Guia de Instalação e Uso',tutsub:'Do download ao cadastro, comece a usar o cliente móvel AI Nexus em 5 passos.',tut1t:'Baixar APK',tut1d:'Clique no botão <b>+</b> no topo → selecione "AI Nexus APP" para baixar o arquivo APK (cerca de 3,7 MB).',tut2t:'Permitir Fontes Desconhecidas',tut2d:'Vá em <b>Configurações → Segurança → Mais configurações de segurança → Instalar apps desconhecidos</b> e ative a opção. Você também poderá ser solicitado durante a instalação.',tut3t:'Toque no APK para Instalar',tut3d:'Abra o <b>app-debug.apk</b> baixado e toque em "Instalar". Na primeira vez, será solicitada a confirmação – escolha "Instalar mesmo assim".',tut4t:'Abrir o APP e Entrar',tut4d:'Na primeira inicialização, a página de boas-vindas aparecerá. Você pode alterar o idioma nas configurações no canto superior direito. Entre com sua conta web ou cadastre-se.',tut5t:'Começar a Explorar',tut5d:'Chat, trading P2P, ordens Trade, serviços de agente, inscrição em eventos, chat social e mais estão disponíveis no celular.',tutfaqt:'Perguntas Frequentes:',tutfaq1:'· Usuários iOS: ainda não disponível, por favor aguarde.',tutfaq2:'· Falha na instalação: verifique se o celular tem pelo menos 20 MB livres.',tutfaq3:'· Precisa de ajuda? Contate o suporte ou visite a Central de Ajuda web.',tuttt:'Guia de Instalação e Uso',tutds:'Guia de Instalação e Uso',tutgobtn:'Baixar Agora',mpedit:'Editar',mpkyc:'Nível KYC',mpjoined:'Entrou em',soresult:'Resultado',soadd2:'Adicionar Amigo',sosearching:'Buscando...',soself:'Não pode adicionar a si mesmo',sopending:'Solicitação pendente',ppagent_desc:"Pagamento único de $199 para entrar no programa de agentes AI Nexus e ganhar 50% de comissão recorrente.",ppdonate_desc:"Apoie o desenvolvimento do AI Nexus. Qualquer valor é bem-vindo!",pppay:"Pagar com PayPal",pppay_after:"Após o pagamento, copie seu ID de transação e confirme abaixo",pptxnid:"ID de Transação PayPal",ppagent_confirm:"Confirmar Pagamento e Registro",ppdonate_confirm:"Confirmar Doação",insufbal:'Saldo insuficiente',chtesting:'Testando...',chconn:'Conectado — {n} modelos disponíveis',chfail:'HTTP {code}: {msg}',chconnfail:'Falha na conexão: {msg}',apireq:'API Endpoint obrigatório',chsaved:'Configuração do canal salva',createreq:'Nome e descrição obrigatórios',toolpub:'Ferramenta publicada!',eventreq:'Título, data e descrição obrigatórios',eventpub:'Evento criado!',chtitle:'Config. Canal API',chendpoint:'Endpoint API',chkey:'Chave API',chtestconn:'Testar Conexão',chtestbtn:'Testar API',chsavebtn:'Salvar Config.',chidprefix:'ID: ',agpauto:'Ganhos liquidados automaticamente, pagos na sua conta',agpbeagent:'Tornar-se Agente',agpcity:'Cidade',agpcountry:'País',agpcurr:'Nível Atual',agpfee:'50% Taxa de Sub-Agente',agpolicyt:'Política de Agentes',agpolsub:'Programa de Agentes de 3 níveis · Liquidação automática · Pago na sua conta',agpsel:'Selecionar Nível de Agente',agpstate:'Estado',agpt1d:'Ganhe 50% do lucro da plataforma na sua região. 50% das taxas de sub-agentes.',agpt1n:'Agente Cidade / Distrito',agpt1r:'50% Lucro Regional',agpt2d:'Ganhe 20% do lucro da plataforma na sua região. 50% das taxas de sub-agentes.',agpt2n:'Agente Estado / Província',agpt2r:'20% Lucro Regional',agpt3d:'Ganhe 10% da receita da plataforma na sua região. 50% das taxas de sub-agentes.',agpt3n:'Agente País / Região',agpt3r:'10% Receita Regional',navp:'Promote',mbsubtitle:'Atualização automática por recarga',mcurrentlv:'Nível Atual',mrank1:'Membro Normal',mrank2:'Minério Inicial',mrank3:'Jade Intermediário',mrank4:'Gema Avançada',mrank5:'Diamante Supremo',mtotalmb:'Total de Membros',mrech:'Recarga Total',mwallet:'Carteira Membro',mrwc:'Recarregar / Sacar',mrwcsub:'Centro',mtknpck:'Cofre de Tokens',mtknpcks:'Armazenar tokens com segurança',mtknenergy:'Pacote Energia Token',msub2:'Assinar Caixa Ferramentas IA',msub2sub:'Renovação auto mensal/anual',mlock:'Banco Stake Token',mlocksub:'Juros diários em tempo real',msettle:'Conta Pool',mplatform:'Pool da Plataforma',mpoolcopy:'Copiar endereço Pool',msettlesub:'Endereço unificado · Envie USDT (TRC20)',mrechargrule:'Upgrade auto por recarga',nmb:'Centro de Membros',mbt:'Centro de Membros',mbinvite:'Recompensa por Convite',invcode:'Código de convite',invlink:'Link de convite',invcopy:'Copiar link',invcount:'Convites',invpending:'Recompensas pendentes',invtotal:'Recompensas totais',invtransfer:'Transferir para saldo',invrule1:'Convide amigos e ganhe recompensas quando eles depositarem',invrule2:'Transfira as recompensas pendentes para o saldo da carteira',invrule3:'Quanto mais amigos convidar, mais recompensas ganhará',invdemo:'Demo: +1 Convite'},sonoauth:'Falha na autenticação. Faça login',sotokenexpired:'Token inválido ou expirado. Faça login novamente',somaintenance:'Sistema em Manutenção',somaintenance_sub:'Por favor, volte mais tarde',
+  ru:{nm:'Рынок',nto:'Инструменты',np2p:'P2P',ntr:'Торговля',nev:'События',ndb:'Панель',tlk:'Лента',blg:'Вход',bck:'← Назад',bsu:'Регистрация',umd:'Панель',ump:'Профиль',uml:'Выход',hbad:'Протокол Экономики Совместного Использования ИИ',hhd:'Один Токен. Бесконечный ИИ.',hsd:'Покупайте, продавайте подписки ИИ на первом в мире децентрализованном рынке доступа к ИИ. Владейте своей продуктивностью.',stools:'ИИ Инструменты',susers:'Держатели',svol:'Объём 24ч',smcap:'Капитализация',ttp:'Популярные Пакеты',vall:'Смотреть Все',tpe:'Динамика Цены',tre:'Последние Сделки',taia:'Все ИИ Приложения',taid:'Подписывайтесь на премиум ИИ инструменты. Делитесь подписками зарабатывая токены.',fall:'Все Категории',spop:'Популярное',snew:'Новое',sprice:'Цена Ниже',sapy:'Доход Выше',p2pt:'P2P Рынок',p2pd:'Покупайте токены доступа ИИ напрямую у других пользователей. Без посредников, ниже цены.',p2pbu:'Заявки на Покупку',p2psl:'Заявки на Продажу',p2pcm:'Сообщество',p2pbe:'Опубликовать событие',pricel:'Цена: Ниже',priceh:'Цена: Выше',p2pcr:'Создать Объявление',tool:'Инструмент',pricel2:'Цена (CNY)',qty:'Количество',dur:'Срок (дни)',p2pbcr:'Создать Объявление',trdt:'Торговля',tbuy:'Купить',tsell:'Продать',tlim:'Лимитный',tmar:'Рыночный',tprice:'Цена (CNY)',tamt:'Сумма (NEXUS)',ttot:'Итого',tbal:'Доступно',tbuy2:'Купить NEXUS',tord:'Книга Ордеров',thst:'История Торгов',evt:'ИИ События',evd:'Участвуйте в эксклюзивных мероприятиях ИИ сообщества. Каждое событие с лимитированными токенами и нетворкингом.',dbt:'Моя Панель',dph:'Активы Портфеля',dtoken:'Токен',dbal:'Баланс',dval:'Стоимость',dpnl:'Прибыль/Убыток',dth:'История Транзакций',dkc:'KYC Верификация',kycd:'Пройдите KYC для повышения лимитов',kycb:'Повысить KYC',dwl:'Кошелёк',dwa:'Адрес Кошелька',dwah:'Подключите реальный кошелёк для вывода и наград',dws:'Сохранить Кошелёк',mlog:'Вход',mlog2:'Вход',memail:'Email',mpass:'Пароль',mforgot:'Забыли пароль?',mnoacc:'Нет аккаунта?',mregi:'Регистрация',mreg:'Регистрация',muname:'Имя пользователя',mref:'Реферальный код (необязательно)',mreg2:'Создать Аккаунт',mhacc:'Уже есть аккаунт?',mres:'Сброс Пароля',mres2:'Отправить Ссылку',mprf:'Редактировать Профиль',mbio:'О себе',msave:'Сохранить',mkyc:'KYC Верификация',mkid:'Тип Документа',mknum:'Номер Документа',mkname:'Полное Имя (как в документе)',mkaddr:'Адрес',mksub:'Отправить KYC',mconf:'Подтвердить',mcyes:'Подтвердить',mcancel:'Отмена',mlist:'Детали Объявления',mbuy:'Купить Сейчас',sub:'Подписаться',share:'Поделиться',days:'дн.',cny:'CNY',sell:'Продавец',rating:'Рейтинг',sold2:'Продано',deposit:'Пополнить',withdraw:'Вывести',buy:'Купить',sell2:'Продать',reward:'Награда',bt:'Куп.',sd:'Прод.',on:'Вкл',mlog3:'Сначала войдите',bs:'Покупка успешна!',ss:'Продажа успешна!',pln:'Объявление создано',prs:'Ссылка для сброса отправлена на',rgs:'Регистрация успешна! Добро пожаловать в AI Nexus',notimpl:'Требуется API бэкенда. Демо-режим.',noauth:'Сначала войдите',mvercode:'Код Подтверждения',mvercode2:'Отправить Код',mvercode3:'Введите код',mverr:'Неверный код подтверждения',mversent:'Код отправлен на',nag:'Агент',nsoc:'Соцсеть',sod:'Соцсеть — Друзья и Чат',sosearch:'Поиск',sosearchph:'Поиск по email...',sofriends:'Мои Друзья',sorequests:'Заявки',sochat:'Чат',sonofriends:'Нет друзей',soadd:'Добавить',soaccept:'Принять',soreject:'Отклонить',somsgph:'Сообщение...',sosend:'Отправить',sonomsg:'Выберите друга',soonl:'Онлайн',soffl:'Офлайн',soselect:'Выбрать',soadded:'Друг добавлен!',soreqsent:'Заявка отправлена',sologin:'Войдите',agtit:'Агент Альянса ИИ',agdesc:'Присоединяйтесь к агентской программе. Станьте агентом AI Alliance и получайте 50% комиссии.',agnreg:'Стать Агентом AI Alliance',agnregd:'Присоединяйтесь к программе AI Nexus, получайте 50% постоянной комиссии с каждого привлеченного пользователя.',agstep1:'Оплатить и Вступить',agstep1d:'Единоразовый платеж для статуса агента',agstep2:'Суб-аккаунты',agstep2d:'Создавайте суб-аккаунты для клиентов',agstep3:'50% дохода',agstep3d:'50% постоянной комиссии с продаж',agjoin:'Вступить - Стать Агентом',agpp:'Ваши Кнопки PayPal',agbind:'+ Привязать PayPal',agnopp:'Нет привязанных кнопок PayPal',agcomm:'История Комиссий',aglive:'Активные Кнопки PayPal',agnolive:'Нет активных кнопок',agbpt:'Привязать Кнопку PayPal',agbpn:'Название Кнопки',agbpnph:'Моя Кнопка',agbpid:'ID Размещенной Кнопки',agbpidph:'HOSTED-BUTTON-ID',agbphelp:'Найдите ID в PayPal > Платежи > Кнопки PayPal',agbpb:'Привязать',agid:'ID Агента',agte:'Общий Доход',agrate:'Ставка Комиссии',agstat:'Статус',agtxns:'Транз.',agrev:'Выручка',agearn:'Заработано',agregok:'Регистрация агента успешна!',agdelcf:'Удалить эту кнопку PayPal?',agfill:'Заполните все поля',agbinds:'Кнопка PayPal привязана!',agnocomm:'Нет записей о комиссиях',agpcard:'Стать Агентом AI Alliance',agpcardd:'Оплатить → Суб-аккаунты → 50% комиссии.',agpjoin:'Вступить',ppagent:'Стать Агентом AI Alliance',ppdonate:'Спонсировать/Пожертвовать',mavatar:'Аватар',mupload:'Загрузить',mclear:'Очистить',msigimg:'Изображение',msigvid:'Видео подписи',mbio_ph:'Расскажите о себе',mpsaved:'Профиль сохранен',mup_success:'Загрузка успешна',mup_fail:'Ошибка загрузки',mexists:'Этот email уже зарегистрирован — войдите',mnofile:'Выберите файл',mpview:'Профиль',appdlt:'AI Nexus APP',appdlname:'AI Nexus Мобильный v1.0.0',appdlmeta:'Android · APK · 3,7 МБ',appdldesc:'Скачайте мобильный клиент AI Nexus, чтобы пользоваться Маркетом, P2P, Трейдингом, услугами агентов и подписками на ИИ-инструменты где угодно.',appdlwarn:'⚠ Это отладочная версия APK, для установки требуется ваше разрешение. Пожалуйста, прочтите инструкцию ниже перед установкой.',appdlbtn:'Скачать APK (3,7 МБ)',appdlv:'Версия: v1.0.0',appdlclose:'Закрыть',appdltt:'AI Nexus APP',appdlds:'v1.0.0 · Android APK · 3,7 МБ',tutt:'Руководство по установке и использованию',tutsub:'От загрузки до регистрации — начните пользоваться мобильным клиентом AI Nexus за 5 шагов.',tut1t:'Скачать APK',tut1d:'Нажмите кнопку <b>+</b> вверху → выберите «AI Nexus APP», чтобы скачать файл APK (около 3,7 МБ).',tut2t:'Разрешить неизвестные источники',tut2d:'Перейдите в <b>Настройки → Безопасность → Дополнительные настройки → Установка неизвестных приложений</b> и включите переключатель. Также может быть запрос во время установки.',tut3t:'Нажмите на APK для установки',tut3d:'Откройте скачанный <b>app-debug.apk</b> и нажмите «Установить». В первый раз появится подтверждение — выберите «Всё равно установить».',tut4t:'Откройте APP и войдите',tut4d:'При первом запуске появится страница приветствия. Язык можно переключить в настройках справа вверху. Войдите с веб-аккаунтом или зарегистрируйтесь.',tut5t:'Начните знакомство',tut5d:'Чат, P2P-торговля, ордера Trade, услуги агентов, регистрация на события, социальный чат и многое другое доступны на мобильном.',tutfaqt:'Частые вопросы:',tutfaq1:'· Пользователям iOS: пока недоступно, пожалуйста, подождите.',tutfaq2:'· Ошибка установки: убедитесь, что на телефоне свободно не менее 20 МБ.',tutfaq3:'· Нужна помощь? Свяжитесь с поддержкой или посетите веб-Центр помощи.',tuttt:'Руководство по установке и использованию',tutds:'Руководство по установке и использованию',tutgobtn:'Скачать сейчас',mpedit:'Ред.',mpkyc:'KYC уровень',mpjoined:'Дата рег.',soresult:'Результат',soadd2:'Добавить',sosearching:'Поиск...',soself:'Нельзя добавить себя',sopending:'Заявка ожидает',ppagent_desc:"Единоразовый платеж $199 за участие в агентской программе AI Nexus с 50% постоянной комиссией.",ppdonate_desc:"Поддержите разработку AI Nexus. Любая сумма приветствуется!",pppay:"Оплатить через PayPal",pppay_after:"После оплаты скопируйте ID транзакции и подтвердите ниже",pptxnid:"ID Транзакции PayPal",ppagent_confirm:"Подтвердить Оплату и Регистрацию",ppdonate_confirm:"Подтвердить Пожертвование",insufbal:'Недостаточно средств',chtesting:'Тестирование...',chconn:'Подключено — {n} моделей доступно',chfail:'HTTP {code}: {msg}',chconnfail:'Ошибка подключения: {msg}',apireq:'Требуется API Endpoint',chsaved:'Конфигурация канала сохранена',createreq:'Требуется имя и описание',toolpub:'Инструмент опубликован!',eventreq:'Требуется заголовок, дата и описание',eventpub:'Событие создано!',chtitle:'Конфигурация API-канала',chendpoint:'API Endpoint',chkey:'API-ключ',chtestconn:'Проверка соединения',chtestbtn:'Тест API',chsavebtn:'Сохранить',chidprefix:'ID: ',agpauto:'Доходы автоматически рассчитываются и переводятся на ваш счёт',agpbeagent:'Стать агентом',agpcity:'Город',agpcountry:'Страна',agpcurr:'Текущий уровень',agpfee:'50% Сбор субагента',agpolicyt:'Политика агентов',agpolsub:'3-уровневая программа агентов · Авто-расчёт · Выплата на ваш счёт',agpsel:'Выберите уровень агента',agpstate:'Штат',agpt1d:'Получайте 50% прибыли платформы в вашем регионе. 50% сборов субагентов.',agpt1n:'Агент Город / Район',agpt1r:'50% Региональная прибыль',agpt2d:'Получайте 20% прибыли платформы в вашем регионе. 50% сборов субагентов.',agpt2n:'Агент Штат / Провинция',agpt2r:'20% Региональная прибыль',agpt3d:'Получайте 10% дохода платформы в вашем регионе. 50% сборов субагентов.',agpt3n:'Агент Страна / Регион',agpt3r:'10% Региональный доход',navp:'Продвигать',mbsubtitle:'Авто-апгрейд по пополнению',mcurrentlv:'Текущий уровень',mrank1:'Обычный участник',mrank2:'Начальная руда',mrank3:'Средний нефрит',mrank4:'Продвинутый самоцвет',mrank5:'Высший бриллиант',mtotalmb:'Всего участников',mrech:'Всего пополнений',mwallet:'Кошелёк участника',mrwc:'Пополнить / Вывести',mrwcsub:'Центр',mtknpck:'Хранилище токенов',mtknpcks:'Безопасно хранить токены',mtknenergy:'Пакет энергии токенов',msub2:'Подписка AI Toolbox',msub2sub:'Ежемесячная/годовая автопродление',mlock:'Банк стейкинга токенов',mlocksub:'Ежедневный процент в реальном времени',msettle:'Счёт пула',mplatform:'Пул платформы',mpoolcopy:'Копировать адрес пула',msettlesub:'Единый адрес · Отправьте USDT (TRC20)',mrechargrule:'Авто-апгрейд по пополнению',nmb:'Центр участника',mbt:'Центр участника',mbinvite:'Награда за приглашение',invcode:'Код приглашения',invlink:'Ссылка приглашения',invcopy:'Копировать ссылку',invcount:'Приглашения',invpending:'Ожидаемые награды',invtotal:'Всего наград',invtransfer:'Перевести на баланс',invrule1:'Приглашайте друзей и получайте награды за их пополнения',invrule2:'Переведите ожидаемые награды на баланс кошелька',invrule3:'Чем больше друзей вы пригласите, тем больше наград получите',invdemo:'Демо: +1 Приглашение'},sonoauth:'Ошибка аутентификации. Войдите',sotokenexpired:'Недействительный или истекший токен. Войдите снова',somaintenance:'Система на обслуживании',somaintenance_sub:'Пожалуйста, зайдите позже',
+  ar:{nm:'السوق',nto:'أدوات',np2p:'P2P',ntr:'تداول',nev:'فعاليات',ndb:'لوحة التحكم',tlk:'شريط مباشر',blg:'تسجيل الدخول',bck:'← رجوع',bsu:'اشتراك',umd:'لوحة التحكم',ump:'الملف الشخصي',uml:'تسجيل الخروج',hbad:'بروتوكول اقتصاد المشاركة للذكاء الاصطناعي',hhd:'رمز واحد. ذكاء اصطناعي لا نهائي.',hsd:'اشترِ وبِع اشتراكات الذكاء الاصطناعي في أول سوق لامركزي للوصول للذكاء الاصطناعي في العالم. امتلك إنتاجيتك.',stools:'أدوات الذكاء',susers:'الحاملون',svol:'حجم 24س',smcap:'القيمة السوقية',ttp:'الباقات الرائجة',vall:'عرض الكل',tpe:'تطور السعر',tre:'المعاملات الأخيرة',taia:'جميع التطبيقات',taid:'تصفح واشترك في أدوات الذكاء المميزة. شارك اشتراكاتك لكسب الرموز.',fall:'جميع الفئات',spop:'الأكثر شعبية',snew:'الأحدث',sprice:'السعر منخفض',sapy:'العائد مرتفع',p2pt:'سوق P2P',p2pd:'اشترِ وبِع رموز الوصول للذكاء الاصطناعي مباشرة مع مستخدمين آخرين. بدون وسطاء، أسعار أقل.',p2pbu:'عروض الشراء',p2psl:'عروض البيع',p2pcm:'المجتمع',p2pbe:'نشر حدث',pricel:'السعر: منخفض',priceh:'السعر: مرتفع',p2pcr:'إنشاء عرض',tool:'أداة',pricel2:'السعر (CNY)',qty:'الكمية',dur:'المدة (أيام)',p2pbcr:'إنشاء عرض',trdt:'تداول',tbuy:'شراء',tsell:'بيع',tlim:'محدد',tmar:'سوق',tprice:'السعر (CNY)',tamt:'المبلغ (NEXUS)',ttot:'الإجمالي',tbal:'متاح',tbuy2:'شراء NEXUS',tord:'دفتر الطلبات',thst:'سجل التداول',evt:'لقاءات الذكاء',evd:'انضم إلى فعاليات مجتمع الذكاء الاصطناعي الحصرية. كل فعالية تقدم رموزاً محدودة وفرص تواصل.',dbt:'لوحة التحكم',dph:'ممتلكات المحفظة',dtoken:'رمز',dbal:'رصيد',dval:'قيمة',dpnl:'الربح/الخسارة',dth:'سجل المعاملات',dkc:'KYC والتحقق',kycd:'أكمل KYC لفتح حدود تداول أعلى',kycb:'ترقية KYC',dwl:'محفظة',dwa:'عنوان المحفظة',dwah:'اربط محفظتك الحقيقية للسحب والمكافآت',dws:'حفظ المحفظة',mlog:'تسجيل الدخول',mlog2:'تسجيل الدخول',memail:'البريد',mpass:'كلمة المرور',mforgot:'نسيت كلمة المرور؟',mnoacc:'ليس لديك حساب؟',mregi:'تسجيل',mreg:'تسجيل',muname:'اسم المستخدم',mref:'رمز الإحالة (اختياري)',mreg2:'إنشاء حساب',mhacc:'لديك حساب بالفعل؟',mres:'إعادة تعيين',mres2:'إرسال الرابط',mprf:'تعديل الملف',mbio:'نبذة',msave:'حفظ',mkyc:'تحقق KYC',mkid:'نوع الهوية',mknum:'رقم الهوية',mkname:'الاسم الكامل (كما في الهوية)',mkaddr:'العنوان',mksub:'إرسال KYC',mconf:'تأكيد',mcyes:'تأكيد',mcancel:'إلغاء',mlist:'تفاصيل العرض',mbuy:'شراء الآن',sub:'اشتراك',share:'مشاركة',days:'يوم',cny:'CNY',sell:'بائع',rating:'تقييم',sold2:'مباع',deposit:'إيداع',withdraw:'سحب',buy:'شراء',sell2:'بيع',reward:'مكافأة',bt:'شراء',sd:'بيع',on:'مفتوح',mlog3:'يرجى تسجيل الدخول أولاً',bs:'تم الشراء بنجاح!',ss:'تم البيع بنجاح!',pln:'تم إنشاء العرض',prs:'تم إرسال رابط إعادة التعيين إلى',rgs:'تم التسجيل بنجاح! مرحباً بك في AI Nexus',notimpl:'يتطلب API خلفي. وضع العرض التوضيحي.',noauth:'يرجى تسجيل الدخول أولاً',mvercode:'رمز التحقق',mvercode2:'إرسال الرمز',mvercode3:'أدخل الرمز',mverr:'رمز تحقق غير صالح',mversent:'تم إرسال الرمز إلى',nag:'وكيل',nsoc:'اجتماعي',sod:'اجتماعي — أصدقاء ودردشة',sosearch:'بحث',sosearchph:'بحث بالبريد...',sofriends:'أصدقائي',sorequests:'طلبات الصداقة',sochat:'دردشة',sonofriends:'لا أصدقاء',soadd:'إضافة',soaccept:'قبول',soreject:'رفض',somsgph:'اكتب رسالة...',sosend:'إرسال',sonomsg:'اختر صديقاً',soonl:'متصل',soffl:'غير متصل',soselect:'اختيار',soadded:'تمت الإضافة!',soreqsent:'تم إرسال الطلب',sologin:'سجل الدخول',agtit:'وكيل تحالف الذكاء',agdesc:'انضم إلى برنامج الوكلاء. كن وكيل تحالف الذكاء واربح 50% عمولة.',agnreg:'كن وكيل تحالف الذكاء',agnregd:'انضم إلى برنامج وكلاء AI Nexus، اربح 50% عمولة متكررة عن كل مستخدم محال.',agstep1:'ادفع وانضم',agstep1d:'دفعة واحدة لتصبح وكيلاً',agstep2:'احصل على حسابات فرعية',agstep2d:'أنشئ حسابات فرعية للعملاء',agstep3:'اربح 50%',agstep3d:'50% عمولة متكررة على كل عملية بيع',agjoin:'انضم الآن - كن وكيلاً',agpp:'أزرار PayPal الخاصة بك',agbind:'+ ربط PayPal',agnopp:'لا توجد أزرار PayPal مربوطة',agcomm:'سجل العمولات',aglive:'أزرار PayPal المباشرة',agnolive:'لا توجد أزرار مباشرة',agbpt:'ربط زر PayPal',agbpn:'اسم الزر',agbpnph:'زرّي',agbpid:'معرف الزر المستضاف',agbpidph:'HOSTED-BUTTON-ID',agbphelp:'ابحث عن المعرف في لوحة PayPal > المدفوعات > أزرار PayPal',agbpb:'ربط',agid:'معرف الوكيل',agte:'إجمالي الأرباح',agrate:'نسبة العمولة',agstat:'الحالة',agtxns:'معاملات',agrev:'الإيرادات',agearn:'المكتسب',agregok:'تم تسجيل الوكيل بنجاح!',agdelcf:'حذف زر PayPal هذا؟',agfill:'يرجى ملء جميع الحقول',agbinds:'تم ربط زر PayPal!',agnocomm:'لا توجد سجلات عمولات',agpcard:'كن وكيل تحالف الذكاء',agpcardd:'ادفع للانضمام → حسابات فرعية → 50% عمولة.',agpjoin:'انضم الآن',ppagent:'كن وكيل تحالف الذكاء',ppdonate:'رعاية/تبرع',mavatar:'الصورة الرمزية',mupload:'رفع',mclear:'مسح',msigimg:'صورة التوقيع',msigvid:'فيديو التوقيع',mbio_ph:'أخبرنا عن نفسك',mpsaved:'تم حفظ الملف',mup_success:'تم الرفع بنجاح',mup_fail:'فشل الرفع',mexists:'هذا البريد مسجل بالفعل — سجل الدخول',mnofile:'الرجاء اختيار ملف',mpview:'الملف',appdlt:'تطبيق AI Nexus',appdlname:'AI Nexus للجوال v1.0.0',appdlmeta:'Android · APK · 3.7 ميجابايت',appdldesc:'حمّل عميل AI Nexus للجوال للاستمتاع بالسوق وP2P والتداول وخدمات الوكلاء واشتراكات أدوات الذكاء الاصطناعي في أي مكان.',appdlwarn:'⚠ هذا الـ APK نسخة تصحيح ويتطلب إذنك للتثبيت. يرجى قراءة الدليل أدناه قبل التثبيت.',appdlbtn:'تحميل APK (3.7 ميجابايت)',appdlv:'الإصدار: v1.0.0',appdlclose:'إغلاق',appdltt:'تطبيق AI Nexus',appdlds:'v1.0.0 · Android APK · 3.7 ميجابايت',tutt:'دليل التثبيت والاستخدام',tutsub:'من التحميل إلى التسجيل، ابدأ استخدام عميل AI Nexus للجوال في 5 خطوات.',tut1t:'تحميل APK',tut1d:'انقر على زر <b>+</b> في الأعلى → اختر "تطبيق AI Nexus" لتحميل ملف APK (نحو 3.7 ميجابايت).',tut2t:'السماح بمصادر غير معروفة',tut2d:'اذهب إلى <b>الإعدادات → الأمان → مزيد من إعدادات الأمان → تثبيت تطبيقات غير معروفة</b> وفعّل المفتاح. قد يُطلب منك أيضًا أثناء التثبيت.',tut3t:'اضغط على APK للتثبيت',tut3d:'افتح ملف <b>app-debug.apk</b> المحمّل واضغط "تثبيت". في المرة الأولى سيُطلب التأكيد – اختر "تثبيت على أي حال".',tut4t:'افتح التطبيق وسجّل الدخول',tut4d:'عند التشغيل لأول مرة ستظهر صفحة الترحيب. يمكنك تغيير اللغة من الإعدادات أعلى اليمين. سجّل الدخول بحساب الويب أو أنشئ حسابًا جديدًا.',tut5t:'ابدأ الاستكشاف',tut5d:'الدردشة وتداول P2P وأوامر Trade وخدمات الوكلاء والتسجيل في الأحداث والدردشة الاجتماعية والمزيد متاحة على الجوال.',tutfaqt:'الأسئلة الشائعة:',tutfaq1:'· مستخدمو iOS: غير متاح بعد، يرجى الانتظار.',tutfaq2:'· فشل التثبيت: تأكد من وجود 20 ميجابايت على الأقل من المساحة الحرة.',tutfaq3:'· تحتاج مساعدة؟ تواصل مع الدعم أو تفضل بزيارة مركز المساعدة على الويب.',tuttt:'دليل التثبيت والاستخدام',tutds:'دليل التثبيت والاستخدام',tutgobtn:'تحميل الآن',mpedit:'تعديل',mpkyc:'مستوى KYC',mpjoined:'تاريخ الانضمام',soresult:'نتيجة البحث',soadd2:'إضافة صديق',sosearching:'جاري البحث...',soself:'لا يمكن إضافة نفسك',sopending:'طلب معلق',ppagent_desc:"دفعة واحدة بقيمة $199 للانضمام إلى برنامج وكلاء AI Nexus وربح 50% عمولة متكررة.",ppdonate_desc:"ادعم تطوير AI Nexus. أي مبلغ مرحب به!",pppay:"الدفع عبر PayPal",pppay_after:"بعد الدفع، انسخ معرف المعاملة وأكد أدناه",pptxnid:"معرف معاملة PayPal",ppagent_confirm:"تأكيد الدفع والتسجيل",ppdonate_confirm:"تأكيد التبرع",insufbal:'رصيد غير كاف',chtesting:'جاري الاختبار...',chconn:'متصل — {n} نموذج متاح',chfail:'HTTP {code}: {msg}',chconnfail:'فشل الاتصال: {msg}',apireq:'مطلوب API Endpoint',chsaved:'تم حفظ تكوين القناة',createreq:'الاسم والوصف مطلوبان',toolpub:'تم نشر الأداة!',eventreq:'العنوان والتاريخ والوصف مطلوبة',eventpub:'تم إنشاء الحدث!',chtitle:'إعدادات قناة API',chendpoint:'API Endpoint',chkey:'مفتاح API',chtestconn:'اختبار الاتصال',chtestbtn:'اختبار API',chsavebtn:'حفظ الإعدادات',chidprefix:'ID: ',agpauto:'يتم تسوية الأرباح تلقائيًا ودفعها إلى حسابك',agpbeagent:'كن وكيلاً',agpcity:'المدينة',agpcountry:'البلد',agpcurr:'المستوى الحالي',agpfee:'50% رسوم الوكيل الفرعي',agpolicyt:'سياسة الوكلاء',agpolsub:'برنامج وكلاء من 3 مستويات · تسوية تلقائية · دفع إلى حسابك',agpsel:'اختر مستوى الوكيل',agpstate:'الولاية',agpt1d:'احصل على 50% من أرباح المنصة في منطقتك. و 50% من رسوم الوكلاء الفرعيين.',agpt1n:'وكيل المدينة / المنطقة',agpt1r:'50% ربح إقليمي',agpt2d:'احصل على 20% من أرباح المنصة في منطقتك. و 50% من رسوم الوكلاء الفرعيين.',agpt2n:'وكيل الولاية / المقاطعة',agpt2r:'20% ربح إقليمي',agpt3d:'احصل على 10% من إيرادات المنصة في منطقتك. و 50% من رسوم الوكلاء الفرعيين.',agpt3n:'وكيل البلد / المنطقة',agpt3r:'10% إيراد إقليمي',navp:'ترويج',mbsubtitle:'ترقية تلقائية بالشحن',mcurrentlv:'المستوى الحالي',mrank1:'عضو عادي',mrank2:'معدن مبتدئ',mrank3:'يشم متوسط',mrank4:'جوهرة متقدمة',mrank5:'ألماس ممتاز',mtotalmb:'إجمالي الأعضاء',mrech:'إجمالي الشحن',mwallet:'محفظة العضو',mrwc:'شحن / سحب',mrwcsub:'مركز',mtknpck:'خزينة التوكنات',mtknpcks:'تخزين التوكنات بأمان',mtknenergy:'حزمة طاقة التوكن',msub2:'اشترك صندوق أدوات AI',msub2sub:'تجديد تلقائي شهري/سنوي',mlock:'بنك رهن التوكنات',mlocksub:'فائدة يومية في الوقت الحقيقي',msettle:'حساب المسبح',mplatform:'مسبح المنصة',mpoolcopy:'نسخ عنوان المسبح',msettlesub:'العنوان الموحد · أرسل USDT (TRC20)',mrechargrule:'ترقية تلقائية بالشحن',nmb:'مركز الأعضاء',mbt:'مركز الأعضاء',mbinvite:'مكافأة الدعوة',invcode:'رمز الدعوة',invlink:'رابط الدعوة',invcopy:'نسخ الرابط',invcount:'عدد الدعوات',invpending:'المكافآت المعلقة',invtotal:'إجمالي المكافآت',invtransfer:'تحويل إلى الرصيد',invrule1:'ادعُ الأصدقاء واكسب مكافآت عند إيداعهم',invrule2:'حوّل المكافآت المعلقة إلى رصيد محفظتك',invrule3:'كلما دعوت أصدقاء أكثر، زادت مكافآتك',invdemo:'تجريبي: +1 دعوة'},sonoauth:'فشل المصادقة. يرجى تسجيل الدخول',sotokenexpired:'رمز غير صالح أو منتهي الصلاحية. يرجى تسجيل الدخول مرة أخرى',somaintenance:'النظام قيد الصيانة',somaintenance_sub:'يرجى العودة لاحقًا',
+  hi:{nm:'बाज़ार',nto:'उपकरण',np2p:'P2P',ntr:'व्यापार',nev:'आयोजन',ndb:'डैशबोर्ड',tlk:'लाइव टिकर',blg:'लॉगिन',bck:'← वापस',bsu:'रजिस्टर',umd:'डैशबोर्ड',ump:'प्रोफ़ाइल',uml:'लॉगआउट',hbad:'AI साझा अर्थव्यवस्था प्रोटोकॉल',hhd:'एक टोकन। अनंत AI।',hsd:'दुनिया के पहले विकेंद्रीकृत AI एक्सेस मार्केटप्लेस में AI ऐप सब्सक्रिप्शन खरीदें और बेचें। अपनी उत्पादकता पर नियंत्रण रखें।',stools:'AI उपकरण',susers:'धारक',svol:'24घंटे वॉल्यूम',smcap:'मार्केट कैप',ttp:'ट्रेंडिंग पैकेज',vall:'सभी देखें',tpe:'मूल्य विकास',tre:'हाल के लेन-देन',taia:'सभी AI ऐप्स',taid:'प्रीमियम AI उपकरण ब्राउज़ करें और सब्सक्राइब करें। टोकन कमाने के लिए सब्सक्रिप्शन साझा करें।',fall:'सभी श्रेणियाँ',spop:'लोकप्रिय',snew:'नवीनतम',sprice:'कम कीमत',sapy:'उच्च उपज',p2pt:'P2P बाज़ार',p2pd:'अन्य उपयोगकर्ताओं के साथ सीधे AI एक्सेस टोकन खरीदें और बेचें। बिना बिचौलियों के, कम कीमतें।',p2pbu:'खरीद सूची',p2psl:'बिक्री सूची',p2pcm:'समुदाय',p2pbe:'ईवेंट प्रकाशित करें',pricel:'कीमत: कम',priceh:'कीमत: अधिक',p2pcr:'लिस्टिंग बनाएँ',tool:'उपकरण',pricel2:'कीमत (CNY)',qty:'मात्रा',dur:'अवधि (दिन)',p2pbcr:'लिस्टिंग बनाएँ',trdt:'व्यापार',tbuy:'खरीदें',tsell:'बेचें',tlim:'सीमा',tmar:'बाज़ार',tprice:'कीमत (CNY)',tamt:'राशि (NEXUS)',ttot:'कुल',tbal:'उपलब्ध',tbuy2:'NEXUS खरीदें',tord:'ऑर्डर बुक',thst:'व्यापार इतिहास',evt:'AI सभाएँ',evd:'विशेष AI समुदाय कार्यक्रमों में शामिल हों। प्रत्येक कार्यक्रम में सीमित संस्करण टोकन और नेटवर्किंग के अवसर।',dbt:'मेरा डैशबोर्ड',dph:'पोर्टफोलियो होल्डिंग्स',dtoken:'टोकन',dbal:'बैलेंस',dval:'मूल्य',dpnl:'लाभ/हानि',dth:'लेन-देन इतिहास',dkc:'KYC और सत्यापन',kycd:'उच्च व्यापार सीमा के लिए KYC पूरा करें',kycb:'KYC अपग्रेड करें',dwl:'वॉलेट',dwa:'वॉलेट पता',dwah:'निकासी और पुरस्कारों के लिए अपना असली वॉलेट जोड़ें',dws:'वॉलेट सहेजें',mlog:'लॉगिन',mlog2:'लॉगिन',memail:'ईमेल',mpass:'पासवर्ड',mforgot:'पासवर्ड भूल गए?',mnoacc:'खाता नहीं है?',mregi:'रजिस्टर',mreg:'रजिस्टर',muname:'यूज़रनेम',mref:'रेफ़रल कोड (वैकल्पिक)',mreg2:'खाता बनाएँ',mhacc:'पहले से खाता है?',mres:'पासवर्ड रीसेट',mres2:'रीसेट लिंक भेजें',mprf:'प्रोफ़ाइल संपादित करें',mbio:'जीवनी',msave:'सहेजें',mkyc:'KYC सत्यापन',mkid:'पहचान प्रकार',mknum:'पहचान संख्या',mkname:'पूरा नाम (पहचान के अनुसार)',mkaddr:'पता',mksub:'KYC जमा करें',mconf:'पुष्टि',mcyes:'पुष्टि',mcancel:'रद्द करें',mlist:'लिस्टिंग विवरण',mbuy:'अभी खरीदें',sub:'सब्सक्राइब',share:'साझा करें',days:'दिन',cny:'CNY',sell:'विक्रेता',rating:'रेटिंग',sold2:'बिक गया',deposit:'जमा',withdraw:'निकासी',buy:'खरीदें',sell2:'बेचें',reward:'इनाम',bt:'खरीदें',sd:'बेचें',on:'चालू',mlog3:'कृपया पहले लॉगिन करें',bs:'खरीद सफल!',ss:'बिक्री सफल!',pln:'लिस्टिंग बनाई गई',prs:'पासवर्ड रीसेट लिंक भेजा गया:',rgs:'रजिस्ट्रेशन सफल! AI Nexus में आपका स्वागत है',notimpl:'बैकएंड API आवश्यक। डेमो मोड सक्रिय।',noauth:'कृपया पहले लॉगिन करें',mvercode:'सत्यापन कोड',mvercode2:'कोड भेजें',mvercode3:'कोड दर्ज करें',mverr:'अमान्य सत्यापन कोड',mversent:'सत्यापन कोड भेजा गया: ',nag:'एजेंट',nsoc:'सोशल',sod:'सोशल — मित्र और चैट',sosearch:'खोजें',sosearchph:'ईमेल से खोजें...',sofriends:'मेरे मित्र',sorequests:'मित्र अनुरोध',sochat:'चैट',sonofriends:'कोई मित्र नहीं',soadd:'जोड़ें',soaccept:'स्वीकार',soreject:'अस्वीकार',somsgph:'संदेश लिखें...',sosend:'भेजें',sonomsg:'मित्र चुनें',soonl:'ऑनलाइन',soffl:'ऑफलाइन',soselect:'चुनें',soadded:'मित्र जुड़ गया!',soreqsent:'अनुरोध भेजा',sologin:'लॉगिन करें',agtit:'AI एलायंस एजेंट',agdesc:'हमारे एजेंट प्रोग्राम से जुड़ें। AI एलायंस एजेंट बनें और 50% कमीशन कमाएं।',agnreg:'AI एलायंस एजेंट बनें',agnregd:'AI Nexus एजेंट प्रोग्राम से जुड़ें, प्रत्येक रेफ़र किए गए उपयोगकर्ता पर 50% आवर्ती कमीशन कमाएं।',agstep1:'भुगतान करें और जुड़ें',agstep1d:'एजेंट बनने के लिए एकमुश्त भुगतान',agstep2:'उप-खाते प्राप्त करें',agstep2d:'ग्राहकों के लिए उप-खाते बनाएं',agstep3:'50% कमाएं',agstep3d:'प्रत्येक बिक्री पर 50% आवर्ती कमीशन',agjoin:'अभी जुड़ें - एजेंट बनें',agpp:'आपके PayPal बटन',agbind:'+ PayPal बाइंड करें',agnopp:'कोई PayPal बटन बाइंड नहीं',agcomm:'कमीशन इतिहास',aglive:'लाइव PayPal बटन',agnolive:'कोई लाइव बटन नहीं',agbpt:'PayPal बटन बाइंड करें',agbpn:'बटन का नाम',agbpnph:'मेरा बटन',agbpid:'होस्टेड बटन ID',agbpidph:'HOSTED-BUTTON-ID',agbphelp:'PayPal डैशबोर्ड > भुगतान > PayPal बटन में अपनी ID खोजें',agbpb:'बाइंड करें',agid:'एजेंट ID',agte:'कुल कमाई',agrate:'कमीशन दर',agstat:'स्थिति',agtxns:'लेन-देन',agrev:'राजस्व',agearn:'अर्जित',agregok:'एजेंट पंजीकरण सफल!',agdelcf:'यह PayPal बटन हटाएं?',agfill:'कृपया सभी फ़ील्ड भरें',agbinds:'PayPal बटन बाइंड हो गया!',agnocomm:'कोई कमीशन रिकॉर्ड नहीं',agpcard:'AI एलायंस एजेंट बनें',agpcardd:'भुगतान करें → उप-खाते → 50% कमीशन।',agpjoin:'अभी जुड़ें',ppagent:'AI एलायंस एजेंट बनें',ppdonate:'प्रायोजित/दान करें',mavatar:'अवतार',mupload:'अपलोड',mclear:'साफ़ करें',msigimg:'हस्ताक्षर छवि',msigvid:'हस्ताक्षर वीडियो',mbio_ph:'अपने बारे में बताएं',mpsaved:'प्रोफ़ाइल सहेजा',mup_success:'अपलोड सफल',mup_fail:'अपलोड विफल',mexists:'यह ईमेल पहले से पंजीकृत है — लॉगिन करें',mnofile:'कृपया फ़ाइल चुनें',mpview:'प्रोफ़ाइल',appdlt:'AI Nexus APP',appdlname:'AI Nexus मोबाइल v1.0.0',appdlmeta:'Android · APK · 3.7 MB',appdldesc:'AI Nexus मोबाइल क्लाइंट डाउनलोड करें और मार्केट, P2P, ट्रेड, एजेंट सेवाओं और AI टूल सब्सक्रिप्शन का आनंद कहीं भी लें।',appdlwarn:'⚠ यह APK डिबग संस्करण है और इंस्टॉल करने के लिए आपकी अनुमति चाहिए। कृपया इंस्टॉल करने से पहले नीचे दिया गया ट्यूटोरियल पढ़ें।',appdlbtn:'APK डाउनलोड करें (3.7 MB)',appdlv:'संस्करण: v1.0.0',appdlclose:'बंद करें',appdltt:'AI Nexus APP',appdlds:'v1.0.0 · Android APK · 3.7 MB',tutt:'इंस्टॉलेशन और उपयोग गाइड',tutsub:'डाउनलोड से पंजीकरण तक, 5 चरणों में AI Nexus मोबाइल क्लाइंट शुरू करें।',tut1t:'APK डाउनलोड करें',tut1d:'शीर्ष पर <b>+</b> बटन पर क्लिक करें → APK फ़ाइल (लगभग 3.7 MB) डाउनलोड करने के लिए "AI Nexus APP" चुनें।',tut2t:'अज्ञात स्रोतों की अनुमति दें',tut2d:'<b>सेटिंग्स → सुरक्षा → अधिक सुरक्षा सेटिंग्स → अज्ञात ऐप्स इंस्टॉल करें</b> पर जाएँ और टॉगल चालू करें। इंस्टॉलेशन के दौरान भी पूछा जा सकता है।',tut3t:'इंस्टॉल करने के लिए APK पर टैप करें',tut3d:'डाउनलोड की गई <b>app-debug.apk</b> खोलें और "इंस्टॉल करें" पर टैप करें। पहली बार पुष्टि माँगी जाएगी – "फिर भी इंस्टॉल करें" चुनें।',tut4t:'APP खोलें और लॉगिन करें',tut4d:'पहली बार शुरू करने पर स्वागत पृष्ठ दिखाई देगा। आप ऊपर दाईं ओर सेटिंग्स में भाषा बदल सकते हैं। अपने वेब खाते से लॉगिन करें या नया बनाएँ।',tut5t:'खोजना शुरू करें',tut5d:'चैट, P2P ट्रेडिंग, ट्रेड ऑर्डर, एजेंट सेवाएँ, इवेंट पंजीकरण, सोशल चैट और बहुत कुछ मोबाइल पर उपलब्ध है।',tutfaqt:'अक्सर पूछे जाने वाले प्रश्न:',tutfaq1:'· iOS उपयोगकर्ता: अभी उपलब्ध नहीं, कृपया प्रतीक्षा करें।',tutfaq2:'· इंस्टॉलेशन विफल: सुनिश्चित करें कि फ़ोन में कम से कम 20 MB खाली जगह हो।',tutfaq3:'· मदद चाहिए? सपोर्ट से संपर्क करें या वेब हेल्प सेंटर पर जाएँ।',tuttt:'इंस्टॉलेशन और उपयोग गाइड',tutds:'इंस्टॉलेशन और उपयोग गाइड',tutgobtn:'अभी डाउनलोड करें',mpedit:'संपादित करें',mpkyc:'KYC स्तर',mpjoined:'शामिल हुए',soresult:'खोज परिणाम',soadd2:'मित्र जोड़ें',sosearching:'खोज रहे हैं...',soself:'खुद को जोड़ नहीं सकते',sopending:'अनुरोध पहले से लंबित',ppagent_desc:"AI Nexus एजेंट प्रोग्राम में शामिल होने के लिए $199 का एकमुश्त भुगतान और 50% आवर्ती कमीशन कमाएं।",ppdonate_desc:"AI Nexus विकास का समर्थन करें। कोई भी राशि सराहनीय है!",pppay:"PayPal से भुगतान करें",pppay_after:"भुगतान के बाद, अपना लेन-देन ID कॉपी करें और नीचे पुष्टि करें",pptxnid:"PayPal लेन-देन ID",ppagent_confirm:"भुगतान और पंजीकरण की पुष्टि करें",ppdonate_confirm:"दान की पुष्टि करें",insufbal:'अपर्याप्त बैलेंस',chtesting:'परीक्षण हो रहा है...',chconn:'कनेक्टेड — {n} मॉडल उपलब्ध',chfail:'HTTP {code}: {msg}',chconnfail:'कनेक्शन विफल: {msg}',apireq:'API एंडपॉइंट आवश्यक',chsaved:'चैनल कॉन्फ़िग सहेजा गया',createreq:'नाम और विवरण आवश्यक',toolpub:'उपकरण प्रकाशित!',eventreq:'शीर्षक, तिथि और विवरण आवश्यक',eventpub:'ईवेंट बनाया गया!',chtitle:'API चैनल कॉन्फ़िग',chendpoint:'API एंडपॉइंट',chkey:'API कुंजी',chtestconn:'कनेक्शन टेस्ट',chtestbtn:'API टेस्ट',chsavebtn:'कॉन्फ़िग सेव करें',chidprefix:'ID: ',agpauto:'प्लेटफ़ॉर्म द्वारा स्वचालित रूप से निपटान, आपके खाते में भुगतान',agpbeagent:'एजेंट बनें',agpcity:'शहर',agpcountry:'देश',agpcurr:'वर्तमान स्तर',agpfee:'50% उप-एजेंट शुल्क',agpolicyt:'एजेंट नीति',agpolsub:'3-स्तरीय एजेंट कार्यक्रम · स्वचालित निपटान · आपके खाते में भुगतान',agpsel:'एजेंट स्तर चुनें',agpstate:'राज्य',agpt1d:'अपने क्षेत्र में प्लेटफ़ॉर्म लाभ का 50% कमाएँ। उप-एजेंट शुल्क का 50% भी कमाएँ।',agpt1n:'शहर / जिला एजेंट',agpt1r:'50% क्षेत्रीय लाभ',agpt2d:'अपने क्षेत्र में प्लेटफ़ॉर्म लाभ का 20% कमाएँ। उप-एजेंट शुल्क का 50% भी कमाएँ।',agpt2n:'राज्य / प्रांत एजेंट',agpt2r:'20% क्षेत्रीय लाभ',agpt3d:'अपने क्षेत्र में प्लेटफ़ॉर्म राजस्व का 10% कमाएँ। उप-एजेंट शुल्क का 50% भी कमाएँ।',agpt3n:'देश / क्षेत्र एजेंट',agpt3r:'10% क्षेत्रीय राजस्व',navp:'प्रचार',mbsubtitle:'रिचार्ज से स्वचालित अपग्रेड',mcurrentlv:'वर्तमान स्तर',mrank1:'सामान्य सदस्य',mrank2:'प्रारंभिक खनिज',mrank3:'मध्यम जेड',mrank4:'उन्नत रत्न',mrank5:'शीर्ष हीरा',mtotalmb:'कुल सदस्य',mrech:'कुल रिचार्ज',mwallet:'सदस्य वॉलेट',mrwc:'रिचार्ज / निकासी',mrwcsub:'केंद्र',mtknpck:'टोकन वॉल्ट',mtknpcks:'टोकन सुरक्षित रखें',mtknenergy:'टोकन ऊर्जा पैक',msub2:'AI टूलकिट सदस्यता',msub2sub:'मासिक/वार्षिक स्वत: नवीनीकरण',mlock:'टोकन स्टेक बैंक',mlocksub:'वास्तविक समय दैनिक ब्याज',msettle:'पूल खाता',mplatform:'प्लेटफ़ॉर्म पूल',mpoolcopy:'पूल पता कॉपी करें',msettlesub:'एकीकृत पता · USDT (TRC20) भेजें',mrechargrule:'रिचार्ज से स्वत: अपग्रेड',nmb:'सदस्य केंद्र',mbt:'सदस्य केंद्र',mbinvite:'आमंत्रण पुरस्कार',invcode:'आमंत्रण कोड',invlink:'आमंत्रण लिंक',invcopy:'लिंक कॉपी करें',invcount:'आमंत्रण',invpending:'लंबित पुरस्कार',invtotal:'कुल पुरस्कार',invtransfer:'बैलेंस में स्थानांतरित',invrule1:'मित्रों को आमंत्रित करें और जमा पर पुरस्कार पाएं',invrule2:'लंबित पुरस्कारों को अपने वॉलेट बैलेंस में स्थानांतरित करें',invrule3:'जितने अधिक मित्रों को आमंत्रित करेंगे, उतने अधिक पुरस्कार मिलेंगे',invdemo:'डेमो: +1 आमंत्रण'},sonoauth:'प्रमाणीकरण विफल। कृपया लॉगिन करें',sotokenexpired:'टोकन अमान्य या समाप्त। कृपया पुनः लॉगिन करें',somaintenance:'सिस्टम रखरखाव में है',somaintenance_sub:'कृपया बाद में आएं',
+  th:{nm:'ตลาด',nto:'เครื่องมือ',np2p:'P2P',ntr:'เทรด',nev:'กิจกรรม',ndb:'แดชบอร์ด',tlk:'ราคาสด',blg:'เข้าสู่ระบบ',bck:'← กลับ',bsu:'สมัครสมาชิก',umd:'แดชบอร์ด',ump:'โปรไฟล์',uml:'ออกจากระบบ',hbad:'โปรโตคอลเศรษฐกิจแบ่งปัน AI',hhd:'หนึ่งโทเคน AI ไม่จำกัด',hsd:'ซื้อ ขาย และเทรดการสมัครสมาชิกแอป AI ในตลาดการเข้าถึง AI แบบกระจายศูนย์แห่งแรกของโลก ควบคุมประสิทธิภาพของคุณ',stools:'เครื่องมือ AI',susers:'ผู้ถือ',svol:'ปริมาณ 24ชม.',smcap:'มูลค่าตลาด',ttp:'แพ็คเกจยอดนิยม',vall:'ดูทั้งหมด',tpe:'วิวัฒนาการราคา',tre:'ธุรกรรมล่าสุด',taia:'แอป AI ทั้งหมด',taid:'เรียกดูและสมัครสมาชิกเครื่องมือ AI พรีเมียม แชร์การสมัครเพื่อรับโทเคน',fall:'ทุกหมวดหมู่',spop:'ยอดนิยม',snew:'ใหม่ล่าสุด',sprice:'ราคาต่ำ',sapy:'ผลตอบแทนสูง',p2pt:'ตลาด P2P',p2pd:'ซื้อขายโทเคนการเข้าถึง AI โดยตรงกับผู้ใช้รายอื่น ไม่มีคนกลาง ราคาถูกกว่า',p2pbu:'รายการซื้อ',p2psl:'รายการขาย',p2pcm:'ชุมชน',p2pbe:'เผยแพร่กิจกรรม',pricel:'ราคา: ต่ำ',priceh:'ราคา: สูง',p2pcr:'สร้างรายการ',tool:'เครื่องมือ',pricel2:'ราคา (CNY)',qty:'จำนวน',dur:'ระยะเวลา (วัน)',p2pbcr:'สร้างรายการ',trdt:'เทรด',tbuy:'ซื้อ',tsell:'ขาย',tlim:'จำกัด',tmar:'ตลาด',tprice:'ราคา (CNY)',tamt:'จำนวน (NEXUS)',ttot:'รวม',tbal:'คงเหลือ',tbuy2:'ซื้อ NEXUS',tord:'สมุดคำสั่ง',thst:'ประวัติการเทรด',evt:'การรวมตัว AI',evd:'เข้าร่วมกิจกรรมชุมชน AI สุดพิเศษ แต่ละกิจกรรมมีโทเคนรุ่นจำกัดและโอกาสในการสร้างเครือข่าย',dbt:'แดชบอร์ดของฉัน',dph:'สินทรัพย์พอร์ต',dtoken:'โทเคน',dbal:'ยอดคงเหลือ',dval:'มูลค่า',dpnl:'กำไร/ขาดทุน',dth:'ประวัติธุรกรรม',dkc:'KYC และการยืนยัน',kycd:'ทำ KYC ให้สมบูรณ์เพื่อปลดล็อกขีดจำกัดที่สูงขึ้น',kycb:'อัปเกรด KYC',dwl:'กระเป๋าเงิน',dwa:'ที่อยู่กระเป๋า',dwah:'เชื่อมต่อกระเป๋าจริงของคุณสำหรับการถอนและรางวัล',dws:'บันทึกกระเป๋า',mlog:'เข้าสู่ระบบ',mlog2:'เข้าสู่ระบบ',memail:'อีเมล',mpass:'รหัสผ่าน',mforgot:'ลืมรหัสผ่าน?',mnoacc:'ยังไม่มีบัญชี?',mregi:'สมัครสมาชิก',mreg:'สมัครสมาชิก',muname:'ชื่อผู้ใช้',mref:'รหัสแนะนำ (ไม่บังคับ)',mreg2:'สร้างบัญชี',mhacc:'มีบัญชีอยู่แล้ว?',mres:'รีเซ็ตรหัสผ่าน',mres2:'ส่งลิงก์รีเซ็ต',mprf:'แก้ไขโปรไฟล์',mbio:'ประวัติ',msave:'บันทึก',mkyc:'การยืนยัน KYC',mkid:'ประเภทบัตร',mknum:'หมายเลขบัตร',mkname:'ชื่อ-นามสกุล (ตามบัตร)',mkaddr:'ที่อยู่',mksub:'ส่ง KYC',mconf:'ยืนยัน',mcyes:'ยืนยัน',mcancel:'ยกเลิก',mlist:'รายละเอียดรายการ',mbuy:'ซื้อเลย',sub:'สมัคร',share:'แชร์',days:'วัน',cny:'CNY',sell:'ผู้ขาย',rating:'คะแนน',sold2:'ขายแล้ว',deposit:'ฝาก',withdraw:'ถอน',buy:'ซื้อ',sell2:'ขาย',reward:'รางวัล',bt:'ซื้อ',sd:'ขาย',on:'เปิด',mlog3:'กรุณาเข้าสู่ระบบก่อน',bs:'ซื้อสำเร็จ!',ss:'ขายสำเร็จ!',pln:'สร้างรายการแล้ว',prs:'ส่งลิงก์รีเซ็ตรหัสผ่านไปที่',rgs:'สมัครสมาชิกสำเร็จ! ยินดีต้อนรับสู่ AI Nexus',notimpl:'ต้องใช้ API แบ็กเอนด์ โหมดเดโม',noauth:'กรุณาเข้าสู่ระบบก่อน',mvercode:'รหัสยืนยัน',mvercode2:'ส่งรหัส',mvercode3:'ใส่รหัส',mverr:'รหัสยืนยันไม่ถูกต้อง',mversent:'ส่งรหัสยืนยันไปที่',nag:'ตัวแทน',nsoc:'โซเชียล',sod:'โซเชียล — เพื่อนและแชท',sosearch:'ค้นหา',sosearchph:'ค้นหาด้วยอีเมล...',sofriends:'เพื่อนของฉัน',sorequests:'คำขอเป็นเพื่อน',sochat:'แชท',sonofriends:'ยังไม่มีเพื่อน',soadd:'เพิ่มเพื่อน',soaccept:'ยอมรับ',soreject:'ปฏิเสธ',somsgph:'พิมพ์ข้อความ...',sosend:'ส่ง',sonomsg:'เลือกเพื่อน',soonl:'ออนไลน์',soffl:'ออฟไลน์',soselect:'เลือก',soadded:'เพิ่มเพื่อนแล้ว!',soreqsent:'ส่งคำขอแล้ว',sologin:'เข้าสู่ระบบก่อน',agtit:'ตัวแทนพันธมิตร AI',agdesc:'เข้าร่วมโปรแกรมตัวแทนของเรา เป็นตัวแทน AI Alliance และรับค่าคอมมิชชั่น 50%',agnreg:'เป็นตัวแทน AI Alliance',agnregd:'เข้าร่วมโปรแกรมตัวแทน AI Nexus รับค่าคอมมิชชั่นต่อเนื่อง 50% ต่อผู้ใช้ที่แนะนำ',agstep1:'ชำระเงินและเข้าร่วม',agstep1d:'ชำระครั้งเดียวเพื่อเป็นตัวแทน',agstep2:'รับบัญชีย่อย',agstep2d:'สร้างบัญชีย่อยสำหรับลูกค้า',agstep3:'รับ 50%',agstep3d:'ค่าคอมมิชชั่นต่อเนื่อง 50% ทุกการขาย',agjoin:'เข้าร่วมเลย - เป็นตัวแทน',agpp:'ปุ่ม PayPal ของคุณ',agbind:'+ ผูก PayPal',agnopp:'ไม่มีปุ่ม PayPal ที่ผูกไว้',agcomm:'ประวัติค่าคอมมิชชั่น',aglive:'ปุ่ม PayPal สด',agnolive:'ไม่มีปุ่มสด',agbpt:'ผูกปุ่ม PayPal',agbpn:'ชื่อปุ่ม',agbpnph:'ปุ่มของฉัน',agbpid:'ID ปุ่มโฮสต์',agbpidph:'HOSTED-BUTTON-ID',agbphelp:'ค้นหา ID ในแดชบอร์ด PayPal > รับชำระเงิน > ปุ่ม PayPal',agbpb:'ผูก',agid:'รหัสตัวแทน',agte:'รายได้รวม',agrate:'อัตราค่าคอม',agstat:'สถานะ',agtxns:'รายการ',agrev:'รายได้',agearn:'ที่ได้รับ',agregok:'ลงทะเบียนตัวแทนสำเร็จ!',agdelcf:'ลบปุ่ม PayPal นี้?',agfill:'กรุณากรอกทุกช่อง',agbinds:'ผูกปุ่ม PayPal แล้ว!',agnocomm:'ไม่มีบันทึกค่าคอมมิชชั่น',agpcard:'เป็นตัวแทน AI Alliance',agpcardd:'ชำระเงินเข้าร่วม → บัญชีย่อย → ค่าคอม 50%',agpjoin:'เข้าร่วมเลย',ppagent:'เป็นตัวแทน AI Alliance',ppdonate:'สนับสนุน/บริจาค',mavatar:'อวาตาร์',mupload:'อัปโหลด',mclear:'ล้าง',msigimg:'รูปลายเซ็น',msigvid:'วิดีโอลายเซ็น',mbio_ph:'บอกเราเกี่ยวกับคุณ',mpsaved:'บันทึกโปรไฟล์แล้ว',mup_success:'อัปโหลดสำเร็จ',mup_fail:'อัปโหลดล้มเหลว',mexists:'อีเมลนี้ลงทะเบียนแล้ว — กรุณาเข้าสู่ระบบ',mnofile:'กรุณาเลือกไฟล์',mpview:'โปรไฟล์',appdlt:'แอป AI Nexus',appdlname:'AI Nexus มือถือ v1.0.0',appdlmeta:'Android · APK · 3.7 MB',appdldesc:'ดาวน์โหลดไคลเอนต์มือถือ AI Nexus เพื่อใช้งานตลาด, P2P, เทรด, บริการตัวแทน และการสมัครสมาชิกเครื่องมือ AI ได้ทุกที่',appdlwarn:'⚠ APK นี้เป็นเวอร์ชันดีบักและต้องได้รับอนุญาตจากคุณก่อนติดตั้ง กรุณาอ่านคำแนะนำด้านล่างก่อนติดตั้ง',appdlbtn:'ดาวน์โหลด APK (3.7 MB)',appdlv:'เวอร์ชัน: v1.0.0',appdlclose:'ปิด',appdltt:'แอป AI Nexus',appdlds:'v1.0.0 · Android APK · 3.7 MB',tutt:'คู่มือการติดตั้งและใช้งาน',tutsub:'ตั้งแต่ดาวน์โหลดจนถึงลงทะเบียน เริ่มใช้งานไคลเอนต์มือถือ AI Nexus ใน 5 ขั้นตอน',tut1t:'ดาวน์โหลด APK',tut1d:'คลิกปุ่ม <b>+</b> ด้านบน → เลือก "แอป AI Nexus" เพื่อดาวน์โหลดไฟล์ APK (ประมาณ 3.7 MB)',tut2t:'อนุญาตแหล่งที่ไม่รู้จัก',tut2d:'ไปที่ <b>การตั้งค่า → ความปลอดภัย → การตั้งค่าความปลอดภัยเพิ่มเติม → ติดตั้งแอปที่ไม่รู้จัก</b> แล้วเปิดสวิตช์ คุณอาจถูกถามระหว่างการติดตั้ง',tut3t:'แตะ APK เพื่อติดตั้ง',tut3d:'เปิดไฟล์ <b>app-debug.apk</b> ที่ดาวน์โหลดมา แล้วแตะ "ติดตั้ง" ในครั้งแรกจะมีข้อความขอยืนยัน – เลือก "ติดตั้งต่อไป"',tut4t:'เปิดแอปและเข้าสู่ระบบ',tut4d:'เมื่อเปิดครั้งแรกจะแสดงหน้าต้อนรับ คุณสามารถเปลี่ยนภาษาได้ในการตั้งค่าที่มุมขวาบน เข้าสู่ระบบด้วยบัญชีเว็บ หรือสมัครใหม่',tut5t:'เริ่มสำรวจ',tut5d:'แชท, เทรด P2P, คำสั่งซื้อขาย, บริการตัวแทน, ลงทะเบียนกิจกรรม, แชทสังคม และอื่น ๆ พร้อมใช้งานบนมือถือ',tutfaqt:'คำถามที่พบบ่อย:',tutfaq1:'· ผู้ใช้ iOS: ยังไม่พร้อมใช้งาน กรุณารอ',tutfaq2:'· การติดตั้งล้มเหลว: ตรวจสอบว่ามีพื้นที่ว่างอย่างน้อย 20 MB',tutfaq3:'· ต้องการความช่วยเหลือ? ติดต่อฝ่ายสนับสนุนหรือเยี่ยมชมศูนย์ช่วยเหลือบนเว็บ',tuttt:'คู่มือการติดตั้งและใช้งาน',tutds:'คู่มือการติดตั้งและใช้งาน',tutgobtn:'ดาวน์โหลดทันที',mpedit:'แก้ไข',mpkyc:'ระดับ KYC',mpjoined:'เข้าร่วมเมื่อ',soresult:'ผลการค้นหา',soadd2:'เพิ่มเพื่อน',sosearching:'กำลังค้นหา...',soself:'ไม่สามารถเพิ่มตัวเอง',sopending:'คำขอค้างอยู่',ppagent_desc:"ชำระครั้งเดียว $199 เพื่อเข้าร่วมโปรแกรมตัวแทน AI Nexus และรับค่าคอมมิชชั่นต่อเนื่อง 50%",ppdonate_desc:"สนับสนุนการพัฒนา AI Nexus จำนวนเท่าใดก็ได้ ขอบคุณ!",pppay:"ชำระด้วย PayPal",pppay_after:"หลังจากชำระเงิน คัดลอก ID ธุรกรรมและยืนยันด้านล่าง",pptxnid:"ID ธุรกรรม PayPal",ppagent_confirm:"ยืนยันการชำระเงินและลงทะเบียน",ppdonate_confirm:"ยืนยันการบริจาค",sonoauth:'การยืนยันตัวตนล้มเหลว กรุณาเข้าสู่ระบบ',sotokenexpired:'โทเค็นไม่ถูกต้องหรือหมดอายุ กรุณาเข้าสู่ระบบอีกครั้ง',somaintenance:'ระบบอยู่ระหว่างการบํารุงรักษา',somaintenance_sub:'กรุณากลับมาใหม่ภายหลัง',ppagent_desc:'ชำระครั้งเดียว $199 เพื่อเข้าร่วมโปรแกรมตัวแทน AI Nexus และรับค่าคอมมิชชัน 50%',ppdonate_desc:'สนับสนุนการพัฒนา AI Nexus ทุกจำนวนเงินยินดีรับ!',pppay:"ชำระด้วย PayPal",pppay_after:'หลังจากชำระเงิน คัดลอก ID ธุรกรรมและยืนยันด้านล่าง',pptxnid:'ID ธุรกรรม PayPal',ppagent_confirm:'ยืนยันการชำระเงินและลงทะเบียน',ppdonate_confirm:'ยืนยันการบริจาค',insufbal:'ยอดเงินไม่เพียงพอ',chtesting:'กำลังทดสอบ...',chconn:'เชื่อมต่อแล้ว — {n} โมเดลพร้อมใช้งาน',chfail:'HTTP {code}: {msg}',chconnfail:'การเชื่อมต่อล้มเหลว: {msg}',apireq:'ต้องระบุ API Endpoint',chsaved:'บันทึกการตั้งค่าช่องสัญญาณแล้ว',createreq:'ต้องระบุชื่อและคำอธิบาย',toolpub:'เผยแพร่เครื่องมือแล้ว!',eventreq:'ต้องระบุชื่อ, วันที่ และคำอธิบาย',eventpub:'สร้างกิจกรรมแล้ว!',chtitle:'การตั้งค่าช่อง API',chendpoint:'API Endpoint',chkey:'API Key',chtestconn:'ทดสอบการเชื่อมต่อ',chtestbtn:'ทดสอบ API',chsavebtn:'บันทึกการตั้งค่า',chidprefix:'ID: ',agpauto:'รายได้จะถูกชำระโดยอัตโนมัติและจ่ายเข้าบัญชีของคุณ',agpbeagent:'เป็นตัวแทน',agpcity:'เมือง',agpcountry:'ประเทศ',agpcurr:'ระดับปัจจุบัน',agpfee:'50% ค่าธรรมเนียมตัวแทนระดับล่าง',agpolicyt:'นโยบายตัวแทน',agpolsub:'โปรแกรมตัวแทน 3 ระดับ · ชำระเงินอัตโนมัติ · จ่ายเข้าบัญชีของคุณ',agpsel:'เลือกระดับตัวแทน',agpstate:'รัฐ',agpt1d:'รับ 50% ของกำไรแพลตฟอร์มในภูมิภาคของคุณ และ 50% ของค่าธรรมเนียมตัวแทนระดับล่าง',agpt1n:'ตัวแทนเมือง / เขต',agpt1r:'50% กำไรภูมิภาค',agpt2d:'รับ 20% ของกำไรแพลตฟอร์มในภูมิภาคของคุณ และ 50% ของค่าธรรมเนียมตัวแทนระดับล่าง',agpt2n:'ตัวแทนรัฐ / จังหวัด',agpt2r:'20% กำไรภูมิภาค',agpt3d:'รับ 10% ของรายได้แพลตฟอร์มในภูมิภาคของคุณ และ 50% ของค่าธรรมเนียมตัวแทนระดับล่าง',agpt3n:'ตัวแทนประเทศ / ภูมิภาค',agpt3r:'10% รายได้ภูมิภาค',navp:'โปรโมท',mbsubtitle:'อัปเกรดอัตโนมัติด้วยการเติมเงิน',mcurrentlv:'ระดับปัจจุบัน',mrank1:'สมาชิกทั่วไป',mrank2:'แร่เริ่มต้น',mrank3:'หยกระดับกลาง',mrank4:'อัญมณีขั้นสูง',mrank5:'เพชรชั้นสูง',mtotalmb:'สมาชิกทั้งหมด',mrech:'เติมเงินรวม',mwallet:'กระเป๋าเงินสมาชิก',mrwc:'เติม / ถอน',mrwcsub:'ศูนย์',mtknpck:'ตู้เก็บโทเคน',mtknpcks:'จัดเก็บโทเคนอย่างปลอดภัย',mtknenergy:'แพ็คพลังงานโทเคน',msub2:'สมัคร AI ทูลคิท',msub2sub:'ต่ออายุอัตโนมัติรายเดือน/ปี',mlock:'ธนาคารสเตคโทเคน',mlocksub:'ดอกเบี้ยรายวันแบบเรียลไทม์',msettle:'บัญชีพูล',mplatform:'พูลแพลตฟอร์ม',mpoolcopy:'คัดลอกที่อยู่พูล',msettlesub:'ที่อยู่รวม · ส่ง USDT (TRC20)',mrechargrule:'อัปเกรดอัตโนมัติด้วยการเติมเงิน',nmb:'ศูนย์สมาชิก',mbt:'ศูนย์สมาชิก',mbinvite:'รางวัลเชิญ',invcode:'รหัสเชิญ',invlink:'ลิงก์เชิญ',invcopy:'คัดลอกลิงก์',invcount:'จำนวนเชิญ',invpending:'รางวัลที่รอ',invtotal:'รางวัลรวม',invtransfer:'โอนไปยอดคงเหลือ',invrule1:'เชิญเพื่อนและรับรางวัลเมื่อพวกเขาฝากเงิน',invrule2:'โอนรางวัลที่รอไปยังยอดคงเหลือในกระเป๋า',invrule3:'ยิ่งเชิญเพื่อนมากเท่าไหร่ ยิ่งได้รับรางวัลมากขึ้น',invdemo:'เดโม: +1 เชิญ'},
+  vi:{nm:'Thị Trường',nto:'Công Cụ',np2p:'P2P',ntr:'Giao Dịch',nev:'Sự Kiện',ndb:'Bảng Điều Khiển',tlk:'Giá Trực Tiếp',blg:'Đăng Nhập',bck:'← Quay lại',bsu:'Đăng Ký',umd:'Bảng Điều Khiển',ump:'Hồ Sơ',uml:'Đăng Xuất',hbad:'Giao Thức Kinh Tế Chia Sẻ AI',hhd:'Một Token. AI Vô Hạn.',hsd:'Mua, bán và giao dịch đăng ký ứng dụng AI trong thị trường truy cập AI phi tập trung đầu tiên trên thế giới. Làm chủ năng suất của bạn.',stools:'Công Cụ AI',susers:'Người Nắm Giữ',svol:'Khối Lượng 24h',smcap:'Vốn Hóa',ttp:'Gói Phổ Biến',vall:'Xem Tất Cả',tpe:'Biến Động Giá',tre:'Giao Dịch Gần Đây',taia:'Tất Cả Ứng Dụng AI',taid:'Duyệt và đăng ký công cụ AI cao cấp. Chia sẻ đăng ký để kiếm token.',fall:'Tất Cả Danh Mục',spop:'Phổ Biến',snew:'Mới Nhất',sprice:'Giá Thấp',sapy:'Lợi Suất Cao',p2pt:'Chợ P2P',p2pd:'Mua bán token truy cập AI trực tiếp với người dùng khác. Không trung gian, giá thấp hơn.',p2pbu:'Danh Sách Mua',p2psl:'Danh Sách Bán',p2pcm:'Cộng đồng',p2pbe:'Đăng sự kiện',pricel:'Giá: Thấp',priceh:'Giá: Cao',p2pcr:'Tạo Tin Đăng',tool:'Công Cụ',pricel2:'Giá (CNY)',qty:'Số Lượng',dur:'Thời Hạn (ngày)',p2pbcr:'Tạo Tin Đăng',trdt:'Giao Dịch',tbuy:'Mua',tsell:'Bán',tlim:'Giới Hạn',tmar:'Thị Trường',tprice:'Giá (CNY)',tamt:'Số Lượng (NEXUS)',ttot:'Tổng',tbal:'Khả Dụng',tbuy2:'Mua NEXUS',tord:'Sổ Lệnh',thst:'Lịch Sử Giao Dịch',evt:'Tụ Họp AI',evd:'Tham gia sự kiện cộng đồng AI độc quyền. Mỗi sự kiện có token phiên bản giới hạn và cơ hội kết nối.',dbt:'Bảng Điều Khiển',dph:'Tài Sản Danh Mục',dtoken:'Token',dbal:'Số Dư',dval:'Giá Trị',dpnl:'Lãi/Lỗ',dth:'Lịch Sử Giao Dịch',dkc:'KYC & Xác Minh',kycd:'Hoàn thành KYC để mở khóa giới hạn cao hơn',kycb:'Nâng Cấp KYC',dwl:'Ví',dwa:'Địa Chỉ Ví',dwah:'Kết nối ví thật để rút tiền và nhận thưởng',dws:'Lưu Ví',mlog:'Đăng Nhập',mlog2:'Đăng Nhập',memail:'Email',mpass:'Mật Khẩu',mforgot:'Quên Mật Khẩu?',mnoacc:'Chưa có tài khoản?',mregi:'Đăng Ký',mreg:'Đăng Ký',muname:'Tên Người Dùng',mref:'Mã Giới Thiệu (tùy chọn)',mreg2:'Tạo Tài Khoản',mhacc:'Đã có tài khoản?',mres:'Đặt Lại Mật Khẩu',mres2:'Gửi Liên Kết',mprf:'Sửa Hồ Sơ',mbio:'Tiểu Sử',msave:'Lưu',mkyc:'Xác Minh KYC',mkid:'Loại Giấy Tờ',mknum:'Số Giấy Tờ',mkname:'Họ Tên (như trên giấy tờ)',mkaddr:'Địa Chỉ',mksub:'Gửi KYC',mconf:'Xác Nhận',mcyes:'Xác Nhận',mcancel:'Hủy',mlist:'Chi Tiết Tin',mbuy:'Mua Ngay',sub:'Đăng Ký',share:'Chia Sẻ',days:'ngày',cny:'CNY',sell:'Người Bán',rating:'Đánh Giá',sold2:'Đã Bán',deposit:'Nạp',withdraw:'Rút',buy:'Mua',sell2:'Bán',reward:'Thưởng',bt:'Mua',sd:'Bán',on:'Mở',mlog3:'Vui lòng đăng nhập trước',bs:'Mua thành công!',ss:'Bán thành công!',pln:'Đã tạo tin đăng',prs:'Liên kết đặt lại mật khẩu đã gửi đến',rgs:'Đăng ký thành công! Chào mừng đến AI Nexus',notimpl:'Cần API backend. Chế độ demo.',noauth:'Vui lòng đăng nhập trước',mvercode:'Mã Xác Nhận',mvercode2:'Gửi Mã',mvercode3:'Nhập mã',mverr:'Mã xác nhận không hợp lệ',mversent:'Mã xác nhận đã gửi đến',nag:'Đại Lý',nsoc:'Xã Hội',sod:'Xã Hội — Bạn Bè & Chat',sosearch:'Tìm kiếm',sosearchph:'Tìm qua email...',sofriends:'Bạn Bè',sorequests:'Lời Mời',sochat:'Chat',sonofriends:'Chưa có bạn',soadd:'Thêm Bạn',soaccept:'Chấp Nhận',soreject:'Từ Chối',somsgph:'Nhập tin nhắn...',sosend:'Gửi',sonomsg:'Chọn bạn để chat',soonl:'Trực Tuyến',soffl:'Ngoại Tuyến',soselect:'Chọn bạn',soadded:'Đã thêm bạn!',soreqsent:'Đã gửi lời mời',sologin:'Đăng nhập để dùng',agtit:'Đại Lý Liên Minh AI',agdesc:'Tham gia chương trình đại lý. Trở thành đại lý AI Alliance và kiếm 50% hoa hồng.',agnreg:'Trở Thành Đại Lý AI Alliance',agnregd:'Tham gia chương trình đại lý AI Nexus, kiếm 50% hoa hồng định kỳ trên mỗi người dùng được giới thiệu.',agstep1:'Thanh Toán & Tham Gia',agstep1d:'Thanh toán một lần để trở thành đại lý',agstep2:'Nhận Tài Khoản Phụ',agstep2d:'Tạo tài khoản phụ cho khách hàng',agstep3:'Kiếm 50%',agstep3d:'50% hoa hồng định kỳ mỗi giao dịch',agjoin:'Tham Gia Ngay - Trở Thành Đại Lý',agpp:'Nút PayPal Của Bạn',agbind:'+ Liên Kết PayPal',agnopp:'Chưa có nút PayPal được liên kết',agcomm:'Lịch Sử Hoa Hồng',aglive:'Nút PayPal Trực Tiếp',agnolive:'Không có nút trực tiếp',agbpt:'Liên Kết Nút PayPal',agbpn:'Tên Nút',agbpnph:'Nút Của Tôi',agbpid:'ID Nút Lưu Trữ',agbpidph:'HOSTED-BUTTON-ID',agbphelp:'Tìm ID trong Bảng Điều Khiển PayPal > Nhận Thanh Toán > Nút PayPal',agbpb:'Liên Kết',agid:'ID Đại Lý',agte:'Tổng Thu Nhập',agrate:'Tỷ Lệ Hoa Hồng',agstat:'Trạng Thái',agtxns:'Giao Dịch',agrev:'Doanh Thu',agearn:'Đã Kiếm',agregok:'Đăng ký đại lý thành công!',agdelcf:'Xóa nút PayPal này?',agfill:'Vui lòng điền đầy đủ',agbinds:'Đã liên kết nút PayPal!',agnocomm:'Chưa có hồ sơ hoa hồng',agpcard:'Trở Thành Đại Lý AI Alliance',agpcardd:'Thanh toán tham gia → Tài khoản phụ → 50% hoa hồng.',agpjoin:'Tham Gia Ngay',ppagent:'Trở Thành Đại Lý AI Alliance',ppdonate:'Tài Trợ/Quyên Góp',mavatar:'Ảnh đại diện',mupload:'Tải lên',mclear:'Xóa',msigimg:'Ảnh chữ ký',msigvid:'Video chữ ký',mbio_ph:'Giới thiệu về bạn',mpsaved:'Đã lưu hồ sơ',mup_success:'Tải lên thành công',mup_fail:'Tải lên thất bại',mexists:'Email này đã được đăng ký — hãy đăng nhập',mnofile:'Vui lòng chọn tệp',mpview:'Hồ sơ',appdlt:'AI Nexus APP',appdlname:'AI Nexus Di động v1.0.0',appdlmeta:'Android · APK · 3,7 MB',appdldesc:'Tải xuống ứng dụng di động AI Nexus để trải nghiệm Market, P2P, Trade, dịch vụ đại lý và đăng ký công cụ AI mọi lúc mọi nơi.',appdlwarn:'⚠ APK này là bản debug và cần sự cho phép của bạn để cài đặt. Vui lòng đọc hướng dẫn bên dưới trước khi cài đặt.',appdlbtn:'Tải APK (3,7 MB)',appdlv:'Phiên bản: v1.0.0',appdlclose:'Đóng',appdltt:'AI Nexus APP',appdlds:'v1.0.0 · Android APK · 3,7 MB',tutt:'Hướng dẫn cài đặt & sử dụng',tutsub:'Từ tải xuống đến đăng ký, bắt đầu dùng AI Nexus di động trong 5 bước.',tut1t:'Tải APK',tut1d:'Nhấn nút <b>+</b> ở trên cùng → chọn "AI Nexus APP" để tải tệp APK (khoảng 3,7 MB).',tut2t:'Cho phép nguồn không xác định',tut2d:'Vào <b>Cài đặt → Bảo mật → Cài đặt bảo mật khác → Cài ứng dụng không xác định</b> và bật công tắc. Bạn cũng có thể được nhắc trong khi cài đặt.',tut3t:'Nhấn APK để cài đặt',tut3d:'Mở tệp <b>app-debug.apk</b> đã tải và nhấn "Cài đặt". Lần đầu sẽ có xác nhận — chọn "Vẫn cài đặt".',tut4t:'Mở APP và đăng nhập',tut4d:'Khi khởi chạy lần đầu sẽ hiện trang chào mừng. Bạn có thể đổi ngôn ngữ trong cài đặt góc trên bên phải. Đăng nhập bằng tài khoản web hoặc đăng ký mới.',tut5t:'Bắt đầu khám phá',tut5d:'Chat, giao dịch P2P, lệnh Trade, dịch vụ đại lý, đăng ký sự kiện, chat xã hội và hơn thế nữa đều có trên di động.',tutfaqt:'Câu hỏi thường gặp:',tutfaq1:'· Người dùng iOS: chưa khả dụng, vui lòng chờ.',tutfaq2:'· Cài đặt thất bại: đảm bảo điện thoại còn ít nhất 20 MB trống.',tutfaq3:'· Cần trợ giúp? Liên hệ hỗ trợ hoặc truy cập Trung tâm hỗ trợ trên web.',tuttt:'Hướng dẫn cài đặt & sử dụng',tutds:'Hướng dẫn cài đặt & sử dụng',tutgobtn:'Tải ngay',mpedit:'Chỉnh sửa',mpkyc:'Cấp KYC',mpjoined:'Tham gia',soresult:'Kết quả tìm kiếm',soadd2:'Thêm bạn',sosearching:'Đang tìm...',soself:'Không thể tự thêm',sopending:'Yêu cầu đang chờ',sonoauth:'Xác thực thất bại. Vui lòng đăng nhập',sotokenexpired:'Token không hợp lệ hoặc đã hết hạn. Vui lòng đăng nhập lại',somaintenance:'Hệ Thống Đang Bảo Trì',somaintenance_sub:'Vui lòng quay lại sau',ppagent_desc:'Thanh toán một lần $199 để tham gia chương trình đại lý AI Nexus và nhận 50% hoa hồng định kỳ.',ppdonate_desc:'Hỗ trợ phát triển AI Nexus. Mọi số tiền đều được trân trọng!',pppay:"Thanh toán bằng PayPal",pppay_after:'Sau khi thanh toán, sao chép ID giao dịch và xác nhận bên dưới',pptxnid:'ID Giao dịch PayPal',ppagent_confirm:'Xác nhận Thanh toán & Đăng ký',ppdonate_confirm:'Xác nhận Quyên góp',insufbal:'Số dư không đủ',chtesting:'Đang kiểm tra...',chconn:'Đã kết nối — {n} mô hình khả dụng',chfail:'HTTP {code}: {msg}',chconnfail:'Kết nối thất bại: {msg}',apireq:'Yêu cầu API Endpoint',chsaved:'Đã lưu cấu hình kênh',createreq:'Yêu cầu tên và mô tả',toolpub:'Đã xuất bản công cụ!',eventreq:'Yêu cầu tiêu đề, ngày và mô tả',eventpub:'Đã tạo sự kiện!',chtitle:'Cấu hình Kênh API',chendpoint:'API Endpoint',chkey:'Khóa API',chtestconn:'Kiểm tra Kết nối',chtestbtn:'Kiểm tra API',chsavebtn:'Lưu Cấu hình',chidprefix:'ID: ',agpauto:'Thu nhập tự động quyết toán, thanh toán vào tài khoản của bạn',agpbeagent:'Trở thành Đại lý',agpcity:'Thành phố',agpcountry:'Quốc gia',agpcurr:'Cấp Hiện tại',agpfee:'50% Phí Đại lý Cấp dưới',agpolicyt:'Chính sách Đại lý',agpolsub:'Chương trình Đại lý 3 cấp · Tự động quyết toán · Thanh toán vào tài khoản của bạn',agpsel:'Chọn Cấp Đại lý',agpstate:'Bang',agpt1d:'Nhận 50% lợi nhuận nền tảng trong khu vực của bạn. 50% phí đại lý cấp dưới.',agpt1n:'Đại lý Thành phố / Quận',agpt1r:'50% Lợi nhuận Khu vực',agpt2d:'Nhận 20% lợi nhuận nền tảng trong khu vực của bạn. 50% phí đại lý cấp dưới.',agpt2n:'Đại lý Bang / Tỉnh',agpt2r:'20% Lợi nhuận Khu vực',agpt3d:'Nhận 10% doanh thu nền tảng trong khu vực của bạn. 50% phí đại lý cấp dưới.',agpt3n:'Đại lý Quốc gia / Khu vực',agpt3r:'10% Doanh thu Khu vực',navp:'Quảng bá',mbsubtitle:'Tự động nâng cấp bằng nạp tiền',mcurrentlv:'Cấp Hiện Tại',mrank1:'Hội Viên Thường',mrank2:'Khoáng Sơ Cấp',mrank3:'Ngọc Trung Cấp',mrank4:'Đá Quý Cao Cấp',mrank5:'Kim Cương Đỉnh Cao',mtotalmb:'Tổng Hội Viên',mrech:'Tổng Nạp',mwallet:'Ví Hội Viên',mrwc:'Nạp / Rút',mrwcsub:'Trung Tâm',mtknpck:'Vault Token',mtknpcks:'Lưu trữ token an toàn',mtknenergy:'Gói Năng Lượng Token',msub2:'Đăng Ký Bộ Công Cụ AI',msub2sub:'Tự động gia hạn hàng tháng/năm',mlock:'Ngân Hàng Stake Token',mlocksub:'Lãi hàng ngày theo thời gian thực',msettle:'Tài Khoản Pool',mplatform:'Pool Nền Tảng',mpoolcopy:'Sao Chép Địa Chỉ Pool',msettlesub:'Địa chỉ thống nhất · Gửi USDT (TRC20)',mrechargrule:'Tự động nâng cấp theo nạp',nmb:'Trung Tâm Hội Viên',mbt:'Trung Tâm Hội Viên',mbinvite:'Phần thưởng mời',invcode:'Mã mời',invlink:'Liên kết mời',invcopy:'Sao chép liên kết',invcount:'Lượt mời',invpending:'Phần thưởng chờ',invtotal:'Tổng thưởng',invtransfer:'Chuyển vào số dư',invrule1:'Mời bạn bè và nhận thưởng khi họ nạp tiền',invrule2:'Chuyển phần thưởng đang chờ vào số dư ví của bạn',invrule3:'Mời càng nhiều bạn bè, nhận thưởng càng nhiều',invdemo:'Demo: +1 Lượt mời'},
+  id:{nm:'Pasar',nto:'Alat',np2p:'P2P',ntr:'Perdagangan',nev:'Acara',ndb:'Dasbor',tlk:'Ticker Langsung',blg:'Masuk',bsu:'Daftar',umd:'Dasbor',ump:'Profil',uml:'Keluar',hbad:'Protokol Ekonomi Berbagi AI',hhd:'Satu Token. AI Tak Terbatas.',hsd:'Beli, jual, dan perdagangkan langganan aplikasi AI di pasar akses AI terdesentralisasi pertama di dunia. Kuasai produktivitas Anda.',stools:'Alat AI',susers:'Pemegang',svol:'Volume 24j',smcap:'Kapitalisasi Pasar',ttp:'Paket Tren',vall:'Lihat Semua',tpe:'Evolusi Harga',tre:'Transaksi Terbaru',taia:'Semua Aplikasi AI',taid:'Jelajahi dan berlangganan alat AI premium. Bagikan langganan untuk dapatkan token.',fall:'Semua Kategori',spop:'Populer',snew:'Terbaru',sprice:'Harga Rendah',sapy:'Hasil Tinggi',p2pt:'Pasar P2P',p2pd:'Beli dan jual token akses AI langsung dengan pengguna lain. Tanpa perantara, harga lebih rendah.',p2pbu:'Daftar Beli',p2psl:'Daftar Jual',p2pcm:'Community',p2pbe:'Publish Event',pricel:'Harga: Rendah',priceh:'Harga: Tinggi',p2pcr:'Buat Iklan',tool:'Alat',pricel2:'Harga (CNY)',qty:'Jumlah',dur:'Durasi (hari)',p2pbcr:'Buat Iklan',trdt:'Perdagangan',tbuy:'Beli',tsell:'Jual',tlim:'Batas',tmar:'Pasar',tprice:'Harga (CNY)',tamt:'Jumlah (NEXUS)',ttot:'Total',tbal:'Tersedia',tbuy2:'Beli NEXUS',tord:'Buku Pesanan',thst:'Riwayat Perdagangan',evt:'Pertemuan AI',evd:'Ikuti acara komunitas AI eksklusif. Setiap acara menawarkan token edisi terbatas dan kesempatan jaringan.',dbt:'Dasbor Saya',dph:'Aset Portofolio',dtoken:'Token',dbal:'Saldo',dval:'Nilai',dpnl:'Untung/Rugi',dth:'Riwayat Transaksi',dkc:'KYC & Verifikasi',kycd:'Selesaikan KYC untuk batas lebih tinggi',kycb:'Tingkatkan KYC',dwl:'Dompet',dwa:'Alamat Dompet',dwah:'Hubungkan dompet asli untuk penarikan dan hadiah',dws:'Simpan Dompet',mlog:'Masuk',mlog2:'Masuk',memail:'Email',mpass:'Kata Sandi',mforgot:'Lupa Kata Sandi?',mnoacc:'Belum punya akun?',mregi:'Daftar',mreg:'Daftar',muname:'Nama Pengguna',mref:'Kode Referal (opsional)',mreg2:'Buat Akun',mhacc:'Sudah punya akun?',mres:'Reset Kata Sandi',mres2:'Kirim Tautan',mprf:'Edit Profil',mbio:'Bio',msave:'Simpan',mkyc:'Verifikasi KYC',mkid:'Jenis ID',mknum:'Nomor ID',mkname:'Nama Lengkap (sesuai ID)',mkaddr:'Alamat',mksub:'Kirim KYC',mconf:'Konfirmasi',mcyes:'Konfirmasi',mcancel:'Batal',mlist:'Detail Iklan',mbuy:'Beli Sekarang',sub:'Berlangganan',share:'Bagikan',days:'hari',cny:'CNY',sell:'Penjual',rating:'Rating',sold2:'Terjual',deposit:'Setor',withdraw:'Tarik',buy:'Beli',sell2:'Jual',reward:'Hadiah',bt:'Beli',sd:'Jual',on:'Buka',mlog3:'Silakan login dulu',bs:'Pembelian berhasil!',ss:'Penjualan berhasil!',pln:'Iklan dibuat',prs:'Tautan reset dikirim ke',rgs:'Pendaftaran berhasil! Selamat datang di AI Nexus',notimpl:'Perlu API backend. Mode demo.',noauth:'Silakan login dulu',mvercode:'Kode Verifikasi',mvercode2:'Kirim Kode',mvercode3:'Masukkan kode',mverr:'Kode verifikasi tidak valid',mversent:'Kode verifikasi dikirim ke',nag:'Agen',nsoc:'Sosial',sod:'Sosial — Teman & Chat',sosearch:'Cari',sosearchph:'Cari via email...',sofriends:'Teman Saya',sorequests:'Permintaan',sochat:'Chat',sonofriends:'Belum ada teman',soadd:'Tambah',soaccept:'Terima',soreject:'Tolak',somsgph:'Ketik pesan...',sosend:'Kirim',sonomsg:'Pilih teman',soonl:'Online',soffl:'Offline',soselect:'Pilih',soadded:'Teman ditambah!',soreqsent:'Permintaan terkirim',sologin:'Login dulu',agtit:'Agen Aliansi AI',agdesc:'Bergabung dengan program agen kami. Jadilah agen AI Alliance dan dapatkan 50% komisi.',agnreg:'Menjadi Agen AI Alliance',agnregd:'Bergabung dengan program agen AI Nexus, dapatkan 50% komisi berulang per pengguna yang direferensikan.',agstep1:'Bayar & Bergabung',agstep1d:'Pembayaran satu kali menjadi agen',agstep2:'Dapatkan Sub-Akun',agstep2d:'Buat sub-akun untuk pelanggan',agstep3:'Dapatkan 50%',agstep3d:'50% komisi berulang per penjualan',agjoin:'Bergabung Sekarang - Jadi Agen',agpp:'Tombol PayPal Anda',agbind:'+ Ikat PayPal',agnopp:'Belum ada tombol PayPal terikat',agcomm:'Riwayat Komisi',aglive:'Tombol PayPal Langsung',agnolive:'Tidak ada tombol langsung',agbpt:'Ikat Tombol PayPal',agbpn:'Nama Tombol',agbpnph:'Tombol Saya',agbpid:'ID Tombol Hosted',agbpidph:'HOSTED-BUTTON-ID',agbphelp:'Temukan ID di Dasbor PayPal > Terima Pembayaran > Tombol PayPal',agbpb:'Ikat',agid:'ID Agen',agte:'Total Pendapatan',agrate:'Tingkat Komisi',agstat:'Status',agtxns:'Trans.',agrev:'Pendapatan',agearn:'Diperoleh',agregok:'Pendaftaran agen berhasil!',agdelcf:'Hapus tombol PayPal ini?',agfill:'Harap isi semua bidang',agbinds:'Tombol PayPal terikat!',agnocomm:'Belum ada catatan komisi',agpcard:'Menjadi Agen AI Alliance',agpcardd:'Bayar bergabung → Sub-akun → 50% komisi.',agpjoin:'Bergabung',ppagent:'Menjadi Agen AI Alliance',ppdonate:'Sponsor/Donasi',mavatar:'Avatar',mupload:'Unggah',mclear:'Hapus',msigimg:'Gambar TTD',msigvid:'Video TTD',mbio_ph:'Ceritakan tentang dirimu',mpsaved:'Profil tersimpan',mup_success:'Upload berhasil',mup_fail:'Upload gagal',mexists:'Email ini sudah terdaftar — silakan login',mnofile:'Pilih file',mpview:'Profil',appdlt:'AI Nexus APP',appdlname:'AI Nexus Seluler v1.0.0',appdlmeta:'Android · APK · 3,7 MB',appdldesc:'Unduh klien seluler AI Nexus untuk merasakan Market, P2P, Trade, layanan agen, dan langganan alat AI di mana saja.',appdlwarn:'⚠ APK ini adalah versi debug dan membutuhkan izin Anda untuk dipasang. Harap baca tutorial di bawah ini sebelum memasang.',appdlbtn:'Unduh APK (3,7 MB)',appdlv:'Versi: v1.0.0',appdlclose:'Tutup',appdltt:'AI Nexus APP',appdlds:'v1.0.0 · Android APK · 3,7 MB',tutt:'Panduan Pemasangan & Penggunaan',tutsub:'Dari unduh hingga pendaftaran, mulai gunakan klien seluler AI Nexus dalam 5 langkah.',tut1t:'Unduh APK',tut1d:'Klik tombol <b>+</b> di atas → pilih "AI Nexus APP" untuk mengunduh file APK (sekitar 3,7 MB).',tut2t:'Izinkan Sumber Tidak Dikenal',tut2d:'Buka <b>Pengaturan → Keamanan → Pengaturan keamanan lainnya → Instal aplikasi tidak dikenal</b> dan aktifkan sakelar. Anda juga mungkin diminta saat pemasangan.',tut3t:'Ketuk APK untuk Memasang',tut3d:'Buka <b>app-debug.apk</b> yang diunduh dan ketuk "Pasang". Pertama kali akan diminta konfirmasi – pilih "Pasang tetap".',tut4t:'Buka APP & Masuk',tut4d:'Pada peluncuran pertama, halaman sambutan akan muncul. Anda dapat mengganti bahasa di pengaturan kanan atas. Masuk dengan akun web Anda atau daftar baru.',tut5t:'Mulai Menjelajah',tut5d:'Chat, trading P2P, order Trade, layanan agen, pendaftaran event, chat sosial, dan lainnya tersedia di seluler.',tutfaqt:'Pertanyaan Umum:',tutfaq1:'· Pengguna iOS: belum tersedia, harap tunggu.',tutfaq2:'· Pemasangan gagal: pastikan ponsel memiliki ruang kosong minimal 20 MB.',tutfaq3:'· Butuh bantuan? Hubungi dukungan atau kunjungi Pusat Bantuan web.',tuttt:'Panduan Pemasangan & Penggunaan',tutds:'Panduan Pemasangan & Penggunaan',tutgobtn:'Unduh Sekarang',mpedit:'Edit',mpkyc:'Level KYC',mpjoined:'Bergabung',soresult:'Hasil Pencarian',soadd2:'Tambah Teman',sosearching:'Mencari...',soself:'Tidak bisa tambah diri',sopending:'Permintaan tertunda',sonoauth:'Otentikasi gagal. Silakan login dulu',sotokenexpired:'Token tidak valid atau kedaluwarsa. Silakan login kembali',somaintenance:'Sistem dalam Pemeliharaan',somaintenance_sub:'Silakan kembali nanti',ppagent_desc:'Pembayaran satu kali $199 untuk bergabung dengan program agen AI Nexus dan dapatkan 50% komisi berulang.',ppdonate_desc:'Dukung pengembangan AI Nexus. Jumlah berapa pun dihargai!',pppay:'Bayar dengan PayPal',pppay_after:'Setelah pembayaran, salin ID transaksi Anda dan konfirmasi di bawah',pptxnid:'ID Transaksi PayPal',ppagent_confirm:'Konfirmasi Pembayaran & Pendaftaran',ppdonate_confirm:'Konfirmasi Donasi',insufbal:'Saldo tidak cukup',chtesting:'Menguji...',chconn:'Terhubung — {n} model tersedia',chfail:'HTTP {code}: {msg}',chconnfail:'Koneksi gagal: {msg}',apireq:'API Endpoint diperlukan',chsaved:'Konfigurasi saluran disimpan',createreq:'Nama dan deskripsi diperlukan',toolpub:'Alat dipublikasikan!',eventreq:'Judul, tanggal, dan deskripsi diperlukan',eventpub:'Acara dibuat!',chtitle:'Konfigurasi Saluran API',chendpoint:'API Endpoint',chkey:'Kunci API',chtestconn:'Uji Koneksi',chtestbtn:'Uji API',chsavebtn:'Simpan Konfig.',chidprefix:'ID: ',agpauto:'Pendapatan diselesaikan otomatis, dibayar ke akun Anda',agpbeagent:'Menjadi Agen',agpcity:'Kota',agpcountry:'Negara',agpcurr:'Tingkat Saat Ini',agpfee:'50% Biaya Sub-Agen',agpolicyt:'Kebijakan Agen',agpolsub:'Program Agen 3 tingkat · Penyelesaian otomatis · Dibayar ke akun Anda',agpsel:'Pilih Tingkat Agen',agpstate:'Negara Bagian',agpt1d:'Dapatkan 50% laba platform di wilayah Anda. 50% biaya sub-agen.',agpt1n:'Agen Kota / Distrik',agpt1r:'50% Laba Regional',agpt2d:'Dapatkan 20% laba platform di wilayah Anda. 50% biaya sub-agen.',agpt2n:'Agen Negara Bagian / Provinsi',agpt2r:'20% Laba Regional',agpt3d:'Dapatkan 10% pendapatan platform di wilayah Anda. 50% biaya sub-agen.',agpt3n:'Agen Negara / Wilayah',agpt3r:'10% Pendapatan Regional',navp:'Promote',mbsubtitle:'Upgrade otomatis dengan isi ulang',mcurrentlv:'Level Saat Ini',mrank1:'Anggota Biasa',mrank2:'Mineral Pemula',mrank3:'Giok Menengah',mrank4:'Permata Lanjut',mrank5:'Berlian Tertinggi',mtotalmb:'Total Anggota',mrech:'Total Isi Ulang',mwallet:'Dompet Anggota',mrwc:'Isi Ulang / Tarik',mrwcsub:'Pusat',mtknpck:'Brankas Token',mtknpcks:'Simpan token dengan aman',mtknenergy:'Paket Energi Token',msub2:'Berlangganan Toolkit AI',msub2sub:'Perpanjangan otomatis bulanan/tahunan',mlock:'Bank Stake Token',mlocksub:'Bunga harian real-time',msettle:'Akun Pool',mplatform:'Pool Platform',mpoolcopy:'Salin Alamat Pool',msettlesub:'Alamat terpadu · Kirim USDT (TRC20)',mrechargrule:'Upgrade otomatis isi ulang',nmb:'Pusat Anggota',mbt:'Pusat Anggota',mbinvite:'Hadiah Undangan',invcode:'Kode Undangan',invlink:'Tautan Undangan',invcopy:'Salin Tautan',invcount:'Undangan',invpending:'Hadiah Tertunda',invtotal:'Total Hadiah',invtransfer:'Transfer ke Saldo',invrule1:'Undang teman dan dapatkan hadiah saat mereka menyetor',invrule2:'Transfer hadiah tertunda ke saldo dompet Anda',invrule3:'Semakin banyak teman yang diundang, semakin banyak hadiah',invdemo:'Demo: +1 Undangan'},
+  it:{nm:'Mercato',nto:'Strumenti',np2p:'P2P',ntr:'Scambio',nev:'Eventi',ndb:'Dashboard',tlk:'Ticker Live',blg:'Accedi',bck:'← Indietro',bsu:'Registrati',umd:'Dashboard',ump:'Profilo',uml:'Esci',hbad:'Protocollo Economia Condivisa IA',hhd:'Un Token. IA Infinita.',hsd:'Compra, vendi e scambia abbonamenti IA nel primo mercato decentralizzato di accesso IA al mondo. Domina la tua produttività.',stools:'Strumenti IA',susers:'Detentori',svol:'Volume 24h',smcap:'Capitalizzazione',ttp:'Pacchetti Trend',vall:'Vedi Tutto',tpe:'Evoluzione Prezzo',tre:'Transazioni Recenti',taia:'Tutte le App IA',taid:'Sfoglia e abbonati a strumenti IA premium. Condividi gli abbonamenti per guadagnare token.',fall:'Tutte le Categorie',spop:'Popolare',snew:'Più Nuovo',sprice:'Prezzo Basso',sapy:'Rendimento Alto',p2pt:'Mercato P2P',p2pd:'Compra e vendi token di accesso IA direttamente con altri utenti. Nessun intermediario, prezzi più bassi.',p2pbu:'Annunci Acquisto',p2psl:'Annunci Vendita',p2pcm:'Community',p2pbe:'Pubblica Evento',pricel:'Prezzo: Basso',priceh:'Prezzo: Alto',p2pcr:'Crea Annuncio',tool:'Strumento',pricel2:'Prezzo (CNY)',qty:'Quantità',dur:'Durata (giorni)',p2pbcr:'Crea Annuncio',trdt:'Scambio',tbuy:'Compra',tsell:'Vendi',tlim:'Limite',tmar:'Mercato',tprice:'Prezzo (CNY)',tamt:'Importo (NEXUS)',ttot:'Totale',tbal:'Disponibile',tbuy2:'Compra NEXUS',tord:'Registro Ordini',thst:'Cronologia Scambi',evt:'Raduni IA',evd:'Partecipa a eventi esclusivi della comunità IA. Ogni evento offre token in edizione limitata e opportunità di networking.',dbt:'Mia Dashboard',dph:'Patrimonio Portafoglio',dtoken:'Token',dbal:'Saldo',dval:'Valore',dpnl:'P&L',dth:'Cronologia Transazioni',dkc:'KYC e Verifica',kycd:'Completa KYC per sbloccare limiti superiori',kycb:'Aggiorna KYC',dwl:'Portafoglio',dwa:'Indirizzo Portafoglio',dwah:'Collega il tuo portafoglio reale per prelievi e ricompense',dws:'Salva Portafoglio',mlog:'Accedi',mlog2:'Accedi',memail:'Email',mpass:'Password',mforgot:'Password dimenticata?',mnoacc:'Nessun account?',mregi:'Registrati',mreg:'Registrazione',muname:'Nome Utente',mref:'Codice Referral (opzionale)',mreg2:'Crea Account',mhacc:'Hai già un account?',mres:'Reimposta Password',mres2:'Invia Link',mprf:'Modifica Profilo',mbio:'Bio',msave:'Salva',mkyc:'Verifica KYC',mkid:'Tipo Documento',mknum:'Numero Documento',mkname:'Nome Completo (come da documento)',mkaddr:'Indirizzo',mksub:'Invia KYC',mconf:'Conferma',mcyes:'Conferma',mcancel:'Annulla',mlist:'Dettagli Annuncio',mbuy:'Compra Ora',sub:'Abbonati',share:'Condividi',days:'giorni',cny:'CNY',sell:'Venditore',rating:'Valutazione',sold2:'Venduto',deposit:'Deposita',withdraw:'Preleva',buy:'Compra',sell2:'Vendi',reward:'Ricompensa',bt:'Compra',sd:'Vendi',on:'Aperto',mlog3:'Accedi prima',bs:'Acquisto riuscito!',ss:'Vendita riuscita!',pln:'Annuncio creato',prs:'Link di reimpostazione inviato a',rgs:'Registrazione riuscita! Benvenuto su AI Nexus',notimpl:'Richiede API backend. Modalità demo.',noauth:'Accedi prima',mvercode:'Codice di Verifica',mvercode2:'Invia Codice',mvercode3:'Inserisci codice',mverr:'Codice di verifica non valido',mversent:'Codice inviato a',nag:'Agente',nsoc:'Social',sod:'Social — Amici & Chat',sosearch:'Cerca',sosearchph:'Cerca per email...',sofriends:'I Miei Amici',sorequests:'Richieste',sochat:'Chat',sonofriends:'Nessun amico',soadd:'Aggiungi',soaccept:'Accetta',soreject:'Rifiuta',somsgph:'Scrivi...',sosend:'Invia',sonomsg:'Seleziona amico',soonl:'Online',soffl:'Offline',soselect:'Seleziona',soadded:'Amico aggiunto!',soreqsent:'Richiesta inviata',sologin:'Accedi',agtit:'Agente Alleanza IA',agdesc:'Unisciti al nostro programma agenti. Diventa agente AI Alliance e guadagna il 50% di commissione.',agnreg:'Diventa Agente AI Alliance',agnregd:'Unisciti al programma agenti AI Nexus, guadagna il 50% di commissione ricorrente per ogni utente referral.',agstep1:'Paga e Unisciti',agstep1d:'Pagamento una tantum per diventare agente',agstep2:'Ottieni Sub-Account',agstep2d:'Crea sub-account per clienti',agstep3:'Guadagna 50%',agstep3d:'50% commissione ricorrente su ogni vendita',agjoin:'Unisciti Ora - Diventa Agente',agpp:'I Tuoi Pulsanti PayPal',agbind:'+ Collega PayPal',agnopp:'Nessun pulsante PayPal collegato',agcomm:'Cronologia Commissioni',aglive:'Pulsanti PayPal Live',agnolive:'Nessun pulsante live',agbpt:'Collega Pulsante PayPal',agbpn:'Nome Pulsante',agbpnph:'Mio Pulsante',agbpid:'ID Pulsante Hosted',agbpidph:'HOSTED-BUTTON-ID',agbphelp:'Trova ID in Dashboard PayPal > Ricevi Pagamenti > Pulsanti PayPal',agbpb:'Collega',agid:'ID Agente',agte:'Guadagni Totali',agrate:'Tasso Commissione',agstat:'Stato',agtxns:'Trans.',agrev:'Ricavi',agearn:'Guadagnato',agregok:'Registrazione agente riuscita!',agdelcf:'Eliminare questo pulsante PayPal?',agfill:'Compila tutti i campi',agbinds:'Pulsante PayPal collegato!',agnocomm:'Nessuna registrazione commissioni',agpcard:'Diventa Agente AI Alliance',agpcardd:'Paga per unirti → Sub-account → 50% commissione.',agpjoin:'Unisciti Ora',ppagent:'Diventa Agente AI Alliance',ppdonate:'Sponsorizza/Dona',mavatar:'Avatar',mupload:'Carica',mclear:'Cancella',msigimg:'Immagine Firma',msigvid:'Video Firma',mbio_ph:'Parlaci di te',mpsaved:'Profilo salvato',mup_success:'Caricamento riuscito',mup_fail:'Caricamento fallito',mexists:'Email già registrata — accedi',mnofile:'Seleziona file',mpview:'Profilo',appdlt:'AI Nexus APP',appdlname:'AI Nexus Mobile v1.0.0',appdlmeta:'Android · APK · 3,7 MB',appdldesc:'Scarica il client mobile AI Nexus per usufruire di Market, P2P, Trade, servizi agente e abbonamenti agli strumenti AI ovunque.',appdlwarn:'⚠ Questo APK è una versione di debug e richiede la tua autorizzazione per essere installato. Leggi il tutorial qui sotto prima dell\'installazione.',appdlbtn:'Scarica APK (3,7 MB)',appdlv:'Versione: v1.0.0',appdlclose:'Chiudi',appdltt:'AI Nexus APP',appdlds:'v1.0.0 · Android APK · 3,7 MB',tutt:'Guida all\'installazione e all\'uso',tutsub:'Dal download alla registrazione, inizia a usare il client mobile AI Nexus in 5 passi.',tut1t:'Scarica APK',tut1d:'Clicca il pulsante <b>+</b> in alto → seleziona "AI Nexus APP" per scaricare il file APK (circa 3,7 MB).',tut2t:'Consenti origini sconosciute',tut2d:'Vai in <b>Impostazioni → Sicurezza → Altre impostazioni di sicurezza → Installa app sconosciute</b> e attiva l\'interruttore. Potresti anche ricevere un prompt durante l\'installazione.',tut3t:'Tocca APK per installare',tut3d:'Apri il file <b>app-debug.apk</b> scaricato e tocca "Installa". La prima volta ti verrà chiesto di confermare – scegli "Installa comunque".',tut4t:'Apri APP e accedi',tut4d:'Al primo avvio apparirà la pagina di benvenuto. Puoi cambiare lingua nelle impostazioni in alto a destra. Accedi con il tuo account web o registrati.',tut5t:'Inizia a esplorare',tut5d:'Chat, trading P2P, ordini Trade, servizi agente, registrazione eventi, chat social e altro sono disponibili su mobile.',tutfaqt:'Domande frequenti:',tutfaq1:'· Utenti iOS: non ancora disponibile, si prega di attendere.',tutfaq2:'· Installazione fallita: assicurati che il telefono abbia almeno 20 MB liberi.',tutfaq3:'· Hai bisogno di aiuto? Contatta l\'assistenza o visita il Centro assistenza web.',tuttt:'Guida all\'installazione e all\'uso',tutds:'Guida all\'installazione e all\'uso',tutgobtn:'Scarica ora',mpedit:'Modifica',mpkyc:'Livello KYC',mpjoined:'Iscritto',soresult:'Risultati',soadd2:'Aggiungi amico',sosearching:'Cercando...',soself:'Non puoi aggiungerti',sopending:'Richiesta in sospeso',sonoauth:'Autenticazione fallita. Effettua il login',sotokenexpired:'Token non valido o scaduto. Effettua nuovamente il login',somaintenance:'Sistema in Manutenzione',somaintenance_sub:'Si prega di tornare più tardi',ppagent_desc:'Pagamento una tantum di $199 per unirti al programma agenti AI Nexus e guadagnare il 50% di commissioni ricorrenti.',ppdonate_desc:'Supporta lo sviluppo di AI Nexus. Qualsiasi importo è apprezzato!',ppagent_confirm:'Conferma Pagamento e Registrazione',ppdonate_confirm:'Conferma Donazione',pppay:"Paga con PayPal",pppay_after:'Dopo il pagamento, copia l\'ID transazione e conferma sotto',pptxnid:'ID Transazione PayPal',insufbal:'Saldo insufficiente',chtesting:'Test in corso...',chconn:'Connesso — {n} modelli disponibili',chfail:'HTTP {code}: {msg}',chconnfail:'Connessione fallita: {msg}',apireq:'API Endpoint richiesto',chsaved:'Configurazione canale salvata',createreq:'Nome e descrizione richiesti',toolpub:'Strumento pubblicato!',eventreq:'Titolo, data e descrizione richiesti',eventpub:'Evento creato!',chtitle:'Configurazione Canale API',chendpoint:'API Endpoint',chkey:'Chiave API',chtestconn:'Test Connessione',chtestbtn:'Test API',chsavebtn:'Salva Config.',chidprefix:'ID: ',agpauto:'Guadagni liquidati automaticamente, pagati sul tuo conto',agpbeagent:'Diventa Agente',agpcity:'Città',agpcountry:'Paese',agpcurr:'Livello Attuale',agpfee:'50% Commissione Sub-Agente',agpolicyt:'Politica Agenti',agpolsub:'Programma Agenti a 3 livelli · Liquidazione automatica · Pagato sul tuo conto',agpsel:'Seleziona Livello Agente',agpstate:'Stato',agpt1d:'Guadagna il 50% del profitto della piattaforma nella tua regione. 50% delle commissioni dei sub-agenti.',agpt1n:'Agente Città / Distretto',agpt1r:'50% Profitto Regionale',agpt2d:'Guadagna il 20% del profitto della piattaforma nella tua regione. 50% delle commissioni dei sub-agenti.',agpt2n:'Agente Stato / Provincia',agpt2r:'20% Profitto Regionale',agpt3d:'Guadagna il 10% delle entrate della piattaforma nella tua regione. 50% delle commissioni dei sub-agenti.',agpt3n:'Agente Paese / Regione',agpt3r:'10% Entrate Regionali',navp:'Promote',mbsubtitle:'Aggiornamento automatico con ricarica',mcurrentlv:'Livello Attuale',mrank1:'Membro Normale',mrank2:'Minerale Iniziale',mrank3:'Giada Intermedia',mrank4:'Gemma Avanzata',mrank5:'Diamante Supremo',mtotalmb:'Totale Membri',mrech:'Ricarica Totale',mwallet:'Portafoglio Membro',mrwc:'Ricarica / Prelievo',mrwcsub:'Centro',mtknpck:'Vault Token',mtknpcks:'Conserva token in sicurezza',mtknenergy:'Pacchetto Energia Token',msub2:'Iscriviti Toolbox AI',msub2sub:'Rinnovo automatico mensile/annuale',mlock:'Banca Stake Token',mlocksub:'Interessi giornalieri in tempo reale',msettle:'Conto Pool',mplatform:'Pool Piattaforma',mpoolcopy:'Copia l\'indirizzo Pool',msettlesub:'Indirizzo unificato · Invia USDT (TRC20)',mrechargrule:'Upgrade automatico per ricarica',nmb:'Centro Membri',mbt:'Centro Membri',mbinvite:'Ricompensa invito',invcode:'Codice invito',invlink:'Link invito',invcopy:'Copia link',invcount:'Inviti',invpending:'Ricompense pendenti',invtotal:'Ricompense totali',invtransfer:'Trasferisci al saldo',invrule1:'Invita amici e guadagna quando depositano',invrule2:'Trasferisci le ricompense pendenti al saldo del portafoglio',invrule3:'Più amici inviti, più ricompense guadagni',invdemo:'Demo: +1 Invito'},
+pub_title:{zh:'社区发布',en:'Community Publishing',ja:'コミュニティ投稿',ko:'커뮤니티 게시',es:'Publicación Comunitaria',fr:'Publication Communautaire'},
+  pub_tab_tools:{zh:'工具',en:'Tools',ja:'ツール',ko:'도구',es:'Herramientas',fr:'Outils'},
+  pub_tab_p2p:{zh:'P2P',en:'P2P',ja:'P2P',ko:'P2P',es:'P2P',fr:'P2P'},
+  pub_tab_events:{zh:'活动',en:'Events',ja:'イベント',ko:'이벤트',es:'Eventos',fr:'Événements'},
+  pub_btn_tool:{zh:'发布工具',en:'Publish Tool',ja:'ツールを公開',ko:'도구 게시',es:'Publicar Herramienta',fr:'Publier Outil'},
+  pub_btn_p2p:{zh:'发布P2P',en:'Publish P2P',ja:'P2Pを公開',ko:'P2P 게시',es:'Publicar P2P',fr:'Publier P2P'},
+
+  pub_btn_p2p_listing:{zh:'发布P2P列表',en:'Publish P2P Listing',ja:'P2Pリストを公開',ko:'P2P 목록 게시',es:'Publicar Anuncio P2P',fr:'Publier Annonce P2P',de:'P2P-Angebot veröffentlichen',pt:'Publicar Anúncio P2P',ru:'Опубликовать P2P',it:'Pubblica Annuncio P2P',ar:'نشر إعلان P2P',hi:'P2P लिस्टिंग प्रकाशित करें',th:'เผยแพร่รายการ P2P',vi:'Đăng Tin P2P'},  pub_btn_event:{zh:'发布活动',en:'Publish Event',ja:'イベントを公開',ko:'이벤트 게시',es:'Publicar Evento',fr:'Publier Événement'},pub_btn_title:{zh:'发布',en:'Publish',ja:'公開',ko:'게시',es:'Publicar',fr:'Publier',de:'Veröffentlichen',pt:'Publicar',ru:'Публикация',it:'Pubblica',ar:'نشر',hi:'प्रकाशित करें',th:'เผยแพร่',vi:'Đăng'},
+  
+  pub_name:{zh:'名称',en:'Name',ja:'名前',ko:'이름',es:'Nombre',fr:'Nom'},
+  pub_desc:{zh:'描述',en:'Description',ja:'説明',ko:'설명',es:'Descripción',fr:'Description'},
+  pub_price:{zh:'价格 (CNY)',en:'Price (CNY)',ja:'価格 (CNY)',ko:'가격 (CNY)',es:'Precio (CNY)',fr:'Prix (CNY)'},
+  pub_duration:{zh:'时长',en:'Duration',ja:'期間',ko:'기간',es:'Duración',fr:'Durée'},
+  pub_qty:{zh:'数量',en:'Quantity',ja:'数量',ko:'수량',es:'Cantidad',fr:'Quantité'},
+  pub_category:{zh:'分类',en:'Category',ja:'カテゴリ',ko:'카테고리',es:'Categoría',fr:'Catégorie'},
+  pub_date:{zh:'日期',en:'Date',ja:'日付',ko:'날짜',es:'Fecha',fr:'Date'},
+  pub_location:{zh:'地点',en:'Location',ja:'場所',ko:'장소',es:'Ubicación',fr:'Lieu'},
+  pub_submit:{zh:'发布',en:'Publish',ja:'公開',ko:'게시',es:'Publicar',fr:'Publier'},
+
+  pub_price_label:{zh:'价格（$/MTok / ¥/MTok）',en:'Price ($/MTok / ¥/MTok)',ja:'価格（$/MTok / ¥/MTok）',ko:'가격 ($/MTok / ¥/MTok)',es:'Precio ($/MTok / ¥/MTok)',fr:'Prix ($/MTok / ¥/MTok)',de:'Preis ($/MTok / ¥/MTok)',pt:'Preço ($/MTok / ¥/MTok)',ru:'Цена ($/MTok / ¥/MTok)',it:'Prezzo ($/MTok / ¥/MTok)',ar:'السعر ($/MTok / ¥/MTok)',hi:'मूल्य ($/MTok / ¥/MTok)',th:'ราคา ($/MTok / ¥/MTok)',vi:'Giá ($/MTok / ¥/MTok)'},
+  pub_name:{zh:'名称',en:'Name',ja:'名前',ko:'이름',es:'Nombre',fr:'Nom',de:'Name',pt:'Nome',ru:'Название',it:'Nome',ar:'الاسم',hi:'नाम',th:'ชื่อ',vi:'Tên'},  pub_cancel:{zh:'取消',en:'Cancel',ja:'キャンセル',ko:'취소',es:'Cancelar',fr:'Annuler'},
+  pub_my:{zh:'我的发布',en:'My Posts',ja:'投稿',ko:'내 게시물',es:'Mis Publicaciones',fr:'Mes Publications'},
+  pub_all:{zh:'全部',en:'All',ja:'すべて',ko:'전체',es:'Todo',fr:'Tout'},
+  pub_search:{zh:'搜索...',en:'Search...',ja:'検索...',ko:'검색...',es:'Buscar...',fr:'Rechercher...'},
+  pub_comm_tools:{zh:'社区工具',en:'Community Tools',ja:'コミュニティツール',ko:'커뮤니티 도구',es:'Herramientas',fr:'Outils'},
+  pub_comm_p2p:{zh:'社区P2P',en:'Community P2P',ja:'コミュニティP2P',ko:'커뮤니티 P2P',es:'P2P',fr:'P2P'},
+  pub_comm_events:{zh:'社区活动',en:'Community Events',ja:'コミュニティイベント',ko:'커뮤니티 이벤트',es:'Eventos',fr:'Événements'},
+  pub_none:{zh:'暂无发布内容',en:'No posts yet',ja:'投稿なし',ko:'게시물 없음',es:'Sin publicaciones',fr:'Aucune publication'},
+
+  pub_no_tools:{zh:'暂无工具',en:'No Tools',ja:'ツールが見つかりません',ko:'도구 없음',es:'Sin herramientas',fr:'Aucun outil',de:'Keine Tools',pt:'Sem ferramentas',ru:'Инструменты не найдены',it:'Nessuno strumento',ar:'لا توجد أدوات',hi:'कोई उपकरण नहीं',th:'ไม่พบเครื่องมือ',vi:'Không có công cụ'},
+  pub_all_tools:{zh:'全部工具',en:'All Tools',ja:'すべてのツール',ko:'모든 도구',es:'Todas',fr:'Tous',de:'Alle Tools',pt:'Todas',ru:'Все',it:'Tutti',ar:'الكل',hi:'सभी',th:'ทั้งหมด',vi:'Tất cả'},
+
+  ev_live:{zh:'进行中',en:'LIVE',ja:'開催中',ko:'진행중',es:'EN VIVO',fr:'EN DIRECT',de:'LIVE',pt:'AO VIVO',ru:'LIVE',it:'IN CORSO',ar:'مباشر',hi:'लाइव',th:'สด',vi:'TRỰC TIẾP'},
+  ev_upcoming:{zh:'即将开始',en:'UPCOMING',ja:'予定',ko:'예정',es:'PRÓXIMO',fr:'À VENIR',de:'BEVORSTEHEND',pt:'EM BREVE',ru:'СКОРО',it:'IN ARRIVO',ar:'قادم',hi:'आगामी',th:'เร็วๆ นี้',vi:'SẮP DIỄN RA'},
+  ev_ended:{zh:'已结束',en:'ENDED',ja:'終了',ko:'종료',es:'FINALIZADO',fr:'TERMINÉ',de:'BEENDET',pt:'ENCERRADO',ru:'ЗАВЕРШЕН',it:'TERMINATO',ar:'منتهي',hi:'समाप्त',th:'สิ้นสุด',vi:'ĐÃ KẾT THÚC'},
+  tokens:{zh:'代币',en:'Tokens',ja:'トークン',ko:'토큰',es:'Tokens',fr:'Jetons',de:'Tokens',pt:'Tokens',ru:'Токены',it:'Token',ar:'عملات',hi:'टोकन',th:'โทเค็น',vi:'Token'},  per_mo:{zh:'$/MTok / ¥/MTok',en:'$/MTok / ¥/MTok',ja:'$/MTok / ¥/MTok',ko:'$/MTok / ¥/MTok',es:'$/MTok / ¥/MTok',fr:'$/MTok / ¥/MTok',de:'$/MTok / ¥/MTok',pt:'$/MTok / ¥/MTok',ru:'$/MTok / ¥/MTok',it:'$/MTok / ¥/MTok',ar:'$/MTok / ¥/MTok',hi:'$/MTok / ¥/MTok',th:'$/MTok / ¥/MTok',vi:'$/MTok / ¥/MTok'},
+  users:{zh:'用户',en:'users',ja:'ユーザー',ko:'사용자',es:'usuarios',fr:'utilisateurs',de:'Nutzer',pt:'usuários',ru:'польз.',it:'utenti',ar:'مستخدم',hi:'उपयोगकर्ता',th:'ผู้ใช้',vi:'người dùng'},
+  cny:{zh:'元',en:'CNY',ja:'元',ko:'CNY',es:'CNY',fr:'CNY',de:'CNY',pt:'CNY',ru:'CNY',it:'CNY',ar:'CNY',hi:'CNY',th:'CNY',vi:'CNY'},  pub_del:{zh:'删除',en:'Delete',ja:'削除',ko:'삭제',es:'Eliminar',fr:'Supprimer'},
+  pub_del_confirm:{zh:'确定删除此发布内容?',en:'Delete this published item?',ja:'この投稿を削除しますか?',ko:'이 게시물을 삭제하시겠습니까?',es:'¿Eliminar este contenido?',fr:'Supprimer cette publication?'},
+  pub_name_ph:{zh:'输入名称',en:'Enter name',ja:'名前を入力',ko:'이름 입력',es:'Ingrese nombre',fr:'Entrez le nom',de:'Name eingeben',pt:'Digite o nome',ru:'Введите имя',it:'Inserisci nome',ar:'أدخل الاسم',hi:'नाम दर्ज करें',th:'ป้อนชื่อ',vi:'Nhập tên'},
+  pub_desc_ph:{zh:'输入描述',en:'Enter description',ja:'説明を入力',ko:'설명 입력',es:'Ingrese descripción',fr:'Entrez la description',de:'Beschreibung eingeben',pt:'Digite a descrição',ru:'Введите описание',it:'Inserisci descrizione',ar:'أدخل الوصف',hi:'विवरण दर्ज करें',th:'ป้อนคำอธิบาย',vi:'Nhập mô tả'},
+  pub_cat_ph:{zh:'例如：效率工具',en:'e.g. Productivity',ja:'例：生産性',ko:'예: 생산성',es:'ej. Productividad',fr:'ex. Productivité',de:'z.B. Produktivität',pt:'ex. Produtividade',ru:'напр. Продуктивность',it:'es. Produttività',ar:'مثال: إنتاجية',hi:'उदा. उत्पादकता',th:'เช่น ประสิทธิภาพ',vi:'vd. Năng suất'},
+  pub_loc_ph:{zh:'例如：线上 / 上海',en:'e.g. Online / NYC',ja:'例：オンライン / 東京',ko:'예: 온라인 / 서울',es:'ej. Online / Madrid',fr:'ex. En ligne / Paris',de:'z.B. Online / Berlin',pt:'ex. Online / São Paulo',ru:'напр. Онлайн / Москва',it:'es. Online / Roma',ar:'مثال: عبر الإنترنت / دبي',hi:'उदा. ऑनलाइन / दिल्ली',th:'เช่น ออนไลน์ / กรุงเทพ',vi:'vd. Trực tuyến / Hà Nội'},
+};
+
+
+
+
+// ============ LANGUAGE ============
+const LANG_FLAGS = {zh:'&#x1F1E8;&#x1F1F3;',en:'&#x1F1EC;&#x1F1E7;',ja:'&#x1F1EF;&#x1F1F5;',ko:'&#x1F1F0;&#x1F1F7;',es:'&#x1F1EA;&#x1F1F8;',fr:'&#x1F1EB;&#x1F1F7;',de:'&#x1F1E9;&#x1F1EA;',pt:'&#x1F1E7;&#x1F1F7;',ru:'&#x1F1F7;&#x1F1FA;',ar:'&#x1F1F8;&#x1F1E6;',hi:'&#x1F1EE;&#x1F1F3;',th:'&#x1F1F9;&#x1F1ED;',vi:'&#x1F1FB;&#x1F1F3;',id:'&#x1F1EE;&#x1F1E9;',it:'&#x1F1EE;&#x1F1F9;'};
+
+function buildLangMenu(){
+  let h='';
+  for(let k in LANG_FLAGS) h+=`<div class="lmi${k===curLang?' ac':''}" onclick="setLang('${k}')">${LANG_FLAGS[k]} ${k.toUpperCase()}</div>`;
+  document.getElementById('lm').innerHTML=h;
+}
+function setLang(l){
+  curLang=l; localStorage.setItem('nexus_lang',l);
+  document.getElementById('cln').textContent=l.toUpperCase();
+  document.getElementById('lm').classList.remove('show');
+  buildLangMenu(); applyI18N(); rAll();
+  if(curPage==='member'){try{renderMemberPage();}catch(e){console.error(e);}}
+  // Translate bio if profile view is open or bio exists
+  if(curUser&&curUser.bio){translateBio(); updateProfileView();}
+  // Retranslate chat messages to new language
+  retranslateMsgs();
+  // Translate dynamic community content
+  translateCommunityContent();
+}
+
+// ============ NOTIFICATIONS ============
+function notify(msg, icon){ let d=document.getElementById('tc'); let e=document.createElement('div'); e.className='toast'; e.innerHTML=(icon||'&#x2705;')+' '+msg; d.appendChild(e); setTimeout(()=>e.remove(),2800); }
+function toast(msg){ notify(msg); }
+
+// ============ MODAL ============
+function oam(type){
+  document.querySelectorAll('.mo').forEach(m=>m.classList.remove('show'));
+  var map={'login':'mo-login','register':'mo-register','reset':'mo-reset','publish-tool':'mo-publish-tool','publish-p2p':'mo-publish-p2p','publish-event':'mo-publish-event'};
+  if(map[type]){var el=document.getElementById(map[type]);if(el)el.classList.add('show');}
+}
+function cma(){ document.querySelectorAll('.mo').forEach(m=>m.classList.remove('show')); }
+function togNav(forceClose){
+  let nls=document.getElementById('nls');
+  if(forceClose){nls.classList.remove('show');return;}
+  nls.classList.toggle('show');
+}
+function spm(){
+  if(!curUser){oam('login');return;}
+  updateProfileView();
+  document.getElementById('mo-profile-view').classList.add('show');
+  updateI18n();
+}
+function spme(){
+  document.getElementById('mo-profile-view').classList.remove('show');
+  document.getElementById('profile-name').value=curUser.name||'';
+  document.getElementById('profile-email').value=curUser.email||'';
+  document.getElementById('profile-wallet').value=curUser.wallet||'';
+  document.getElementById('profile-bio').value=curUser.bio||'';
+  document.getElementById('profile-avatar-name').textContent=curUser.avatar?'✅ Uploaded':'';
+  // Populate sig images
+  sigImages=(curUser.sig_images||(curUser.sig_image?[curUser.sig_image]:[]));
+  document.getElementById('profile-sigimg-name').textContent=sigImages.length?sigImages.length+' image(s)':'';
+  renderSigPreview();
+  document.getElementById('profile-sigvid-name').textContent=curUser.sig_video?'✅ Uploaded':'';
+  document.getElementById('mo-profile').classList.add('show');
+  updateI18n();
+}
+function updateProfileView(){
+  if(!curUser)return;
+  document.getElementById('pv-avatar').textContent=curUser.name?curUser.name[0].toUpperCase():'?';
+  document.getElementById('pv-name').textContent=curUser.name||'—';
+  document.getElementById('pv-email').textContent=curUser.email||'—';
+  document.getElementById('pv-wallet').textContent=curUser.wallet||'—';
+  document.getElementById('pv-kyc').textContent=curUser.kyc||'Bronze';
+  document.getElementById('pv-joined').textContent=curUser.joined||'—';
+  // Show translated bio if available, otherwise original
+  var bioDisplay = curLang==='zh' ? (curUser.bio||'') : (curUser._bioTranslated||'');
+  document.getElementById('pv-bio').textContent=bioDisplay||curUser.bio||'—';
+  // Show signature images
+  var sigImgs=curUser.sig_images||(curUser.sig_image?curUser.sig_image.split(',').filter(Boolean):[]);
+  var sigContainer=document.getElementById('pv-sigimgs');
+  if(sigImgs.length){
+    sigContainer.style.display='';
+    document.getElementById('pv-sigimg-gallery').innerHTML=sigImgs.map(function(url){
+      return '<img src="'+url+'" style="width:80px;height:80px;object-fit:cover;border-radius:6px;border:1px solid var(--bda)" onerror="this.style.display=\'none\'">';
+    }).join('');
+  }else{sigContainer.style.display='none';}
+}
+// Translate bio text for current language
+async function translateBio(){
+  if(!curUser||!curUser.bio||curLang==='zh')return;
+  try{
+    var res=await fetch('/api/translate',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({text:curUser.bio,target:curLang})
+    });
+    var d=await res.json();
+    if(d.translated&&d.translated!==curUser.bio){
+      curUser._bioTranslated=d.translated;
+      if(document.getElementById('mo-profile-view').classList.contains('show')){
+        document.getElementById('pv-bio').textContent=d.translated;
+      }
+    }
+  }catch(e){console.error('bio translate:',e);}
+}
+function startKYC(){
+  if(!curUser){oam('login');return;}
+  document.getElementById('mo-kyc').classList.add('show');
+}
+
+// ============ AUTH ============
+function regStatus(msg,cls){
+  var s=document.getElementById('reg-status');
+  s.style.display='block'; s.textContent=msg;
+  s.style.background=cls==='ok'?'#064e3b':cls==='err'?'#7f1d1d':'#1e3a5f';
+  s.style.color=cls==='ok'?'#4ade80':cls==='err'?'#fca5a5':'#93c5fd';
+  setTimeout(function(){s.style.display='none';},5000);
+}
+async function doRegister(){
+  var btn=document.querySelector('[data-key="mreg2"]');
+  var origText=btn.textContent;
+  btn.textContent=t('mprocessing'); btn.disabled=true; btn.style.opacity='.6';
+  var s=document.getElementById('reg-status'); s.style.display='none';
+  try{
+    var n=document.getElementById('reg-name').value.trim();
+    var e=document.getElementById('reg-email').value.trim().toLowerCase();
+    var p=document.getElementById('reg-pass').value;
+    var ref=document.getElementById('reg-ref').value.trim();
+    if(!n||!e||!p){regStatus('Please fill all fields','err');return;}
+    if(p.length<6){regStatus('Password must be at least 6 characters','err');return;}
+    if(users[e]){regStatus(t('mexists'),'err');return;}
+    regStatus('Connecting...','info');
+    var backendOk=false;
+    try{await API.register(n,e,p); backendOk=true; }catch(err){
+      var msg=err.message||'Unknown error';
+      var st=err.status||0;
+      if(st===409){regStatus(t('mexists'),'err');return;}
+      console.warn('Backend register failed, using local fallback:', msg);
+    }
+    if(backendOk){ regStatus('Account created!','ok'); } else { regStatus('Account created (local)!','ok'); }
+    users[e]={name:n,email:e,pass:p,wallet:'',bal:1000,holds:{NEXUS:1000},txs:[{type:'deposit',token:'CNY',amt:1000,time:new Date().toISOString()}],kyc:'Bronze',bio:'',joined:new Date().toISOString().split('T')[0],ref:ref};
+    saveLS('nexus_users',users);
+    syncUserToBackend(e,p,1000,{NEXUS:1000});
+    notify(t('rgs'),'&#x2705;'); cma(); doLogin_email(e,p); saveSession();
+  }finally{
+    btn.textContent=origText; btn.disabled=false; btn.style.opacity='';
+  }
+}
+function doLogin(){
+  let e=document.getElementById('login-email').value.trim().toLowerCase();
+  let p=document.getElementById('login-pass').value;
+  doLogin_email(e,p);
+}
+async function doLogin_email(e,p){
+  if(!users[e]||users[e].pass!==p){
+    // Local check failed, try backend
+    try{
+      var lr=await API.login(e,p);
+      if(lr&&lr.token){
+        users[e]={name:lr.user.name||'',email:e,pass:p,wallet:lr.user.wallet||'',bal:lr.user.balance||1000,holds:{NEXUS:lr.user.nexus||1000},txs:[],kyc:'Bronze',bio:'',joined:lr.user.joined||''};
+        saveLS('nexus_users',users);
+        notify('Signed in via server','&#x2705;');
+      }else{notify('Invalid email or password','&#x26A0;');return;}
+    }catch(er){
+      notify('Invalid email or password','&#x26A0;');return;
+    }
+  }
+  curUser={...users[e]}; curUser._email=e;
+  document.getElementById('aa').style.display='none';
+  document.getElementById('ud').style.display='block';
+  document.getElementById('ual').textContent=(curUser.name||'U')[0].toUpperCase();
+  document.getElementById('udn').textContent=curUser.name;
+  saveSession(); cma();
+  // Fetch balance from backend and sync
+  let bb=await fetchBalanceFromBackend(e);
+  if(bb){curUser.bal=bb.bal;curUser.holds=curUser.holds||{};curUser.holds['NEXUS']=bb.nexus;users[e].bal=bb.bal;users[e].holds=users[e].holds||{};users[e].holds['NEXUS']=bb.nexus;saveLS('nexus_users',users);saveSession();}
+  // Sync local to backend on login
+  syncUserToBackend(e,p,curUser.bal,curUser.holds);
+  // Sync balance, subscriptions, and P2P from backend
+  syncBalanceFromBackend();
+  loadP2PFromBackend();
+  loadUserToolsFromBackend();
+  loadUserEventsFromBackend();
+  notify('Welcome back, '+curUser.name+'!','&#x1F44B;'); rAll();
+}
+function doLogout(){ curUser=null; apiToken=null; try{localStorage.removeItem('nexus_api_token');localStorage.removeItem('nexus_recovery_code');}catch(e){} document.getElementById('aa').style.display='block'; document.getElementById('ud').style.display='none'; rAll(); notify('Logged out'); }
+function doReset(){
+  let e=document.getElementById('reset-email').value.trim().toLowerCase();
+  if(!e){notify('Enter email','&#x26A0;');return;}
+  notify(t('prs')+' '+e,'&#x2709;'); cma();
+}
+// ========== UPLOAD FUNCTIONS ==========
+async function uploadFile(type){
+  const map={avatar:'profile-avatar',sigvid:'profile-sigvid'};
+  const apiMap={avatar:'uploadAvatar',sigvid:'uploadVideo'};
+  const input=document.getElementById(map[type]);
+  if(!input||!input.files||!input.files[0]){notify(t('mnofile'),'&#x26A0;');return;}
+  const file=input.files[0];
+  // Video duration validation (max 60 seconds)
+  if(type==='sigvid'){
+    try{
+      const dur=await getVideoDuration(file);
+      if(dur>60){notify(t('msigvid_too_long')||'Video must be under 60 seconds','&#x26A0;');input.value='';return;}
+    }catch(e){console.warn('Video duration check failed, proceeding anyway:',e);}
+  }
+  const nameSpan=document.getElementById(map[type]+'-name');
+  if(nameSpan)nameSpan.innerHTML='<span class=\"upspinner\"></span> '+file.name;
+  try{
+    const res=await API[apiMap[type]](file);
+    if(curUser){
+      if(type==='avatar')curUser.avatar=res.path||res.url||'';
+      else curUser.sig_video=res.path||res.url||'';
+      users[curUser._email]={...users[curUser._email],
+        avatar:curUser.avatar||users[curUser._email].avatar||'',
+        sig_video:curUser.sig_video||users[curUser._email].sig_video||''};
+      saveLS('nexus_users',users);saveSession();
+    }
+    if(nameSpan)nameSpan.innerHTML='<span class=\"upsuccess\">'+file.name+' &#x2705;</span>';
+    notify(t('mup_success'),'&#x2705;');
+  }catch(e){
+    if(nameSpan)nameSpan.innerHTML='<span class=\"upfail\">&#x274C; '+e.message+'</span>';
+    notify(t('mup_fail')+': '+e.message,'&#x274C;');
+  }
+}
+function getVideoDuration(file){
+  return new Promise(function(resolve,reject){
+    var video=document.createElement('video');
+    video.preload='metadata';
+    video.onloadedmetadata=function(){window.URL.revokeObjectURL(video.src);resolve(video.duration);};
+    video.onerror=function(){window.URL.revokeObjectURL(video.src);reject(new Error('Cannot read video'));};
+    video.src=URL.createObjectURL(file);
+  });
+}
+// Multi-image upload for signature
+var sigImages=[]; // Currently selected sig image URLs
+async function uploadMultipleImages(){
+  var input=document.getElementById('profile-sigimg');
+  if(!input||!input.files||!input.files.length){notify(t('mnofile'),'&#x26A0;');return;}
+  var newFiles=Array.from(input.files);
+  if(sigImages.length+newFiles.length>9){notify('Maximum 9 images allowed','&#x26A0;');input.value='';return;}
+  var nameSpan=document.getElementById('profile-sigimg-name');
+  var preview=document.getElementById('sigimg-preview');
+  for(var i=0;i<newFiles.length;i++){
+    var file=newFiles[i];
+    if(nameSpan)nameSpan.innerHTML='<span class=\"upspinner\"></span> Uploading '+(i+1)+'/'+newFiles.length;
+    try{
+      var res=await API.uploadImage(file);
+      sigImages.push(res.path||res.url||'');
+      if(curUser)curUser.sig_images=sigImages.slice();
+    }catch(e){
+      notify('Upload failed: '+e.message,'&#x274C;');
+    }
+  }
+  input.value='';
+  if(nameSpan)nameSpan.innerHTML=sigImages.length+' image(s) uploaded &#x2705;';
+  renderSigPreview();
+}
+function renderSigPreview(){
+  var preview=document.getElementById('sigimg-preview');
+  if(!preview)return;
+  preview.innerHTML=sigImages.map(function(url,i){
+    return '<div style="position:relative;width:60px;height:60px;border-radius:6px;overflow:hidden;border:1px solid var(--bda)"><img src="'+url+'" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display=\'none\'"><button onclick="removeSigImage('+i+')" style="position:absolute;top:0;right:0;background:rgba(239,68,68,.8);color:#fff;border:none;border-radius:0 0 0 6px;font-size:.6rem;padding:2px 5px;cursor:pointer;line-height:1">&times;</button></div>';
+  }).join('');
+}
+function removeSigImage(idx){
+  sigImages.splice(idx,1);
+  if(curUser)curUser.sig_images=sigImages.slice();
+  renderSigPreview();
+  var nameSpan=document.getElementById('profile-sigimg-name');
+  if(nameSpan)nameSpan.innerHTML=sigImages.length+' image(s)';
+}
+function clearUpload(type){
+  if(type==='sigimg'){
+    sigImages=[];
+    if(curUser){curUser.sig_images=[];}
+    var sigInput=document.getElementById('profile-sigimg');
+    if(sigInput)sigInput.value='';
+    var sigNameSpan=document.getElementById('profile-sigimg-name');
+    if(sigNameSpan)sigNameSpan.textContent='';
+    renderSigPreview();
+    return;
+  }
+  const map={avatar:'profile-avatar',sigvid:'profile-sigvid'};
+  const input=document.getElementById(map[type]);
+  if(input)input.value='';
+  const nameSpan=document.getElementById(map[type]+'-name');
+  if(nameSpan)nameSpan.textContent='';
+  if(curUser){
+    if(type==='avatar')curUser.avatar='';
+    else curUser.sig_video='';
+    users[curUser._email]={...users[curUser._email],
+      avatar:type==='avatar'?'':(users[curUser._email].avatar||''),
+      sig_video:type==='sigvid'?'':(users[curUser._email].sig_video||'')};
+    saveLS('nexus_users',users);saveSession();
+  }
+}
+
+function saveProfile(){
+  if(!curUser)return;
+  curUser.name=document.getElementById('profile-name').value.trim()||curUser.name;
+  curUser.wallet=document.getElementById('profile-wallet').value.trim();
+  curUser.bio=document.getElementById('profile-bio').value.trim();
+  users[curUser._email]={...users[curUser._email],name:curUser.name,wallet:curUser.wallet,bio:curUser.bio};
+  saveLS('nexus_users',users); saveSession();
+  document.getElementById('ual').textContent=curUser.name[0].toUpperCase();
+  document.getElementById('udn').textContent=curUser.name;
+  cma(); notify(t('mpsaved'),'&#x2705;'); rAll();
+  // Sync to backend if authenticated
+  if(typeof apiToken!=='undefined'&&apiToken){ API.saveProfile(curUser.name,curUser.wallet,curUser.bio,curUser.avatar||'',(curUser.sig_images||[]).join(','),curUser.sig_video||'').catch(e=>console.error('backend sync:',e)); }
+}
+function saveWallet(){
+  if(!curUser){oam('login');return;}
+  let addr=document.getElementById('wallet-addr').value.trim();
+  curUser.wallet=addr; users[curUser._email].wallet=addr;
+  saveLS('nexus_users',users); saveSession();
+  notify('Wallet saved','&#x2705;');
+}
+function submitKYC(){
+  if(!curUser)return;
+  let level='Silver'; curUser.kyc=level; users[curUser._email].kyc=level;
+  saveLS('nexus_users',users); saveSession();
+  cma(); notify('KYC upgraded to '+level,'&#x2705;'); rAll();
+}
+function confirmDialog(title,msg,cb){
+  document.getElementById('confirm-title').textContent=title;
+  document.getElementById('confirm-msg').textContent=msg;
+  confirmCB=cb;
+  document.getElementById('confirm-yes-btn').onclick=()=>{cma();if(confirmCB)confirmCB();};
+  document.getElementById('mo-confirm').classList.add('show');
+}
+
+// ============ AGENT FUNCTIONS ============
+async function loadAgentDashboard(){
+  if(!curUser) return;
+  try{
+    const status = await API.agentStatus(curUser._email);
+    if(!status.is_agent){
+      document.getElementById('agent-not-registered').style.display='';
+      document.getElementById('agent-dashboard').style.display='none';
+      return;
+    }
+    document.getElementById('agent-not-registered').style.display='none';
+    document.getElementById('agent-dashboard').style.display='';
+    const boxes = document.getElementById('agent-info-boxes');
+    boxes.innerHTML = '<div class="ag-info-box"><div class="ag-il" data-key="agid">Agent ID</div><div class="ag-iv" style="font-size:.85rem">'+status.agent_id+'</div></div><div class="ag-info-box"><div class="ag-il" data-key="agte">Total Earnings</div><div class="ag-iv" style="color:var(--ag)">$'+(status.total_earnings||0).toFixed(2)+'</div></div><div class="ag-info-box"><div class="ag-il" data-key="agrate">Commission Rate</div><div class="ag-iv">'+(status.commission_rate||50)+'%</div></div><div class="ag-info-box"><div class="ag-il" data-key="agstat">Status</div><div class="ag-iv" style="color:var(--ag);font-size:.85rem">'+status.status+'</div></div>';
+    renderAgentPaypalList(status.paypal_configs||[]);
+    const earnings = await API.agentEarnings(curUser._email);
+    renderAgentCommissions(earnings.commissions||[], earnings.summary);
+    renderLivePaypalButtons();
+    updateI18n();
+  } catch(e){ console.error('loadAgentDashboard:',e); }
+}
+function payToBecomeAgent(){
+  if(!curUser){ showToast(t('noauth'),'w'); oam('login'); return; }
+  openPaypalBtn(0);
+}
+async function confirmAgentRegistration(paypal_txn_id){
+  if(!curUser) return;
+  try{
+    const res = await API.agentRegister(curUser._email, paypal_txn_id, 199);
+    if(res.success){ showToast(t('agregok')||'Agent registration successful!','s'); loadAgentDashboard(); }
+  } catch(e){ showToast(e.message,'e'); }
+}
+function renderAgentPaypalList(configs){
+  const container = document.getElementById('agent-paypal-list');
+  if(!configs||configs.length===0){ container.innerHTML='<div style="color:var(--t3);font-size:.7rem;text-align:center;padding:16px" data-key="agnopp">No PayPal buttons bound yet</div>'; updateI18n(); return; }
+  container.innerHTML = configs.map(c=>'<div class="ag-pp-item"><div><div class="ag-pp-name">'+(c.button_name||'PayPal Button')+'</div><div class="ag-pp-id">'+c.hosted_button_id+'</div></div><button class="btn bo" style="font-size:.62rem;padding:3px 8px;color:var(--ar)" onclick="deletePaypalConfig(\''+c.id+'\')">&times;</button></div>').join('');
+}
+async function deletePaypalConfig(configId){
+  if(!curUser) return;
+  if(!confirm(t('agdelcf')||'Delete this PayPal button?')) return;
+  try{ await API.agentDeletePaypal(curUser._email, configId); loadAgentDashboard(); } catch(e){ showToast(e.message,'e'); }
+}
+function renderAgentCommissions(commissions, summary){
+  const container = document.getElementById('agent-commission-list');
+  if(!commissions||commissions.length===0){ container.innerHTML='<div style="color:var(--t3);font-size:.7rem;text-align:center;padding:16px" data-key="agnocomm">No commission records yet</div>'; updateI18n(); return; }
+  let html='';
+  if(summary){ html+='<div style="display:flex;gap:12px;padding:6px 8px;background:var(--bg2);border-radius:7px;margin-bottom:6px;font-size:.68rem;flex-wrap:wrap"><span><span data-key="agtxns">Txns</span>: <b>'+(summary.total_txns||0)+'</b></span><span><span data-key="agrev">Revenue</span>: <b>$'+(summary.total_revenue||0).toFixed(2)+'</b></span><span><span data-key="agearn">Earned</span>: <b style="color:var(--ag)">$'+(summary.agent_earnings||0).toFixed(2)+'</b></span></div>'; }
+  html += commissions.slice(0,20).map(c=>{ var d=new Date(c.created_at); return '<div class="ag-tx-item"><span>'+d.toLocaleDateString()+'</span><span class="ag-tx-amt pos">$'+Number(c.amount_agent||0).toFixed(2)+'</span></div>'; }).join('');
+  container.innerHTML = html;
+}
+async function renderLivePaypalButtons(){
+  const container = document.getElementById('agent-live-btns');
+  try{
+    const data = await API.agentPublicPaypal();
+    const configs = data.configs||[];
+    if(configs.length===0){ container.innerHTML='<div style="color:var(--t3);font-size:.7rem;text-align:center;padding:16px" data-key="agnolive">No live buttons available</div>'; updateI18n(); return; }
+    container.innerHTML = configs.map(c=>'<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--bg2);border-radius:7px;margin-bottom:4px;flex-wrap:wrap"><span style="font-weight:600;font-size:.73rem">'+(c.button_name||'Button')+'</span><span style="font-size:.62rem;color:var(--t3);font-family:var(--fm)">'+c.hosted_button_id+'</span><span style="font-size:.62rem;color:var(--t3)">Agent: '+c.agent_id+'</span></div>').join('');
+  } catch(e){ console.error('renderLivePaypalButtons:',e); }
+}
+function showBindPaypalModal(){
+  if(!curUser){ showToast(t('noauth'),'w'); return; }
+  document.getElementById('bind-pp-name').value='';
+  document.getElementById('bind-pp-id').value='';
+  document.getElementById('mo-bind-paypal').classList.add('show');
+}
+async function bindPaypalButton(){
+  const name = document.getElementById('bind-pp-name').value.trim();
+  const id = document.getElementById('bind-pp-id').value.trim();
+  if(!name||!id){ showToast(t('agfill')||'Please fill all fields','w'); return; }
+  try{
+    await API.agentBindPaypal(curUser._email, id, name);
+    document.getElementById('mo-bind-paypal').classList.remove('show');
+    showToast(t('agbinds')||'PayPal button bound!','s');
+    loadAgentDashboard();
+  } catch(e){ showToast(e.message,'e'); }
+}
+// ============ PAYPAL DROPDOWN ============
+let paypalCurrent = 0;
+function togPaypalDd(e){
+  e.stopPropagation();
+  document.getElementById('paypal-menu').classList.toggle('show');
+}
+function openPaypalBtn(n){
+  paypalCurrent = n;
+  document.getElementById('paypal-menu').classList.remove('show');
+  var title=document.getElementById('paypal-modal-title');
+  var desc=document.getElementById('paypal-modal-desc');
+  var price=document.getElementById('paypal-modal-price');
+  var container=document.getElementById('paypal-container-EJC58LA49LNM2');
+  if(n===0){
+    title.setAttribute('data-key','ppagent');
+    desc.setAttribute('data-key','ppagent_desc');
+    price.textContent = '$199.00';
+    container.style.display = 'flex';
+    // Render PayPal hosted button
+    if(typeof paypal !== 'undefined' && paypal.HostedButtons){
+      container.innerHTML = '';
+      paypal.HostedButtons({hostedButtonId:'EJC58LA49LNM2'}).render('#paypal-container-EJC58LA49LNM2');
+    } else if(!window.paypalLoaded){
+      // PayPal SDK blocked (GFW) - show direct payment link fallback
+      container.innerHTML = '<a href="https://www.paypal.com/ncp/payment/EJC58LA49LNM2" target="_blank" rel="noopener" style="display:inline-block;padding:10px 24px;background:linear-gradient(135deg,#0070ba,#1546a0);color:#fff;border-radius:25px;text-decoration:none;font-weight:700;font-size:.82rem">Pay Now - $199</a>';
+    }
+  } else {
+    title.setAttribute('data-key','ppdonate');
+    desc.setAttribute('data-key','ppdonate_desc');
+    price.textContent = '$ --';
+    container.style.display = 'none';
+  }
+  // Apply translation to all data-key elements inside modal
+  var modal = document.getElementById('paypal-donate-modal');
+  modal.querySelectorAll('[data-key]').forEach(function(el){
+    var k = el.getAttribute('data-key');
+    if(el.tagName==='INPUT'&&el.type==='text') el.placeholder = t(k);
+    else if(!el.hasAttribute('data-html')) el.textContent = t(k);
+  });
+  modal.classList.add('show');
+}
+document.addEventListener('click',function(e){
+  const m = document.getElementById('paypal-menu');
+  if(m&&!m.contains(e.target)&&!e.target.closest('#agent-pay-btn')){ m.classList.remove('show'); }
+});
+// ============ MARKET AGENT CARD ============
+function renderAgentCard(){
+  const hero = document.querySelector('#page-market .hero');
+  if(!hero||document.getElementById('agent-promo-card')) return;
+  const card = document.createElement('div');
+  card.id = 'agent-promo-card';
+  card.className = 'card';
+  card.style.cssText = 'margin-top:10px;background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(59,130,246,.1));border-color:rgba(139,92,246,.3)';
+  card.innerHTML = '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><div style="font-size:2rem">&#x1F91D;</div><div style="flex:1;min-width:200px"><div style="font-weight:800;font-size:.95rem;margin-bottom:4px;word-break:break-word" data-key="agpcard">Become AI Alliance Agent</div><div style="color:var(--t2);font-size:.72rem;word-break:break-word;line-height:1.5" data-key="agpcardd">Pay to join &rarr; Get sub-accounts &rarr; Earn 50% recurring commission on every sale through your PayPal buttons.</div></div><button class="btn bg bw" onclick="sp(\'agent\')" style="white-space:nowrap;flex-shrink:0" data-key="agpjoin">Join Now</button></div>';
+  hero.insertAdjacentElement('afterend', card);
+}
+
+// ============ PAGE NAV ============
+function sp(page){
+  curPage=page;
+  document.querySelectorAll('.nls a').forEach(a=>a.classList.remove('active'));
+  document.querySelector('.nls a[data-page="'+page+'"]').classList.add('active');
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
+  let el=document.getElementById('page-'+page); if(el)el.classList.add('active');
+  rAll();
+  if(page==='member'){try{renderMemberPage();}catch(e){console.error(e);}}
+
+  try{if(typeof updateUserBadge==='function')updateUserBadge();}catch(e){}
+}
+function t(k){
+  if(LANG&&LANG[curLang]&&LANG[curLang][k])return LANG[curLang][k];
+  if(LANG&&LANG[k]&&LANG[k][curLang])return LANG[k][curLang];
+  if(LANG&&LANG['en']&&LANG['en'][k])return LANG['en'][k];
+  if(LANG&&LANG[k]&&LANG[k]['en'])return LANG[k]['en'];
+  return k;
+}
+function updateI18n(){applyI18N();}
+function applyI18N(){
+  document.querySelectorAll('[data-key]').forEach(el=>{let k=el.getAttribute('data-key'); if(el.tagName==='INPUT'&&el.type==='text'){el.placeholder=t(k);} else if(!el.hasAttribute('data-html'))el.textContent=t(k);});
+  // Also handle data-key-ph for placeholder-only elements
+  document.querySelectorAll('[data-key-ph]').forEach(el=>{let k=el.getAttribute('data-key-ph'); if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=t(k);});
+  try{if(typeof renderPubTools==='function')renderPubTools();}catch(e){}
+  try{if(typeof renderP2PPub==='function')renderP2PPub();}catch(e){}
+  try{if(typeof renderPubEvents==='function')renderPubEvents();}catch(e){}
+  try{if(typeof rTools==='function')rTools();}catch(e){}
+  try{if(typeof rP2P==='function')rP2P();}catch(e){}
+  try{if(typeof rEvents==='function')rEvents();}catch(e){}
+  refTkr();
+}
+// ============ MARKET TICKER & PANEL ============
+const MKT_DATA={tokens:[
+{symbol:'NEXUS',name:'Nexus AI',price:0.042,change:5.2,volume:'2.4M'},
+{symbol:'ALNEX',name:'Alliance Nexus',price:0.0103,change:3.1,volume:'8.1M'},
+{symbol:'AION',name:'Aion Protocol',price:1.87,change:-1.3,volume:'560K'},
+{symbol:'SYNAP',name:'Synap Token',price:0.215,change:8.7,volume:'1.2M'},
+{symbol:'NEXAI',name:'NexAI Coin',price:3.45,change:-2.8,volume:'340K'},
+],services:[
+{name:'GPT-4 API',provider:'OpenAI',price:12.00,unit:'/MTok',change:0},
+{name:'Claude 3 API',provider:'Anthropic',price:15.00,unit:'/MTok',change:-5.0},
+{name:'Gemini Pro',provider:'Google',price:3.50,unit:'/MTok',change:10.0},
+{name:'Llama 3 70B',provider:'Meta',price:0.90,unit:'/MTok',change:0},
+{name:'Stable Diffusion XL',provider:'Stability AI',price:0.04,unit:'/image',change:0},
+],events:[
+{date:'2026-07-15',name:'AI DevCon 2026 - Tickets Available',icon:'🎫'},
+{date:'2026-07-20',name:'NEXUS Mainnet Launch',icon:'🚀'},
+{date:'2026-08-01',name:'ALNEX Staking Rewards Double Week',icon:'💰'},
+],notes:[
+{icon:'📢',tag:'Notification',text:'New listing: GPT-4 @ $12/MTok'},
+{icon:'📈',tag:'Market Update',text:'NEXUS +5.2% in last 24h'},
+{icon:'🎫',tag:'Event',text:'AI DevCon tickets available'},
+{icon:'🆕',tag:'New Listing',text:'Claude 3.5 Sonnet @ $8/MTok'},
+{icon:'📈',tag:'Market Update',text:'ALNEX staking APY increased to 22%'},
+{icon:'🔥',tag:'Notification',text:'24h volume exceeds $5M on ALNEX/USDT pair'},
+]};
+function flucPrice(b,r){return (b*(1+(Math.random()-.5)*r*2)).toFixed(4);}
+function refMkt(){MKT_DATA.tokens.forEach(t=>{t.price=parseFloat(flucPrice(t.price,.03));t.change=parseFloat((t.change+(Math.random()-.5)*1.5).toFixed(1));});MKT_DATA.services.forEach(s=>{if(s.change!==0)s.change=parseFloat((s.change+(Math.random()-.5)*2).toFixed(1));});}
+function rdrTkr(){var c=document.getElementById('mt-it');var h='';var all=[...MKT_DATA.notes,...MKT_DATA.tokens.map(t=>({icon:t.change>=0?'📈':'📉',tag:'Market Update',text:t.symbol+' '+(t.change>=0?'+':'')+t.change+'%',change:t.change}))];all.forEach(it=>{var cc=it.change!==undefined?(it.change>=0?'mt-up':'mt-dn'):'';h+='<div class="mt-el"><span class="mt-ico">'+it.icon+'</span><span class="mt-tag">'+it.tag+'</span><span class="mt-txt '+cc+'">'+it.text+'</span></div>';});c.innerHTML=h;document.getElementById('mt-it-cl').innerHTML=h;}
+function rdrMP(){var tH='<tr><th>Asset</th><th>Price</th><th>24h Chg</th><th>Volume</th></tr>';MKT_DATA.tokens.forEach(t=>{var c=t.change>=0?'up':'dn';var s=t.change>=0?'+':'';tH+='<tr><td><span class="sy">'+t.symbol+'</span> <span class="nm">'+t.name+'</span></td><td>$'+t.price.toFixed(4)+'</td><td class="'+c+'">'+s+t.change+'%</td><td>'+t.volume+'</td></tr>';});document.getElementById('mp-toks').innerHTML=tH;var sH='<tr><th>Service</th><th>Price</th><th>24h Chg</th></tr>';MKT_DATA.services.forEach(s=>{var c=s.change>=0?'up':'dn';var sg=s.change>=0?'+':'';sH+='<tr><td><span class="sy">'+s.name+'</span> <span class="nm">'+s.provider+'</span></td><td>$'+s.price.toFixed(2)+s.unit+'</td><td class="'+c+'">'+(s.change!==0?sg+s.change+'%':'-')+'</td></tr>';});document.getElementById('mp-svcs').innerHTML=sH;var eH='';MKT_DATA.events.forEach(e=>{eH+='<div class="mp-ev-it"><span class="ei">'+e.icon+'</span><span class="en">'+e.name+'</span><span class="ed">'+e.date+'</span></div>';});document.getElementById('mp-evs').innerHTML=eH;document.getElementById('mp-rf').textContent='Updated: '+new Date().toLocaleTimeString();}
+function togMP(){var p=document.getElementById('mp');var b=document.querySelector('.mt-exp');p.classList.toggle('open');b.classList.toggle('open');if(p.classList.contains('open')){refMkt();rdrMP();}}
+var _tkrIv,_pnlIv;
+function initMKT(){rdrTkr();refMkt();_tkrIv=setInterval(function(){refMkt();rdrTkr();},15000);_pnlIv=setInterval(function(){var p=document.getElementById('mp');if(p.classList.contains('open')){refMkt();rdrMP();}},10000);}
+function refTkr(){if(document.getElementById('mt-it')&&document.getElementById('mt-it').children.length>0){rdrTkr();}var p=document.getElementById('mp');if(p&&p.classList.contains('open')){rdrMP();}}
+
+// ============ RENDER ALL ============
+function rAll(){
+  applyI18N();
+  if(curPage==='market'){rTicker(); rTrending(); rRecentTxs(); drPriceChart();}
+  else if(curPage==='tools') rTools();
+  else if(curPage==='p2p') rP2P();
+  else if(curPage==='trade') rTrade();
+  else if(curPage==='events') rEvents();
+  else if(curPage==='dashboard') rDashboard();
+  else if(curPage==='agent'){ loadAgentDashboard(); renderAgentCard(); }
+  else if(curPage==='social') rSocial();
+}
+
+// ============ HOOK INTO rAll ============
+var _origRAll=rAll||function(){};
+rAll=function(){
+  _origRAll();
+  renderPubTools();
+  renderPubEvents();
+  if(typeof renderP2PPub==='function'&&p2pTabV==='pub')renderP2PPub();
+};
+function rTicker(){
+  let h='';
+  for(let i=0;i<TICKERS.length;i++){
+    let t=TICKERS[i];
+    h+=`<div class="ti"><span class="tn">${t.n}</span><span class="tp">$${t.p}</span><span class="tc ${t.u?'up':'dn'}">${t.u?'+':''}${t.c}</span></div>`;
+  }
+  document.getElementById('tsc').innerHTML=h+h+h;
+}
+function rTrending(){
+  let tools=initTools.sort((a,b)=>b.use-a.use).slice(0,8);
+  let h='';
+  tools.forEach(tool=>{
+    h+=`<div class="tpc${tool.badge?' ft':''}" data-badge="${tool.badge}" onclick="sp('tools')">
+      <div class="pi" style="background:${tool.color}20;color:${tool.color};font-size:1.3rem">${tool.icon}</div>
+      <div class="pn">${tool.name}</div><div class="ps2">${tool.desc.slice(0,50)}</div>
+      <div class="pp">$${tool.price} / ¥${(tool.price*USD_TO_CNY).toFixed(2)}<span class="pc2 up">${t('per_mo')}</span></div>
+      <div class="pm"><span>${tool.use} users</span><span class="up">APY ${tool.apy}%</span></div></div>`;
+  });
+  document.getElementById('trending-packages').innerHTML=h;
+}
+function rRecentTxs(){
+  let allTxs=[];
+  for(let e in users){let u=users[e]; if(u.txs)allTxs=allTxs.concat(u.txs.map(t=>({...t,user:u.name,email:e})));}
+  allTxs.sort((a,b)=>new Date(b.time)-new Date(a.time)); allTxs=allTxs.slice(0,12);
+  if(allTxs.length===0){document.getElementById('recent-txs').innerHTML='<div style="padding:20px;text-align:center;color:var(--t3)">No transactions yet</div>';return;}
+  let h='';
+  allTxs.forEach(tx=>{
+    let c=tx.type==='buy'||tx.type==='deposit'?'ob':'oa';
+    h+=`<div class="or"><span style="max-width:80px;overflow:hidden;text-overflow:ellipsis">${tx.user}</span><span>${tx.type} ${tx.token||''}</span><span class="${c}">$${tx.amt}</span></div>`;
+  });
+  document.getElementById('recent-txs').innerHTML=h;
+}
+function drPriceChart(){
+  setTimeout(()=>{
+    let canvas=document.getElementById('priceChart'); if(!canvas)return;
+    let ctx=canvas.getContext('2d'); let W=canvas.parentElement.clientWidth-36; canvas.width=W; canvas.height=280;
+    let pts=[]; let v=0.35; for(let i=0;i<80;i++){v+=Math.random()*0.04-0.02; v=Math.max(0.1,v); pts.push(v);}
+    let pad={t:30,r:20,b:40,l:50}; let pw=W-pad.l-pad.r, ph=280-pad.t-pad.b;
+    let min=Math.min(...pts)*0.9, max=Math.max(...pts)*1.1, rng=max-min;
+    ctx.clearRect(0,0,W,280);
+    ctx.strokeStyle='rgba(139,92,246,0.08)'; ctx.lineWidth=1;
+    for(let i=0;i<5;i++){let y=pad.t+(ph/4)*i; ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(W-pad.r,y); ctx.stroke();}
+    let grad=ctx.createLinearGradient(0,pad.t,0,pad.t+ph); grad.addColorStop(0,'rgba(139,92,246,0.4)'); grad.addColorStop(1,'rgba(139,92,246,0.02)');
+    ctx.beginPath(); ctx.moveTo(pad.l,pad.t+ph-((pts[0]-min)/rng)*ph);
+    for(let i=1;i<pts.length;i++){let x=pad.l+(i/(pts.length-1))*pw; let y=pad.t+ph-((pts[i]-min)/rng)*ph; ctx.lineTo(x,y);}
+    ctx.lineTo(pad.l+(pts.length-1)/(pts.length-1)*pw,pad.t+ph); ctx.lineTo(pad.l,pad.t+ph); ctx.closePath(); ctx.fillStyle=grad; ctx.fill();
+    ctx.beginPath(); ctx.moveTo(pad.l,pad.t+ph-((pts[0]-min)/rng)*ph); ctx.strokeStyle='#8b5cf6'; ctx.lineWidth=2;
+    for(let i=1;i<pts.length;i++){let x=pad.l+(i/(pts.length-1))*pw; let y=pad.t+ph-((pts[i]-min)/rng)*ph; ctx.lineTo(x,y);}
+    ctx.stroke();
+    ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--t3').trim(); ctx.font='9px monospace';
+    for(let i=0;i<5;i++){let vv=min+(rng/4)*(4-i); ctx.fillText('$$'+vv.toFixed(4),4,pad.t+(ph/4)*i+4);}
+    let dates=['Jan','Feb','Mar','Apr','May','Jun'];
+    for(let i=0;i<6;i++){ctx.fillText(dates[i],pad.l+(pw/5)*i-10,280-6);}
+    ctx.fillStyle='#8b5cf6'; ctx.beginPath(); ctx.arc(pad.l+(pts.length-1)/(pts.length-1)*pw,pad.t+ph-((pts[pts.length-1]-min)/rng)*ph,4,0,Math.PI*2); ctx.fill();
+  },100);
+}
+
+// ============ TOOLS ============
+function rTools(){
+  let tools=[...initTools,...userTools];
+  let cat=document.getElementById('tool-cat')?.value||'all';
+  let search=(document.getElementById('tool-search')?.value||'').toLowerCase();
+  let sort=document.getElementById('tool-sort')?.value||'pop';
+  if(cat!=='all') tools=tools.filter(tl=>tl.cat===cat);
+  if(search) tools=tools.filter(tl=>tl.name.toLowerCase().includes(search)||tl.desc.toLowerCase().includes(search));
+  if(sort==='pop') tools.sort((a,b)=>b.use-a.use);
+  else if(sort==='new') tools.sort((a,b)=>b.id.localeCompare(a.id));
+  else if(sort==='price') tools.sort((a,b)=>a.price-b.price);
+  else if(sort==='apy') tools.sort((a,b)=>b.apy-a.apy);
+  let h='';
+  tools.forEach(tl=>{
+    var isApi=tl.apiEndpoint&&tl.apiKey;
+    var isInit=initTools.some(i=>i.id===tl.id);
+    var priceDisplay=isInit?`$${tl.price} / ¥${(tl.price*USD_TO_CNY).toFixed(2)}`:`¥${tl.price}`;
+    var subPrice=isInit?`¥${(tl.price*USD_TO_CNY).toFixed(2)}`:`¥${tl.price}`;
+    h+=`<div class="tpc${isApi?' ft':''}"${isApi?' data-badge="API"':''}><div class="pi" style="background:${tl.color}20;color:${tl.color};font-size:1.3rem">${tl.icon}</div>
+      <div class="pn"><span class="dyn-tr" data-orig="${escHtml(tl.name)}">${escHtml(tl.name)}</span></div><div class="ps2"><span class="dyn-tr" data-orig="${escHtml(tl.desc.slice(0,60))}">${escHtml(tl.desc.slice(0,60))}</span></div>
+      <div class="pp">${priceDisplay}<span class="pc2" style="color:var(--t2)">${t('per_mo')}</span></div>
+      <div class="pm"><span>${tl.use} ${t('users')}</span><span class="up">APY ${tl.apy}%</span><span>&#x2B50;${tl.rating}</span></div>
+      ${isApi?`<button class="btn bd2 bs bw" style="margin-top:4px" onclick="showChannelConfig('${tl.id}')">&#x2699; Config API</button><button class="btn bg bs bw" style="margin-top:4px" onclick="subscribeTool('${tl.id}')">${t('sub')} - ${subPrice} ${t('cny')}</button>`:`<button class="btn bg bs bw" style="margin-top:8px" onclick="subscribeTool('${tl.id}')">${t('sub')} - ${subPrice} ${t('cny')}</button>`}</div>`;
+  });
+  document.getElementById('tools-grid').innerHTML=h||'<div style="text-align:center;padding:30px;color:var(--t3);grid-column:1/-1">No tools found</div>';
+}
+async function subscribeTool(toolId){
+  if(!curUser){oam('login');return;}
+  var tool=initTools.find(t=>t.id===toolId)||userTools.find(t=>t.id===toolId); if(!tool)return;
+  var isInit=initTools.some(i=>i.id===toolId);
+  var priceCNY=isInit?tool.price*USD_TO_CNY:tool.price;
+  if(curUser.bal<priceCNY){notify(t('insufbal'),'&#x26A0;');return;}
+  // Try backend API first
+  if(apiToken){
+    try{
+      let res=await API.toolSubscribe(toolId,tool.name,priceCNY);
+      if(res.ok){ curUser.bal=res.balance; syncBalanceFromBackend(); rAll(); notify(t('bs'),'&#x2705;'); return; }
+    }catch(e){console.error('subscribeTool backend failed, using local',e);}
+  }
+  // Local fallback
+  curUser.bal-=priceCNY;
+  let hk='TOOL_'+toolId; curUser.holds[hk]=(curUser.holds[hk]||0)+1;
+  curUser.txs.push({type:'buy',token:tool.name,amt:priceCNY,time:new Date().toISOString()});
+  users[curUser._email]={...curUser,holds:{...curUser.holds},txs:[...curUser.txs],bal:curUser.bal};
+  saveLS('nexus_users',users); saveSession();
+  // If it's an API tool, auto-open channel config
+  if(tool.apiEndpoint||tool.apiKey){
+    showChannelConfig(toolId);
+  }
+  notify(t('bs'),'&#x2705;'); rAll();
+}
+
+// ============ Create Tool ============
+async function createTool(){
+  if(!curUser){oam('login');return;}
+  let name=document.getElementById('pt-name').value.trim();
+  let icon=document.getElementById('pt-icon').value.trim()||'🧰';
+  let cat=document.getElementById('pt-cat').value;
+  let desc=document.getElementById('pt-desc').value.trim();
+  let price=parseFloat(document.getElementById('pt-price').value)||0;
+  let color=document.getElementById('pt-color').value.trim()||'#8b5cf6';
+  if(!name||!desc){notify(t('createreq'),'⚠');return;}
+  if(apiToken){
+    try{
+      let res=await API.createTool(name,icon,cat,desc,price,color);
+      if(res.tool){ loadUserToolsFromBackend(); document.getElementById('mo-publish-tool').classList.remove('show'); rTools(); notify(t('toolpub'),'✅'); return; }
+    }catch(e){console.error('createTool backend failed',e);}
+  }
+  // Local fallback
+  userTools.push({id:'ut_'+Date.now(),icon,name,cat,desc,price,color,use:0,apy:0,rating:5.0,badge:'NEW'});
+  document.getElementById('mo-publish-tool').classList.remove('show');
+  rTools(); notify(t('toolpub'),'✅');
+}
+
+// ============ Channel Management (API Key Config) ============
+var channelConfigs = JSON.parse(localStorage.getItem('nexus_channels')||'{}');
+function saveChannels(){localStorage.setItem('nexus_channels',JSON.stringify(channelConfigs));}
+
+function showChannelConfig(toolId){
+  var tool = initTools.find(function(t){return t.id===toolId;}) || userTools.find(function(t){return t.id===toolId;});
+  if(!tool) return;
+  document.getElementById('ch-tool-name').textContent = tool.name;
+  document.getElementById('ch-tool-id').textContent = t('chidprefix')+toolId;
+  var cfg = channelConfigs[toolId] || {};
+  document.getElementById('ch-endpoint').value = cfg.endpoint || tool.apiEndpoint || 'https://xtokens.shop/v1';
+  document.getElementById('ch-apikey').value = cfg.apikey || tool.apiKey || '';
+  document.getElementById('ch-test-result').textContent = '';
+  document.getElementById('mo-channel-config').classList.add('show');
+}
+
+function saveChannelConfig(){
+  var toolId = document.getElementById('ch-tool-id').textContent.replace(t('chidprefix'),'');
+  var endpoint = document.getElementById('ch-endpoint').value.trim();
+  var apikey = document.getElementById('ch-apikey').value.trim();
+  if(!endpoint){notify(t('apireq'),'⚠');return;}
+  channelConfigs[toolId] = {endpoint:endpoint, apikey:apikey, updated:Date.now()};
+  saveChannels();
+  document.getElementById('mo-channel-config').classList.remove('show');
+  notify(t('chsaved'),'✅');
+}
+
+async function testChannelConnection(){
+  var toolId = document.getElementById('ch-tool-id').textContent.replace(t('chidprefix'),'');
+  var endpoint = document.getElementById('ch-endpoint').value.trim();
+  var apikey = document.getElementById('ch-apikey').value.trim();
+  var resultEl = document.getElementById('ch-test-result');
+  resultEl.textContent = t('chtesting');
+  resultEl.style.color = 'var(--t2)';
+  try{
+    var res = await fetch(endpoint+'/models', {headers:{'Authorization':'Bearer '+apikey,'Content-Type':'application/json'}});
+    if(res.ok){
+      var data = await res.json();
+      var modelCount = data.data ? data.data.length : (Array.isArray(data) ? data.length : '?');
+      resultEl.textContent = '✅ '+t('chconn').replace('{n}',modelCount);
+      resultEl.style.color = 'var(--ag)';
+    } else {
+      resultEl.textContent = '❌ '+t('chfail').replace('{code}',res.status).replace('{msg}',res.statusText||t('chconnfail').replace('{msg}',''));
+      resultEl.style.color = 'var(--ar)';
+    }
+  }catch(e){
+    resultEl.textContent = '❌ '+t('chconnfail').replace('{msg}',e.message);
+    resultEl.style.color = 'var(--ar)';
+  }
+}
+
+// ============ Create Event ============
+async function createEvent(){
+  if(!curUser){oam('login');return;}
+  let title=document.getElementById('ce-title').value.trim();
+  let emoji=document.getElementById('ce-emoji').value.trim()||'🎉';
+  let date=document.getElementById('ce-date').value.trim();
+  let loc=document.getElementById('ce-loc').value.trim()||'Online';
+  let desc=document.getElementById('ce-desc').value.trim();
+  let tokens=parseInt(document.getElementById('ce-tokens').value)||1000;
+  let price=document.getElementById('ce-price').value.trim()||'FREE';
+  let status=document.getElementById('ce-status').value;
+  if(!title||!date||!desc){notify(t('eventreq'),'⚠');return;}
+  if(apiToken){
+    try{
+      let res=await API.createEvent(title,emoji,date,loc,desc,tokens,price,status);
+      if(res.event){ loadUserEventsFromBackend(); document.getElementById('mo-create-event').classList.remove('show'); rEvents(); notify(t('eventpub'),'✅'); return; }
+    }catch(e){console.error('createEvent backend failed',e);}
+  }
+  // Local fallback
+  userEvents.push({id:'ue_'+Date.now(),title,emoji,date,loc,desc,tokens,price,status});
+  document.getElementById('mo-create-event').classList.remove('show');
+  rEvents(); notify(t('eventpub'),'✅');
+}
+
+// ============ P2P ============
+function p2pTab(tab){ p2pTabV=tab;
+  document.getElementById('p2p-buy-btn').classList.toggle('active',tab==='buy');
+  document.getElementById('p2p-sell-btn').classList.toggle('active',tab==='sell');
+  document.getElementById('p2p-pub-btn').classList.toggle('active',tab==='pub');
+  document.getElementById('p2p-buy').style.display=tab==='buy'?'block':'none';
+  document.getElementById('p2p-sell').style.display=tab==='sell'?'block':'none';
+  document.getElementById('p2p-pub').style.display=tab==='pub'?'block':'none';
+  if(tab==='pub')renderP2PPub();
+  else rP2P();
+}
+// ============ BACKEND P2P SYNC ============
+async function loadP2PFromBackend(){
+  try{
+    let res=await API.p2pListings();
+    if(res&&res.listings){
+      listings=res.listings.map(l=>({
+        id:l.id,toolId:l.tool_id,toolName:l.tool_name,toolIcon:l.tool_icon,toolColor:l.tool_color,
+        seller:l.seller_email,sellerRating:'5.0',price:l.price,qty:l.qty,dur:l.dur,sold:l.sold,created:new Date(l.created_at).getTime()
+      }));
+      saveLS('nexus_p2p_listings',listings);
+    }
+  }catch(e){console.error('loadP2PFromBackend failed',e);}
+}
+function rP2P(){
+  let ls=[...listings].filter(l=>l.qty>0);
+  let search=(document.getElementById('p2p-search')?.value||'').toLowerCase();
+  let toolF=(document.getElementById('p2p-tool')?.value||'all');
+  let sort=document.getElementById('p2p-sort')?.value||'price-low';
+  if(search) ls=ls.filter(l=>l.toolName.toLowerCase().includes(search)||l.seller.toLowerCase().includes(search));
+  if(toolF!=='all') ls=ls.filter(l=>l.toolId===toolF);
+  if(sort==='price-low') ls.sort((a,b)=>a.price-b.price);
+  else if(sort==='price-high') ls.sort((a,b)=>b.price-a.price);
+  else if(sort==='new') ls.sort((a,b)=>b.created-a.created);
+  // Populate tool filter
+  let tfs='<option value="all">All Tools</option>';
+  let seen=new Set(); initTools.forEach(t=>{if(!seen.has(t.id)){seen.add(t.id);tfs+=`<option value="${t.id}">${t.name}</option>`;}});
+  let sel=document.getElementById('p2p-tool'); if(sel)sel.innerHTML=tfs;
+  // Populate sell tool selector
+  let sellSel=document.getElementById('p2p-sell-tool'); if(sellSel){ sellSel.innerHTML=initTools.map(t=>`<option value="${t.id}">${t.name} ($${t.price}/MTok)</option>`).join('');}
+  // Render buy list
+  let h='';
+  ls.forEach(l=>{
+    h+=`<div class="lc" onclick="openListing('${l.id}')">
+      <div class="lct"><span class="ltk dyn-tr" data-orig="${escHtml(l.toolName)}">${escHtml(l.toolName)}</span><span class="lcd">$${l.price}</span></div>
+      <div class="lci"><span>${t('sell')}: ${l.seller}</span><span>${t('rating')}: ${l.sellerRating}</span><span>${t('sold2')}: ${l.sold}</span></div>
+      <div class="lcp">$${l.price} CNY <span style="font-size:.65rem;color:var(--t3);font-weight:400">| ${l.dur} ${t('days')}</span></div></div>`;
+  });
+  document.getElementById('p2p-buy-list').innerHTML=h||'<div style="text-align:center;padding:20px;color:var(--t3);grid-column:1/-1">No listings</div>';
+  // Render sell list (own)
+  if(curUser){
+    let own=ls.filter(l=>l.seller===curUser.email);
+    let sh='';
+    own.forEach(l=>{
+      sh+=`<div class="lc"><div class="lct"><span class="ltk">${l.toolName}</span><span class="lcd">$${l.price}</span></div>
+        <div style="font-size:.65rem;color:var(--t3)">Qty: ${l.qty} | ${l.dur} days | Sold: ${l.sold}</div>
+        <button class="btn bd2 bx" onclick="cancelListing('${l.id}')"> data-key="pub_cancel">Cancel</button></div>`;
+    });
+    document.getElementById('p2p-sell-list').innerHTML=sh||'<div style="text-align:center;padding:10px;color:var(--t3);grid-column:1/-1">No active listings</div>';
+  }
+}
+function openListing(id){
+  let l=listings.find(x=>x.id===id); if(!l)return;
+  curListing=l;
+  document.getElementById('listing-title').textContent=l.toolName+' - $'+l.price+' CNY';
+  document.getElementById('listing-seller').textContent='Seller: '+l.seller;
+  document.getElementById('listing-rating').textContent='Rating: '+l.sellerRating;
+  document.getElementById('listing-sold').textContent='Sold: '+l.sold;
+  document.getElementById('listing-price').textContent='$'+l.price+' CNY';
+  document.getElementById('mo-listing').classList.add('show');
+}
+async function buyListing(){
+  if(!curUser){oam('login');cma();return;}
+  if(!curListing)return;
+  if(curUser.bal<parseFloat(curListing.price)){notify(t('insufbal'),'&#x26A0;');cma();return;}
+  // Try backend API first
+  if(apiToken){
+    try{
+      let res=await API.p2pBuyListing(curListing.id);
+      if(res.ok){ curUser.bal=res.balance; syncBalanceFromBackend(); loadP2PFromBackend(); cma(); notify(t('bs'),'&#x2705;'); rAll(); return; }
+    }catch(e){console.error('buyListing backend failed, using local',e);}
+  }
+  // Local fallback
+  curUser.bal-=parseFloat(curListing.price);
+  let hk='TOOL_'+curListing.toolId; curUser.holds[hk]=(curUser.holds[hk]||0)+1;
+  curUser.txs.push({type:'buy',token:curListing.toolName,amt:parseFloat(curListing.price),time:new Date().toISOString()});
+  users[curUser._email]={...curUser,holds:{...curUser.holds},txs:[...curUser.txs],bal:curUser.bal};
+  let li=listings.find(x=>x.id===curListing.id); if(li){li.qty--;li.sold++;}
+  saveLS('nexus_users',users); saveLS('nexus_p2p_listings',listings); saveSession();
+  cma(); notify(t('bs'),'&#x2705;'); rAll();
+}
+async function p2pCreateListing(){
+  if(!curUser){oam('login');return;}
+  let toolId=document.getElementById('p2p-sell-tool').value;
+  let price=parseFloat(document.getElementById('p2p-sell-price').value)||0;
+  let qty=parseInt(document.getElementById('p2p-sell-qty').value)||1;
+  let dur=parseInt(document.getElementById('p2p-sell-dur').value)||30;
+  if(!price||price<=0){notify('Enter valid price','&#x26A0;');return;}
+  let tool=initTools.find(t=>t.id===toolId);
+  // Try backend API first
+  if(apiToken){
+    try{
+      let res=await API.p2pCreateListing(toolId,tool.name,tool.icon||'',tool.color||'',price,qty,dur);
+      if(res.listing){ loadP2PFromBackend(); notify(t('pln'),'&#x2705;'); rP2P(); return; }
+    }catch(e){console.error('p2pCreateListing backend failed, using local',e);}
+  }
+  // Local fallback
+  listings.push({id:'p2p_'+Date.now(),toolId,toolName:tool.name,toolIcon:tool.icon,toolColor:tool.color,seller:curUser.email,sellerRating:'5.0',price:price,qty,dur,sold:0,created:Date.now()});
+  saveLS('nexus_p2p_listings',listings);
+  notify(t('pln'),'&#x2705;'); rP2P();
+}
+async function cancelListing(id){
+  // Try backend API first
+  if(apiToken){
+    try{ await API.p2pDeleteListing(id); loadP2PFromBackend(); return; }catch(e){console.error('cancelListing backend failed, using local',e);}
+  }
+  // Local fallback
+  listings=listings.filter(l=>l.id!==id); saveLS('nexus_p2p_listings',listings); rP2P();
+}
+
+// ============ TRADE ============
+function tradeSide(s){ tradeSideV=s;
+  document.getElementById('trade-buy-btn').classList.toggle('active',s==='buy');
+  document.getElementById('trade-sell-btn').classList.toggle('active',s==='sell');
+  document.getElementById('trade-exec-btn').textContent=s==='buy'?t('tbuy2'):'Sell NEXUS';
+  rTrade();
+}
+function tradeType(){ tradeTypeV=document.querySelector('input[name="ttype"]:checked').value;
+  document.getElementById('trade-price').readOnly=(tradeTypeV==='market');
+}
+function setPct(pct){ if(!curUser)return; let bal=curUser.bal||0; let price=parseFloat(document.getElementById('trade-price').value)||0.4; let amt=Math.floor((bal*pct/100)/price); document.getElementById('trade-amount').value=amt; updTradeTotal(); }
+function updTradeTotal(){ let amt=parseFloat(document.getElementById('trade-amount').value)||0; let price=parseFloat(document.getElementById('trade-price').value)||0; document.getElementById('trade-total').textContent=(amt*price).toFixed(2)+' CNY'; }
+function rTrade(){
+  if(curUser) document.getElementById('trade-bal').textContent=curUser.bal.toFixed(2)+' CNY';
+  document.getElementById('trade-exec-btn').textContent=tradeSideV==='buy'?t('tbuy2'):'Sell NEXUS';
+  rOrderBook(); rTradeHistory(); drTradeChart();
+}
+function rOrderBook(){
+  let bids=[], asks=[];
+  let base=0.42;
+  for(let i=0;i<10;i++){bids.push({p:(base-(i+1)*0.003).toFixed(4),a:Math.floor(Math.random()*8000+2000)});asks.push({p:(base+(i+1)*0.003).toFixed(4),a:Math.floor(Math.random()*7000+1000)});}
+  let h='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;font-size:.68rem;font-family:var(--fm)"><div style="color:var(--t3);padding:3px">Price</div><div style="color:var(--t3);text-align:right;padding:3px">Amt</div><div style="color:var(--t3);text-align:right;padding:3px">Total</div>';
+  asks.reverse().forEach(a=>h+=`<div style="color:var(--ar)">${a.p}</div><div style="text-align:right">${a.a}</div><div style="text-align:right;color:var(--t3)">${(a.p*a.a).toFixed(0)}</div>`);
+  h+=`<div style="color:var(--ag);font-weight:700;padding:4px 0;grid-column:1/-1;text-align:center;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)">$${base.toFixed(4)}</div>`;
+  bids.forEach(b=>h+=`<div style="color:var(--ag)">${b.p}</div><div style="text-align:right">${b.a}</div><div style="text-align:right;color:var(--t3)">${(b.p*b.a).toFixed(0)}</div>`);
+  h+='</div>';
+  document.getElementById('orderbook').innerHTML=h;
+}
+function rTradeHistory(){
+  let txs=[]; for(let i=0;i<12;i++){let p=(0.42+(Math.random()-0.5)*0.02).toFixed(4);let a=Math.floor(Math.random()*500+100);txs.push({p,a,up:Math.random()>0.5,time:new Date(Date.now()-i*300000).toLocaleTimeString()});}
+  let h='';
+  txs.forEach(tx=>h+=`<div class="or"><span style="font-size:.65rem;color:var(--t3)">${tx.time}</span><span class="${tx.up?'ob':'oa'}">$${tx.p}</span><span>${tx.a}</span></div>`);
+  document.getElementById('trade-history').innerHTML=h;
+}
+function drTradeChart(){
+  setTimeout(()=>{
+    let canvas=document.getElementById('tradeChart'); if(!canvas)return;
+    let ctx=canvas.getContext('2d'); let W=canvas.parentElement.clientWidth-36; canvas.width=W; canvas.height=280;
+    let pts=[]; let v=0.42; for(let i=0;i<100;i++){v+=(Math.random()-0.48)*0.015;v=Math.max(0.15,v);pts.push(v);}
+    let pad={t:20,r:15,b:35,l:50}; let pw=W-pad.l-pad.r, ph=280-pad.t-pad.b;
+    let min=Math.min(...pts)*0.98, max=Math.max(...pts)*1.02, rng=max-min;
+    ctx.clearRect(0,0,W,280);
+    ctx.strokeStyle='rgba(139,92,246,0.06)'; ctx.lineWidth=1;
+    for(let i=0;i<5;i++){let y=pad.t+(ph/4)*i;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();}
+    let grad=ctx.createLinearGradient(0,pad.t,0,pad.t+ph);grad.addColorStop(0,'rgba(139,92,246,0.35)');grad.addColorStop(1,'rgba(139,92,246,0.02)');
+    ctx.beginPath();ctx.moveTo(pad.l,pad.t+ph-((pts[0]-min)/rng)*ph);
+    for(let i=1;i<pts.length;i++){let x=pad.l+(i/(pts.length-1))*pw;let y=pad.t+ph-((pts[i]-min)/rng)*ph;ctx.lineTo(x,y);}
+    ctx.lineTo(pad.l+(pts.length-1)/(pts.length-1)*pw,pad.t+ph);ctx.lineTo(pad.l,pad.t+ph);ctx.closePath();ctx.fillStyle=grad;ctx.fill();
+    ctx.beginPath();ctx.moveTo(pad.l,pad.t+ph-((pts[0]-min)/rng)*ph);ctx.strokeStyle='#8b5cf6';ctx.lineWidth=2;
+    for(let i=1;i<pts.length;i++){let x=pad.l+(i/(pts.length-1))*pw;let y=pad.t+ph-((pts[i]-min)/rng)*ph;ctx.lineTo(x,y);}
+    ctx.stroke();
+    ctx.fillStyle='#6a6a82';ctx.font='9px monospace';
+    for(let i=0;i<5;i++){let vv=min+(rng/4)*(4-i);ctx.fillText('$'+vv.toFixed(4),2,pad.t+(ph/4)*i+4);}
+  },100);
+}
+async function execTrade(){
+  if(!curUser){oam('login');return;}
+  confirmDialog(tradeSideV==='buy'?'Confirm Buy':'Confirm Sell','Execute trade?',async ()=>{
+    let price=parseFloat(document.getElementById('trade-price').value)||0.42;
+    let amt=parseInt(document.getElementById('trade-amount').value)||0;
+    if(amt<=0){notify('Enter valid amount','&#x26A0;');return;}
+    try{
+      if(tradeSideV==='buy'){
+        let res=await API.buy(curUser._email,amt,price);
+        curUser.bal=res.balance_cny; curUser.holds=curUser.holds||{}; curUser.holds['NEXUS']=res.balance_nexus;
+        curUser.txs.push({type:'buy',token:'NEXUS',amt:res.total_cny,time:new Date().toISOString()});
+      }else{
+        let res=await API.sell(curUser._email,amt,price);
+        curUser.bal=res.balance_cny; curUser.holds=curUser.holds||{}; curUser.holds['NEXUS']=res.balance_nexus;
+        curUser.txs.push({type:'sell',token:'NEXUS',amt:res.total_cny,time:new Date().toISOString()});
+      }
+      users[curUser._email]={...curUser,holds:{...curUser.holds},txs:[...curUser.txs],bal:curUser.bal};
+      saveLS('nexus_users',users); saveSession();
+      notify(tradeSideV==='buy'?t('bs'):t('ss'),'&#x2705;'); rAll();
+    }catch(err){notify('Trade failed: '+err.message,'&#x26A0;');}
+  });
+}
+function tradeTF(tf,ev){ tradeTFVal=tf;
+  document.querySelectorAll('#page-trade .ttab').forEach(b=>b.classList.remove('active'));
+  (ev||event).target.classList.add('active'); drTradeChart();
+}
+
+// ============ EVENTS ============
+function rEvents(){
+  let h='';
+  let allEvents=[...initEvents,...userEvents];
+  allEvents.forEach(ev=>{
+    let st=ev.status==='live'?'tlive':(ev.status==='upcoming'?'tv':'tsb');
+    h+=`<div class="ec"><div class="eci" style="background:linear-gradient(135deg,var(--bgch),var(--bg2))"><span class="et ${st}">${t('ev_'+ev.status)}</span><span class="ee">${ev.emoji}</span></div>
+      <div class="ecb"><h3><span class="dyn-tr" data-orig="${escHtml(ev.title)}">${escHtml(ev.title)}</span></h3><div class="ei"><span>&#x1F4C5; ${ev.date}</span><span>&#x1F4CD; <span class="dyn-tr" data-orig="${escHtml(ev.loc)}">${escHtml(ev.loc)}</span></span><span>&#x1F465; ${ev.attendees.toLocaleString()}</span></div>
+      <p style="font-size:.68rem;color:var(--t2);margin-bottom:6px"><span class="dyn-tr" data-orig="${escHtml(ev.desc)}">${escHtml(ev.desc)}</span></p>
+      <div class="etp"><span>${ev.tokens.toLocaleString()} ${t('tokens')}</span><span style="font-weight:800;color:var(--ap)">${ev.price}</span></div></div></div>`;
+  });
+  document.getElementById('events-grid').innerHTML=h;
+}
+
+// ============ PAYMENT ============
+let paymentMode='deposit'; let pendingOrderId=null;
+function startDeposit(){
+  if(!curUser){oam('login');return;}
+  paymentMode='deposit';
+  document.getElementById('payment-title').textContent='Deposit CNY';
+  document.getElementById('payment-btn').textContent='Confirm Deposit';
+  document.getElementById('payment-info').textContent='Enter amount to top up your balance. Test mode: instant credit.';
+  document.getElementById('payment-amount').value='100';
+  document.getElementById('mo-payment').classList.add('show');
+}
+function startWithdraw(){
+  if(!curUser){oam('login');return;}
+  paymentMode='withdraw';
+  document.getElementById('payment-title').textContent='Withdraw CNY';
+  document.getElementById('payment-btn').textContent='Confirm Withdraw';
+  document.getElementById('payment-info').textContent='Available: '+curUser.bal.toFixed(2)+' CNY. Withdrawal is processed instantly.';
+  document.getElementById('payment-amount').value='';
+  document.getElementById('mo-payment').classList.add('show');
+}
+async function execPayment(){
+  let amt=parseFloat(document.getElementById('payment-amount').value)||0;
+  if(amt<=0){notify('Enter valid amount','&#x26A0;');return;}
+  try{
+    if(paymentMode==='deposit'){
+      let res=await API.deposit(curUser._email,amt);
+      if(res.testMode){
+        // Auto-confirm in test mode
+        let cres=await API.depositConfirm(res.orderId);
+        curUser.bal=cres.balance;
+        notify('Deposited '+amt+' CNY! New balance: '+cres.balance.toFixed(2)+' CNY','&#x2705;');
+      }else if(res.url){
+        window.open(res.url,'_blank');
+        notify('Redirecting to payment page...','&#x1F4B3;');
+      }
+    }else{
+      let res=await API.withdraw(curUser._email,amt);
+      curUser.bal=res.balance;
+      notify('Withdrawn '+amt+' CNY! New balance: '+res.balance.toFixed(2)+' CNY','&#x2705;');
+    }
+    users[curUser._email].bal=curUser.bal;
+    saveLS('nexus_users',users); saveSession();
+    cma(); rAll();
+  }catch(err){notify('Payment failed: '+err.message,'&#x26A0;');}
+}
+
+// ============ DASHBOARD ============
+function rDashboard(){
+  if(!curUser){
+    document.getElementById('dash-assets').innerHTML='<div style="padding:20px;text-align:center;color:var(--t3)">Please login</div>';
+    document.getElementById('dash-holdings').innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--t3)">--</td></tr>';
+    document.getElementById('dash-tx').innerHTML='<div style="padding:20px;text-align:center;color:var(--t3)">--</div>';
+    return;
+  }
+  let totalVal=curUser.bal;
+  if(curUser.holds) for(let k in curUser.holds){
+    if(k==='NEXUS') totalVal+=curUser.holds[k]*0.42;
+    else totalVal+=curUser.holds[k]*10;
+  }
+  document.getElementById('dash-assets').innerHTML=`
+    <div class="ac"><div class="al">Total Value</div><div class="av">$${totalVal.toFixed(2)}</div><div class="as">USD</div></div>
+    <div class="ac"><div class="al">Balance</div><div class="av">$${curUser.bal.toFixed(2)}</div><div class="as">CNY</div></div>
+    <div class="ac"><div class="al">KYC Level</div><div class="av">${curUser.kyc||'Bronze'}</div><div class="as">Verification</div></div>`;
+  // Holdings table
+  let hh='';
+  if(curUser.holds) for(let k in curUser.holds){
+    let val=k==='NEXUS'?curUser.holds[k]*0.42:curUser.holds[k]*10;
+    let pnl=((Math.random()-0.3)*20).toFixed(1);
+    hh+=`<tr><td>${k}</td><td>${curUser.holds[k]}</td><td>$${val.toFixed(2)}</td><td style="color:${parseFloat(pnl)>=0?'var(--ag)':'var(--ar)'}">${pnl}%</td></tr>`;
+  }
+  document.getElementById('dash-holdings').innerHTML=hh||'<tr><td colspan="4" style="text-align:center;color:var(--t3)">No holdings</td></tr>';
+  // TX history
+  let th='';
+  let txs=[...(curUser.txs||[])].reverse().slice(0,15);
+  txs.forEach(tx=>{
+    let c=tx.type==='buy'||tx.type==='deposit'?'ob':'oa';
+    let label=tx.type==='deposit'?'Deposit':tx.type==='withdraw'?'Withdraw':tx.type==='buy'?'Buy':tx.type==='sell'?'Sell':tx.type;
+    th+=`<div class="or"><span>${label}</span><span>${tx.token||''}</span><span class="${c}">$${tx.amt}</span><span style="font-size:.63rem;color:var(--t3)">${new Date(tx.time).toLocaleDateString()}</span></div>`;
+  });
+  document.getElementById('dash-tx').innerHTML=th||'<div style="padding:15px;text-align:center;color:var(--t3)">No transactions</div>';
+  // KYC
+  document.getElementById('kyc-level').textContent=curUser.kyc||'Bronze';
+  document.getElementById('kyc-level').style.background=(curUser.kyc==='Platinum'?'rgba(139,92,246,.2)':curUser.kyc==='Gold'?'rgba(245,158,11,.15)':curUser.kyc==='Silver'?'rgba(59,130,246,.12)':'rgba(16,185,129,.08)');
+  document.getElementById('kyc-level').style.color=(curUser.kyc==='Platinum'?'var(--ap)':curUser.kyc==='Gold'?'var(--ao)':curUser.kyc==='Silver'?'var(--ab)':'var(--ag)');
+  // Wallet
+  document.getElementById('wallet-addr').value=curUser.wallet||'';
+  // Payment balance
+  document.getElementById('pay-balance').textContent=curUser.bal.toFixed(2)+' CNY';
+}
+
+// ============ SOCIAL FUNCTIONS ============
+var socialFriend = null;
+// Message translation cache
+var _msgTexts = {};      // msg id -> original text
+var _msgTransCache = {}; // text|lang -> translated text
+function escHtml(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+// Translate common API error messages
+function errMsg(e){return e.message==='Authentication required'?t('sonoauth'):e.message==='Invalid or expired token'?t('sotokenexpired'):e.message;}
+
+function rSocial(){
+  applyI18N();
+  if(!curUser){ document.getElementById('social-friends').innerHTML='<div class="nemp">'+t('sologin')+'</div>'; document.getElementById('social-requests').innerHTML='<div class="nemp">—</div>'; return; }
+  loadFriends();
+  loadFriendRequests();
+}
+
+async function loadFriends(){
+  var div = document.getElementById('social-friends');
+  if(!curUser){ div.innerHTML='<div class="nemp">'+t('sologin')+'</div>'; return; }
+  try {
+    if(typeof waitForRecovery==='function') await waitForRecovery();
+    var data = await apiGetFriends();
+    var friends = data.friends || [];
+    if(friends.length===0){ div.innerHTML='<div class="nemp" data-key="sonofriends">'+t('sonofriends')+'</div>'; return; }
+    var h = '';
+    for(var i=0;i<friends.length;i++){
+      var f = friends[i];
+      var isOther = f.email;
+      var name = (users[isOther]&&users[isOther].name) || isOther.split('@')[0];
+      var sel = socialFriend===isOther ? 'style="background:rgba(139,92,246,.15);border-color:var(--ap)"' : '';
+      h+='<div class="ni2" onclick="selectFriend(\''+isOther+'\')" '+sel+'>'+escHtml(name)+' <span style="font-size:.62rem;color:var(--t3)">'+escHtml(isOther)+'</span></div>';
+    }
+    div.innerHTML = h;
+  } catch(e){ console.error('loadFriends error:', e.message, 'apiToken:', !!apiToken); div.innerHTML='<div class="nemp" data-key="sotokenexpired">'+escHtml(errMsg(e))+'</div>'; }
+}
+
+async function loadFriendRequests(){
+  var div = document.getElementById('social-requests');
+  if(!curUser){ div.innerHTML='<div class="nemp">—</div>'; return; }
+  try {
+    var data = await apiGetFriendRequests();
+    var reqs = data.requests || [];
+    if(reqs.length===0){ div.innerHTML='<div class="nemp">—</div>'; return; }
+    var h = '';
+    for(var i=0;i<reqs.length;i++){
+      var r = reqs[i];
+      var name = (users[r.from_email]&&users[r.from_email].name) || r.from_email.split('@')[0];
+      h+='<div class="ni2" style="display:flex;justify-content:space-between;align-items:center"><span>'+escHtml(name)+' <span style="font-size:.62rem;color:var(--t3)">'+escHtml(r.from_email)+'</span></span><span style="display:flex;gap:4px"><button class="btn bs bs2" onclick="acceptReq(\''+r.id+'\')" data-key="soaccept">'+t('soaccept')+'</button><button class="btn bs bd2" onclick="rejectReq(\''+r.id+'\')" data-key="soreject">'+t('soreject')+'</button></span></div>';
+    }
+    div.innerHTML = h;
+  } catch(e){ div.innerHTML='<div class="nemp">—</div>'; }
+}
+
+async function searchUser(){
+  var q = document.getElementById('social-search').value.trim();
+  if(!q){ notify('Enter an email','⚠'); return; }
+  if(!curUser){ notify(t('sologin'),'⚠'); return; }
+  var resDiv = document.getElementById('social-search-result');
+  resDiv.style.display='block'; resDiv.innerHTML='<div style="padding:8px;color:var(--t3);font-size:.75rem" data-key="sosearching">'+t('sosearching')+'</div>';
+  try {
+    var data = await apiSearchUser(q);
+    if(!data || !data.user){ resDiv.innerHTML='<div style="padding:10px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;text-align:center;color:#ef4444;font-size:.78rem">User not found</div>'; return; }
+    var u = data.user;
+    var name = u.name || u.email.split('@')[0];
+    if(u.email===curUser.email){ resDiv.innerHTML='<div style="padding:10px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;text-align:center;color:#ef4444;font-size:.78rem" data-key="soself">'+t('soself')+'</div>'; return; }
+    if(data.isFriend){ resDiv.innerHTML='<div style="padding:10px;background:rgba(234,179,8,.1);border:1px solid rgba(234,179,8,.3);border-radius:8px;text-align:center;color:#eab308;font-size:.78rem">'+escHtml(name)+' is already your friend</div>'; return; }
+    if(data.pendingRequest){ resDiv.innerHTML='<div style="padding:10px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:8px;text-align:center;color:#8b5cf6;font-size:.78rem" data-key="sopending">'+t('sopending')+'</div>'; return; }
+    var h = '<div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg);border:1px solid var(--ap);border-radius:10px"><div style="width:40px;height:40px;border-radius:50%;background:var(--g1);display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:#fff;flex-shrink:0">'+escHtml(name[0].toUpperCase())+'</div><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:.85rem">'+escHtml(name)+'</div><div style="font-size:.65rem;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+escHtml(u.email)+'</div>'+(u.bio?'<div style="font-size:.68rem;color:var(--t2);margin-top:2px;white-space:pre-wrap;max-height:40px;overflow:hidden">'+escHtml(u.bio)+'</div>':'')+'</div><button class="btn bs bg" onclick="addSearchedUser(\''+u.email+'\')" data-key="soadd2" style="flex-shrink:0">'+t('soadd2')+'</button></div>';
+    resDiv.innerHTML = h;
+  } catch(e){ resDiv.innerHTML='<div style="padding:10px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;text-align:center;color:#ef4444;font-size:.78rem" data-key="sotokenexpired">'+escHtml(errMsg(e))+'</div>'; }
+}
+async function addSearchedUser(email){
+  try {
+    await apiSendFriendRequest(email);
+    document.getElementById('social-search-result').style.display='none';
+    notify(t('soreqsent'),'✅');
+    loadFriendRequests();
+  } catch(e){ notify(errMsg(e),'❌'); }
+}
+
+async function acceptReq(reqId){
+  try { await apiAcceptFriendRequest(reqId); loadFriends(); loadFriendRequests(); notify(t('soadded'),'✅'); } catch(e){ notify(errMsg(e),'❌'); }
+}
+
+async function rejectReq(reqId){
+  try { await apiRejectFriendRequest(reqId); loadFriendRequests(); } catch(e){ notify(errMsg(e),'❌'); }
+}
+
+function selectFriend(email){
+  socialFriend = email;
+  var name = (users[email]&&users[email].name) || email.split('@')[0];
+  document.getElementById('social-chat-title').innerHTML = '💬 '+escHtml(name);
+  loadFriends(); // re-render to highlight
+  loadMessages();
+}
+
+async function loadMessages(){
+  var div = document.getElementById('social-chat-msgs');
+  if(!socialFriend || !curUser){ div.innerHTML='<div class="nemp" data-key="sonomsg">'+t('sonomsg')+'</div>'; _msgTexts={}; return; }
+  try {
+    var data = await apiFetch('/api/messages/'+encodeURIComponent(socialFriend));
+    var msgs = data.messages || [];
+    if(msgs.length===0){ div.innerHTML='<div style="text-align:center;color:var(--t3);padding:20px">No messages yet</div>'; _msgTexts={}; return; }
+    var h = '';
+    for(var i=0;i<msgs.length;i++){
+      var m = msgs[i];
+      _msgTexts[m.id] = m.text;
+      var isMe = m.from_email===curUser._email;
+      var align = isMe ? 'flex-end' : 'flex-start';
+      var bg = isMe ? 'var(--ap)' : 'var(--bg2)';
+      var txtColor = isMe ? '#fff' : 'var(--t1)';
+      var cacheKey = m.text + '|' + curLang;
+      var displayText = _msgTransCache[cacheKey] || escHtml(m.text);
+      h+='<div style="display:flex;flex-direction:column;align-items:'+align+';margin-bottom:6px"><div class="mb" data-mid="'+m.id+'" style="max-width:75%;padding:6px 10px;border-radius:12px;background:'+bg+';color:'+txtColor+';font-size:.73rem;word-break:break-word">'+displayText+'</div><span style="font-size:.58rem;color:var(--t3);margin-top:1px">'+m.created_at+'</span></div>';
+    }
+    div.innerHTML = h;
+    div.scrollTop = div.scrollHeight;
+    translateChatMsgs();
+  } catch(e){ div.innerHTML='<div class="nemp">Error loading messages</div>'; }
+}
+
+async function sendSocialMsg(){
+  var inp = document.getElementById('social-msg-input');
+  var text = inp.value.trim();
+  if(!text || !socialFriend || !curUser) return;
+  try {
+    await apiSendMessage(socialFriend, text);
+    inp.value = '';
+    loadMessages();
+  } catch(e){ notify('Error: '+e.message,'❌'); }
+}
+
+async function translateChatMsgs(){
+  for(var id in _msgTexts){
+    var text = _msgTexts[id];
+    var cacheKey = text + '|' + curLang;
+    if(_msgTransCache[cacheKey]){
+      var el0 = document.querySelector('.mb[data-mid="'+id+'"]');
+      if(el0 && el0.textContent !== _msgTransCache[cacheKey]) el0.textContent = _msgTransCache[cacheKey];
+      continue;
+    }
+    try {
+      var res = await fetch('/api/translate',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({text:text, target:curLang})
+      });
+      var d = await res.json();
+      var translated = d.translated || text;
+      _msgTransCache[cacheKey] = translated;
+      var el = document.querySelector('.mb[data-mid="'+id+'"]');
+      if(el) el.textContent = translated;
+    } catch(e){ /* ignore translate error */ }
+  }
+}
+
+// Clear translation cache on language switch
+async function retranslateMsgs(){
+  _msgTransCache = {};
+  if(curPage==='social' && socialFriend && curUser){ loadMessages(); }
+}
+
+// Poll for new messages when chat is open
+setInterval(function(){
+  if(curPage==='social' && socialFriend && curUser) loadMessages();
+}, 3000);
+
+// ============ DYNAMIC CONTENT TRANSLATION ============
+async function translateCommunityContent(){
+  if(curLang==='zh') return;
+  var els=document.querySelectorAll('.dyn-tr');
+  var tasks=[];
+  els.forEach(function(el){
+    var orig=el.getAttribute('data-orig');
+    if(!orig) return;
+    tasks.push(
+      translateText(orig,curLang).then(function(tr){
+        if(tr&&tr!==orig) el.textContent=tr;
+      })
+    );
+  });
+  await Promise.all(tasks);
+}
+
+// ============ PARTICLES ============
+function initParticles(){
+  let c=document.getElementById('pcs'); let frag=document.createDocumentFragment();
+  for(let i=0;i<30;i++){let d=document.createElement('div');d.className='pc';let s=2+Math.random()*4;d.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;background:${['#8b5cf6','#3b82f6','#ec4899','#06b6d4'][i%4]};animation-duration:${8+Math.random()*18}s;animation-delay:${Math.random()*10}s;box-shadow:0 0 ${s*3}px currentColor`;frag.appendChild(d);}
+  c.appendChild(frag);
+}
+
+// ============ TOGGLES ============
+function togLm(){document.getElementById('lm').classList.toggle('show');}
+function togUm(){document.getElementById('um').classList.toggle('show');}
+
+// ============ MEMBER & INVITE SYSTEM ============
+// Inline SVG badges for member levels (gradient-rendered for cross-platform consistency)
+const BADGE_SVG={
+  jade:'<svg viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-0.15em" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="bj" cx="35%" cy="30%"><stop offset="0%" stop-color="#a7f3d0"/><stop offset="55%" stop-color="#10b981"/><stop offset="100%" stop-color="#065f46"/></radialGradient></defs><ellipse cx="12" cy="12" rx="8" ry="6" fill="url(#bj)" stroke="#047857" stroke-width="0.5"/><ellipse cx="9" cy="9" rx="2.8" ry="1.6" fill="#d1fae5" opacity="0.7"/><ellipse cx="14.5" cy="14" rx="1.2" ry="0.7" fill="#d1fae5" opacity="0.4"/></svg>',
+  gem:'<svg viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-0.15em" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fca5a5"/><stop offset="50%" stop-color="#dc2626"/><stop offset="100%" stop-color="#7f1d1d"/></linearGradient></defs><polygon points="12,2 21,9 18,21 6,21 3,9" fill="url(#bg)" stroke="#991b1b" stroke-width="0.5"/><polygon points="12,2 9,9 15,9" fill="#fecaca" opacity="0.75"/><polygon points="3,9 9,9 6,21" fill="#7f1d1d" opacity="0.55"/><polygon points="21,9 15,9 18,21" fill="#991b1b" opacity="0.65"/><line x1="9" y1="9" x2="15" y2="9" stroke="#fee2e2" stroke-width="0.4" opacity="0.8"/></svg>',
+  diamond:'<svg viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-0.15em" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bd" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e0f2fe"/><stop offset="40%" stop-color="#7dd3fc"/><stop offset="100%" stop-color="#0369a1"/></linearGradient></defs><polygon points="3,9 8,3 16,3 21,9 12,22" fill="url(#bd)" stroke="#0c4a6e" stroke-width="0.5"/><polygon points="3,9 8,3 12,9" fill="#bae6fd" opacity="0.85"/><polygon points="21,9 16,3 12,9" fill="#7dd3fc" opacity="0.65"/><polygon points="8,3 16,3 12,9" fill="#e0f2fe" opacity="0.95"/><line x1="3" y1="9" x2="21" y2="9" stroke="#0c4a6e" stroke-width="0.3" opacity="0.6"/><line x1="12" y1="9" x2="12" y2="22" stroke="#0c4a6e" stroke-width="0.3" opacity="0.5"/></svg>'
+};
+const MEMBER_LEVELS=[
+  {key:'normal',  name:{zh:'普通会员',en:'Normal',ja:'一般会員',ko:'일반 회원',es:'Miembro Normal',de:'Normal Mitglied',fr:'Membre Normal',pt:'Membro Normal',ru:'Обычный участник',ar:'عضو عادي',hi:'सामान्य सदस्य',th:'สมาชิกทั่วไป',vi:'Hội Viên Thường',id:'Anggota Biasa',it:'Membro Normale'},threshold:0,returnMul:1.0,icon:'✨'},
+  {key:'mineral', name:{zh:'初级矿石',en:'Mineral',ja:'初級鉱石',ko:'초급 광석',es:'Mineral Inicial',de:'Anfänger-Mineral',fr:'Minéral Débutant',pt:'Minério Inicial',ru:'Начальная руда',ar:'معدن مبتدئ',hi:'प्रारंभिक खनिज',th:'แร่เริ่มต้น',vi:'Khoáng Sơ Cấp',id:'Mineral Pemula',it:'Minerale Iniziale'},threshold:3000,returnMul:1.2,icon:'⛏️'},
+  {key:'jade', name:{zh:'中级玉石',en:'Jade',ja:'中級玉石',ko:'중급 옥석',es:'Jade Intermedio',de:'Mittelstufe-Jade',fr:'Jade Intermédiaire',pt:'Jade Intermediário',ru:'Средний нефрит',ar:'يشم متوسط',hi:'मध्यम जेड',th:'หยกระดับกลาง',vi:'Ngọc Trung Cấp',id:'Giok Menengah',it:'Giada Intermedia'},threshold:10000,returnMul:1.5,icon:BADGE_SVG.jade},
+  {key:'gem', name:{zh:'高级宝石',en:'Gem',ja:'高級宝石',ko:'고급 보석',es:'Gema Avanzada',de:'Fortgeschritten-Edelstein',fr:'Gemme Avancée',pt:'Gema Avançada',ru:'Продвинутый самоцвет',ar:'جوهرة متقدمة',hi:'उन्नत रत्न',th:'อัญมณีขั้นสูง',vi:'Đá Quý Cao Cấp',id:'Permata Lanjut',it:'Gemma Avanzata'},threshold:20000,returnMul:1.8,icon:BADGE_SVG.gem},
+  {key:'diamond', name:{zh:'顶级钻石',en:'Diamond',ja:'ダイヤモンド',ko:'최고급 다이아몬드',es:'Diamante Supremo',de:'Top-Diamant',fr:'Diamant Suprême',pt:'Diamante Supremo',ru:'Высший бриллиант',ar:'ألماس ممتاز',hi:'शीर्ष हीरा',th:'เพชรชั้นสูง',vi:'Kim Cương Đỉnh Cao',id:'Berlian Tertinggi',it:'Diamante Supremo'},threshold:50000,returnMul:2.0,icon:BADGE_SVG.diamond}
+];
+const PLATFORM_POOL_ADDR='TXyZ1234567890abcdefghijklmnopqrstuvwxUSDT_TRC20';
+function getInviteData(){
+  var d={};
+  try{d=JSON.parse(localStorage.getItem('invite_data')||'{}');}catch(e){}
+  return Object.assign({total:0,pending:0,count:0,code:''},d);
+}
+function saveInviteData(d){try{localStorage.setItem('invite_data',JSON.stringify(d));}catch(e){}}
+function genInviteCode(){
+  var c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  var r='';for(var i=0;i<6;i++)r+=c[Math.floor(Math.random()*c.length)];
+  return r;
+}
+function initInvite(){
+  var d=getInviteData();
+  if(!d.code){d.code=genInviteCode();saveInviteData(d);}
+}
+function _memberLevelLabel(l,lang){
+  lang=lang||'zh';
+  return (l.name[lang])||(l.name.zh)||(l.name.en)||l.key;
+}
+function _memberBtnLabel(idx,lang){
+  lang=lang||'zh';
+  var l=MEMBER_LEVELS[idx];
+  if(typeof curUser!=='undefined'&&curUser&&curUser.memberLevel===l.key){
+    return lang==='zh'?'当前等级':(lang==='ja'?'現在のレベル':'Current');
+  }
+  return lang==='zh'?'立即购买':(lang==='ja'?'購入':'Buy');
+}
+function renderMemberPage(){
+  if(typeof initInvite==='function')try{initInvite();}catch(e){}
+  var d=typeof getInviteData==='function'?getInviteData():{};
+  var lang=(typeof curLang!=='undefined'&&curLang)?curLang:'zh';
+  var recharged=(typeof curUser!=='undefined'&&curUser)?(curUser.recharged||0):0;
+  var lvIdx=_computeLevel(recharged);
+  var lv=MEMBER_LEVELS[lvIdx];
+  var nextLv=lvIdx+1<MEMBER_LEVELS.length?MEMBER_LEVELS[lvIdx+1]:null;
+
+  // Total member count (use invite_data for demo)
+  var totalMembers=1+((d.inviteCount||0)*3)+1287;
+  var tmc=document.getElementById('m-total-count');
+  if(tmc)tmc.textContent=totalMembers.toLocaleString();
+
+  // Current badge
+  var ic={
+    normal:'\u2728',
+    mineral:'\u26CF\uFE0F',
+    jade: BADGE_SVG.jade,
+    gem: BADGE_SVG.gem,
+    diamond: BADGE_SVG.diamond
+  };
+  var cb=document.getElementById('m-current-badge');
+  if(cb)cb.innerHTML=ic[lv.key]||'\u2728';
+  var cn=document.getElementById('m-current-name');
+  if(cn)cn.textContent=_fmtLang(lv.name,lang);
+
+  // Recharge progress
+  var rt=document.getElementById('m-recharge-total');
+  if(rt)rt.textContent=recharged.toFixed(2);
+  var fill=document.getElementById('m-progress-fill');
+  var hint=document.getElementById('m-next-hint');
+  if(nextLv){
+    var pct=Math.min(100,(recharged/lv.threshold)*100);
+    if(lvIdx===0&&recharged===0)pct=0;
+    if(fill)fill.style.width=pct.toFixed(1)+'%';
+    var need=Math.max(0,nextLv.threshold-recharged);
+    if(hint)hint.textContent=lang==='zh'?'距离 '+_fmtLang(nextLv.name,lang)+' 还需 '+need.toFixed(2)+' CNY':('Need '+need.toFixed(2)+' CNY for '+_fmtLang(nextLv.name,lang));
+  } else {
+    if(fill)fill.style.width='100%';
+    if(hint)hint.textContent=lang==='zh'?'已达最高等级':'Top tier reached';
+  }
+
+  // Wallet/Energy quick display
+  var w=_memberWallet();
+  var wbal=document.getElementById('m-wallet-bal');
+  if(wbal)wbal.textContent=(w.balance||0).toFixed(2)+' CNY';
+  var ebal=document.getElementById('m-energy-bal');
+  if(ebal)ebal.textContent=(w.energy||0).toFixed(0)+' Token';
+
+  // Render level cards
+  var wrap=document.getElementById('member-levels');
+  if(wrap){
+    var lh='';
+    for(var i=0;i<MEMBER_LEVELS.length;i++){
+      var l=MEMBER_LEVELS[i];
+      var isCurrent=(i===lvIdx);
+      var isReached=(i<=lvIdx);
+      var bg=isCurrent?'background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(236,72,153,.15));border:2px solid var(--ap)':(isReached?'background:var(--bg);border:1px solid var(--bd)':'background:var(--bgc);border:1px solid var(--bd);opacity:.55');
+      lh+='<div style="'+bg+';border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer" onclick="showLevelDetail('+i+')">';
+      lh+='<div style="font-size:1.4rem;margin-bottom:4px">'+(ic[l.key]||'\u2728')+'</div>';
+      lh+='<div style="font-size:.7rem;font-weight:700;margin-bottom:2px;color:var(--t1)">'+_fmtLang(l.name,lang)+'</div>';
+      lh+='<div style="font-size:.6rem;color:var(--t3);font-family:var(--fm)">\u2265 '+l.threshold.toLocaleString()+'</div>';
+      lh+='<div style="font-size:.6rem;color:var(--ag);margin-top:2px">\u00D7'+l.returnMul.toFixed(1)+'</div>';
+      lh+='</div>';
+    }
+    wrap.innerHTML=lh;
+  }
+
+  // Render invite UI
+  var it=document.getElementById('invite-total');
+  if(it)it.textContent=(d.totalReward||0).toFixed(2);
+  var ip=document.getElementById('invite-pending');
+  if(ip)ip.textContent=(d.pendingReward||0).toFixed(2);
+  var ic2=document.getElementById('invite-count');
+  if(ic2)ic2.textContent=(d.inviteCount||0);
+  var icode=document.getElementById('invite-code');
+  if(icode&&d.inviteCode)icode.textContent=d.inviteCode;
+  var ilink=document.getElementById('invite-link');
+  if(ilink&&d.inviteCode){
+    var base=location.origin||location.protocol+'//'+location.host;
+    ilink.value=base+'/r/'+d.inviteCode;
+  }
+  try{if(typeof applyI18n==='function')applyI18n(document.getElementById('page-member'));}catch(e){}
+  try{if(typeof updateUserBadge==='function')updateUserBadge();}catch(e){}
+}
+function buyMember(idx){
+  if(typeof curUser==='undefined'||!curUser){oam('login');return;}
+  var l=MEMBER_LEVELS[idx];
+  var lang=(typeof curLang!=='undefined'&&curLang)?curLang:'zh';
+  document.getElementById('member-buy-title').textContent=_memberLevelLabel(l,lang);
+  document.getElementById('member-buy-info').textContent=(Math.round(l.discount*10))+'折 \u00B7 '+(l.price*l.discount).toFixed(2)+' CNY / '+l.token+' Token';
+  document.getElementById('member-buy-idx').value=idx;
+  document.getElementById('mo-member-buy').classList.add('show');
+  try{if(typeof updateI18n==='function')updateI18n();}catch(e){}
+}
+function confirmMemberBuy(){
+  var idx=parseInt(document.getElementById('member-buy-idx').value||'0');
+  var l=MEMBER_LEVELS[idx];
+  if(curUser){curUser.memberLevel=l.key;try{saveCurrentUser();}catch(e){}}
+  cma();
+  renderMemberPage();
+  var lang=(typeof curLang!=='undefined'&&curLang)?curLang:'zh';
+  var msg=lang==='zh'?('购买成功！您现在是 '+_memberLevelLabel(l,lang))
+            :(lang==='ja'?('購入成功！現在 '+_memberLevelLabel(l,lang))
+            :('Purchase success! You are now '+_memberLevelLabel(l,lang)));
+  alert(msg);
+}
+function copyInvite(){
+  var v=document.getElementById('invite-link').value;
+  var lang=(typeof curLang!=='undefined'&&curLang)?curLang:'zh';
+  var msg=lang==='zh'?'已复制':(lang==='ja'?'コピーしました':'Copied');
+  function doAlert(){alert(msg);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(v).then(doAlert).catch(function(){
+      try{document.getElementById('invite-link').select();document.execCommand('copy');}catch(e){}
+      doAlert();
+    });
+  } else {
+    try{document.getElementById('invite-link').select();document.execCommand('copy');}catch(e){}
+    doAlert();
+  }
+}
+function transferInvite(){
+  var d=getInviteData();
+  var lang=(typeof curLang!=='undefined'&&curLang)?curLang:'zh';
+  if(d.pending<=0){
+    alert(lang==='zh'?'暂无可划转余额':(lang==='ja'?'送金可能な残高がありません':'No pending balance'));
+    return;
+  }
+  var amt=d.pending;
+  d.pending=0;
+  saveInviteData(d);
+  if(curUser){curUser.balance=(curUser.balance||0)+amt;try{saveCurrentUser();}catch(e){}}
+  renderMemberPage();
+  var msg=lang==='zh'?('已划转 '+amt.toFixed(2)+' 至账户余额')
+            :(lang==='ja'?('送金済み: '+amt.toFixed(2)+' 残高へ')
+            :('Transferred: '+amt.toFixed(2)+' to balance'));
+  alert(msg);
+}
+function addDemoInvite(){
+  var d=getInviteData();
+  d.count+=1;d.total+=50;d.pending+=50;
+  saveInviteData(d);renderMemberPage();
+}
+// ============ MEMBER CENTER SUB-MODULES ============
+function _computeLevel(recharged){
+  var lv=0;
+  for(var i=0;i<MEMBER_LEVELS.length;i++){
+    if(recharged>=MEMBER_LEVELS[i].threshold)lv=i;
+  }
+  return lv;
+}
+function _memberWallet(){
+  try{return JSON.parse(localStorage.getItem('m_wallet')||'{}');}catch(e){return {};}
+}
+function _saveMemberWallet(w){try{localStorage.setItem('m_wallet',JSON.stringify(w));}catch(e){}}
+function _mLevelBadge(key){
+  var bgs={normal:'',mineral:'',jade:'',gem:'',diamond:''};
+  return bgs[key]||'';
+}
+function _mLevelIcon(key){
+  var ics={normal:'',mineral:'',jade:'',gem:'',diamond:''};
+  return ics[key]||'';
+}
+function _fmtLang(obj,lang){
+  if(!obj)return '';
+  if(typeof obj==='string')return obj;
+  if(obj[lang])return obj[lang];
+  if(obj.zh)return obj.zh;
+  if(obj.en)return obj.en;
+  return Object.values(obj)[0]||'';
+}
+function openMemberModule(name){
+  if(typeof curUser==='undefined'||!curUser){oam('login');return;}
+  if(name==='wallet')openWallet();
+  else if(name==='rwc')openRWC();
+  else if(name==='vault')openVault();
+  else if(name==='energy')openEnergy();
+  else if(name==='subscribe')openSubscribe();
+  else if(name==='stake')openStake();
+}
+function copyPoolAddr(){
+  var addr=PLATFORM_POOL_ADDR;
+  var lang=(typeof curLang!=='undefined'&&curLang)?curLang:'zh';
+  var msg=lang==='zh'?'已复制':(lang==='ja'?'コピーしました':'Copied');
+  function doAlert(){alert(msg);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(addr).then(doAlert).catch(doAlert);
+  } else { doAlert(); }
+}
+function showLevelDetail(idx){
+  var l=MEMBER_LEVELS[idx];
+  var lang=(typeof curLang!=='undefined'&&curLang)?curLang:'zh';
+  var name=_fmtLang(l.name,lang);
+  var mul=l.returnMul.toFixed(1);
+  var th=l.threshold.toLocaleString();
+  var msg=lang==='zh'?(name+'\n累计充值 ≥ '+th+' CNY\n返佣倍数 '+mul+'\u00D7')
+            :(name+'\nRecharge ≥ '+th+' CNY\nRebate '+mul+'\u00D7');
+  alert(msg);
+}
+function _escHtml(s){
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ============ CUSTOM MODAL HELPER ============
+var _mcmCb=null;
+function showCustomModal(title,body){
+  var m=document.getElementById('m-custom-modal');
+  if(!m){
+    m=document.createElement('div');
+    m.id='m-custom-modal';
+    m.className='mo';
+    m.innerHTML='<div class="mb" style="max-width:480px;width:92%"><div class="mh"><div class="mt" id="m-custom-title"></div><button class="mx" onclick="closeCustomModal()">\u00D7</button></div><div class="mbd" id="m-custom-body" style="max-height:80vh;overflow-y:auto"></div></div>';
+    document.body.appendChild(m);
+  }
+  document.getElementById('m-custom-title').textContent=title;
+  document.getElementById('m-custom-body').innerHTML=body;
+  m.classList.add('show');
+  try{if(typeof applyI18n==='function')applyI18n(m);}catch(e){}
+}
+function closeCustomModal(){
+  var m=document.getElementById('m-custom-modal');
+  if(m)m.classList.remove('show');
+  if(window._mStakeTimer){clearInterval(window._mStakeTimer);window._mStakeTimer=null;}
+}
+
+// ============ WALLET MODULE ============
+function openWallet(){
+  var w=_memberWallet();
+  var recharged=curUser?curUser.recharged||0:0;
+  var lvIdx=_computeLevel(recharged);
+  var lv=MEMBER_LEVELS[lvIdx];
+  var lang=(typeof curLang!=='undefined'&&curLang)?curLang:'zh';
+  var bal=(w.balance||0).toFixed(2);
+  var vault=(w.vault||0).toFixed(2);
+  var energy=(w.energy||0).toFixed(2);
+  var stake=(w.stake||0).toFixed(2);
+  var stakeR=(w.stakeReward||0).toFixed(4);
+  var lvName=_fmtLang(lv.name,lang);
+  var subStatus=w.subscribed?(lang==='zh'?'已订阅 · 到期:':'Subscribed · Exp:')+(w.subExp||'-'):(lang==='zh'?'未订阅':'Inactive');
+  var T=function(zh,en,ja){
+    if(lang==='zh')return zh;
+    if(lang==='ja')return ja;
+    return en;
+  };
+  var h='';
+  h+='<div style="background:var(--bg);border-radius:10px;padding:14px;margin-bottom:10px">';
+  h+='<div style="font-size:.7rem;color:var(--t3);margin-bottom:4px">'+T('可用余额','Available Balance','利用可能残高')+'</div>';
+  h+='<div style="font-size:1.6rem;font-weight:800;color:var(--ap);font-family:var(--fm)">'+bal+' CNY</div>';
+  h+='</div>';
+  h+='<div style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:10px;font-size:.78rem;line-height:1.8;color:var(--t2)">';
+  h+='<div style="display:flex;justify-content:space-between"><span>'+T('累计充值','Total Recharge','累計チャージ')+'</span><span style="color:var(--ap);font-weight:700;font-family:var(--fm)">'+recharged.toFixed(2)+' CNY</span></div>';
+  h+='<div style="display:flex;justify-content:space-between"><span>'+T('会员等级','Member Level','会員レベル')+'</span><span style="color:var(--ag);font-weight:700">'+_escHtml(lvName)+'</span></div>';
+  h+='<div style="display:flex;justify-content:space-between"><span>'+T('返佣倍数','Rebate','リベート')+'</span><span style="font-weight:700">'+lv.returnMul.toFixed(1)+'\u00D7</span></div>';
+  h+='<div style="display:flex;justify-content:space-between"><span>'+T('存库包余额','Vault Balance','保管庫残高')+'</span><span style="font-family:var(--fm)">'+vault+' Token</span></div>';
+  h+='<div style="display:flex;justify-content:space-between"><span>'+T('能量包余额','Energy Balance','エネルギーパック')+'</span><span style="font-family:var(--fm)">'+energy+' Token</span></div>';
+  h+='<div style="display:flex;justify-content:space-between"><span>'+T('订阅状态','Subscribe','サブスク')+'</span><span style="color:var(--ag)">'+subStatus+'</span></div>';
+  h+='<div style="display:flex;justify-content:space-between"><span>'+T('抵押金额','Staked','ステーキング')+'</span><span style="font-family:var(--fm)">'+stake+' Token</span></div>';
+  h+='<div style="display:flex;justify-content:space-between"><span>'+T('累计抵押收益','Total Stake Reward','累計ステーク報酬')+'</span><span style="color:var(--ag);font-family:var(--fm)">'+stakeR+' Token</span></div>';
+  h+='</div>';
+  showCustomModal(T('会员余额(钱包)','Member Wallet','会員残高(ウォレット)'), h);
+}
+
+// ============ RWC (充值提现中心) ============
+function openRWC(){
+  var lang=(typeof curLang!=='undefined'&&curLang)?curLang:'zh';
+  var T=function(zh,en,ja){if(lang==='zh')return zh;if(lang==='ja')return ja;return en;};
+  var h='';
+  h+='<div style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:10px">';
+  h+='<div style="font-size:.7rem;color:var(--t3);margin-bottom:6px" data-key="mplatform">'+T('平台资金池收款地址','Platform Pool Address','プラットフォームプール')+'</div>';
+  h+='<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">';
+  h+='<div style="flex:1;min-width:180px;font-family:var(--fm);font-size:.72rem;word-break:break-all;color:var(--ap)">'+PLATFORM_POOL_ADDR+'</div>';
+  h+='<button class="btn bo bs" style="font-size:.7rem" onclick="copyPoolAddr()" data-key="mpoolcopy">'+T('复制','Copy','コピー')+'</button>';
+  h+='</div></div>';
+  h+='<div style="font-size:.65rem;color:var(--t3);margin-bottom:10px;line-height:1.5">'+T('请向此地址转账USDT(TRC20),系统将自动到账并累计充值额。','Send USDT (TRC20) to this address.','USDT(TRC20)を送信してください。')+'</div>';
+  h+='<div style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:10px">';
+  h+='<div style="font-size:.75rem;font-weight:700;margin-bottom:8px" data-key="mdepbtn">'+T('充值(预留接口)','Recharge (Reserved API)','チャージ(预留)','ja')+'</div>';
+  h+='<input type="number" id="m-rwc-amt" placeholder="'+T('金额 (CNY)','Amount (CNY)','金額 (CNY)')+'" min="100" style="width:100%;padding:8px;background:var(--bgc);border:1px solid var(--bd);border-radius:8px;color:var(--t1);margin-bottom:6px">';
+  h+='<input type="text" id="m-rwc-txid" placeholder="'+T('交易哈希 (TXID,可后补)','TX Hash (optional)','TXハッシュ(オプション)')+'" style="width:100%;padding:8px;background:var(--bgc);border:1px solid var(--bd);border-radius:8px;color:var(--t1);font-family:var(--fm);font-size:.7rem;margin-bottom:8px">';
+  h+='<button class="btn bg bw" style="width:100%" onclick="submitRecharge()" data-key="mdepbtn">'+T('提交充值申请','Submit Recharge','チャージ申請')+'</button>';
+  h+='<div style="font-size:.6rem;color:var(--t3);margin-top:6px;line-height:1.4">'+T('演示模式:点击提交后自动到账 +1000 CNY,并累计到会员等级。','Demo: submit adds +1000 CNY and upgrades level.','デモ: +1000 CNY 加算')+'</div>';
+  h+='</div>';
+  h+='<div style="background:var(--bg);border-radius:10px;padding:12px">';
+  h+='<div style="font-size:.75rem;font-weight:700;margin-bottom:8px" data-key="mwdbtn">'+T('提现','Withdraw','出金')+'</div>';
+  h+='<input type="number" id="m-rwc-wd" placeholder="'+T('提现金额 (CNY)','Withdraw Amount','出金額')+'" min="10" style="width:100%;padding:8px;background:var(--bgc);border:1px solid var(--bd);border-radius:8px;color:var(--t1);margin-bottom:6px">';
+  h+='<input type="text" id="m-rwc-wdaddr" placeholder="'+T('USDT-TRC20 收款地址','USDT-TRC20 Address','USDT-TRC20 受取アドレス')+'" style="width:100%;padding:8px;background:var(--bgc);border:1px solid var(--bd);border-radius:8px;color:var(--t1);font-family:var(--fm);font-size:.7rem;margin-bottom:8px">';
+  h+='<button class="btn bo bs" style="width:100%" onclick="submitWithdraw()" data-key="mwdbtn">'+T('提交提现申请','Submit Withdraw','出金申請')+'</button>';
+  h+='<div style="font-size:.6rem;color:var(--t3);margin-top:6px;line-height:1.4">'+T('演示模式:点击后自动从余额扣除并提示成功。','Demo: deducts balance and shows success.','デモ: 残高から控除')+'</div>';
+  h+='</div>';
+  showCustomModal(T('充值 / 提现中心','Recharge / Withdraw Center','チャージ・出金センター'), h);
+}
+function submitRecharge(){
+  var amt=parseFloat(document.getElementById('m-rwc-amt').value||'0');
+  if(amt<=0){alert('Please enter amount');return;}
+  if(typeof curUser!=='undefined'&&curUser){
+    curUser.recharged=(curUser.recharged||0)+amt;
+    curUser.balance=(curUser.balance||0)+amt;
+    try{saveCurrentUser();}catch(e){}
+  }
+  var w=_memberWallet();
+  w.balance=(w.balance||0)+amt;
+  _saveMemberWallet(w);
+  closeCustomModal();
+  renderMemberPage();
+  var lang=(typeof curLang!=='undefined'&&curLang)?curLang:'zh';
+  alert(lang==='zh'?('充值成功 +'+amt.toFixed(2)+' CNY 累计充值已更新'):('Recharged +'+amt.toFixed(2)+' CNY'));
+}
+function submitWithdraw(){
+  var amt=parseFloat(document.getElementById('m-rwc-wd').value||'0');
+  if(amt<=0){alert('Please enter amount');return;}
+  var w=_memberWallet();
+  if((w.balance||0)<amt){alert('insufficient balance');return;}
+  w.balance=(w.balance||0)-amt;
+  _saveMemberWallet(w);
+  if(typeof curUser!=='undefined'&&curUser){
+    curUser.balance=Math.max(0,(curUser.balance||0)-amt);
+    try{saveCurrentUser();}catch(e){}
+  }
+  closeCustomModal();
+  renderMemberPage();
+  alert('Withdrew '+amt.toFixed(2)+' CNY (demo)');
+}
+
+// ============ VAULT (代币存库包) ============
+function openVault(){
+  var w=_memberWallet();
+  var lang=(typeof curLang!=='undefined'&&curLang)?curLang:'zh';
+  var T=function(zh,en,ja){if(lang==='zh')return zh;if(lang==='ja')return ja;return en;};
+  var h='';
+  h+='<div style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:10px;text-align:center">';
+  h+='<div style="font-size:.7rem;color:var(--t3);margin-bottom:4px">'+T('存库包余额','Vault Balance','保管庫残高')+'</div>';
+  h+='<div style="font-size:1.8rem;font-weight:800;color:var(--ap);font-family:var(--fm)">'+(w.vault||0).toFixed(2)+' Token</div>';
+  h+='</div>';
+  h+='<div style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:10px">';
+  h+='<div style="font-size:.7rem;font-weight:700;margin-bottom:6px" data-key="mtknpck">'+T('存入代币到存库包','Deposit Token to Vault','トークンを保管庫に')+'</div>';
+  h+='<input type="number" id="m-vault-amt" placeholder="'+T('数量','Amount','数量')+'" min="1" style="width:100%;padding:8px;background:var(--bgc);border:1px solid var(--bd);border-radius:8px;color:var(--t1);margin-bottom:6px">';
+  h+='<button class="btn bg bw" style="width:100%" onclick="vaultDeposit()" data-key="mtknpck">'+T('存入','Deposit','預入')+'</button>';
+  h+='</div>';
+  h+='<div style="background:var(--bg);border-radius:10px;padding:12px">';
+  h+='<div style="font-size:.7rem;font-weight:700;margin-bottom:6px">'+T('从存库包取出','Withdraw from Vault','保管庫から取出')+'</div>';
+  h+='<input type="number" id="m-vault-wd" placeholder="'+T('数量','Amount','数量')+'" min="1" style="width:100%;padding:8px;background:var(--bgc);border:1px solid var(--bd);border-radius:8px;color:var(--t1);margin-bottom:6px">';
+  h+='<button class="btn bo bs" style="width:100%" onclick="vaultWithdraw()">'+T('取出','Withdraw','取出')+'</button>';
+  h+='</div>';
+  showCustomModal(T('代币存库包','Token Vault','トークン保管庫'), h);
+}
+function vaultDeposit(){
+  var amt=parseFloat(document.getElementById('m-vault-amt').value||'0');
+  if(amt<=0){alert('Enter amount');return;}
+  var w=_memberWallet();
+  w.vault=(w.vault||0)+amt;
+  _saveMemberWallet(w);
+  closeCustomModal();
+  openVault();
+  renderMemberPage();
+  alert('Deposited '+amt+' Token');
+}
+function vaultWithdraw(){
+  var amt=parseFloat(document.getElementById('m-vault-wd').value||'0');
+  if(amt<=0){alert('Enter amount');return;}
+  var w=_memberWallet();
+  if((w.vault||0)<amt){alert('insufficient');return;}
+  w.vault=(w.vault||0)-amt;
+  _saveMemberWallet(w);
+  closeCustomModal();
+  openVault();
+  renderMemberPage();
+  alert('Withdrew '+amt+' Token');
+}
+
+// ============ ENERGY (Token 能量包) ============
+function openEnergy(){
+  var w=_memberWallet();
+  var lang=(typeof curLang!=='undefined'&&curLang)?curLang:'zh';
+  var T=function(zh,en,ja){if(lang==='zh')return zh;if(lang==='ja')return ja;return en;};
+  var h='';
+  h+='<div style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:10px;text-align:center">';
+  h+='<div style="font-size:.7rem;color:var(--t3);margin-bottom:4px">'+T('能量余额','Energy Balance','エネルギー残高')+'</div>';
+  h+='<div style="font-size:1.8rem;font-weight:800;color:var(--ag);font-family:var(--fm)">'+(w.energy||0).toFixed(2)+' Token</div>';
+  h+='<div style="font-size:.6rem;color:var(--t3);margin-top:4px">'+T('用于加速交易、工具调用','Used for faster tx and tool calls','取引とツール呼び出しの高速化')+'</div>';
+  h+='</div>';
+  h+='<div style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:10px">';
+  h+='<div style="font-size:.7rem;font-weight:700;margin-bottom:6px">'+T('购买能量包','Buy Energy Pack','エネルギーパック購入')+'</div>';
+  h+='<button class="btn bg bw" style="width:100%;margin-bottom:6px" onclick="buyEnergy(100)">'+T('100 CNY → 100 能量','100 CNY → 100 Energy','100 CNY → 100 エネルギー')+'</button>';
+  h+='<button class="btn bg bw" style="width:100%;margin-bottom:6px" onclick="buyEnergy(500)">'+T('500 CNY → 500 能量','500 CNY → 500 Energy','500 CNY → 500 エネルギー')+'</button>';
+  h+='<button class="btn bg bw" style="width:100%" onclick="buyEnergy(1000)">'+T('1000 CNY → 1000 能量','1000 CNY → 1000 Energy','1000 CNY → 1000 エネルギー')+'</button>';
+  h+='</div>';
+  showCustomModal(T('Token 能量包','Token Energy Pack','Token エネルギーパック'), h);
+}
+function buyEnergy(cnt){
+  var w=_memberWallet();
+  if((w.balance||0)<cnt){alert('insufficient balance: need '+cnt);return;}
+  w.balance=(w.balance||0)-cnt;
+  w.energy=(w.energy||0)+cnt;
+  _saveMemberWallet(w);
+  closeCustomModal();
+  openEnergy();
+  renderMemberPage();
+  alert('Bought '+cnt+' energy');
+}
+
+// ============ SUBSCRIBE (订阅大模型工具箱) ============
+function openSubscribe(){
+  var w=_memberWallet();
+  var lang=(typeof curLang!=='undefined'&&curLang)?curLang:'zh';
+  var T=function(zh,en,ja){if(lang==='zh')return zh;if(lang==='ja')return ja;return en;};
+  var status=w.subscribed?(T('已订阅 · 到期:','Subscribed · Exp:','購読中 · 期限:')+(w.subExp||'-')):(T('未订阅','Not Subscribed','未購読'));
+  var h='';
+  h+='<div style="background:var(--bg);border-radius:10px;padding:14px;margin-bottom:10px;text-align:center">';
+  h+='<div style="font-size:.7rem;color:var(--t3);margin-bottom:4px" data-key="msub2">'+T('订阅大模型工具箱','Subscribe AI Toolkit','大模型ツールボックス')+'</div>';
+  h+='<div style="font-size:1.2rem;font-weight:800;color:var(--ap)">'+status+'</div>';
+  h+='</div>';
+  h+='<div style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:10px">';
+  h+='<div style="font-size:.75rem;font-weight:700;margin-bottom:8px">'+T('选择套餐','Choose Plan','プラン選択')+'</div>';
+  h+='<button class="btn bo bs" style="width:100%;margin-bottom:6px" onclick="subscribePlan(30)">'+T('月度 · 99 CNY / 月','Monthly · 99 CNY/mo','月額 · 99 CNY/月')+'</button>';
+  h+='<button class="btn bg bw" style="width:100%" onclick="subscribePlan(365)">'+T('年度 · 999 CNY / 年(省17%)','Annual · 999 CNY/yr (save 17%)','年間 · 999 CNY/年(17%OFF)')+'</button>';
+  h+='</div>';
+  if(w.subscribed){
+    h+='<button class="btn bo bs" style="width:100%" onclick="unsubscribe()">'+T('取消订阅','Unsubscribe','購読解除')+'</button>';
+  }
+  showCustomModal(T('订阅大模型工具箱','Subscribe AI Toolkit','大模型ツールボックス'), h);
+}
+function subscribePlan(days){
+  var price=days===30?99:999;
+  var w=_memberWallet();
+  if((w.balance||0)<price){alert('insufficient balance: need '+price);return;}
+  w.balance=(w.balance||0)-price;
+  w.subscribed=true;
+  var d=new Date();d.setDate(d.getDate()+days);
+  w.subExp=d.toISOString().slice(0,10);
+  _saveMemberWallet(w);
+  closeCustomModal();
+  openSubscribe();
+  renderMemberPage();
+  alert('Subscribed!');
+}
+function unsubscribe(){
+  var w=_memberWallet();
+  w.subscribed=false;
+  w.subExp=null;
+  _saveMemberWallet(w);
+  closeCustomModal();
+  openSubscribe();
+  renderMemberPage();
+}
+
+// ============ STAKE (代币抵押银行) ============
+var STAKE_DAILY=0.005; // 0.5%/天
+function _stakeAccrual(w){
+  if(!w||!(w.stake>0))return w;
+  var lastUpd=parseInt(localStorage.getItem('m_stake_upd')||Date.now());
+  var now=Date.now();
+  var elapsed=(now-lastUpd)/1000/86400;
+  if(elapsed>0){
+    w.stakeReward=(w.stakeReward||0)+w.stake*STAKE_DAILY*elapsed;
+    localStorage.setItem('m_stake_upd',String(now));
+  }
+  return w;
+}
+function openStake(){
+  var w=_stakeAccrual(_memberWallet());
+  _saveMemberWallet(w);
+  var lang=(typeof curLang!=='undefined'&&curLang)?curLang:'zh';
+  var T=function(zh,en,ja){if(lang==='zh')return zh;if(lang==='ja')return ja;return en;};
+  var stakeAmt=w.stake||0;
+  var h='';
+  h+='<div style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:10px">';
+  h+='<div style="font-size:.7rem;color:var(--t3);margin-bottom:4px" data-key="mstake">'+T('抵押金额','Staked Amount','ステーキング額')+'</div>';
+  h+='<div style="font-size:1.6rem;font-weight:800;color:var(--ap);font-family:var(--fm)">'+stakeAmt.toFixed(2)+' Token</div>';
+  h+='</div>';
+  h+='<div style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:10px">';
+  h+='<div style="font-size:.7rem;color:var(--t3);margin-bottom:4px" data-key="mrate">'+T('日利率','Daily Rate','日利')+'</div>';
+  h+='<div style="font-size:1.2rem;font-weight:800;color:var(--ag)">0.5% / '+T('天','day','日')+'</div>';
+  h+='<div style="font-size:.7rem;color:var(--t3);margin-bottom:4px;margin-top:8px" data-key="mearned">'+T('累计收益','Total Reward','累計報酬')+'</div>';
+  h+='<div id="m-stake-reward" style="font-size:1.4rem;font-weight:800;color:var(--ag);font-family:var(--fm)">'+(w.stakeReward||0).toFixed(4)+' Token</div>';
+  h+='<div style="font-size:.6rem;color:var(--t3);margin-top:4px" data-key="mlocksub">'+T('实时更新显示,日息自动累计','Updates in real-time','リアルタイム更新')+'</div>';
+  h+='</div>';
+  h+='<div style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:10px">';
+  h+='<div style="font-size:.7rem;font-weight:700;margin-bottom:6px" data-key="mstakebtn">'+T('抵押代币','Stake Tokens','トークン預入')+'</div>';
+  h+='<input type="number" id="m-stake-amt" placeholder="'+T('抵押数量','Stake Amount','預入数量')+'" min="1" style="width:100%;padding:8px;background:var(--bgc);border:1px solid var(--bd);border-radius:8px;color:var(--t1);margin-bottom:6px">';
+  h+='<button class="btn bg bw" style="width:100%" onclick="stakeTokens()" data-key="mstakebtn">'+T('开始抵押','Start Stake','預入開始')+'</button>';
+  h+='</div>';
+  h+='<div style="display:flex;gap:8px;flex-wrap:wrap">';
+  h+='<button class="btn bo bs" style="flex:1" onclick="unstakeTokens()" data-key="munlock">'+T('解除抵押','Unstake','解除')+'</button>';
+  h+='<button class="btn bo bs" style="flex:1" onclick="withdrawStakeReward()" data-key="mwithdraw">'+T('提取收益','Withdraw Reward','報酬受取')+'</button>';
+  h+='</div>';
+  showCustomModal(T('代币抵押银行','Token Stake Bank','トークンステーク銀行'), h);
+  if(!window._mStakeTimer)window._mStakeTimer=setInterval(_updateStakeReward,1000);
+}
+function _updateStakeReward(){
+  var w=_memberWallet();
+  var stakeAmt=w.stake||0;
+  if(stakeAmt<=0)return;
+  var lastUpd=parseInt(localStorage.getItem('m_stake_upd')||Date.now());
+  var now=Date.now();
+  var elapsed=(now-lastUpd)/1000/86400;
+  if(elapsed>0){
+    w.stakeReward=(w.stakeReward||0)+stakeAmt*STAKE_DAILY*elapsed;
+    _saveMemberWallet(w);
+    localStorage.setItem('m_stake_upd',String(now));
+  }
+  var el=document.getElementById('m-stake-reward');
+  if(el)el.textContent=(w.stakeReward||0).toFixed(4)+' Token';
+}
+function stakeTokens(){
+  var amt=parseFloat(document.getElementById('m-stake-amt').value||'0');
+  if(amt<=0){alert('Enter amount');return;}
+  var w=_memberWallet();
+  if((w.vault||0)<amt){alert('insufficient vault balance');return;}
+  w.vault=(w.vault||0)-amt;
+  w.stake=(w.stake||0)+amt;
+  _saveMemberWallet(w);
+  localStorage.setItem('m_stake_upd',String(Date.now()));
+  closeCustomModal();
+  openStake();
+  renderMemberPage();
+}
+function unstakeTokens(){
+  var w=_memberWallet();
+  if((w.stake||0)<=0){alert('no stake');return;}
+  _updateStakeReward();
+  w.vault=(w.vault||0)+(w.stake||0);
+  w.stake=0;
+  _saveMemberWallet(w);
+  closeCustomModal();
+  openStake();
+  renderMemberPage();
+  alert('unstaked');
+}
+function withdrawStakeReward(){
+  var w=_memberWallet();
+  _updateStakeReward();
+  var r=w.stakeReward||0;
+  if(r<=0){alert('no reward');return;}
+  w.balance=(w.balance||0)+r;
+  w.stakeReward=0;
+  _saveMemberWallet(w);
+  closeCustomModal();
+  openStake();
+  renderMemberPage();
+  alert('Withdrew '+r.toFixed(4)+' Token');
+}
+
+// ============ USER BADGE (等级徽章) ============
+function updateUserBadge(){
+  if(typeof curUser==='undefined'||!curUser)return;
+  var recharged=curUser.recharged||0;
+  var lvIdx=_computeLevel(recharged);
+  var lv=MEMBER_LEVELS[lvIdx];
+  var badge='';
+  if(lv.key==='diamond')badge='<span class="bdg-ic" style="display:inline-block;width:1em;height:1em;vertical-align:-0.15em">'+BADGE_SVG.diamond+'</span> ';  // 💎 顶级钻石
+  else if(lv.key==='gem')badge='<span class="bdg-ic" style="display:inline-block;width:1em;height:1em;vertical-align:-0.15em">'+BADGE_SVG.gem+'</span> ';  // 🔴 高级宝石
+  else if(lv.key==='jade')badge='<span class="bdg-ic" style="display:inline-block;width:1em;height:1em;vertical-align:-0.15em">'+BADGE_SVG.jade+'</span> ';  // 🟢 中级玉石
+  else if(lv.key==='mineral')badge='\u26CF\uFE0F ';  // ⛏️ 初级矿石
+  else badge='\u2728 ';  // ✨ 普通会员
+  // nav user display name (XSS-safe: badge as innerHTML, name as text node)
+  function _setBadgeText(el,badge,name){
+    if(!el)return;
+    var k=badge+'|'+name;
+    if(el.dataset.bk===k)return;
+    el.dataset.bk=k;
+    el.innerHTML=badge;
+    if(name)el.appendChild(document.createTextNode(name));
+  }
+  // nav user display name
+  var udn=document.getElementById('udn');
+  if(udn)_setBadgeText(udn,badge,curUser.name||curUser.username||'');
+  // profile view name
+  var pv=document.getElementById('pv-name');
+  if(pv)_setBadgeText(pv,badge,curUser.name||curUser.username||'');
+  // social list items with data-curuser="1"
+  try{
+    var sels=document.querySelectorAll('[data-curuser="1"]');
+    for(var i=0;i<sels.length;i++){
+      _setBadgeText(sels[i],badge,curUser.name||curUser.username||'');
+    }
+  }catch(e){}
+}
+
+function togN(){
+  let np=document.getElementById('np');
+  let h='';
+  h+='<div class="ni-app" onclick="openAppDownload()">';
+  h+='<div class="ni-app-ic">⬇️</div>';
+  h+='<div class="ni-app-bd"><div class="ni-app-tt"><span data-key="appdltt">AI Nexus APP</span> <span style="background:var(--ag);color:#000;font-size:.55rem;padding:1px 5px;border-radius:6px;font-weight:700">NEW</span></div>';
+  h+='<div class="ni-app-ds" data-key="appdlds">v1.0.0 · Android APK · 3.7 MB</div></div>';
+  h+='</div>';
+  h+='<div class="ni-div"></div>';
+  h+='<div class="ni-app" onclick="openAppTutorial()">';
+  h+='<div class="ni-app-ic">📖</div>';
+  h+='<div class="ni-app-bd"><div class="ni-app-tt" data-key="tuttt">安装使用教程</div>';
+  h+='<div class="ni-app-ds" data-key="tutds">Installation & Usage Guide</div></div>';
+  h+='</div>';
+  np.innerHTML=h; np.classList.toggle('show');
+  applyI18N();
+}
+
+// ============ APP DOWNLOAD & TUTORIAL ============
+var APK_URL='https://github.com/baichengshangwu/zhitongwang/actions/runs/28870726093/artifacts/8139708356';
+function openAppDownload(){
+  document.getElementById('np').classList.remove('show');
+  let m=document.getElementById('mo-app-dl');
+  if(m)m.classList.add('show');
+  applyI18N();
+}
+function openAppTutorial(){
+  document.getElementById('np').classList.remove('show');
+  let m=document.getElementById('mo-app-tut');
+  if(m)m.classList.add('show');
+  applyI18N();
+}
+function apkGA(){try{window.location.href=APK_URL;}catch(e){var a=document.createElement('a');a.href=APK_URL;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();document.body.removeChild(a);}}
+
+// ============ INIT ============
+document.addEventListener('DOMContentLoaded',()=>{
+  try{
+    initParticles();
+  }catch(e){console.error('initParticles failed:',e.message);}
+  try{
+    curLang=localStorage.getItem('nexus_lang')||'zh';
+    document.getElementById('cln').textContent=curLang.toUpperCase();
+    document.getElementById('clf').innerHTML=LANG_FLAGS[curLang]||'';
+    buildLangMenu();
+    let saved=localStorage.getItem('nexus_cur_user_email');
+    if(saved&&users[saved]){curUser={...users[saved]};curUser._email=saved;document.getElementById('aa').style.display='none';document.getElementById('ud').style.display='block';document.getElementById('ual').textContent=(curUser.name||'U')[0].toUpperCase();document.getElementById('udn').textContent=curUser.name;}
+    applyI18N(); rAll();
+    initMKT(); setTimeout(function(){rdrTkr();},1500);
+    translateCommunityContent();
+    setInterval(()=>{if(curUser){localStorage.setItem('nexus_cur_user_email',curUser._email);}},5000);
+    window.addEventListener('beforeunload',()=>{saveSession();});
+    document.addEventListener('click',(e)=>{if(!e.target.closest('.ld'))document.getElementById('lm').classList.remove('show');if(!e.target.closest('.ud'))document.getElementById('um').classList.remove('show');if(!e.target.closest('.nfb'))document.getElementById('np').classList.remove('show');});
+  }catch(e){console.error('Init failed:',e.message);}
+  var mo=document.getElementById('mt-overlay');if(mo)mo.style.display='none';
+  var maintTitle = document.getElementById('maintenance-title');
+  var maintSub = document.getElementById('maintenance-subtitle');
+  if(maintTitle) maintTitle.textContent = t('somaintenance');
+  if(maintSub) maintSub.textContent = t('somaintenance_sub');
+});
+
+window.addEventListener('error',function(e){if(e.target!==window)return;if(e.filename&&(e.filename.startsWith('https://')||e.filename.startsWith('http://'))){console.warn('External script error (likely blocked):',e.filename);return;}console.error('Page error:',e.message);});
+// ============ MULTI-LANGUAGE TRANSLATION ENGINE ============
+var TL_CACHE={};
+var TL_MUTEX=false;
+async function translateText(text,targetLang){
+  if(!text||targetLang==='zh')return text;
+  var key=text+'_'+targetLang;
+  if(TL_CACHE[key])return TL_CACHE[key];
+  try{
+    var res=await fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(text)+'&langpair=zh|'+targetLang);
+    var d=await res.json();
+    var translated=(d&&d.responseData&&d.responseData.translatedText)||'';
+    if(translated&&translated!==text){TL_CACHE[key]=translated;return translated;}
+  }catch(e){}
+  // Fallback to Google Translate
+  try{
+    var res2=await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=zh-CN&tl='+targetLang+'&dt=t&q='+encodeURIComponent(text));
+    var d2=await res2.json();
+    var translated2=(d2[0]||[]).map(function(x){return x[0];}).join('');
+    if(translated2){TL_CACHE[key]=translated2;return translated2;}
+  }catch(e){}
+  return text;
+}
+
+// ============ PUBLISH SYSTEM ============
+var PUB=JSON.parse(localStorage.getItem('nexus_pub')||'{"tools":[],"p2p":[],"events":[]}');
+var PUB_I18N=(function(){
+  var m={};
+  ['pub_title','pub_tab_tools','pub_tab_p2p','pub_tab_events','pub_btn_tool','pub_btn_p2p','pub_btn_event',
+   'pub_name','pub_desc','pub_price','pub_duration','pub_qty','pub_category','pub_date','pub_location',
+   'pub_submit','pub_cancel','pub_my','pub_all','pub_search','pub_comm_tools','pub_comm_p2p','pub_comm_events',
+   'pub_none','pub_del','pub_del_confirm','pub_name_ph','pub_desc_ph','pub_cat_ph','pub_loc_ph'].forEach(function(k){
+    if(LANG&&LANG[k])m[k]=LANG[k];
+  });
+  return m;
+})();
+
+function pubT(key){
+  if(!PUB_I18N[key])return key;
+  return PUB_I18N[key][curLang]||PUB_I18N[key]['en']||key;
+}
+
+var p2pPubSubTabV='tools';
+function p2pPubSubTab(tab){
+  p2pPubSubTabV=tab;
+  document.getElementById('pub-sub-tools-btn').classList.toggle('active',tab==='tools');
+  document.getElementById('pub-sub-p2p-btn').classList.toggle('active',tab==='p2p');
+  document.getElementById('pub-sub-events-btn').classList.toggle('active',tab==='events');
+  document.getElementById('pub-tools-list').style.display=tab==='tools'?'block':'none';
+  document.getElementById('pub-p2p-list').style.display=tab==='p2p'?'block':'none';
+  document.getElementById('pub-events-list').style.display=tab==='events'?'block':'none';
+}
+
+
+function savePub(){localStorage.setItem('nexus_pub',JSON.stringify(PUB));}
+
+function doPublishTool(){
+  var n=document.getElementById('pub-tool-name').value.trim();
+  var d=document.getElementById('pub-tool-desc').value.trim();
+  var p=parseFloat(document.getElementById('pub-tool-price').value)||0;
+  var c=document.getElementById('pub-tool-cat').value.trim();
+  if(!n||!d){alert(pubT('pub_name')+' & '+pubT('pub_desc')+' required');return;}
+  PUB.tools.unshift({name:n,desc:d,price:p,cat:c,author:curUser?curUser.name:'Anonymous',time:Date.now()});
+  savePub();cma();renderPubTools();
+}
+function doPublishP2P(){
+  var n=document.getElementById('pub-p2p-name').value.trim();
+  var d=document.getElementById('pub-p2p-desc').value.trim();
+  var p=parseFloat(document.getElementById('pub-p2p-price').value)||0;
+  var q=parseInt(document.getElementById('pub-p2p-qty').value)||1;
+  if(!n||!d){alert(pubT('pub_name')+' & '+pubT('pub_desc')+' required');return;}
+  PUB.p2p.unshift({name:n,desc:d,price:p,qty:q,author:curUser?curUser.name:'Anonymous',time:Date.now()});
+  savePub();cma();renderP2PPub();
+}
+function doPublishEvent(){
+  var n=document.getElementById('pub-event-name').value.trim();
+  var d=document.getElementById('pub-event-desc').value.trim();
+  var dt=document.getElementById('pub-event-date').value;
+  var loc=document.getElementById('pub-event-loc').value.trim();
+  if(!n||!d){alert(pubT('pub_name')+' & '+pubT('pub_desc')+' required');return;}
+  PUB.events.unshift({name:n,desc:d,date:dt||'TBD',loc:loc||'Online',author:curUser?curUser.name:'Anonymous',time:Date.now()});
+  savePub();cma();renderPubEvents();
+}
+
+function renderPubTools(){
+  var el=document.getElementById('pub-tools-list');
+  if(!el)return;
+  if(PUB.tools.length===0){el.innerHTML='<div class="pub-empty">'+pubT('pub_none')+'</div>';return;}
+  var h=PUB.tools.map(function(t,i){
+    return '<div class="pub-card"><div class="pub-card-h"><strong><span class="dyn-tr" data-orig="'+htmlEscape(t.name)+'">'+htmlEscape(t.name)+'</span></strong><span class="pub-badge">'+pubT('pub_comm_tools')+'</span></div><div><span class="dyn-tr" data-orig="'+htmlEscape(t.desc)+'">'+htmlEscape(t.desc)+'</span></div><div class="pub-card-foot"><span>$'+t.price.toFixed(2)+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem(&quot;tools&quot;,'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
+  }).join('');
+  el.innerHTML=h;
+}
+function renderP2PPub(){
+  var el=document.getElementById('pub-p2p-list');
+  if(!el)return;
+  if(PUB.p2p.length===0){el.innerHTML='<div class="pub-empty">'+pubT('pub_none')+'</div>';return;}
+  var h=PUB.p2p.map(function(t,i){
+    return '<div class="pub-card"><div class="pub-card-h"><strong><span class="dyn-tr" data-orig="'+htmlEscape(t.name)+'">'+htmlEscape(t.name)+'</span></strong><span class="pub-badge">'+pubT('pub_comm_p2p')+'</span></div><div><span class="dyn-tr" data-orig="'+htmlEscape(t.desc)+'">'+htmlEscape(t.desc)+'</span></div><div class="pub-card-foot"><span>$'+t.price.toFixed(2)+' x'+t.qty+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem(&quot;p2p&quot;,'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
+  }).join('');
+  el.innerHTML=h;
+}
+function renderPubEvents(){
+  var el=document.getElementById('pub-events-list');
+  if(!el)return;
+  if(PUB.events.length===0){el.innerHTML='<div class="pub-empty">'+pubT('pub_none')+'</div>';return;}
+  var h=PUB.events.map(function(t,i){
+    return '<div class="pub-card"><div class="pub-card-h"><strong><span class="dyn-tr" data-orig="'+htmlEscape(t.name)+'">'+htmlEscape(t.name)+'</span></strong><span class="pub-badge">'+pubT('pub_comm_events')+'</span></div><div><span class="dyn-tr" data-orig="'+htmlEscape(t.desc)+'">'+htmlEscape(t.desc)+'</span></div><div class="pub-card-foot"><span>'+pubT('pub_date')+': '+(t.date||'TBD')+' | '+pubT('pub_location')+': '+(t.loc||'Online')+'</span><span>'+t.author+' &middot; '+new Date(t.time).toLocaleDateString()+'</span><span class="pub-del" onclick="delPubItem(&quot;events&quot;,'+i+');event.stopPropagation()">'+pubT('pub_del')+'</span></div></div>';
+  }).join('');
+  el.innerHTML=h;
+}
+
+function delPubItem(type,idx){
+  if(!confirm(pubT('pub_del_confirm')))return;
+  PUB[type].splice(idx,1);
+  savePub();
+  if(type==='tools')renderPubTools();
+  else if(type==='p2p')renderP2PPub();
+  else renderPubEvents();
+}
+
+function htmlEscape(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+
+// ============ INIT ============
+console.log('[PUB] Publish system loaded. Tools:',PUB.tools.length,'P2P:',PUB.p2p.length,'Events:',PUB.events.length);
