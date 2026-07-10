@@ -3692,6 +3692,7 @@ function setLang(l){
 // ============ NOTIFICATIONS ============
 function notify(msg, icon){ let d=document.getElementById('tc'); let e=document.createElement('div'); e.className='toast'; e.innerHTML=(icon||'&#x2705;')+' '+msg; d.appendChild(e); setTimeout(()=>e.remove(),2800); }
 function toast(msg){ notify(msg); }
+function showToast(msg, type){ var icons={s:'✅',w:'⚠️',e:'❌'}; notify(msg, icons[type]||'⚠️'); }
 
 // ============ MODAL ============
 function oam(type){
