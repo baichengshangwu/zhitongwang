@@ -6067,12 +6067,6 @@ function tRegion(name) {
   if (stateMap2 && stateMap2[curLang]) return stateMap2[curLang];
   return name;
 }
-  const stateMap = stateI18n[name];
-  if (stateMap && stateMap[curLang]) return stateMap[curLang];
-  return name;
-}
-
-
 
 function initAjRegionSelectors() {
   // Populate all country dropdowns with i18n
