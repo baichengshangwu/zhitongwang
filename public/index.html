@@ -542,7 +542,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
       <div class="ag-step" style="background:linear-gradient(135deg,rgba(6,182,212,.08),rgba(6,182,212,.02));border:1px solid rgba(6,182,212,.2)"><div class="ag-sn" style="background:linear-gradient(135deg,#06b6d4,#10b981)">2</div><div class="ag-st" data-key="agstep2">Get Sub-Accounts</div><div class="ag-sd" data-key="agstep2d">Create sub-accounts for your customers</div></div>
       <div class="ag-step" style="background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(16,185,129,.02));border:1px solid rgba(16,185,129,.2)"><div class="ag-sn" style="background:linear-gradient(135deg,#10b981,#06b6d4)">3</div><div class="ag-st" data-key="agstep3">Earn 50%</div><div class="ag-sd" data-key="agstep3d">50% recurring commission on every sale</div></div>
     </div>
-    <button class="btn bg bw" onclick="payToBecomeAgent()" style="font-size:.78rem;padding:10px 14px;background:linear-gradient(135deg,#8b5cf6,#06b6d4);box-shadow:0 6px 20px rgba(139,92,246,.35);font-weight:800;letter-spacing:0;border:none" data-key="agjoin">Join Now - Become an Agent</button>
+    <button class="btn bg bw" onclick="payToBecomeAgent()" style="font-size:.78rem;padding:8px 36px;background:linear-gradient(135deg,#8b5cf6,#06b6d4);box-shadow:0 6px 20px rgba(139,92,246,.35);font-weight:800;letter-spacing:0;border:none;border-radius:50px" data-key="agjoin">Join Now - Become an Agent</button>
   </div>
   <div id="agent-dashboard" style="display:none">
     <div class="ag-info" id="agent-info-boxes"></div>
@@ -966,7 +966,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <h3 id="payment-title">Deposit CNY</h3>
   <div class="ig"><label>Amount (CNY)</label><input type="number" id="payment-amount" placeholder="100" min="1" step="1"></div>
   <div style="font-size:.68rem;color:var(--t3);margin-bottom:8px" id="payment-info"></div>
-  <button class="btn bg bw" id="payment-btn" onclick="execPayment()">Confirm Deposit</button>
+  <button class="btn bg bw" id="payment-btn" onclick="execPayment()" style="border-radius:50px;padding:8px 36px">Confirm Deposit</button>
   <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
 </div></div>
 <div class="mo" id="mo-confirm"><div class="mod">
@@ -1078,7 +1078,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
         <select id="ajr_country" class="aj-reg-sel" onchange="onAjRegChange(this,'country')" data-key-placeholder="ajr_sel_ctry"><option value="" data-key="ajr_sel_ctry">选择国家/地区</option></select>
         <div style="font-size:.6rem;color:var(--t3);margin-bottom:1px" data-key="ajfee">代理费</div>
         <div style="font-size:1.4rem;font-weight:800;color:var(--ap);font-family:var(--fm);line-height:1">$20,000</div>
-        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:6px 14px" onclick="event.stopPropagation();payAgentTier('country',20000,'ajr_country')" data-key="ajpay">付款</button>
+        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:5px 22px;border-radius:50px" onclick="event.stopPropagation();payAgentTier('country',20000,'ajr_country')" data-key="ajpay">付款</button>
       </div>
     </div>
 
@@ -1099,7 +1099,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
         <select id="ajr_state" class="aj-reg-sel" disabled onchange="onAjRegChange(this,'state')"><option value="" data-key="ajr_sel_state">选择洲/省</option></select>
         <div style="font-size:.6rem;color:var(--t3);margin-bottom:1px" data-key="ajfee">代理费</div>
         <div style="font-size:1.4rem;font-weight:800;color:#f59e0b;font-family:var(--fm);line-height:1">$6,000</div>
-        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:6px 14px;background:linear-gradient(135deg,#f59e0b,#ef4444)" onclick="event.stopPropagation();payAgentTier('state',6000,'ajr_state')" data-key="ajpay">付款</button>
+        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:5px 22px;background:linear-gradient(135deg,#f59e0b,#ef4444);border-radius:50px" onclick="event.stopPropagation();payAgentTier('state',6000,'ajr_state')" data-key="ajpay">付款</button>
       </div>
     </div>
 
@@ -1115,13 +1115,13 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
           <span style="background:rgba(245,158,11,.15);color:#f59e0b;font-size:.6rem;font-weight:600;padding:2px 8px;border-radius:10px" data-key="ajt3f3">市场支持</span>
         </div>
       </div>
-      <div style="text-align:right;flex-shrink:0;min-width:85px">
+      <div style="text-align:right;flex-shrink:0;min-width:100px">
         <select id="ajr_city_ctry" class="aj-reg-sel" onchange="onAjRegCascade(this,'city_ctry','ajr_city_state')"><option value="" data-key="ajr_sel_ctry">选择国家</option></select>
         <select id="ajr_city_state" class="aj-reg-sel" disabled onchange="onAjRegCascade(this,'city_state','ajr_city')"><option value="" data-key="ajr_sel_state">选择省/州</option></select>
         <select id="ajr_city" class="aj-reg-sel" disabled onchange="onAjRegChange(this,'city')"><option value="" data-key="ajr_sel_city">选择市/区</option></select>
         <div style="font-size:.6rem;color:var(--t3);margin-bottom:1px" data-key="ajfee">代理费</div>
         <div style="font-size:1.4rem;font-weight:800;color:#10b981;font-family:var(--fm);line-height:1">$1,000</div>
-        <button class="btn bg bw" style="margin-top:6px;font-size:.62rem;padding:5px 6px;background:linear-gradient(135deg,#10b981,#06b6d4)" onclick="event.stopPropagation();payAgentTier('city',1000,'ajr_city')" data-key="ajpay">付款</button>
+        <button class="btn bg bw" style="margin-top:6px;font-size:.62rem;padding:5px 20px;background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:50px" onclick="event.stopPropagation();payAgentTier('city',1000,'ajr_city')" data-key="ajpay">付款</button>
       </div>
     </div>
 
@@ -1140,7 +1140,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
       <div style="text-align:right;flex-shrink:0">
         <div style="font-size:.6rem;color:var(--t3);margin-bottom:1px" data-key="ajfee">代理费</div>
         <div style="font-size:1.4rem;font-weight:800;color:#6b7280;font-family:var(--fm);line-height:1">$199</div>
-        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:6px 14px;background:linear-gradient(135deg,#ec4899,#f43f5e)" onclick="event.stopPropagation();payAgentTier('normal',199)" data-key="ajpay">付款</button>
+        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:5px 22px;background:linear-gradient(135deg,#ec4899,#f43f5e);border-radius:50px" onclick="event.stopPropagation();payAgentTier('normal',199)" data-key="ajpay">付款</button>
       </div>
     </div>
   </div>
@@ -4047,7 +4047,7 @@ function payAgentTier(tier, amount, regionSelId){
       container.innerHTML = '';
       paypal.HostedButtons({hostedButtonId:'EJC58LA49LNM2'}).render('#paypal-container-EJC58LA49LNM2');
     } else {
-      container.innerHTML = '<div style="text-align:center;padding:10px 8px"><a href="https://www.paypal.com/ncp/payment/EJC58LA49LNM2" target="_blank" rel="noopener" style="display:inline-block;padding:10px 24px;background:linear-gradient(135deg,#0070ba,#1546a0);color:#fff;border-radius:25px;text-decoration:none;font-weight:700;font-size:.82rem">Pay Now - $' + amount.toLocaleString('en-US') + '</a><div style="margin-top:8px;font-size:.6rem;color:var(--t3)">Amount: $' + amount.toLocaleString('en-US') + ' / ' + (tier==='country'?'Country/Region':tier==='state'?'State/Province':tier==='city'?'City/District':'Online Network') + ' Agent</div></div>';
+      container.innerHTML = '<div style="text-align:center;padding:10px 8px"><a href="https://www.paypal.com/ncp/payment/EJC58LA49LNM2" target="_blank" rel="noopener" style="display:inline-block;padding:8px 28px;background:linear-gradient(135deg,#0070ba,#1546a0);color:#fff;border-radius:50px;text-decoration:none;font-weight:700;font-size:.82rem">Pay Now - $' + amount.toLocaleString('en-US') + '</a><div style="margin-top:8px;font-size:.6rem;color:var(--t3)">Amount: $' + amount.toLocaleString('en-US') + ' / ' + (tier==='country'?'Country/Region':tier==='state'?'State/Province':tier==='city'?'City/District':'Online Network') + ' Agent</div></div>';
     }
   }
   // 打开 paypal 模态框
@@ -4137,7 +4137,7 @@ function openPaypalBtn(n){
       paypal.HostedButtons({hostedButtonId:'EJC58LA49LNM2'}).render('#paypal-container-EJC58LA49LNM2');
     } else if(!window.paypalLoaded){
       // PayPal SDK blocked (GFW) - show direct payment link fallback
-      container.innerHTML = '<a href="https://www.paypal.com/ncp/payment/EJC58LA49LNM2" target="_blank" rel="noopener" style="display:inline-block;padding:10px 24px;background:linear-gradient(135deg,#0070ba,#1546a0);color:#fff;border-radius:25px;text-decoration:none;font-weight:700;font-size:.82rem">Pay Now - $199</a>';
+      container.innerHTML = '<a href="https://www.paypal.com/ncp/payment/EJC58LA49LNM2" target="_blank" rel="noopener" style="display:inline-block;padding:8px 28px;background:linear-gradient(135deg,#0070ba,#1546a0);color:#fff;border-radius:50px;text-decoration:none;font-weight:700;font-size:.82rem">Pay Now - $199</a>';
     }
   } else {
     title.setAttribute('data-key','ppdonate');
