@@ -1152,9 +1152,11 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
         </div>
       </div>
       <div style="text-align:right;flex-shrink:0;min-width:100px">
+        <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:4px">
         <select id="ajr_city_ctry" class="aj-reg-sel" onchange="onAjRegCascade(this,'city_ctry','ajr_city_state')"><option value="" data-key="ajr_sel_ctry">选择国家</option></select>
         <select id="ajr_city_state" class="aj-reg-sel" disabled onchange="onAjRegCascade(this,'city_state','ajr_city')"><option value="" data-key="ajr_sel_state">选择省/州</option></select>
         <select id="ajr_city" class="aj-reg-sel" disabled onchange="onAjRegChange(this,'city')"><option value="" data-key="ajr_sel_city">选择市/区</option></select>
+        </div>
         <div style="font-size:.6rem;color:var(--t3);margin-bottom:1px" data-key="ajfee">代理费</div>
         <div style="font-size:1.4rem;font-weight:800;color:#10b981;font-family:var(--fm);line-height:1">$1,000</div>
         <button class="btn-shimmer" style="margin-top:6px" onclick="event.stopPropagation();payAgentTier('city',1000,'ajr_city')" data-key="ajpay">付款</button>
