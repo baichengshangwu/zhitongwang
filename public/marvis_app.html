@@ -240,7 +240,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 @keyframes orb2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-30px) scale(1.15)}}
 
 /* CS Float Button */
-.cs-float{position:fixed;bottom:30%;right:16px;z-index:9998;display:flex;flex-direction:column;align-items:flex-end;gap:8px;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
+.cs-float{position:fixed;bottom:30%;right:16px;z-index:99999;display:flex;flex-direction:column;align-items:flex-end;gap:8px;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
 .cs-float:active{cursor:grabbing}
 .cs-float-btn{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#ff6b35,#f72585);border:none;cursor:pointer;box-shadow:0 4px 18px rgba(255,107,53,.5);display:flex;align-items:center;justify-content:center;font-size:1.4rem;animation:float-btn 3s ease-in-out infinite;transition:transform .2s;color:#fff;position:relative}
 .cs-float-btn:hover{transform:scale(1.1);animation:none}
@@ -6913,18 +6913,18 @@ async function translateText(text,targetLang){
   if(!text||targetLang==='zh')return text;
   var key=text+'_'+targetLang;
   if(TL_CACHE[key])return TL_CACHE[key];
+  function isErr(t){return !t||t.indexOf('INVALID SOURCE')>=0||t.indexOf('INVALID TARGET')>=0||t.indexOf("AUTO'")>=0||t.length>500;}
   try{
     var res=await fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(text)+'&langpair=Autodetect|'+targetLang);
     var d=await res.json();
     var translated=(d&&d.responseData&&d.responseData.translatedText)||'';
-    if(translated&&translated!==text){TL_CACHE[key]=translated;return translated;}
+    if(translated&&translated!==text&&!isErr(translated)){TL_CACHE[key]=translated;return translated;}
   }catch(e){}
-  // Fallback to Google Translate
   try{
     var res2=await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl='+targetLang+'&dt=t&q='+encodeURIComponent(text));
     var d2=await res2.json();
     var translated2=(d2[0]||[]).map(function(x){return x[0];}).join('');
-    if(translated2){TL_CACHE[key]=translated2;return translated2;}
+    if(translated2&&!isErr(translated2)){TL_CACHE[key]=translated2;return translated2;}
   }catch(e){}
   return text;
 }
@@ -7112,13 +7112,24 @@ function onAjRegCascade(src, tier, childId) {
   const region = ajRegions.find(r => r.n === val);
   if (!region || !region.s.length) { child.disabled = true; child.innerHTML = child.querySelector('option[data-key]').outerHTML; return; }
   child.disabled = false;
-  let countryLabel = ajRegionsI18n[val] ? (ajRegionsI18n[val][curLang] || val) : val;
-  let opts = region.s.map(s => `<option value="${s.n}">${countryLabel} / ${s.n}</option>`).join('');
+  let opts = region.s.map(s => `<option value="${s.n}">${tRegion(s.n)}</option>`).join('');
   child.innerHTML = child.querySelector('option[data-key]').outerHTML + opts;
   // Reset grandchild if exists
   if (tier === 'city_ctry') {
     const citySel = document.getElementById('ajr_city');
     if (citySel) { citySel.disabled = true; citySel.innerHTML = citySel.querySelector('option[data-key]').outerHTML; }
+  }
+  // Populate city dropdown if tier is 'city_state'
+  if (tier === 'city_state') {
+    const state = region.s.find(s => s.n === val);
+    if (state && state.c && state.c.length) {
+      const citySel = document.getElementById('ajr_city');
+      if (citySel) {
+        citySel.disabled = false;
+        let cityOpts = state.c.map(c => `<option value="${c}">${tRegion(c)}</option>`).join('');
+        citySel.innerHTML = citySel.querySelector('option[data-key]').outerHTML + cityOpts;
+      }
+    }
   }
 }
 
