@@ -601,7 +601,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <h3 id="paypal-modal-title" data-key="ppagent">Become a Partner</h3>
   <p id="paypal-modal-desc" data-key="ppagent_desc">One-time payment of $199 to join the AI Nexus Partner Program and earn 50% recurring commission.</p>
   <div id="paypal-modal-price" style="font-size:1.5rem;font-weight:800;font-family:var(--fm);color:var(--ap);margin-bottom:14px">$199.00</div>
-  <div id="paypal-container-EJC58LA49LNM2" style="display:flex;justify-content:center;align-items:center;margin-bottom:14px;min-height:45px;max-width:100%;overflow:hidden"><span style="color:var(--t3);font-size:.7rem;padding:10px;text-align:center" id="paypal-fallback">PayPal button loading... Please wait or refresh.</span></div>
+  <div id="paypal-container-EJC58LA49LNM2" style="display:flex;justify-content:center;align-items:center;margin-bottom:14px;min-height:45px;max-width:100%;overflow:hidden"><span style="color:var(--t3);font-size:.7rem;padding:10px;text-align:center" id="paypal-fallback" data-key="paypal_loading">PayPal button loading... Please wait or refresh.</span></div>
   <div class="br2"><button class="btn bo" onclick="document.getElementById('paypal-donate-modal').classList.remove('show')" data-key="mcancel">Cancel</button></div>
 </div></div>
 
@@ -782,11 +782,11 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <h3 id="forum-post-title" data-key="fmnewpost">发布新内容</h3>
   <div class="ig"><label data-key="fmtitle">标题</label><input type="text" id="forum-post-title-inp" data-key-ph="fmtitleph" placeholder="输入标题..."></div>
   <div class="ig"><label data-key="fmbody">正文内容</label><textarea id="forum-post-body" rows="5" data-key-ph="fmbodyph" placeholder="分享你的想法..."></textarea></div>
-  <div class="ig"><label>📷 图片</label><input type="file" id="forum-img-inp" accept="image/*" multiple onchange="handleForumMediaInput(event,'image')" style="font-size:.7rem"></div>
+  <div class="ig"><label data-key="fmimg">📷 图片</label><input type="file" id="forum-img-inp" accept="image/*" multiple onchange="handleForumMediaInput(event,'image')" style="font-size:.7rem"></div>
   <div id="forum-img-preview" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px"></div>
-  <div class="ig"><label>🎬 视频</label><input type="file" id="forum-video-inp" accept="video/*" multiple onchange="handleForumMediaInput(event,'video')" style="font-size:.7rem"></div>
+  <div class="ig"><label data-key="fmvideo">🎬 视频</label><input type="file" id="forum-video-inp" accept="video/*" multiple onchange="handleForumMediaInput(event,'video')" style="font-size:.7rem"></div>
   <div id="forum-video-preview" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px"></div>
-  <div class="ig"><label>🎵 音频</label><input type="file" id="forum-audio-inp" accept="audio/*" multiple onchange="handleForumMediaInput(event,'audio')" style="font-size:.7rem"></div>
+  <div class="ig"><label data-key="fmaudio">🎵 音频</label><input type="file" id="forum-audio-inp" accept="audio/*" multiple onchange="handleForumMediaInput(event,'audio')" style="font-size:.7rem"></div>
   <div id="forum-audio-preview" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"></div>
   <div class="ig"><label data-key="fmcover">封面图 (视频/课程必选)</label><input type="file" id="forum-cover-inp" accept="image/*" onchange="handleForumCover(event)" style="font-size:.7rem"></div>
   <div id="forum-cover-preview" style="margin-bottom:8px"><img id="forum-cover-img" style="display:none;max-width:100%;max-height:120px;border-radius:8px"></div>
@@ -978,7 +978,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
     <div style="font-size:.8rem;line-height:1.5;white-space:pre-wrap" id="pv-bio">—</div>
   </div>
   <div id="pv-sigimgs" style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:10px;display:none">
-    <div style="font-size:.7rem;color:var(--t3);margin-bottom:6px">Signature Images</div>
+    <div style="font-size:.7rem;color:var(--t3);margin-bottom:6px" data-key="msigimg_title">Signature Images</div>
     <div id="pv-sigimg-gallery" style="display:flex;flex-wrap:wrap;gap:6px"></div>
   </div>
   <button class="btn bg bw" onclick="spme()" data-key="mpedit">Edit</button>
@@ -1002,10 +1002,10 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
 </div></div>
 <div class="mo" id="mo-payment"><div class="mod">
-  <h3 id="payment-title">Deposit CNY</h3>
-  <div class="ig"><label>Amount (CNY)</label><input type="number" dir="ltr" inputmode="decimal" id="payment-amount" placeholder="100" min="1" step="1" style="direction:ltr;text-align:left;"></div>
+  <h3 id="payment-title" data-key="vault_deposit_title">Deposit CNY</h3>
+  <div class="ig"><label data-key="vault_deposit_amt">Amount (CNY)</label><input type="number" dir="ltr" inputmode="decimal" id="payment-amount" placeholder="100" min="1" step="1" style="direction:ltr;text-align:left;"></div>
   <div style="font-size:.68rem;color:var(--t3);margin-bottom:8px" id="payment-info"></div>
-  <button class="btn bg bw" id="payment-btn" onclick="execPayment()" style="border-radius:999px;padding:8px 36px">Confirm Deposit</button>
+  <button class="btn bg bw" id="payment-btn" onclick="execPayment()" style="border-radius:999px;padding:8px 36px" data-key="vault_deposit_confirm">Confirm Deposit</button>
   <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
 </div></div>
 <div class="mo" id="mo-confirm"><div class="mod">
@@ -3666,6 +3666,14 @@ fmpub:'Pubblica',fmpub_tw:'Pubblica Articolo',fmpub_sp:'Pubblica Video',fmpub_ac
   vault_deposit_title:{zh:'存入代币到存库包',en:'Deposit Token to Vault',ja:'トークンを保管庫に預入',ko:'토큰을 보관소에 예치',es:'Depositar Token en Bóveda',fr:'Déposer Token au Coffre',de:'Token in Tresor einzahlen',pt:'Depositar Token no Cofre',ru:'Внести токен в хранилище',it:'Deposita Token nel Cassaforte',ar:'إيداع الرمز في الخزنة',hi:'टोकन को तिजोरी में जमा करें',th:'ฝากโทเค็นเข้าตู้นิรภัย',vi:'Gửi token vào kho',id:'Setor Token ke Brankas'},
   vault_amt_ph:{zh:'数量',en:'Amount',ja:'数量',ko:'수량',es:'Cantidad',fr:'Quantité',de:'Menge',pt:'Quantidade',ru:'Количество',it:'Quantità',ar:'الكمية',hi:'मात्रा',th:'จำนวน',vi:'Số lượng',id:'Jumlah'},
   vault_deposit_btn:{zh:'存入',en:'Deposit',ja:'預入',ko:'예치',es:'Depositar',fr:'Déposer',de:'Einzahlen',pt:'Depositar',ru:'Внести',it:'Deposita',ar:'إيداع',hi:'जमा करें',th:'ฝาก',vi:'Gửi',id:'Setor'},
+  vault_deposit_title:{zh:'充值',en:'Deposit CNY',ja:'人民元入金',ko:'CNY 입금',es:'Depositar CNY',fr:'Déposer CNY',de:'CNY Einzahlen',pt:'Depositar CNY',ru:'Внести CNY',it:'Deposita CNY',ar:'إيداع CNY',hi:'CNY जमा करें',th:'ฝากเงิน CNY',vi:'Gửi CNY',id:'Setor CNY'},
+  vault_deposit_amt:{zh:'金额 (CNY)',en:'Amount (CNY)',ja:'金額 (CNY)',ko:'금액 (CNY)',es:'Cantidad (CNY)',fr:'Montant (CNY)',de:'Betrag (CNY)',pt:'Valor (CNY)',ru:'Сумма (CNY)',it:'Importo (CNY)',ar:'المبلغ (CNY)',hi:'राशि (CNY)',th:'จำนวนเงิน (CNY)',vi:'Số tiền (CNY)',id:'Jumlah (CNY)'},
+  vault_deposit_confirm:{zh:'确认充值',en:'Confirm Deposit',ja:'入金確認',ko:'입금 확인',es:'Confirmar Depósito',fr:'Confirmer le dépôt',de:'Einzahlung bestätigen',pt:'Confirmar Depósito',ru:'Подтвердить',it:'Conferma Deposito',ar:'تأكيد الإيداع',hi:'जमा की पुष्टि करें',th:'ยืนยันการฝาก',vi:'Xác nhận gửi',id:'Konfirmasi Setoran'},
+  paypal_loading:{zh:'PayPal 加载中… 请等待或刷新。',en:'PayPal button loading... Please wait or refresh.',ja:'PayPalを読み込み中… しばらく待つか更新してください。',ko:'PayPal 로딩 중… 기다리거나 새로고침하세요.',es:'Cargando PayPal… Espere o actualice.',fr:'Chargement PayPal… Veuillez patienter ou rafraîchir.',de:'PayPal lädt… Bitte warten oder aktualisieren.',pt:'Carregando PayPal… Aguarde ou atualize.',ru:'Загрузка PayPal… Пожалуйста, подождите или обновите.',it:'Caricamento PayPal… Attendere o aggiornare.',ar:'جاري تحميل PayPal… يرجى الانتظار أو التحديث.',hi:'PayPal लोड हो रहा है… कृपया प्रतीक्षा करें या रीफ़्रेश करें।',th:'กำลังโหลด PayPal… กรุณารอหรือรีเฟรช',vi:'Đang tải PayPal… Vui lòng chờ hoặc làm mới.',id:'Memuat PayPal… Harap tunggu atau segarkan.'},
+  msigimg_title:{zh:'个性签名图',en:'Signature Images',ja:'署名画像',ko:'서명 이미지',es:'Imágenes de firma',fr:'Images de signature',de:'Signaturbilder',pt:'Imagens de assinatura',ru:'Изображения подписи',it:'Immagini firma',ar:'صور التوقيع',hi:'हस्ताक्षर चित्र',th:'รูปภาพลายเซ็น',vi:'Ảnh chữ ký',id:'Gambar Tanda Tangan'},
+  fmimg:{zh:'📷 图片',en:'📷 Images',ja:'📷 画像',ko:'📷 이미지',es:'📷 Imágenes',fr:'📷 Images',de:'📷 Bilder',pt:'📷 Imagens',ru:'📷 Изображения',it:'📷 Immagini',ar:'📷 صور',hi:'📷 छवियाँ',th:'📷 รูปภาพ',vi:'📷 Hình ảnh',id:'📷 Gambar'},
+  fmvideo:{zh:'🎬 视频',en:'🎬 Videos',ja:'🎬 動画',ko:'🎬 비디오',es:'🎬 Videos',fr:'🎬 Vidéos',de:'🎬 Videos',pt:'🎬 Vídeos',ru:'🎬 Видео',it:'🎬 Video',ar:'🎬 فيديو',hi:'🎬 वीडियो',th:'🎬 วิดีโอ',vi:'🎬 Video',id:'🎬 Video'},
+  fmaudio:{zh:'🎵 音频',en:'🎵 Audio',ja:'🎵 音声',ko:'🎵 오디오',es:'🎵 Audio',fr:'🎵 Audio',de:'🎵 Audio',pt:'🎵 Áudio',ru:'🎵 Аудио',it:'🎵 Audio',ar:'🎵 صوت',hi:'🎵 ऑडियो',th:'🎵 เสียง',vi:'🎵 Âm thanh',id:'🎵 Audio'},
   vault_withdraw_title:{zh:'从存库包取出',en:'Withdraw from Vault',ja:'保管庫から取出',ko:'보관소에서 인출',es:'Retirar de Bóveda',fr:'Retirer du Coffre',de:'Aus Tresor abheben',pt:'Sacar do Cofre',ru:'Вывести из хранилища',it:'Preleva dal Cassaforte',ar:'سحب من الخزنة',hi:'तिजोरी से निकालें',th:'ถอนจากตู้นิรภัย',vi:'Rút từ kho',id:'Tarik dari Brankas'},
   vault_withdraw_btn:{zh:'取出',en:'Withdraw',ja:'取出',ko:'인출',es:'Retirar',fr:'Retirer',de:'Abheben',pt:'Sacar',ru:'Вывести',it:'Preleva',ar:'سحب',hi:'निकालें',th:'ถอน',vi:'Rút',id:'Tarik'},
   vault_modal_title:{zh:'代币存库包',en:'Token Vault',ja:'トークン保管庫',ko:'토큰 보관소',es:'Bóveda de Tokens',fr:'Coffre à Tokens',de:'Token-Tresor',pt:'Cofre de Tokens',ru:'Хранилище токенов',it:'Cassaforte Token',ar:'خزنة الرموز',hi:'टोकन तिजोरी',th:'ตู้นิรภัยโทเค็น',vi:'Kho token',id:'Brankas Token'},
@@ -3748,6 +3756,7 @@ function oam(type){
   if(type==='agent-join'){setTimeout(function(){renderAgentPaypal();},300);}
 }
 function cma(){ document.querySelectorAll('.mo').forEach(m=>m.classList.remove('show')); }
+function closeModal(id){ document.getElementById(id).classList.remove('show'); }
 function renderAgentPaypal(){
   var c=document.getElementById('paypal-agent-checkout');
   if(c&&!c.hasChildNodes()&&typeof paypal!=='undefined'){
