@@ -956,7 +956,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <div class="ig"><label data-key="dwa">Wallet Address</label><input type="text" id="profile-wallet" placeholder="0x... or T..." style="font-family:var(--fm)"></div>
   <div class="ig"><label data-key="mbio">Bio</label><textarea id="profile-bio" rows="2" data-key-ph="mbio_ph" placeholder="Tell us about yourself"></textarea></div>
   <div class="ig upload-row"><label data-key="mavatar">Avatar</label><div class="upload-wrap"><input type="file" id="profile-avatar" accept="image/*" style="display:none" onchange="uploadFile('avatar')"><button class="btn bs sm" onclick="document.getElementById('profile-avatar').click()" data-key="mupload">Upload</button><span id="profile-avatar-name"></span><button class="btn bd sm" onclick="clearUpload('avatar')" data-key="mclear" style="margin-left:8px">Clear</button></div></div>
-  <div class="ig upload-row"><label data-key="msigimg">Signature Images (max 9)</label><div class="upload-wrap"><input type="file" id="profile-sigimg" accept="image/*" multiple style="display:none" onchange="uploadMultipleImages()"><button class="btn bs sm" onclick="document.getElementById('profile-sigimg').click()" data-key="mupload">Upload</button><span id="profile-sigimg-name"></span><button class="btn bd sm" onclick="clearUpload('sigimg')" data-key="mclear" style="margin-left:8px">Clear All</button><div id="sigimg-preview" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px"></div></div></div>
+  <div class="ig upload-row"><label data-key="msigimg">Signature Images (max 18)</label><div class="upload-wrap"><input type="file" id="profile-sigimg" accept="image/*" multiple style="display:none" onchange="uploadMultipleImages()"><button class="btn bs sm" onclick="document.getElementById('profile-sigimg').click()" data-key="mupload">Upload</button><span id="profile-sigimg-name"></span><button class="btn bd sm" onclick="clearUpload('sigimg')" data-key="mclear" style="margin-left:8px">Clear All</button><div id="sigimg-preview" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px"></div></div></div>
   <div class="ig upload-row"><label data-key="msigvid">Signature Video</label><div class="upload-wrap"><input type="file" id="profile-sigvid" accept="video/*" style="display:none" onchange="uploadFile('sigvid')"><button class="btn bs sm" onclick="document.getElementById('profile-sigvid').click()" data-key="mupload">Upload</button><span id="profile-sigvid-name"></span><button class="btn bd sm" onclick="clearUpload('sigvid')" data-key="mclear" style="margin-left:8px">Clear</button></div></div>
   <button class="btn bg bw" onclick="saveProfile()" data-key="msave">Save Profile</button>
   <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
@@ -1117,7 +1117,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
         <select id="ajr_country" class="aj-reg-sel" onchange="onAjRegChange(this,'country')" data-key-placeholder="ajr_sel_ctry"><option value="" data-key="ajr_sel_ctry">选择国家/地区</option></select>
         <div style="font-size:.6rem;color:var(--t3);margin-bottom:1px" data-key="ajfee">代理费</div>
         <div style="font-size:1.4rem;font-weight:800;color:var(--ap);font-family:var(--fm);line-height:1">$20,000</div>
-        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:5px 18px;border-radius:999px;min-width:68px;text-align:center" onclick="event.stopPropagation();payAgentTier('country',20000,'ajr_country')" data-key="ajpay">付款</button>
+        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:5px 12px;border-radius:999px;min-width:80px;text-align:center;white-space:nowrap" onclick="event.stopPropagation();scrollToAgentCheckout('country')" data-key="ajpay">付款</button>
       </div>
     </div>
 
@@ -1138,7 +1138,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
         <select id="ajr_state" class="aj-reg-sel" disabled onchange="onAjRegChange(this,'state')"><option value="" data-key="ajr_sel_state">选择洲/省</option></select>
         <div style="font-size:.6rem;color:var(--t3);margin-bottom:1px" data-key="ajfee">代理费</div>
         <div style="font-size:1.4rem;font-weight:800;color:#f59e0b;font-family:var(--fm);line-height:1">$6,000</div>
-        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:5px 18px;border-radius:999px;min-width:68px;text-align:center" onclick="event.stopPropagation();payAgentTier('state',6000,'ajr_state')" data-key="ajpay">付款</button>
+        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:5px 12px;border-radius:999px;min-width:80px;text-align:center;white-space:nowrap" onclick="event.stopPropagation();scrollToAgentCheckout('state')" data-key="ajpay">付款</button>
       </div>
     </div>
 
@@ -1162,7 +1162,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
         </div>
         <div style="font-size:.6rem;color:var(--t3);margin-bottom:1px" data-key="ajfee">代理费</div>
         <div style="font-size:1.4rem;font-weight:800;color:#10b981;font-family:var(--fm);line-height:1">$1,000</div>
-        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:5px 18px;border-radius:999px;min-width:68px;text-align:center" onclick="event.stopPropagation();payAgentTier('city',1000,'ajr_city')" data-key="ajpay">付款</button>
+        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:5px 12px;border-radius:999px;min-width:80px;text-align:center;white-space:nowrap" onclick="event.stopPropagation();scrollToAgentCheckout('city')" data-key="ajpay">付款</button>
       </div>
     </div>
 
@@ -1181,7 +1181,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
       <div style="text-align:right;flex-shrink:0">
         <div style="font-size:.6rem;color:var(--t3);margin-bottom:1px" data-key="ajfee">代理费</div>
         <div style="font-size:1.4rem;font-weight:800;color:#6b7280;font-family:var(--fm);line-height:1">$199</div>
-        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:5px 18px;border-radius:999px;min-width:68px;text-align:center" onclick="event.stopPropagation();payAgentTier('normal',199)" data-key="ajpay">付款</button>
+        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:5px 12px;border-radius:999px;min-width:80px;text-align:center;white-space:nowrap" onclick="event.stopPropagation();scrollToAgentCheckout('normal')" data-key="ajpay">付款</button>
       </div>
     </div>
   </div>
@@ -3925,7 +3925,7 @@ async function uploadFile(type){
   if(type==='sigvid'){
     try{
       const dur=await getVideoDuration(file);
-      if(dur>60){notify(t('msigvid_too_long')||'Video must be under 60 seconds','&#x26A0;');input.value='';return;}
+      if(dur>600){notify(t('msigvid_too_long')||'Video must be under 600 seconds','&#x26A0;');input.value='';return;}
     }catch(e){console.warn('Video duration check failed, proceeding anyway:',e);}
   }
   const nameSpan=document.getElementById(map[type]+'-name');
@@ -3962,7 +3962,7 @@ async function uploadMultipleImages(){
   var input=document.getElementById('profile-sigimg');
   if(!input||!input.files||!input.files.length){notify(t('mnofile'),'&#x26A0;');return;}
   var newFiles=Array.from(input.files);
-  if(sigImages.length+newFiles.length>9){notify('Maximum 9 images allowed','&#x26A0;');input.value='';return;}
+  if(sigImages.length+newFiles.length>18){notify('Maximum 18 images allowed','&#x26A0;');input.value='';return;}
   var nameSpan=document.getElementById('profile-sigimg-name');
   var preview=document.getElementById('sigimg-preview');
   for(var i=0;i<newFiles.length;i++){
@@ -4030,6 +4030,8 @@ function saveProfile(){
   document.getElementById('ual').textContent=curUser.name[0].toUpperCase();
   document.getElementById('udn').textContent=curUser.name;
   cma(); notify(t('mpsaved'),'&#x2705;'); rAll();
+  // Trigger bio translation for current language
+  delete curUser._bioTranslated; if(curUser.bio && curLang!=='zh'){ translateBio(); }
   // Sync to backend if authenticated
   if(typeof apiToken!=='undefined'&&apiToken){ API.saveProfile(curUser.name,curUser.wallet,curUser.bio,curUser.avatar||'',(curUser.sig_images||[]).join(','),curUser.sig_video||'').catch(e=>console.error('backend sync:',e)); }
 }
@@ -4078,6 +4080,21 @@ async function loadAgentDashboard(){
 function payToBecomeAgent(){
   if(!curUser){ showToast(t('noauth'),'w'); oam('login'); return; }
   oam('agent-join');
+}
+function scrollToAgentCheckout(tier){
+  // Validate region selection
+  var amounts = {country:20000, state:6000, city:1000, normal:199};
+  var selIds = {country:'ajr_country', state:'ajr_state', city:'ajr_city', normal:null};
+  if ((tier === 'country' || tier === 'state' || tier === 'city') && !getAjSelectedRegion(tier)) {
+    alert('请先选择代理区域 / Please select an agent region first'); return;
+  }
+  window._agentPayTier = tier;
+  window._agentPayAmount = amounts[tier] || 199;
+  // Scroll to checkout section within modal
+  var checkout = document.getElementById('agent-paypal-checkout');
+  if (checkout) { checkout.scrollIntoView({behavior:'smooth',block:'center'}); checkout.style.boxShadow='0 0 20px rgba(139,92,246,.4)'; setTimeout(function(){checkout.style.boxShadow='';},2000); }
+  // Also populate the checkout PayPal button
+  setTimeout(function(){ payAgentTier(tier, amounts[tier]||199, selIds[tier]); }, 300);
 }
 function selectAgentTier(el){
   document.querySelectorAll('.aj-tier').forEach(function(n){ n.style.boxShadow='none'; n.style.transform='scale(1)'; });
@@ -4913,7 +4930,13 @@ async function loadFriends(){
       h+='<div class="ni2" onclick="selectFriend(\''+isOther+'\')" '+sel+'>'+escHtml(name)+' <span style="font-size:.62rem;color:var(--t3)">'+escHtml(isOther)+'</span></div>';
     }
     div.innerHTML = h;
-  } catch(e){ console.error('loadFriends error:', e.message, 'apiToken:', !!apiToken); div.innerHTML='<div class="nemp" data-key="sotokenexpired">'+escHtml(errMsg(e))+'</div>'; }
+  } catch(e){ console.error('loadFriends error:', e.message, 'apiToken:', !!apiToken);
+    if(e.message.indexOf('token')!==-1||e.message.indexOf('Token')!==-1||e.message.indexOf('expired')!==-1||e.message.indexOf('auth')!==-1||e.message.indexOf('401')!==-1){
+      div.innerHTML='<div class="nemp" style="cursor:pointer;color:var(--ap)" onclick="oam(\'login\')" data-key="sologin">'+t('sologin')+'</div>';
+    } else {
+      div.innerHTML='<div class="nemp" data-key="sotokenexpired">'+escHtml(errMsg(e))+'</div>';
+    }
+  }
 }
 
 async function loadFriendRequests(){
@@ -4949,7 +4972,13 @@ async function searchUser(){
     if(data.pendingRequest){ resDiv.innerHTML='<div style="padding:10px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:8px;text-align:center;color:#8b5cf6;font-size:.78rem" data-key="sopending">'+t('sopending')+'</div>'; return; }
     var h = '<div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg);border:1px solid var(--ap);border-radius:10px"><div style="width:40px;height:40px;border-radius:50%;background:var(--g1);display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:#fff;flex-shrink:0">'+escHtml(name[0].toUpperCase())+'</div><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:.85rem">'+escHtml(name)+'</div><div style="font-size:.65rem;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+escHtml(u.email)+'</div>'+(u.bio?'<div style="font-size:.68rem;color:var(--t2);margin-top:2px;white-space:pre-wrap;max-height:40px;overflow:hidden">'+escHtml(u.bio)+'</div>':'')+'</div><button class="btn bs bg" onclick="addSearchedUser(\''+u.email+'\')" data-key="soadd2" style="flex-shrink:0">'+t('soadd2')+'</button></div>';
     resDiv.innerHTML = h;
-  } catch(e){ resDiv.innerHTML='<div style="padding:10px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;text-align:center;color:#ef4444;font-size:.78rem" data-key="sotokenexpired">'+escHtml(errMsg(e))+'</div>'; }
+  } catch(e){
+    if(e.message.indexOf('token')!==-1||e.message.indexOf('Token')!==-1||e.message.indexOf('expired')!==-1||e.message.indexOf('auth')!==-1||e.message.indexOf('401')!==-1){
+      resDiv.innerHTML='<div style="padding:10px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;text-align:center;color:#ef4444;font-size:.78rem;cursor:pointer" onclick="oam(\'login\')" data-key="sologin">'+t('sologin')+'</div>';
+    } else {
+      resDiv.innerHTML='<div style="padding:10px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;text-align:center;color:#ef4444;font-size:.78rem" data-key="sotokenexpired">'+escHtml(errMsg(e))+'</div>';
+    }
+  }
 }
 async function addSearchedUser(email){
   try {
@@ -6054,108 +6083,383 @@ const regionIsoMap = {
 };
 
 const stateI18n = {
-  'Abu Dhabi': {'ar': 'أبو ظبي', 'de': 'Abu Dhabi', 'es': 'Abu Dabi', 'fr': 'Abou Dhabi', 'ja': 'アブダビ', 'ko': '아부다비', 'ru': 'Абу-Даби', 'th': 'อาบูดาบี', 'vi': 'Abu Dhabi', 'zh': '阿布扎比'},
-  'Abuja': {'ar': 'أبوجا', 'de': 'Abuja', 'es': 'Abuya', 'fr': 'Abuja', 'ja': 'アブジャ', 'ko': '아부자', 'ru': 'Абуджа', 'th': 'อาบูจา', 'vi': 'Abuja', 'zh': '阿布贾'},
-  'Aichi': {'de': 'Aichi', 'fr': 'Aichi', 'ja': '愛知', 'ko': '아이치', 'ru': 'Айти', 'th': 'ไอจิ', 'vi': 'Aichi', 'zh': '爱知'},
-  'Alberta': {'ar': 'ألبرتا', 'de': 'Alberta', 'es': 'Alberta', 'fr': 'Alberta', 'ja': 'アルバータ', 'ko': '앨버타', 'ru': 'Альберта', 'th': 'แอลเบอร์ตา', 'vi': 'Alberta', 'zh': '阿尔伯塔'},
-  'Anhui': {'de': 'Anhui', 'fr': 'Anhui', 'ja': '安徽', 'ko': '안후이', 'ru': 'Аньхой', 'th': 'อานฮุย', 'vi': 'An Huy', 'zh': '安徽'},
-  'Ankara': {'ar': 'أنقرة', 'de': 'Ankara', 'es': 'Ankara', 'fr': 'Ankara', 'ja': 'アンカラ', 'ko': '앙카라', 'ru': 'Анкара', 'th': 'อังการา', 'vi': 'Ankara', 'zh': '安卡拉'},
-  'Auvergne-Rhône-Alpes': {'de': 'Auvergne-Rhône-Alpes', 'fr': 'Auvergne-Rhône-Alpes', 'ja': 'オーヴェルニュ＝ローヌ＝アルプ', 'ko': '오베르뉴론알프', 'ru': 'Овернь-Рона-Альпы', 'th': 'โอแวร์ญ-โรนาลป์', 'vi': 'Auvergne-Rhône-Alpes', 'zh': '奥弗涅-罗讷-阿尔卑斯'},
-  'Bali': {'ar': 'بالي', 'de': 'Bali', 'es': 'Bali', 'fr': 'Bali', 'ja': 'バリ', 'ko': '발리', 'ru': 'Бали', 'th': 'บาหลี', 'vi': 'Bali', 'zh': '巴厘'},
-  'Bangkok': {'ar': 'بانكوك', 'de': 'Bangkok', 'es': 'Bangkok', 'fr': 'Bangkok', 'ja': 'バンコク', 'ko': '방콕', 'ru': 'Бангкок', 'th': 'กรุงเทพมหานคร', 'vi': 'Bangkok', 'zh': '曼谷'},
-  'Bavaria': {'ar': 'بافاريا', 'de': 'Bayern', 'es': 'Baviera', 'fr': 'Bavière', 'ja': 'バイエルン', 'ko': '바이에른', 'ru': 'Бавария', 'th': 'บาวาเรีย', 'vi': 'Bayern', 'zh': '巴伐利亚'},
-  'Beijing': {'ar': 'بكين', 'de': 'Peking', 'es': 'Pekín', 'fr': 'Pékin', 'ja': '北京', 'ko': '베이징', 'ru': 'Пекин', 'th': 'ปักกิ่ง', 'vi': 'Bắc Kinh', 'zh': '北京'},
-  'Berlin': {'ar': 'برلين', 'de': 'Berlin', 'es': 'Berlín', 'fr': 'Berlin', 'ja': 'ベルリン', 'ko': '베를린', 'ru': 'Берлин', 'th': 'เบอร์ลิน', 'vi': 'Berlin', 'zh': '柏林'},
-  'British Columbia': {'ar': 'كولومبيا البريطانية', 'de': 'British Columbia', 'es': 'Columbia Británica', 'fr': 'Colombie-Britannique', 'ja': 'ブリティッシュコロンビア', 'ko': '브리티시컬럼비아', 'ru': 'Британская Колумбия', 'th': 'บริติชโคลัมเบีย', 'vi': 'British Columbia', 'zh': '不列颠哥伦比亚'},
-  'Buenos Aires': {'ar': 'بوينس آيرس', 'de': 'Buenos Aires', 'es': 'Buenos Aires', 'fr': 'Buenos Aires', 'ja': 'ブエノスアイレス', 'ko': '부에노스아이레스', 'ru': 'Буэнос-Айрес', 'th': 'บัวโนสไอเรส', 'vi': 'Buenos Aires', 'zh': '布宜诺斯艾利斯'},
-  'Busan': {'de': 'Busan', 'fr': 'Busan', 'ja': '釜山', 'ko': '부산', 'ru': 'Пусан', 'th': 'ปูซาน', 'vi': 'Busan', 'zh': '釜山'},
-  'California': {'ar': 'كاليفورنيا', 'de': 'Kalifornien', 'es': 'California', 'fr': 'Californie', 'ja': 'カリフォルニア', 'ko': '캘리포니아', 'ru': 'Калифорния', 'th': 'แคลิฟอร์เนีย', 'vi': 'California', 'zh': '加利福尼亚'},
-  'Catalonia': {'ar': 'كتالونيا', 'de': 'Katalonien', 'es': 'Cataluña', 'fr': 'Catalogne', 'ja': 'カタルーニャ', 'ko': '카탈루냐', 'ru': 'Каталония', 'th': 'กาตาลุญญา', 'vi': 'Catalonia', 'zh': '加泰罗尼亚'},
-  'Cebu': {'de': 'Cebu', 'fr': 'Cebu', 'ja': 'セブ', 'ko': '세부', 'ru': 'Себу', 'th': 'เซบู', 'vi': 'Cebu', 'zh': '宿务'},
-  'Chiang Mai': {'de': 'Chiang Mai', 'fr': 'Chiang Mai', 'ja': 'チェンマイ', 'ko': '치앙마이', 'ru': 'Чиангмай', 'th': 'เชียงใหม่', 'vi': 'Chiang Mai', 'zh': '清迈'},
-  'Chongqing': {'de': 'Chongqing', 'fr': 'Chongqing', 'ja': '重慶', 'ko': '충칭', 'ru': 'Чунцин', 'th': 'ฉงชิ่ง', 'vi': 'Trùng Khánh', 'zh': '重庆'},
-  'Colorado': {'ar': 'كولورادو', 'de': 'Colorado', 'es': 'Colorado', 'fr': 'Colorado', 'ja': 'コロラド', 'ko': '콜로라도', 'ru': 'Колорадо', 'th': 'โคโลราโด', 'vi': 'Colorado', 'zh': '科罗拉多'},
-  'Córdoba': {'de': 'Córdoba', 'es': 'Córdoba', 'fr': 'Córdoba', 'ja': 'コルドバ', 'ko': '코르도바', 'ru': 'Кордова', 'th': 'กอร์โดบา', 'vi': 'Córdoba', 'zh': '科尔多瓦'},
-  'Da Nang': {'de': 'Đà Nẵng', 'fr': 'Đà Nẵng', 'ja': 'ダナン', 'ko': '다낭', 'ru': 'Дананг', 'th': 'ดานัง', 'vi': 'Đà Nẵng', 'zh': '岘港'},
-  'Delhi': {'ar': 'دلهي', 'de': 'Delhi', 'fr': 'Delhi', 'ja': 'デリー', 'ko': '델리', 'ru': 'Дели', 'th': 'เดลี', 'vi': 'Delhi', 'zh': '德里'},
-  'Dubai': {'ar': 'دبي', 'de': 'Dubai', 'es': 'Dubái', 'fr': 'Dubaï', 'ja': 'ドバイ', 'ko': '두바이', 'ru': 'Дубай', 'th': 'ดูไบ', 'vi': 'Dubai', 'zh': '迪拜'},
-  'England': {'ar': 'إنجلترا', 'de': 'England', 'es': 'Inglaterra', 'fr': 'Angleterre', 'ja': 'イングランド', 'ko': '잉글랜드', 'ru': 'Англия', 'th': 'อังกฤษ', 'vi': 'Anh', 'zh': '英格兰'},
-  'Florida': {'ar': 'فلوريدا', 'de': 'Florida', 'es': 'Florida', 'fr': 'Floride', 'ja': 'フロリダ', 'ko': '플로리다', 'ru': 'Флорида', 'th': 'ฟลอริดา', 'vi': 'Florida', 'zh': '佛罗里达'},
-  'Fujian': {'de': 'Fujian', 'fr': 'Fujian', 'ja': '福建', 'ko': '푸젠', 'ru': 'Фуцзянь', 'th': 'ฝูเจี้ยน', 'vi': 'Phúc Kiến', 'zh': '福建'},
-  'Gauteng': {'de': 'Gauteng', 'fr': 'Gauteng', 'ja': 'ハウテン', 'ko': '하우텡', 'ru': 'Гаутенг', 'th': 'เคาเต็ง', 'vi': 'Gauteng', 'zh': '豪登'},
-  'Geneva': {'ar': 'جنيف', 'de': 'Genf', 'es': 'Ginebra', 'fr': 'Genève', 'ja': 'ジュネーブ', 'ko': '제네바', 'ru': 'Женева', 'th': 'เจนีวา', 'vi': 'Genève', 'zh': '日内瓦'},
-  'Georgia': {'ar': 'جورجيا', 'de': 'Georgia', 'es': 'Georgia', 'fr': 'Géorgie', 'ja': 'ジョージア', 'ko': '조지아', 'ru': 'Джорджия', 'th': 'จอร์เจีย', 'vi': 'Georgia', 'zh': '佐治亚'},
-  'Guangdong': {'de': 'Guangdong', 'fr': 'Guangdong', 'ja': '広東', 'ko': '광둥', 'ru': 'Гуандун', 'th': 'กวางตุ้ง', 'vi': 'Quảng Đông', 'zh': '广东'},
-  'Guangxi': {'de': 'Guangxi', 'fr': 'Guangxi', 'ja': '広西', 'ko': '광시', 'ru': 'Гуанси', 'th': 'กวางสี', 'vi': 'Quảng Tây', 'zh': '广西'},
-  'Gyeonggi': {'de': 'Gyeonggi', 'fr': 'Gyeonggi', 'ja': '京畿道', 'ko': '경기도', 'ru': 'Кёнгидо', 'th': 'คยองกี', 'vi': 'Gyeonggi', 'zh': '京畿道'},
-  'Hanoi': {'ar': 'هانوي', 'de': 'Hanoi', 'es': 'Hanói', 'fr': 'Hanoï', 'ja': 'ハノイ', 'ko': '하노이', 'ru': 'Ханой', 'th': 'ฮานอย', 'vi': 'Hà Nội', 'zh': '河内'},
-  'Hawaii': {'ar': 'هاواي', 'de': 'Hawaii', 'es': 'Hawái', 'fr': 'Hawaï', 'ja': 'ハワイ', 'ko': '하와이', 'ru': 'Гавайи', 'th': 'ฮาวาย', 'vi': 'Hawaii', 'zh': '夏威夷'},
-  'Hebei': {'de': 'Hebei', 'fr': 'Hebei', 'ja': '河北', 'ko': '허베이', 'ru': 'Хэбэй', 'th': 'เหอเป่ย์', 'vi': 'Hà Bắc', 'zh': '河北'},
-  'Henan': {'de': 'Henan', 'fr': 'Henan', 'ja': '河南', 'ko': '허난', 'ru': 'Хэнань', 'th': 'เหอหนาน', 'vi': 'Hà Nam', 'zh': '河南'},
-  'Hesse': {'de': 'Hessen', 'es': 'Hesse', 'fr': 'Hesse', 'ja': 'ヘッセン', 'ko': '헤센', 'ru': 'Гессен', 'th': 'เฮสเซิน', 'vi': 'Hessen', 'zh': '黑森'},
-  'Ho Chi Minh City': {'ar': 'مدينة هو تشي منه', 'de': 'Ho-Chi-Minh-Stadt', 'es': 'Ciudad Ho Chi Minh', 'fr': 'Hô Chi Minh-Ville', 'ja': 'ホーチミン市', 'ko': '호찌민시', 'ru': 'Хошимин', 'th': 'นครโฮจิมินห์', 'vi': 'Thành phố Hồ Chí Minh', 'zh': '胡志明市'},
-  'Hokkaido': {'de': 'Hokkaidō', 'fr': 'Hokkaidō', 'ja': '北海道', 'ko': '홋카이도', 'ru': 'Хоккайдо', 'th': 'ฮอกไกโด', 'vi': 'Hokkaido', 'zh': '北海道'},
-  'Hong Kong': {'ar': 'هونغ كونغ', 'de': 'Hongkong', 'es': 'Hong Kong', 'fr': 'Hong Kong', 'ja': '香港', 'ko': '홍콩', 'ru': 'Гонконг', 'th': 'ฮ่องกง', 'vi': 'Hồng Kông', 'zh': '香港'},
-  'Hunan': {'de': 'Hunan', 'fr': 'Hunan', 'ja': '湖南', 'ko': '후난', 'ru': 'Хунань', 'th': 'หูหนาน', 'vi': 'Hồ Nam', 'zh': '湖南'},
-  'Illinois': {'ar': 'إلينوي', 'de': 'Illinois', 'es': 'Illinois', 'fr': 'Illinois', 'ja': 'イリノイ', 'ko': '일리노이', 'ru': 'Иллинойс', 'th': 'อิลลินอยส์', 'vi': 'Illinois', 'zh': '伊利诺伊'},
-  'Incheon': {'de': 'Incheon', 'fr': 'Incheon', 'ja': '仁川', 'ko': '인천', 'ru': 'Инчхон', 'th': 'อินชอน', 'vi': 'Incheon', 'zh': '仁川'},
-  'Istanbul': {'ar': 'إسطنبول', 'de': 'Istanbul', 'es': 'Estambul', 'fr': 'Istanbul', 'ja': 'イスタンブール', 'ko': '이스탄불', 'ru': 'Стамбул', 'th': 'อิสตันบูล', 'vi': 'Istanbul', 'zh': '伊斯坦布尔'},
-  'Jakarta': {'ar': 'جاكرتا', 'de': 'Jakarta', 'es': 'Yakarta', 'fr': 'Jakarta', 'ja': 'ジャカルタ', 'ko': '자카르타', 'ru': 'Джакарта', 'th': 'จาการ์ตา', 'vi': 'Jakarta', 'zh': '雅加达'},
-  'Jalisco': {'de': 'Jalisco', 'es': 'Jalisco', 'fr': 'Jalisco', 'ja': 'ハリスコ', 'ko': '할리스코', 'ru': 'Халиско', 'th': 'ฮาลิสโก', 'vi': 'Jalisco', 'zh': '哈利斯科'},
-  'Jiangsu': {'de': 'Jiangsu', 'fr': 'Jiangsu', 'ja': '江蘇', 'ko': '장쑤', 'ru': 'Цзянсу', 'th': 'เจียงซู', 'vi': 'Giang Tô', 'zh': '江苏'},
-  'Kanagawa': {'de': 'Kanagawa', 'fr': 'Kanagawa', 'ja': '神奈川', 'ko': '가나가와', 'ru': 'Канагава', 'th': 'คานากาวะ', 'vi': 'Kanagawa', 'zh': '神奈川'},
-  'Karnataka': {'de': 'Karnataka', 'fr': 'Karnataka', 'ja': 'カルナータカ', 'ko': '카르나타카', 'ru': 'Карнатака', 'th': 'กรณาฏกะ', 'vi': 'Karnataka', 'zh': '卡纳塔克'},
-  'Kuala Lumpur': {'ar': 'كوالالمبور', 'de': 'Kuala Lumpur', 'es': 'Kuala Lumpur', 'fr': 'Kuala Lumpur', 'ja': 'クアラルンプール', 'ko': '쿠알라룸푸르', 'ru': 'Куала-Лумпур', 'th': 'กัวลาลัมเปอร์', 'vi': 'Kuala Lumpur', 'zh': '吉隆坡'},
-  'Kyoto': {'ar': 'كيوتو', 'de': 'Kyōto', 'es': 'Kioto', 'fr': 'Kyoto', 'ja': '京都', 'ko': '교토', 'ru': 'Киото', 'th': 'เกียวโต', 'vi': 'Kyoto', 'zh': '京都'},
-  'Lagos': {'ar': 'لاغوس', 'de': 'Lagos', 'es': 'Lagos', 'fr': 'Lagos', 'ja': 'ラゴス', 'ko': '라고스', 'ru': 'Лагос', 'th': 'ลากอส', 'vi': 'Lagos', 'zh': '拉各斯'},
-  'Lazio': {'ar': 'لومبارديا', 'de': 'Latium', 'es': 'Lacio', 'fr': 'Latium', 'ja': 'ラツィオ', 'ko': '라치오', 'ru': 'Лацио', 'th': 'ลาซีโอ', 'vi': 'Lazio', 'zh': '拉齐奥'},
-  'Liaoning': {'de': 'Liaoning', 'fr': 'Liaoning', 'ja': '遼寧', 'ko': '랴오닝', 'ru': 'Ляонин', 'th': 'เหลียวหนิง', 'vi': 'Liêu Ninh', 'zh': '辽宁'},
-  'Lombardy': {'ar': 'لومبارديا', 'de': 'Lombardei', 'es': 'Lombardía', 'fr': 'Lombardie', 'ja': 'ロンバルディア', 'ko': '롬바르디아', 'ru': 'Ломбардия', 'th': 'ลอมบาร์เดีย', 'vi': 'Lombardia', 'zh': '伦巴第'},
-  'Macau': {'ar': 'ماكاو', 'de': 'Macau', 'es': 'Macao', 'fr': 'Macao', 'ja': 'マカオ', 'ko': '마카오', 'ru': 'Макао', 'th': 'มาเก๊า', 'vi': 'Ma Cao', 'zh': '澳门'},
-  'Madrid': {'ar': 'مدريد', 'de': 'Madrid', 'es': 'Madrid', 'fr': 'Madrid', 'ja': 'マドリード', 'ko': '마드리드', 'ru': 'Мадрид', 'th': 'มาดริด', 'vi': 'Madrid', 'zh': '马德里'},
-  'Maharashtra': {'de': 'Maharashtra', 'fr': 'Maharashtra', 'ja': 'マハラシュトラ', 'ko': '마하라슈트라', 'ru': 'Махараштра', 'th': 'มหาราษฏระ', 'vi': 'Maharashtra', 'zh': '马哈拉施特拉'},
-  'Massachusetts': {'ar': 'ماساتشوستس', 'de': 'Massachusetts', 'es': 'Massachusetts', 'fr': 'Massachusetts', 'ja': 'マサチューセッツ', 'ko': '매사추세츠', 'ru': 'Массачусетс', 'th': 'แมสซาชูเซตส์', 'vi': 'Massachusetts', 'zh': '马萨诸塞'},
-  'Metro Manila': {'de': 'Metro Manila', 'es': 'Gran Manila', 'fr': 'Grand Manille', 'ja': 'メトロマニラ', 'ko': '메트로마닐라', 'ru': 'Столичный регион', 'th': 'เมโทรมะนิลา', 'vi': 'Metro Manila', 'zh': '马尼拉大都会'},
-  'Mexico City': {'ar': 'مدينة مكسيكو', 'de': 'Mexiko-Stadt', 'es': 'Ciudad de México', 'fr': 'Mexico', 'ja': 'メキシコシティ', 'ko': '멕시코시티', 'ru': 'Мехико', 'th': 'เม็กซิโกซิตี', 'vi': 'Thành phố México', 'zh': '墨西哥城'},
-  'Minas Gerais': {'de': 'Minas Gerais', 'es': 'Minas Gerais', 'fr': 'Minas Gerais', 'ja': 'ミナスジェライス', 'ko': '미나스제라이스', 'ru': 'Минас-Жерайс', 'th': 'มีนัสเชไรส์', 'vi': 'Minas Gerais', 'zh': '米纳斯吉拉斯'},
-  'Moscow': {'ar': 'موسكو', 'de': 'Moskau', 'es': 'Moscú', 'fr': 'Moscou', 'ja': 'モスクワ', 'ko': '모스크바', 'ru': 'Москва', 'th': 'มอสโก', 'vi': 'Moscow', 'zh': '莫斯科'},
-  'Nevada': {'de': 'Nevada', 'es': 'Nevada', 'fr': 'Nevada', 'ja': 'ネバダ', 'ko': '네바다', 'ru': 'Невада', 'th': 'เนวาดา', 'vi': 'Nevada', 'zh': '内华达'},
-  'New South Wales': {'ar': 'نيو ساوث ويلز', 'de': 'New South Wales', 'es': 'Nueva Gales del Sur', 'fr': 'Nouvelle-Galles du Sud', 'ja': 'ニューサウスウェールズ', 'ko': '뉴사우스웨일스', 'ru': 'Новый Южный Уэльс', 'th': 'นิวเซาท์เวลส์', 'vi': 'New South Wales', 'zh': '新南威尔士'},
-  'New York': {'ar': 'نيويورك', 'de': 'New York', 'es': 'Nueva York', 'fr': 'New York', 'ja': 'ニューヨーク', 'ko': '뉴욕', 'ru': 'Нью-Йорк', 'th': 'นิวยอร์ก', 'vi': 'New York', 'zh': '纽约'},
-  'North Holland': {'de': 'Nordholland', 'es': 'Holanda Septentrional', 'fr': 'Hollande-Septentrionale', 'ja': '北ホラント', 'ko': '노르트홀란트', 'ru': 'Северная Голландия', 'th': 'นอร์ทฮอลแลนด์', 'vi': 'Noord-Holland', 'zh': '北荷兰'},
-  'North Rhine-Westphalia': {'de': 'Nordrhein-Westfalen', 'fr': 'Rhénanie-du-Nord-Westphalie', 'ja': 'ノルトライン＝ヴェストファーレン', 'ko': '노르트라인베스트팔렌', 'ru': 'Северный Рейн-Вестфалия', 'th': 'นอร์ทไรน์-เวสต์ฟาเลีย', 'vi': 'Nordrhein-Westfalen', 'zh': '北莱茵-威斯特法伦'},
-  'Ontario': {'ar': 'أونتاريو', 'de': 'Ontario', 'es': 'Ontario', 'fr': 'Ontario', 'ja': 'オンタリオ', 'ko': '온타리오', 'ru': 'Онтарио', 'th': 'ออนแทรีโอ', 'vi': 'Ontario', 'zh': '安大略'},
-  'Osaka': {'ar': 'أوساكا', 'de': 'Osaka', 'es': 'Osaka', 'fr': 'Osaka', 'ja': '大阪', 'ko': '오사카', 'ru': 'Осака', 'th': 'โอซาก้า', 'vi': 'Osaka', 'zh': '大阪'},
-  'Penang': {'de': 'Penang', 'fr': 'Penang', 'ja': 'ペナン', 'ko': '페낭', 'ru': 'Пинанг', 'th': 'ปีนัง', 'vi': 'Penang', 'zh': '槟城'},
-  'Phuket': {'ar': 'فوكيت', 'de': 'Phuket', 'fr': 'Phuket', 'ja': 'プーケット', 'ko': '푸켓', 'ru': 'Пхукет', 'th': 'ภูเก็ต', 'vi': 'Phuket', 'zh': '普吉'},
-  "Provence-Alpes-Côte d'Azur": {'de': "Provence-Alpes-Côte d'Azur", 'fr': "Provence-Alpes-Côte d'Azur", 'ja': 'プロヴァンス＝アルプ＝コート・ダジュール', 'ko': '프로방스알프코트다쥐르', 'ru': 'Прованс-Альпы-Лазурный Берег', 'th': 'พรอว็องซาลป์-โกตดาซูร์', 'vi': "Provence-Alpes-Côte d'Azur", 'zh': '普罗旺斯-阿尔卑斯-蔚蓝海岸'},
-  'Quebec': {'ar': 'كيبيك', 'de': 'Québec', 'es': 'Quebec', 'fr': 'Québec', 'ja': 'ケベック', 'ko': '퀘벡', 'ru': 'Квебек', 'th': 'ควิเบก', 'vi': 'Québec', 'zh': '魁北克'},
-  'Queensland': {'ar': 'كوينزلاند', 'de': 'Queensland', 'es': 'Queensland', 'fr': 'Queensland', 'ja': 'クイーンズランド', 'ko': '퀸즐랜드', 'ru': 'Квинсленд', 'th': 'ควีนส์แลนด์', 'vi': 'Queensland', 'zh': '昆士兰'},
-  'Rio de Janeiro': {'ar': 'ريو دي جانيرو', 'de': 'Rio de Janeiro', 'es': 'Río de Janeiro', 'fr': 'Rio de Janeiro', 'ja': 'リオデジャネイロ', 'ko': '리우데자네이루', 'ru': 'Рио-де-Жанейро', 'th': 'รีโอเดจาเนโร', 'vi': 'Rio de Janeiro', 'zh': '里约热内卢'},
-  'Saint Petersburg': {'ar': 'سانت بطرسبرغ', 'de': 'Sankt Petersburg', 'es': 'San Petersburgo', 'fr': 'Saint-Pétersbourg', 'ja': 'サンクトペテルブルク', 'ko': '상트페테르부르크', 'ru': 'Санкт-Петербург', 'th': 'เซนต์ปีเตอร์สเบิร์ก', 'vi': 'Saint Petersburg', 'zh': '圣彼得堡'},
-  'Scotland': {'ar': 'اسكتلندا', 'de': 'Schottland', 'es': 'Escocia', 'fr': 'Écosse', 'ja': 'スコットランド', 'ko': '스코틀랜드', 'ru': 'Шотландия', 'th': 'สกอตแลนด์', 'vi': 'Scotland', 'zh': '苏格兰'},
-  'Selangor': {'de': 'Selangor', 'fr': 'Selangor', 'ja': 'スランゴール', 'ko': '슬랑오르', 'ru': 'Селангор', 'th': 'เซอลาโงร์', 'vi': 'Selangor', 'zh': '雪兰莪'},
-  'Seoul': {'ar': 'سيول', 'de': 'Seoul', 'es': 'Seúl', 'fr': 'Séoul', 'ja': 'ソウル', 'ko': '서울', 'ru': 'Сеул', 'th': 'โซล', 'vi': 'Seoul', 'zh': '首尔'},
-  'Shaanxi': {'de': 'Shaanxi', 'fr': 'Shaanxi', 'ja': '陝西', 'ko': '산시', 'ru': 'Шэньси', 'th': 'ฉ่านซี', 'vi': 'Thiểm Tây', 'zh': '陕西'},
-  'Shandong': {'de': 'Shandong', 'fr': 'Shandong', 'ja': '山東', 'ko': '산둥', 'ru': 'Шаньдун', 'th': 'ซานตง', 'vi': 'Sơn Đông', 'zh': '山东'},
-  'Shanghai': {'ar': 'شانغهاي', 'de': 'Shanghai', 'es': 'Shanghái', 'fr': 'Shanghai', 'ja': '上海', 'ko': '상하이', 'ru': 'Шанхай', 'th': 'เซี่ยงไฮ้', 'vi': 'Thượng Hải', 'zh': '上海'},
-  'Sichuan': {'de': 'Sichuan', 'fr': 'Sichuan', 'ja': '四川', 'ko': '쓰촨', 'ru': 'Сычуань', 'th': 'เสฉวน', 'vi': 'Tứ Xuyên', 'zh': '四川'},
-  'South Holland': {'de': 'Südholland', 'es': 'Holanda Meridional', 'fr': 'Hollande-Méridionale', 'ja': '南ホラント', 'ko': '자위트홀란트', 'ru': 'Южная Голландия', 'th': 'เซาท์ฮอลแลนด์', 'vi': 'Zuid-Holland', 'zh': '南荷兰'},
-  'São Paulo': {'ar': 'ساو باولو', 'de': 'São Paulo', 'es': 'São Paulo', 'fr': 'São Paulo', 'ja': 'サンパウロ', 'ko': '상파울루', 'ru': 'Сан-Паулу', 'th': 'เซาเปาลู', 'vi': 'São Paulo', 'zh': '圣保罗'},
-  'Taiwan': {'ar': 'تايوان', 'de': 'Taiwan', 'es': 'Taiwán', 'fr': 'Taïwan', 'ja': '台湾', 'ko': '타이완', 'ru': 'Тайвань', 'th': 'ไต้หวัน', 'vi': 'Đài Loan', 'zh': '台湾'},
-  'Tamil Nadu': {'de': 'Tamil Nadu', 'fr': 'Tamil Nadu', 'ja': 'タミル・ナードゥ', 'ko': '타밀나두', 'ru': 'Тамилнад', 'th': 'ทมิฬนาฑู', 'vi': 'Tamil Nadu', 'zh': '泰米尔纳德'},
-  'Texas': {'ar': 'تكساس', 'de': 'Texas', 'es': 'Texas', 'fr': 'Texas', 'ja': 'テキサス', 'ko': '텍사스', 'ru': 'Техас', 'th': 'เท็กซัส', 'vi': 'Texas', 'zh': '得克萨斯'},
-  'Tianjin': {'de': 'Tianjin', 'fr': 'Tianjin', 'ja': '天津', 'ko': '톈진', 'ru': 'Тяньцзинь', 'th': 'เทียนจิน', 'vi': 'Thiên Tân', 'zh': '天津'},
-  'Tokyo': {'ar': 'طوكيو', 'de': 'Tokio', 'es': 'Tokio', 'fr': 'Tokyo', 'ja': '東京', 'ko': '도쿄', 'ru': 'Токио', 'th': 'โตเกียว', 'vi': 'Tokyo', 'zh': '东京'},
-  'Victoria': {'ar': 'فيكتوريا', 'de': 'Victoria', 'es': 'Victoria', 'fr': 'Victoria', 'ja': 'ビクトリア', 'ko': '빅토리아', 'ru': 'Виктория', 'th': 'วิกตอเรีย', 'vi': 'Victoria', 'zh': '维多利亚'},
-  'Wales': {'ar': 'ويلز', 'de': 'Wales', 'es': 'Gales', 'fr': 'Pays de Galles', 'ja': 'ウェールズ', 'ko': '웨일스', 'ru': 'Уэльс', 'th': 'เวลส์', 'vi': 'Wales', 'zh': '威尔士'},
-  'Washington': {'ar': 'واشنطن', 'de': 'Washington', 'es': 'Washington', 'fr': 'Washington', 'ja': 'ワシントン', 'ko': '워싱턴', 'ru': 'Вашингтон', 'th': 'วอชิงตัน', 'vi': 'Washington', 'zh': '华盛顿'},
-  'West Bengal': {'de': 'Westbengalen', 'fr': 'Bengale-Occidental', 'ja': '西ベンガル', 'ko': '서벵골', 'ru': 'Западная Бенгалия', 'th': 'เบงกอลตะวันตก', 'vi': 'Tây Bengal', 'zh': '西孟加拉'},
-  'Western Cape': {'de': 'Westkap', 'es': 'Cabo Occidental', 'fr': 'Cap-Occidental', 'ja': '西ケープ', 'ko': '웨스턴케이프', 'ru': 'Западно-Капская провинция', 'th': 'เวสเทิร์นเคป', 'vi': 'Western Cape', 'zh': '西开普'},
-  'Yunnan': {'de': 'Yunnan', 'fr': 'Yunnan', 'ja': '雲南', 'ko': '윈난', 'ru': 'Юньнань', 'th': 'ยูนนาน', 'vi': 'Vân Nam', 'zh': '云南'},
-  'Zhejiang': {'de': 'Zhejiang', 'fr': 'Zhejiang', 'ja': '浙江', 'ko': '저장', 'ru': 'Чжэцзян', 'th': 'เจ้อเจียง', 'vi': 'Chiết Giang', 'zh': '浙江'},
-  'Zürich': {'ar': 'زيورخ', 'de': 'Zürich', 'en': 'Zürich', 'es': 'Zúrich', 'fr': 'Zurich', 'ja': 'チューリッヒ', 'ko': '취리히', 'ru': 'Цюрих', 'th': 'ซูริก', 'vi': 'Zürich', 'zh': '苏黎世'},
-  'Île-de-France': {'de': 'Île-de-France', 'es': 'Isla de Francia', 'fr': 'Île-de-France', 'ja': 'イル＝ド＝フランス', 'ko': '일드프랑스', 'ru': 'Иль-де-Франс', 'th': 'อีล-เดอ-ฟร็องส์', 'vi': 'Île-de-France', 'zh': '法兰西岛'}
+  'Abu Dhabi': {'ar': 'أبو ظبي', 'de': 'Abu Dhabi', 'en': 'Abu Dhabi', 'es': 'Abu Dabi', 'fr': 'Abou Dhabi', 'hi': 'Abu Dhabi', 'id': 'Abu Dhabi', 'it': 'Abu Dhabi', 'ja': 'アブダビ', 'ko': '아부다비', 'pt': 'Abu Dhabi', 'ru': 'Абу-Даби', 'th': 'อาบูดาบี', 'vi': 'Abu Dhabi', 'zh': '阿布扎比'},
+
+  'Abuja': {'ar': 'أبوجا', 'de': 'Abuja', 'en': 'Abuja', 'es': 'Abuya', 'fr': 'Abuja', 'hi': 'Abuja', 'id': 'Abuja', 'it': 'Abuja', 'ja': 'アブジャ', 'ko': '아부자', 'pt': 'Abuja', 'ru': 'Абуджа', 'th': 'อาบูจา', 'vi': 'Abuja', 'zh': '阿布贾'},
+
+  'Aichi': {'de': 'Aichi', 'en': 'Aichi', 'fr': 'Aichi', 'hi': 'Aichi', 'id': 'Aichi', 'it': 'Aichi', 'ja': '愛知', 'ko': '아이치', 'pt': 'Aichi', 'ru': 'Айти', 'th': 'ไอจิ', 'vi': 'Aichi', 'zh': '爱知'},
+
+  'Alberta': {'ar': 'ألبرتا', 'de': 'Alberta', 'en': 'Alberta', 'es': 'Alberta', 'fr': 'Alberta', 'hi': 'Alberta', 'id': 'Alberta', 'it': 'Alberta', 'ja': 'アルバータ', 'ko': '앨버타', 'pt': 'Alberta', 'ru': 'Альберта', 'th': 'แอลเบอร์ตา', 'vi': 'Alberta', 'zh': '阿尔伯塔'},
+
+  'Anhui': {'de': 'Anhui', 'en': 'Anhui', 'fr': 'Anhui', 'hi': 'Anhui', 'id': 'Anhui', 'it': 'Anhui', 'ja': '安徽', 'ko': '안후이', 'pt': 'Anhui', 'ru': 'Аньхой', 'th': 'อานฮุย', 'vi': 'An Huy', 'zh': '安徽'},
+
+  'Ankara': {'ar': 'أنقرة', 'de': 'Ankara', 'en': 'Ankara', 'es': 'Ankara', 'fr': 'Ankara', 'hi': 'Ankara', 'id': 'Ankara', 'it': 'Ankara', 'ja': 'アンカラ', 'ko': '앙카라', 'pt': 'Ankara', 'ru': 'Анкара', 'th': 'อังการา', 'vi': 'Ankara', 'zh': '安卡拉'},
+
+  'Auvergne-Rhône-Alpes': {'de': 'Auvergne-Rhône-Alpes', 'en': 'Auvergne-Rhône-Alpes', 'fr': 'Auvergne-Rhône-Alpes', 'hi': 'Auvergne-Rhône-Alpes', 'id': 'Auvergne-Rhône-Alpes', 'it': 'Auvergne-Rhône-Alpes', 'ja': 'オーヴェルニュ＝ローヌ＝アルプ', 'ko': '오베르뉴론알프', 'pt': 'Auvergne-Rhône-Alpes', 'ru': 'Овернь-Рона-Альпы', 'th': 'โอแวร์ญ-โรนาลป์', 'vi': 'Auvergne-Rhône-Alpes', 'zh': '奥弗涅-罗讷-阿尔卑斯'},
+
+  'Bali': {'ar': 'بالي', 'de': 'Bali', 'en': 'Bali', 'es': 'Bali', 'fr': 'Bali', 'hi': 'Bali', 'id': 'Bali', 'it': 'Bali', 'ja': 'バリ', 'ko': '발리', 'pt': 'Bali', 'ru': 'Бали', 'th': 'บาหลี', 'vi': 'Bali', 'zh': '巴厘'},
+
+  'Bangkok': {'ar': 'بانكوك', 'de': 'Bangkok', 'en': 'Bangkok', 'es': 'Bangkok', 'fr': 'Bangkok', 'hi': 'Bangkok', 'id': 'Bangkok', 'it': 'Bangkok', 'ja': 'バンコク', 'ko': '방콕', 'pt': 'Bangkok', 'ru': 'Бангкок', 'th': 'กรุงเทพมหานคร', 'vi': 'Bangkok', 'zh': '曼谷'},
+
+  'Bavaria': {'ar': 'بافاريا', 'de': 'Bayern', 'en': 'Bavaria', 'es': 'Baviera', 'fr': 'Bavière', 'hi': 'Bavaria', 'id': 'Bavaria', 'it': 'Bavaria', 'ja': 'バイエルン', 'ko': '바이에른', 'pt': 'Bavaria', 'ru': 'Бавария', 'th': 'บาวาเรีย', 'vi': 'Bayern', 'zh': '巴伐利亚'},
+
+  'Beijing': {'ar': 'بكين', 'de': 'Peking', 'en': 'Beijing', 'es': 'Pekín', 'fr': 'Pékin', 'hi': 'Beijing', 'id': 'Beijing', 'it': 'Beijing', 'ja': '北京', 'ko': '베이징', 'pt': 'Beijing', 'ru': 'Пекин', 'th': 'ปักกิ่ง', 'vi': 'Bắc Kinh', 'zh': '北京'},
+
+  'Berlin': {'ar': 'برلين', 'de': 'Berlin', 'en': 'Berlin', 'es': 'Berlín', 'fr': 'Berlin', 'hi': 'Berlin', 'id': 'Berlin', 'it': 'Berlin', 'ja': 'ベルリン', 'ko': '베를린', 'pt': 'Berlin', 'ru': 'Берлин', 'th': 'เบอร์ลิน', 'vi': 'Berlin', 'zh': '柏林'},
+
+  'British Columbia': {'ar': 'كولومبيا البريطانية', 'de': 'British Columbia', 'en': 'British Columbia', 'es': 'Columbia Británica', 'fr': 'Colombie-Britannique', 'hi': 'British Columbia', 'id': 'British Columbia', 'it': 'British Columbia', 'ja': 'ブリティッシュコロンビア', 'ko': '브리티시컬럼비아', 'pt': 'British Columbia', 'ru': 'Британская Колумбия', 'th': 'บริติชโคลัมเบีย', 'vi': 'British Columbia', 'zh': '不列颠哥伦比亚'},
+
+  'Buenos Aires': {'ar': 'بوينس آيرس', 'de': 'Buenos Aires', 'en': 'Buenos Aires', 'es': 'Buenos Aires', 'fr': 'Buenos Aires', 'hi': 'Buenos Aires', 'id': 'Buenos Aires', 'it': 'Buenos Aires', 'ja': 'ブエノスアイレス', 'ko': '부에노스아이레스', 'pt': 'Buenos Aires', 'ru': 'Буэнос-Айрес', 'th': 'บัวโนสไอเรส', 'vi': 'Buenos Aires', 'zh': '布宜诺斯艾利斯'},
+
+  'Busan': {'de': 'Busan', 'en': 'Busan', 'fr': 'Busan', 'hi': 'Busan', 'id': 'Busan', 'it': 'Busan', 'ja': '釜山', 'ko': '부산', 'pt': 'Busan', 'ru': 'Пусан', 'th': 'ปูซาน', 'vi': 'Busan', 'zh': '釜山'},
+
+  'California': {'ar': 'كاليفورنيا', 'de': 'Kalifornien', 'en': 'California', 'es': 'California', 'fr': 'Californie', 'hi': 'California', 'id': 'California', 'it': 'California', 'ja': 'カリフォルニア', 'ko': '캘리포니아', 'pt': 'California', 'ru': 'Калифорния', 'th': 'แคลิฟอร์เนีย', 'vi': 'California', 'zh': '加利福尼亚'},
+
+  'Catalonia': {'ar': 'كتالونيا', 'de': 'Katalonien', 'en': 'Catalonia', 'es': 'Cataluña', 'fr': 'Catalogne', 'hi': 'Catalonia', 'id': 'Catalonia', 'it': 'Catalonia', 'ja': 'カタルーニャ', 'ko': '카탈루냐', 'pt': 'Catalonia', 'ru': 'Каталония', 'th': 'กาตาลุญญา', 'vi': 'Catalonia', 'zh': '加泰罗尼亚'},
+
+  'Cebu': {'de': 'Cebu', 'en': 'Cebu', 'fr': 'Cebu', 'hi': 'Cebu', 'id': 'Cebu', 'it': 'Cebu', 'ja': 'セブ', 'ko': '세부', 'pt': 'Cebu', 'ru': 'Себу', 'th': 'เซบู', 'vi': 'Cebu', 'zh': '宿务'},
+
+  'Chiang Mai': {'de': 'Chiang Mai', 'en': 'Chiang Mai', 'fr': 'Chiang Mai', 'hi': 'Chiang Mai', 'id': 'Chiang Mai', 'it': 'Chiang Mai', 'ja': 'チェンマイ', 'ko': '치앙마이', 'pt': 'Chiang Mai', 'ru': 'Чиангмай', 'th': 'เชียงใหม่', 'vi': 'Chiang Mai', 'zh': '清迈'},
+
+  'Chongqing': {'de': 'Chongqing', 'en': 'Chongqing', 'fr': 'Chongqing', 'hi': 'Chongqing', 'id': 'Chongqing', 'it': 'Chongqing', 'ja': '重慶', 'ko': '충칭', 'pt': 'Chongqing', 'ru': 'Чунцин', 'th': 'ฉงชิ่ง', 'vi': 'Trùng Khánh', 'zh': '重庆'},
+
+  'Colorado': {'ar': 'كولورادو', 'de': 'Colorado', 'en': 'Colorado', 'es': 'Colorado', 'fr': 'Colorado', 'hi': 'Colorado', 'id': 'Colorado', 'it': 'Colorado', 'ja': 'コロラド', 'ko': '콜로라도', 'pt': 'Colorado', 'ru': 'Колорадо', 'th': 'โคโลราโด', 'vi': 'Colorado', 'zh': '科罗拉多'},
+
+  'Córdoba': {'de': 'Córdoba', 'en': 'Córdoba', 'es': 'Córdoba', 'fr': 'Córdoba', 'hi': 'Córdoba', 'id': 'Córdoba', 'it': 'Córdoba', 'ja': 'コルドバ', 'ko': '코르도바', 'pt': 'Córdoba', 'ru': 'Кордова', 'th': 'กอร์โดบา', 'vi': 'Córdoba', 'zh': '科尔多瓦'},
+
+  'Da Nang': {'de': 'Đà Nẵng', 'en': 'Da Nang', 'fr': 'Đà Nẵng', 'hi': 'Da Nang', 'id': 'Da Nang', 'it': 'Da Nang', 'ja': 'ダナン', 'ko': '다낭', 'pt': 'Da Nang', 'ru': 'Дананг', 'th': 'ดานัง', 'vi': 'Đà Nẵng', 'zh': '岘港'},
+
+  'Delhi': {'ar': 'دلهي', 'de': 'Delhi', 'en': 'Delhi', 'fr': 'Delhi', 'hi': 'Delhi', 'id': 'Delhi', 'it': 'Delhi', 'ja': 'デリー', 'ko': '델리', 'pt': 'Delhi', 'ru': 'Дели', 'th': 'เดลี', 'vi': 'Delhi', 'zh': '德里'},
+
+  'Dubai': {'ar': 'دبي', 'de': 'Dubai', 'en': 'Dubai', 'es': 'Dubái', 'fr': 'Dubaï', 'hi': 'Dubai', 'id': 'Dubai', 'it': 'Dubai', 'ja': 'ドバイ', 'ko': '두바이', 'pt': 'Dubai', 'ru': 'Дубай', 'th': 'ดูไบ', 'vi': 'Dubai', 'zh': '迪拜'},
+
+  'England': {'ar': 'إنجلترا', 'de': 'England', 'en': 'England', 'es': 'Inglaterra', 'fr': 'Angleterre', 'hi': 'England', 'id': 'England', 'it': 'England', 'ja': 'イングランド', 'ko': '잉글랜드', 'pt': 'England', 'ru': 'Англия', 'th': 'อังกฤษ', 'vi': 'Anh', 'zh': '英格兰'},
+
+  'Florida': {'ar': 'فلوريدا', 'de': 'Florida', 'en': 'Florida', 'es': 'Florida', 'fr': 'Floride', 'hi': 'Florida', 'id': 'Florida', 'it': 'Florida', 'ja': 'フロリダ', 'ko': '플로리다', 'pt': 'Florida', 'ru': 'Флорида', 'th': 'ฟลอริดา', 'vi': 'Florida', 'zh': '佛罗里达'},
+
+  'Fujian': {'de': 'Fujian', 'en': 'Fujian', 'fr': 'Fujian', 'hi': 'Fujian', 'id': 'Fujian', 'it': 'Fujian', 'ja': '福建', 'ko': '푸젠', 'pt': 'Fujian', 'ru': 'Фуцзянь', 'th': 'ฝูเจี้ยน', 'vi': 'Phúc Kiến', 'zh': '福建'},
+
+  'Gauteng': {'de': 'Gauteng', 'en': 'Gauteng', 'fr': 'Gauteng', 'hi': 'Gauteng', 'id': 'Gauteng', 'it': 'Gauteng', 'ja': 'ハウテン', 'ko': '하우텡', 'pt': 'Gauteng', 'ru': 'Гаутенг', 'th': 'เคาเต็ง', 'vi': 'Gauteng', 'zh': '豪登'},
+
+  'Geneva': {'ar': 'جنيف', 'de': 'Genf', 'en': 'Geneva', 'es': 'Ginebra', 'fr': 'Genève', 'hi': 'Geneva', 'id': 'Geneva', 'it': 'Geneva', 'ja': 'ジュネーブ', 'ko': '제네바', 'pt': 'Geneva', 'ru': 'Женева', 'th': 'เจนีวา', 'vi': 'Genève', 'zh': '日内瓦'},
+
+  'Georgia': {'ar': 'جورجيا', 'de': 'Georgia', 'en': 'Georgia', 'es': 'Georgia', 'fr': 'Géorgie', 'hi': 'Georgia', 'id': 'Georgia', 'it': 'Georgia', 'ja': 'ジョージア', 'ko': '조지아', 'pt': 'Georgia', 'ru': 'Джорджия', 'th': 'จอร์เจีย', 'vi': 'Georgia', 'zh': '佐治亚'},
+
+  'Guangdong': {'de': 'Guangdong', 'en': 'Guangdong', 'fr': 'Guangdong', 'hi': 'Guangdong', 'id': 'Guangdong', 'it': 'Guangdong', 'ja': '広東', 'ko': '광둥', 'pt': 'Guangdong', 'ru': 'Гуандун', 'th': 'กวางตุ้ง', 'vi': 'Quảng Đông', 'zh': '广东'},
+
+  'Guangxi': {'de': 'Guangxi', 'en': 'Guangxi', 'fr': 'Guangxi', 'hi': 'Guangxi', 'id': 'Guangxi', 'it': 'Guangxi', 'ja': '広西', 'ko': '광시', 'pt': 'Guangxi', 'ru': 'Гуанси', 'th': 'กวางสี', 'vi': 'Quảng Tây', 'zh': '广西'},
+
+  'Gyeonggi': {'de': 'Gyeonggi', 'en': 'Gyeonggi', 'fr': 'Gyeonggi', 'hi': 'Gyeonggi', 'id': 'Gyeonggi', 'it': 'Gyeonggi', 'ja': '京畿道', 'ko': '경기도', 'pt': 'Gyeonggi', 'ru': 'Кёнгидо', 'th': 'คยองกี', 'vi': 'Gyeonggi', 'zh': '京畿道'},
+
+  'Hanoi': {'ar': 'هانوي', 'de': 'Hanoi', 'en': 'Hanoi', 'es': 'Hanói', 'fr': 'Hanoï', 'hi': 'Hanoi', 'id': 'Hanoi', 'it': 'Hanoi', 'ja': 'ハノイ', 'ko': '하노이', 'pt': 'Hanoi', 'ru': 'Ханой', 'th': 'ฮานอย', 'vi': 'Hà Nội', 'zh': '河内'},
+
+  'Hawaii': {'ar': 'هاواي', 'de': 'Hawaii', 'en': 'Hawaii', 'es': 'Hawái', 'fr': 'Hawaï', 'hi': 'Hawaii', 'id': 'Hawaii', 'it': 'Hawaii', 'ja': 'ハワイ', 'ko': '하와이', 'pt': 'Hawaii', 'ru': 'Гавайи', 'th': 'ฮาวาย', 'vi': 'Hawaii', 'zh': '夏威夷'},
+
+  'Hebei': {'de': 'Hebei', 'en': 'Hebei', 'fr': 'Hebei', 'hi': 'Hebei', 'id': 'Hebei', 'it': 'Hebei', 'ja': '河北', 'ko': '허베이', 'pt': 'Hebei', 'ru': 'Хэбэй', 'th': 'เหอเป่ย์', 'vi': 'Hà Bắc', 'zh': '河北'},
+
+  'Henan': {'de': 'Henan', 'en': 'Henan', 'fr': 'Henan', 'hi': 'Henan', 'id': 'Henan', 'it': 'Henan', 'ja': '河南', 'ko': '허난', 'pt': 'Henan', 'ru': 'Хэнань', 'th': 'เหอหนาน', 'vi': 'Hà Nam', 'zh': '河南'},
+
+  'Hesse': {'de': 'Hessen', 'en': 'Hesse', 'es': 'Hesse', 'fr': 'Hesse', 'hi': 'Hesse', 'id': 'Hesse', 'it': 'Hesse', 'ja': 'ヘッセン', 'ko': '헤센', 'pt': 'Hesse', 'ru': 'Гессен', 'th': 'เฮสเซิน', 'vi': 'Hessen', 'zh': '黑森'},
+
+  'Ho Chi Minh City': {'ar': 'مدينة هو تشي منه', 'de': 'Ho-Chi-Minh-Stadt', 'en': 'Ho Chi Minh City', 'es': 'Ciudad Ho Chi Minh', 'fr': 'Hô Chi Minh-Ville', 'hi': 'Ho Chi Minh City', 'id': 'Ho Chi Minh City', 'it': 'Ho Chi Minh City', 'ja': 'ホーチミン市', 'ko': '호찌민시', 'pt': 'Ho Chi Minh City', 'ru': 'Хошимин', 'th': 'นครโฮจิมินห์', 'vi': 'Thành phố Hồ Chí Minh', 'zh': '胡志明市'},
+
+  'Hokkaido': {'de': 'Hokkaidō', 'en': 'Hokkaido', 'fr': 'Hokkaidō', 'hi': 'Hokkaido', 'id': 'Hokkaido', 'it': 'Hokkaido', 'ja': '北海道', 'ko': '홋카이도', 'pt': 'Hokkaido', 'ru': 'Хоккайдо', 'th': 'ฮอกไกโด', 'vi': 'Hokkaido', 'zh': '北海道'},
+
+  'Hong Kong': {'ar': 'هونغ كونغ', 'de': 'Hongkong', 'en': 'Hong Kong', 'es': 'Hong Kong', 'fr': 'Hong Kong', 'hi': 'Hong Kong', 'id': 'Hong Kong', 'it': 'Hong Kong', 'ja': '香港', 'ko': '홍콩', 'pt': 'Hong Kong', 'ru': 'Гонконг', 'th': 'ฮ่องกง', 'vi': 'Hồng Kông', 'zh': '香港'},
+
+  'Hunan': {'de': 'Hunan', 'en': 'Hunan', 'fr': 'Hunan', 'hi': 'Hunan', 'id': 'Hunan', 'it': 'Hunan', 'ja': '湖南', 'ko': '후난', 'pt': 'Hunan', 'ru': 'Хунань', 'th': 'หูหนาน', 'vi': 'Hồ Nam', 'zh': '湖南'},
+
+  'Illinois': {'ar': 'إلينوي', 'de': 'Illinois', 'en': 'Illinois', 'es': 'Illinois', 'fr': 'Illinois', 'hi': 'Illinois', 'id': 'Illinois', 'it': 'Illinois', 'ja': 'イリノイ', 'ko': '일리노이', 'pt': 'Illinois', 'ru': 'Иллинойс', 'th': 'อิลลินอยส์', 'vi': 'Illinois', 'zh': '伊利诺伊'},
+
+  'Incheon': {'de': 'Incheon', 'en': 'Incheon', 'fr': 'Incheon', 'hi': 'Incheon', 'id': 'Incheon', 'it': 'Incheon', 'ja': '仁川', 'ko': '인천', 'pt': 'Incheon', 'ru': 'Инчхон', 'th': 'อินชอน', 'vi': 'Incheon', 'zh': '仁川'},
+
+  'Istanbul': {'ar': 'إسطنبول', 'de': 'Istanbul', 'en': 'Istanbul', 'es': 'Estambul', 'fr': 'Istanbul', 'hi': 'Istanbul', 'id': 'Istanbul', 'it': 'Istanbul', 'ja': 'イスタンブール', 'ko': '이스탄불', 'pt': 'Istanbul', 'ru': 'Стамбул', 'th': 'อิสตันบูล', 'vi': 'Istanbul', 'zh': '伊斯坦布尔'},
+
+  'Jakarta': {'ar': 'جاكرتا', 'de': 'Jakarta', 'en': 'Jakarta', 'es': 'Yakarta', 'fr': 'Jakarta', 'hi': 'Jakarta', 'id': 'Jakarta', 'it': 'Jakarta', 'ja': 'ジャカルタ', 'ko': '자카르타', 'pt': 'Jakarta', 'ru': 'Джакарта', 'th': 'จาการ์ตา', 'vi': 'Jakarta', 'zh': '雅加达'},
+
+  'Jalisco': {'de': 'Jalisco', 'en': 'Jalisco', 'es': 'Jalisco', 'fr': 'Jalisco', 'hi': 'Jalisco', 'id': 'Jalisco', 'it': 'Jalisco', 'ja': 'ハリスコ', 'ko': '할리스코', 'pt': 'Jalisco', 'ru': 'Халиско', 'th': 'ฮาลิสโก', 'vi': 'Jalisco', 'zh': '哈利斯科'},
+
+  'Jiangsu': {'de': 'Jiangsu', 'en': 'Jiangsu', 'fr': 'Jiangsu', 'hi': 'Jiangsu', 'id': 'Jiangsu', 'it': 'Jiangsu', 'ja': '江蘇', 'ko': '장쑤', 'pt': 'Jiangsu', 'ru': 'Цзянсу', 'th': 'เจียงซู', 'vi': 'Giang Tô', 'zh': '江苏'},
+
+  'Kanagawa': {'de': 'Kanagawa', 'en': 'Kanagawa', 'fr': 'Kanagawa', 'hi': 'Kanagawa', 'id': 'Kanagawa', 'it': 'Kanagawa', 'ja': '神奈川', 'ko': '가나가와', 'pt': 'Kanagawa', 'ru': 'Канагава', 'th': 'คานากาวะ', 'vi': 'Kanagawa', 'zh': '神奈川'},
+
+  'Karnataka': {'de': 'Karnataka', 'en': 'Karnataka', 'fr': 'Karnataka', 'hi': 'Karnataka', 'id': 'Karnataka', 'it': 'Karnataka', 'ja': 'カルナータカ', 'ko': '카르나타카', 'pt': 'Karnataka', 'ru': 'Карнатака', 'th': 'กรณาฏกะ', 'vi': 'Karnataka', 'zh': '卡纳塔克'},
+
+  'Kuala Lumpur': {'ar': 'كوالالمبور', 'de': 'Kuala Lumpur', 'en': 'Kuala Lumpur', 'es': 'Kuala Lumpur', 'fr': 'Kuala Lumpur', 'hi': 'Kuala Lumpur', 'id': 'Kuala Lumpur', 'it': 'Kuala Lumpur', 'ja': 'クアラルンプール', 'ko': '쿠알라룸푸르', 'pt': 'Kuala Lumpur', 'ru': 'Куала-Лумпур', 'th': 'กัวลาลัมเปอร์', 'vi': 'Kuala Lumpur', 'zh': '吉隆坡'},
+
+  'Kyoto': {'ar': 'كيوتو', 'de': 'Kyōto', 'en': 'Kyoto', 'es': 'Kioto', 'fr': 'Kyoto', 'hi': 'Kyoto', 'id': 'Kyoto', 'it': 'Kyoto', 'ja': '京都', 'ko': '교토', 'pt': 'Kyoto', 'ru': 'Киото', 'th': 'เกียวโต', 'vi': 'Kyoto', 'zh': '京都'},
+
+  'Lagos': {'ar': 'لاغوس', 'de': 'Lagos', 'en': 'Lagos', 'es': 'Lagos', 'fr': 'Lagos', 'hi': 'Lagos', 'id': 'Lagos', 'it': 'Lagos', 'ja': 'ラゴス', 'ko': '라고스', 'pt': 'Lagos', 'ru': 'Лагос', 'th': 'ลากอส', 'vi': 'Lagos', 'zh': '拉各斯'},
+
+  'Lazio': {'ar': 'لومبارديا', 'de': 'Latium', 'en': 'Lazio', 'es': 'Lacio', 'fr': 'Latium', 'hi': 'Lazio', 'id': 'Lazio', 'it': 'Lazio', 'ja': 'ラツィオ', 'ko': '라치오', 'pt': 'Lazio', 'ru': 'Лацио', 'th': 'ลาซีโอ', 'vi': 'Lazio', 'zh': '拉齐奥'},
+
+  'Liaoning': {'de': 'Liaoning', 'en': 'Liaoning', 'fr': 'Liaoning', 'hi': 'Liaoning', 'id': 'Liaoning', 'it': 'Liaoning', 'ja': '遼寧', 'ko': '랴오닝', 'pt': 'Liaoning', 'ru': 'Ляонин', 'th': 'เหลียวหนิง', 'vi': 'Liêu Ninh', 'zh': '辽宁'},
+
+  'Lombardy': {'ar': 'لومبارديا', 'de': 'Lombardei', 'en': 'Lombardy', 'es': 'Lombardía', 'fr': 'Lombardie', 'hi': 'Lombardy', 'id': 'Lombardy', 'it': 'Lombardy', 'ja': 'ロンバルディア', 'ko': '롬바르디아', 'pt': 'Lombardy', 'ru': 'Ломбардия', 'th': 'ลอมบาร์เดีย', 'vi': 'Lombardia', 'zh': '伦巴第'},
+
+  'Macau': {'ar': 'ماكاو', 'de': 'Macau', 'en': 'Macau', 'es': 'Macao', 'fr': 'Macao', 'hi': 'Macau', 'id': 'Macau', 'it': 'Macau', 'ja': 'マカオ', 'ko': '마카오', 'pt': 'Macau', 'ru': 'Макао', 'th': 'มาเก๊า', 'vi': 'Ma Cao', 'zh': '澳门'},
+
+  'Madrid': {'ar': 'مدريد', 'de': 'Madrid', 'en': 'Madrid', 'es': 'Madrid', 'fr': 'Madrid', 'hi': 'Madrid', 'id': 'Madrid', 'it': 'Madrid', 'ja': 'マドリード', 'ko': '마드리드', 'pt': 'Madrid', 'ru': 'Мадрид', 'th': 'มาดริด', 'vi': 'Madrid', 'zh': '马德里'},
+
+  'Maharashtra': {'de': 'Maharashtra', 'en': 'Maharashtra', 'fr': 'Maharashtra', 'hi': 'Maharashtra', 'id': 'Maharashtra', 'it': 'Maharashtra', 'ja': 'マハラシュトラ', 'ko': '마하라슈트라', 'pt': 'Maharashtra', 'ru': 'Махараштра', 'th': 'มหาราษฏระ', 'vi': 'Maharashtra', 'zh': '马哈拉施特拉'},
+
+  'Massachusetts': {'ar': 'ماساتشوستس', 'de': 'Massachusetts', 'en': 'Massachusetts', 'es': 'Massachusetts', 'fr': 'Massachusetts', 'hi': 'Massachusetts', 'id': 'Massachusetts', 'it': 'Massachusetts', 'ja': 'マサチューセッツ', 'ko': '매사추세츠', 'pt': 'Massachusetts', 'ru': 'Массачусетс', 'th': 'แมสซาชูเซตส์', 'vi': 'Massachusetts', 'zh': '马萨诸塞'},
+
+  'Metro Manila': {'de': 'Metro Manila', 'en': 'Metro Manila', 'es': 'Gran Manila', 'fr': 'Grand Manille', 'hi': 'Metro Manila', 'id': 'Metro Manila', 'it': 'Metro Manila', 'ja': 'メトロマニラ', 'ko': '메트로마닐라', 'pt': 'Metro Manila', 'ru': 'Столичный регион', 'th': 'เมโทรมะนิลา', 'vi': 'Metro Manila', 'zh': '马尼拉大都会'},
+
+  'Mexico City': {'ar': 'مدينة مكسيكو', 'de': 'Mexiko-Stadt', 'en': 'Mexico City', 'es': 'Ciudad de México', 'fr': 'Mexico', 'hi': 'Mexico City', 'id': 'Mexico City', 'it': 'Mexico City', 'ja': 'メキシコシティ', 'ko': '멕시코시티', 'pt': 'Mexico City', 'ru': 'Мехико', 'th': 'เม็กซิโกซิตี', 'vi': 'Thành phố México', 'zh': '墨西哥城'},
+
+  'Minas Gerais': {'de': 'Minas Gerais', 'en': 'Minas Gerais', 'es': 'Minas Gerais', 'fr': 'Minas Gerais', 'hi': 'Minas Gerais', 'id': 'Minas Gerais', 'it': 'Minas Gerais', 'ja': 'ミナスジェライス', 'ko': '미나스제라이스', 'pt': 'Minas Gerais', 'ru': 'Минас-Жерайс', 'th': 'มีนัสเชไรส์', 'vi': 'Minas Gerais', 'zh': '米纳斯吉拉斯'},
+
+  'Moscow': {'ar': 'موسكو', 'de': 'Moskau', 'en': 'Moscow', 'es': 'Moscú', 'fr': 'Moscou', 'hi': 'Moscow', 'id': 'Moscow', 'it': 'Moscow', 'ja': 'モスクワ', 'ko': '모스크바', 'pt': 'Moscow', 'ru': 'Москва', 'th': 'มอสโก', 'vi': 'Moscow', 'zh': '莫斯科'},
+
+  'Nevada': {'de': 'Nevada', 'en': 'Nevada', 'es': 'Nevada', 'fr': 'Nevada', 'hi': 'Nevada', 'id': 'Nevada', 'it': 'Nevada', 'ja': 'ネバダ', 'ko': '네바다', 'pt': 'Nevada', 'ru': 'Невада', 'th': 'เนวาดา', 'vi': 'Nevada', 'zh': '内华达'},
+
+  'New South Wales': {'ar': 'نيو ساوث ويلز', 'de': 'New South Wales', 'en': 'New South Wales', 'es': 'Nueva Gales del Sur', 'fr': 'Nouvelle-Galles du Sud', 'hi': 'New South Wales', 'id': 'New South Wales', 'it': 'New South Wales', 'ja': 'ニューサウスウェールズ', 'ko': '뉴사우스웨일스', 'pt': 'New South Wales', 'ru': 'Новый Южный Уэльс', 'th': 'นิวเซาท์เวลส์', 'vi': 'New South Wales', 'zh': '新南威尔士'},
+
+  'New York': {'ar': 'نيويورك', 'de': 'New York', 'en': 'New York', 'es': 'Nueva York', 'fr': 'New York', 'hi': 'New York', 'id': 'New York', 'it': 'New York', 'ja': 'ニューヨーク', 'ko': '뉴욕', 'pt': 'New York', 'ru': 'Нью-Йорк', 'th': 'นิวยอร์ก', 'vi': 'New York', 'zh': '纽约'},
+
+  'North Holland': {'de': 'Nordholland', 'en': 'North Holland', 'es': 'Holanda Septentrional', 'fr': 'Hollande-Septentrionale', 'hi': 'North Holland', 'id': 'North Holland', 'it': 'North Holland', 'ja': '北ホラント', 'ko': '노르트홀란트', 'pt': 'North Holland', 'ru': 'Северная Голландия', 'th': 'นอร์ทฮอลแลนด์', 'vi': 'Noord-Holland', 'zh': '北荷兰'},
+
+  'North Rhine-Westphalia': {'de': 'Nordrhein-Westfalen', 'en': 'North Rhine-Westphalia', 'fr': 'Rhénanie-du-Nord-Westphalie', 'hi': 'North Rhine-Westphalia', 'id': 'North Rhine-Westphalia', 'it': 'North Rhine-Westphalia', 'ja': 'ノルトライン＝ヴェストファーレン', 'ko': '노르트라인베스트팔렌', 'pt': 'North Rhine-Westphalia', 'ru': 'Северный Рейн-Вестфалия', 'th': 'นอร์ทไรน์-เวสต์ฟาเลีย', 'vi': 'Nordrhein-Westfalen', 'zh': '北莱茵-威斯特法伦'},
+
+  'Ontario': {'ar': 'أونتاريو', 'de': 'Ontario', 'en': 'Ontario', 'es': 'Ontario', 'fr': 'Ontario', 'hi': 'Ontario', 'id': 'Ontario', 'it': 'Ontario', 'ja': 'オンタリオ', 'ko': '온타리오', 'pt': 'Ontario', 'ru': 'Онтарио', 'th': 'ออนแทรีโอ', 'vi': 'Ontario', 'zh': '安大略'},
+
+  'Osaka': {'ar': 'أوساكا', 'de': 'Osaka', 'en': 'Osaka', 'es': 'Osaka', 'fr': 'Osaka', 'hi': 'Osaka', 'id': 'Osaka', 'it': 'Osaka', 'ja': '大阪', 'ko': '오사카', 'pt': 'Osaka', 'ru': 'Осака', 'th': 'โอซาก้า', 'vi': 'Osaka', 'zh': '大阪'},
+
+  'Penang': {'de': 'Penang', 'en': 'Penang', 'fr': 'Penang', 'hi': 'Penang', 'id': 'Penang', 'it': 'Penang', 'ja': 'ペナン', 'ko': '페낭', 'pt': 'Penang', 'ru': 'Пинанг', 'th': 'ปีนัง', 'vi': 'Penang', 'zh': '槟城'},
+
+  'Phuket': {'ar': 'فوكيت', 'de': 'Phuket', 'en': 'Phuket', 'fr': 'Phuket', 'hi': 'Phuket', 'id': 'Phuket', 'it': 'Phuket', 'ja': 'プーケット', 'ko': '푸켓', 'pt': 'Phuket', 'ru': 'Пхукет', 'th': 'ภูเก็ต', 'vi': 'Phuket', 'zh': '普吉'},
+
+  'Quebec': {'ar': 'كيبيك', 'de': 'Québec', 'en': 'Quebec', 'es': 'Quebec', 'fr': 'Québec', 'hi': 'Quebec', 'id': 'Quebec', 'it': 'Quebec', 'ja': 'ケベック', 'ko': '퀘벡', 'pt': 'Quebec', 'ru': 'Квебек', 'th': 'ควิเบก', 'vi': 'Québec', 'zh': '魁北克'},
+
+  'Queensland': {'ar': 'كوينزلاند', 'de': 'Queensland', 'en': 'Queensland', 'es': 'Queensland', 'fr': 'Queensland', 'hi': 'Queensland', 'id': 'Queensland', 'it': 'Queensland', 'ja': 'クイーンズランド', 'ko': '퀸즐랜드', 'pt': 'Queensland', 'ru': 'Квинсленд', 'th': 'ควีนส์แลนด์', 'vi': 'Queensland', 'zh': '昆士兰'},
+
+  'Rio de Janeiro': {'ar': 'ريو دي جانيرو', 'de': 'Rio de Janeiro', 'en': 'Rio de Janeiro', 'es': 'Río de Janeiro', 'fr': 'Rio de Janeiro', 'hi': 'Rio de Janeiro', 'id': 'Rio de Janeiro', 'it': 'Rio de Janeiro', 'ja': 'リオデジャネイロ', 'ko': '리우데자네이루', 'pt': 'Rio de Janeiro', 'ru': 'Рио-де-Жанейро', 'th': 'รีโอเดจาเนโร', 'vi': 'Rio de Janeiro', 'zh': '里约热内卢'},
+
+  'Saint Petersburg': {'ar': 'سانت بطرسبرغ', 'de': 'Sankt Petersburg', 'en': 'Saint Petersburg', 'es': 'San Petersburgo', 'fr': 'Saint-Pétersbourg', 'hi': 'Saint Petersburg', 'id': 'Saint Petersburg', 'it': 'Saint Petersburg', 'ja': 'サンクトペテルブルク', 'ko': '상트페테르부르크', 'pt': 'Saint Petersburg', 'ru': 'Санкт-Петербург', 'th': 'เซนต์ปีเตอร์สเบิร์ก', 'vi': 'Saint Petersburg', 'zh': '圣彼得堡'},
+
+  'Scotland': {'ar': 'اسكتلندا', 'de': 'Schottland', 'en': 'Scotland', 'es': 'Escocia', 'fr': 'Écosse', 'hi': 'Scotland', 'id': 'Scotland', 'it': 'Scotland', 'ja': 'スコットランド', 'ko': '스코틀랜드', 'pt': 'Scotland', 'ru': 'Шотландия', 'th': 'สกอตแลนด์', 'vi': 'Scotland', 'zh': '苏格兰'},
+
+  'Selangor': {'de': 'Selangor', 'en': 'Selangor', 'fr': 'Selangor', 'hi': 'Selangor', 'id': 'Selangor', 'it': 'Selangor', 'ja': 'スランゴール', 'ko': '슬랑오르', 'pt': 'Selangor', 'ru': 'Селангор', 'th': 'เซอลาโงร์', 'vi': 'Selangor', 'zh': '雪兰莪'},
+
+  'Seoul': {'ar': 'سيول', 'de': 'Seoul', 'en': 'Seoul', 'es': 'Seúl', 'fr': 'Séoul', 'hi': 'Seoul', 'id': 'Seoul', 'it': 'Seoul', 'ja': 'ソウル', 'ko': '서울', 'pt': 'Seoul', 'ru': 'Сеул', 'th': 'โซล', 'vi': 'Seoul', 'zh': '首尔'},
+
+  'Shaanxi': {'de': 'Shaanxi', 'en': 'Shaanxi', 'fr': 'Shaanxi', 'hi': 'Shaanxi', 'id': 'Shaanxi', 'it': 'Shaanxi', 'ja': '陝西', 'ko': '산시', 'pt': 'Shaanxi', 'ru': 'Шэньси', 'th': 'ฉ่านซี', 'vi': 'Thiểm Tây', 'zh': '陕西'},
+
+  'Shandong': {'de': 'Shandong', 'en': 'Shandong', 'fr': 'Shandong', 'hi': 'Shandong', 'id': 'Shandong', 'it': 'Shandong', 'ja': '山東', 'ko': '산둥', 'pt': 'Shandong', 'ru': 'Шаньдун', 'th': 'ซานตง', 'vi': 'Sơn Đông', 'zh': '山东'},
+
+  'Shanghai': {'ar': 'شانغهاي', 'de': 'Shanghai', 'en': 'Shanghai', 'es': 'Shanghái', 'fr': 'Shanghai', 'hi': 'Shanghai', 'id': 'Shanghai', 'it': 'Shanghai', 'ja': '上海', 'ko': '상하이', 'pt': 'Shanghai', 'ru': 'Шанхай', 'th': 'เซี่ยงไฮ้', 'vi': 'Thượng Hải', 'zh': '上海'},
+
+  'Sichuan': {'de': 'Sichuan', 'en': 'Sichuan', 'fr': 'Sichuan', 'hi': 'Sichuan', 'id': 'Sichuan', 'it': 'Sichuan', 'ja': '四川', 'ko': '쓰촨', 'pt': 'Sichuan', 'ru': 'Сычуань', 'th': 'เสฉวน', 'vi': 'Tứ Xuyên', 'zh': '四川'},
+
+  'South Holland': {'de': 'Südholland', 'en': 'South Holland', 'es': 'Holanda Meridional', 'fr': 'Hollande-Méridionale', 'hi': 'South Holland', 'id': 'South Holland', 'it': 'South Holland', 'ja': '南ホラント', 'ko': '자위트홀란트', 'pt': 'South Holland', 'ru': 'Южная Голландия', 'th': 'เซาท์ฮอลแลนด์', 'vi': 'Zuid-Holland', 'zh': '南荷兰'},
+
+  'São Paulo': {'ar': 'ساو باولو', 'de': 'São Paulo', 'en': 'São Paulo', 'es': 'São Paulo', 'fr': 'São Paulo', 'hi': 'São Paulo', 'id': 'São Paulo', 'it': 'São Paulo', 'ja': 'サンパウロ', 'ko': '상파울루', 'pt': 'São Paulo', 'ru': 'Сан-Паулу', 'th': 'เซาเปาลู', 'vi': 'São Paulo', 'zh': '圣保罗'},
+
+  'Taiwan': {'ar': 'تايوان', 'de': 'Taiwan', 'en': 'Taiwan', 'es': 'Taiwán', 'fr': 'Taïwan', 'hi': 'Taiwan', 'id': 'Taiwan', 'it': 'Taiwan', 'ja': '台湾', 'ko': '타이완', 'pt': 'Taiwan', 'ru': 'Тайвань', 'th': 'ไต้หวัน', 'vi': 'Đài Loan', 'zh': '台湾'},
+
+  'Tamil Nadu': {'de': 'Tamil Nadu', 'en': 'Tamil Nadu', 'fr': 'Tamil Nadu', 'hi': 'Tamil Nadu', 'id': 'Tamil Nadu', 'it': 'Tamil Nadu', 'ja': 'タミル・ナードゥ', 'ko': '타밀나두', 'pt': 'Tamil Nadu', 'ru': 'Тамилнад', 'th': 'ทมิฬนาฑู', 'vi': 'Tamil Nadu', 'zh': '泰米尔纳德'},
+
+  'Texas': {'ar': 'تكساس', 'de': 'Texas', 'en': 'Texas', 'es': 'Texas', 'fr': 'Texas', 'hi': 'Texas', 'id': 'Texas', 'it': 'Texas', 'ja': 'テキサス', 'ko': '텍사스', 'pt': 'Texas', 'ru': 'Техас', 'th': 'เท็กซัส', 'vi': 'Texas', 'zh': '得克萨斯'},
+
+  'Tianjin': {'de': 'Tianjin', 'en': 'Tianjin', 'fr': 'Tianjin', 'hi': 'Tianjin', 'id': 'Tianjin', 'it': 'Tianjin', 'ja': '天津', 'ko': '톈진', 'pt': 'Tianjin', 'ru': 'Тяньцзинь', 'th': 'เทียนจิน', 'vi': 'Thiên Tân', 'zh': '天津'},
+
+  'Tokyo': {'ar': 'طوكيو', 'de': 'Tokio', 'en': 'Tokyo', 'es': 'Tokio', 'fr': 'Tokyo', 'hi': 'Tokyo', 'id': 'Tokyo', 'it': 'Tokyo', 'ja': '東京', 'ko': '도쿄', 'pt': 'Tokyo', 'ru': 'Токио', 'th': 'โตเกียว', 'vi': 'Tokyo', 'zh': '东京'},
+
+  'Victoria': {'ar': 'فيكتوريا', 'de': 'Victoria', 'en': 'Victoria', 'es': 'Victoria', 'fr': 'Victoria', 'hi': 'Victoria', 'id': 'Victoria', 'it': 'Victoria', 'ja': 'ビクトリア', 'ko': '빅토리아', 'pt': 'Victoria', 'ru': 'Виктория', 'th': 'วิกตอเรีย', 'vi': 'Victoria', 'zh': '维多利亚'},
+
+  'Wales': {'ar': 'ويلز', 'de': 'Wales', 'en': 'Wales', 'es': 'Gales', 'fr': 'Pays de Galles', 'hi': 'Wales', 'id': 'Wales', 'it': 'Wales', 'ja': 'ウェールズ', 'ko': '웨일스', 'pt': 'Wales', 'ru': 'Уэльс', 'th': 'เวลส์', 'vi': 'Wales', 'zh': '威尔士'},
+
+  'Washington': {'ar': 'واشنطن', 'de': 'Washington', 'en': 'Washington', 'es': 'Washington', 'fr': 'Washington', 'hi': 'Washington', 'id': 'Washington', 'it': 'Washington', 'ja': 'ワシントン', 'ko': '워싱턴', 'pt': 'Washington', 'ru': 'Вашингтон', 'th': 'วอชิงตัน', 'vi': 'Washington', 'zh': '华盛顿'},
+
+  'West Bengal': {'de': 'Westbengalen', 'en': 'West Bengal', 'fr': 'Bengale-Occidental', 'hi': 'West Bengal', 'id': 'West Bengal', 'it': 'West Bengal', 'ja': '西ベンガル', 'ko': '서벵골', 'pt': 'West Bengal', 'ru': 'Западная Бенгалия', 'th': 'เบงกอลตะวันตก', 'vi': 'Tây Bengal', 'zh': '西孟加拉'},
+
+  'Western Cape': {'de': 'Westkap', 'en': 'Western Cape', 'es': 'Cabo Occidental', 'fr': 'Cap-Occidental', 'hi': 'Western Cape', 'id': 'Western Cape', 'it': 'Western Cape', 'ja': '西ケープ', 'ko': '웨스턴케이프', 'pt': 'Western Cape', 'ru': 'Западно-Капская провинция', 'th': 'เวสเทิร์นเคป', 'vi': 'Western Cape', 'zh': '西开普'},
+
+  'Yunnan': {'de': 'Yunnan', 'en': 'Yunnan', 'fr': 'Yunnan', 'hi': 'Yunnan', 'id': 'Yunnan', 'it': 'Yunnan', 'ja': '雲南', 'ko': '윈난', 'pt': 'Yunnan', 'ru': 'Юньнань', 'th': 'ยูนนาน', 'vi': 'Vân Nam', 'zh': '云南'},
+
+  'Zhejiang': {'de': 'Zhejiang', 'en': 'Zhejiang', 'fr': 'Zhejiang', 'hi': 'Zhejiang', 'id': 'Zhejiang', 'it': 'Zhejiang', 'ja': '浙江', 'ko': '저장', 'pt': 'Zhejiang', 'ru': 'Чжэцзян', 'th': 'เจ้อเจียง', 'vi': 'Chiết Giang', 'zh': '浙江'},
+
+  'Zürich': {'ar': 'زيورخ', 'de': 'Zürich', 'en': 'Zürich', 'es': 'Zúrich', 'fr': 'Zurich', 'hi': 'Zürich', 'id': 'Zürich', 'it': 'Zürich', 'ja': 'チューリッヒ', 'ko': '취리히', 'pt': 'Zürich', 'ru': 'Цюрих', 'th': 'ซูริก', 'vi': 'Zürich', 'zh': '苏黎世'},
+
+  'Île-de-France': {'de': 'Île-de-France', 'en': 'Île-de-France', 'es': 'Isla de Francia', 'fr': 'Île-de-France', 'hi': 'Île-de-France', 'id': 'Île-de-France', 'it': 'Île-de-France', 'ja': 'イル＝ド＝フランス', 'ko': '일드프랑스', 'pt': 'Île-de-France', 'ru': 'Иль-де-Франс', 'th': 'อีล-เดอ-ฟร็องส์', 'vi': 'Île-de-France', 'zh': '法兰西岛'},
+  'Hubei': {'ar': 'خوبي', 'de': 'Hubei', 'en': 'Hubei', 'es': 'Hubei', 'fr': 'Hubei', 'hi': 'हुबेई', 'id': 'Hubei', 'it': 'Hubei', 'ja': '湖北', 'ko': '후베이', 'pt': 'Hubei', 'ru': 'Хубэй', 'th': 'หูเป่ย', 'vi': 'Hồ Bắc', 'zh': '湖北'}
+};
+
+const cityI18n = {
+  'Sanming': {'ar': 'Sanming', 'de': 'Sanming', 'en': 'Sanming', 'es': 'Sanming', 'fr': 'Sanming', 'hi': 'Sanming', 'id': 'Sanming', 'it': 'Sanming', 'ja': 'Sanming', 'ko': 'Sanming', 'pt': 'Sanming', 'ru': 'Sanming', 'th': 'Sanming', 'vi': 'Sanming', 'zh': '三明'},
+  'Dongli': {'ar': 'Dongli', 'de': 'Dongli', 'en': 'Dongli', 'es': 'Dongli', 'fr': 'Dongli', 'hi': 'Dongli', 'id': 'Dongli', 'it': 'Dongli', 'ja': 'Dongli', 'ko': 'Dongli', 'pt': 'Dongli', 'ru': 'Dongli', 'th': 'Dongli', 'vi': 'Dongli', 'zh': '东丽'},
+  'Dongcheng': {'ar': 'Dongcheng', 'de': 'Dongcheng', 'en': 'Dongcheng', 'es': 'Dongcheng', 'fr': 'Dongcheng', 'hi': 'Dongcheng', 'id': 'Dongcheng', 'it': 'Dongcheng', 'ja': 'Dongcheng', 'ko': 'Dongcheng', 'pt': 'Dongcheng', 'ru': 'Dongcheng', 'th': 'Dongcheng', 'vi': 'Dongcheng', 'zh': '东城'},
+  'Dongguan': {'ar': 'Dongguan', 'de': 'Dongguan', 'en': 'Dongguan', 'es': 'Dongguan', 'fr': 'Dongguan', 'hi': 'Dongguan', 'id': 'Dongguan', 'it': 'Dongguan', 'ja': 'Dongguan', 'ko': 'Dongguan', 'pt': 'Dongguan', 'ru': 'Dongguan', 'th': 'Dongguan', 'vi': 'Dongguan', 'zh': '东莞'},
+  'Zhongshan': {'ar': 'Zhongshan', 'de': 'Zhongshan', 'en': 'Zhongshan', 'es': 'Zhongshan', 'fr': 'Zhongshan', 'hi': 'Zhongshan', 'id': 'Zhongshan', 'it': 'Zhongshan', 'ja': 'Zhongshan', 'ko': 'Zhongshan', 'pt': 'Zhongshan', 'ru': 'Zhongshan', 'th': 'Zhongshan', 'vi': 'Zhongshan', 'zh': '中山'},
+  'Zhonghuan': {'ar': 'Zhonghuan', 'de': 'Zhonghuan', 'en': 'Zhonghuan', 'es': 'Zhonghuan', 'fr': 'Zhonghuan', 'hi': 'Zhonghuan', 'id': 'Zhonghuan', 'it': 'Zhonghuan', 'ja': 'Zhonghuan', 'ko': 'Zhonghuan', 'pt': 'Zhonghuan', 'ru': 'Zhonghuan', 'th': 'Zhonghuan', 'vi': 'Zhonghuan', 'zh': '中环'},
+  'Fengtai': {'ar': 'Fengtai', 'de': 'Fengtai', 'en': 'Fengtai', 'es': 'Fengtai', 'fr': 'Fengtai', 'hi': 'Fengtai', 'id': 'Fengtai', 'it': 'Fengtai', 'ja': 'Fengtai', 'ko': 'Fengtai', 'pt': 'Fengtai', 'ru': 'Fengtai', 'th': 'Fengtai', 'vi': 'Fengtai', 'zh': '丰台'},
+  'Linyi': {'ar': 'Linyi', 'de': 'Linyi', 'en': 'Linyi', 'es': 'Linyi', 'fr': 'Linyi', 'hi': 'Linyi', 'id': 'Linyi', 'it': 'Linyi', 'ja': 'Linyi', 'ko': 'Linyi', 'pt': 'Linyi', 'ru': 'Linyi', 'th': 'Linyi', 'vi': 'Linyi', 'zh': '临沂'},
+  'Dandong': {'ar': 'Dandong', 'de': 'Dandong', 'en': 'Dandong', 'es': 'Dandong', 'fr': 'Dandong', 'hi': 'Dandong', 'id': 'Dandong', 'it': 'Dandong', 'ja': 'Dandong', 'ko': 'Dandong', 'pt': 'Dandong', 'ru': 'Dandong', 'th': 'Dandong', 'vi': 'Dandong', 'zh': '丹东'},
+  'Lijiang': {'ar': 'Lijiang', 'de': 'Lijiang', 'en': 'Lijiang', 'es': 'Lijiang', 'fr': 'Lijiang', 'hi': 'Lijiang', 'id': 'Lijiang', 'it': 'Lijiang', 'ja': 'Lijiang', 'ko': 'Lijiang', 'pt': 'Lijiang', 'ru': 'Lijiang', 'th': 'Lijiang', 'vi': 'Lijiang', 'zh': '丽江'},
+  'Leshan': {'ar': 'Leshan', 'de': 'Leshan', 'en': 'Leshan', 'es': 'Leshan', 'fr': 'Leshan', 'hi': 'Leshan', 'id': 'Leshan', 'it': 'Leshan', 'ja': 'Leshan', 'ko': 'Leshan', 'pt': 'Leshan', 'ru': 'Leshan', 'th': 'Leshan', 'vi': 'Leshan', 'zh': '乐山'},
+  'Jiulong': {'ar': 'Jiulong', 'de': 'Jiulong', 'en': 'Jiulong', 'es': 'Jiulong', 'fr': 'Jiulong', 'hi': 'Jiulong', 'id': 'Jiulong', 'it': 'Jiulong', 'ja': 'Jiulong', 'ko': 'Jiulong', 'pt': 'Jiulong', 'ru': 'Jiulong', 'th': 'Jiulong', 'vi': 'Jiulong', 'zh': '九龙'},
+  'Jiulongpo': {'ar': 'Jiulongpo', 'de': 'Jiulongpo', 'en': 'Jiulongpo', 'es': 'Jiulongpo', 'fr': 'Jiulongpo', 'hi': 'Jiulongpo', 'id': 'Jiulongpo', 'it': 'Jiulongpo', 'ja': 'Jiulongpo', 'ko': 'Jiulongpo', 'pt': 'Jiulongpo', 'ru': 'Jiulongpo', 'th': 'Jiulongpo', 'vi': 'Jiulongpo', 'zh': '九龙坡'},
+  'Foshan': {'ar': 'Foshan', 'de': 'Foshan', 'en': 'Foshan', 'es': 'Foshan', 'fr': 'Foshan', 'hi': 'Foshan', 'id': 'Foshan', 'it': 'Foshan', 'ja': 'Foshan', 'ko': 'Foshan', 'pt': 'Foshan', 'ru': 'Foshan', 'th': 'Foshan', 'vi': 'Foshan', 'zh': '佛山'},
+  'Baoding': {'ar': 'Baoding', 'de': 'Baoding', 'en': 'Baoding', 'es': 'Baoding', 'fr': 'Baoding', 'hi': 'Baoding', 'id': 'Baoding', 'it': 'Baoding', 'ja': 'Baoding', 'ko': 'Baoding', 'pt': 'Baoding', 'ru': 'Baoding', 'th': 'Baoding', 'vi': 'Baoding', 'zh': '保定'},
+  'Baoshan': {'ar': 'Baoshan', 'de': 'Baoshan', 'en': 'Baoshan', 'es': 'Baoshan', 'fr': 'Baoshan', 'hi': 'Baoshan', 'id': 'Baoshan', 'it': 'Baoshan', 'ja': 'Baoshan', 'ko': 'Baoshan', 'pt': 'Baoshan', 'ru': 'Baoshan', 'th': 'Baoshan', 'vi': 'Baoshan', 'zh': '保山'},
+  'Beihai': {'ar': 'Beihai', 'de': 'Beihai', 'en': 'Beihai', 'es': 'Beihai', 'fr': 'Beihai', 'hi': 'Beihai', 'id': 'Beihai', 'it': 'Beihai', 'ja': 'Beihai', 'ko': 'Beihai', 'pt': 'Beihai', 'ru': 'Beihai', 'th': 'Beihai', 'vi': 'Beihai', 'zh': '北海'},
+  'Beibei': {'ar': 'Beibei', 'de': 'Beibei', 'en': 'Beibei', 'es': 'Beibei', 'fr': 'Beibei', 'hi': 'Beibei', 'id': 'Beibei', 'it': 'Beibei', 'ja': 'Beibei', 'ko': 'Beibei', 'pt': 'Beibei', 'ru': 'Beibei', 'th': 'Beibei', 'vi': 'Beibei', 'zh': '北碚'},
+  'Shiyan': {'ar': 'Shiyan', 'de': 'Shiyan', 'en': 'Shiyan', 'es': 'Shiyan', 'fr': 'Shiyan', 'hi': 'Shiyan', 'id': 'Shiyan', 'it': 'Shiyan', 'ja': 'Shiyan', 'ko': 'Shiyan', 'pt': 'Shiyan', 'ru': 'Shiyan', 'th': 'Shiyan', 'vi': 'Shiyan', 'zh': '十堰'},
+  'Nanjing': {'ar': 'Nanjing', 'de': 'Nanjing', 'en': 'Nanjing', 'es': 'Nanjing', 'fr': 'Nanjing', 'hi': 'Nanjing', 'id': 'Nanjing', 'it': 'Nanjing', 'ja': 'Nanjing', 'ko': 'Nanjing', 'pt': 'Nanjing', 'ru': 'Nanjing', 'th': 'Nanjing', 'vi': 'Nanjing', 'zh': '南京'},
+  'Nanchong': {'ar': 'Nanchong', 'de': 'Nanchong', 'en': 'Nanchong', 'es': 'Nanchong', 'fr': 'Nanchong', 'hi': 'Nanchong', 'id': 'Nanchong', 'it': 'Nanchong', 'ja': 'Nanchong', 'ko': 'Nanchong', 'pt': 'Nanchong', 'ru': 'Nanchong', 'th': 'Nanchong', 'vi': 'Nanchong', 'zh': '南充'},
+  'Nanning': {'ar': 'Nanning', 'de': 'Nanning', 'en': 'Nanning', 'es': 'Nanning', 'fr': 'Nanning', 'hi': 'Nanning', 'id': 'Nanning', 'it': 'Nanning', 'ja': 'Nanning', 'ko': 'Nanning', 'pt': 'Nanning', 'ru': 'Nanning', 'th': 'Nanning', 'vi': 'Nanning', 'zh': '南宁'},
+  'Nanan': {'ar': 'Nanan', 'de': 'Nanan', 'en': 'Nanan', 'es': 'Nanan', 'fr': 'Nanan', 'hi': 'Nanan', 'id': 'Nanan', 'it': 'Nanan', 'ja': 'Nanan', 'ko': 'Nanan', 'pt': 'Nanan', 'ru': 'Nanan', 'th': 'Nanan', 'vi': 'Nanan', 'zh': '南岸'},
+  'Nanping': {'ar': 'Nanping', 'de': 'Nanping', 'en': 'Nanping', 'es': 'Nanping', 'fr': 'Nanping', 'hi': 'Nanping', 'id': 'Nanping', 'it': 'Nanping', 'ja': 'Nanping', 'ko': 'Nanping', 'pt': 'Nanping', 'ru': 'Nanping', 'th': 'Nanping', 'vi': 'Nanping', 'zh': '南平'},
+  'Nankai': {'ar': 'Nankai', 'de': 'Nankai', 'en': 'Nankai', 'es': 'Nankai', 'fr': 'Nankai', 'hi': 'Nankai', 'id': 'Nankai', 'it': 'Nankai', 'ja': 'Nankai', 'ko': 'Nankai', 'pt': 'Nankai', 'ru': 'Nankai', 'th': 'Nankai', 'vi': 'Nankai', 'zh': '南开'},
+  'Nantong': {'ar': 'Nantong', 'de': 'Nantong', 'en': 'Nantong', 'es': 'Nantong', 'fr': 'Nantong', 'hi': 'Nantong', 'id': 'Nantong', 'it': 'Nantong', 'ja': 'Nantong', 'ko': 'Nantong', 'pt': 'Nantong', 'ru': 'Nantong', 'th': 'Nantong', 'vi': 'Nantong', 'zh': '南通'},
+  'Nanyang': {'ar': 'Nanyang', 'de': 'Nanyang', 'en': 'Nanyang', 'es': 'Nanyang', 'fr': 'Nanyang', 'hi': 'Nanyang', 'id': 'Nanyang', 'it': 'Nanyang', 'ja': 'Nanyang', 'ko': 'Nanyang', 'pt': 'Nanyang', 'ru': 'Nanyang', 'th': 'Nanyang', 'vi': 'Nanyang', 'zh': '南阳'},
+  'Xiamen': {'ar': 'Xiamen', 'de': 'Xiamen', 'en': 'Xiamen', 'es': 'Xiamen', 'fr': 'Xiamen', 'hi': 'Xiamen', 'id': 'Xiamen', 'it': 'Xiamen', 'ja': 'Xiamen', 'ko': 'Xiamen', 'pt': 'Xiamen', 'ru': 'Xiamen', 'th': 'Xiamen', 'vi': 'Xiamen', 'zh': '厦门'},
+  'Taizhong': {'ar': 'Taizhong', 'de': 'Taizhong', 'en': 'Taizhong', 'es': 'Taizhong', 'fr': 'Taizhong', 'hi': 'Taizhong', 'id': 'Taizhong', 'it': 'Taizhong', 'ja': 'Taizhong', 'ko': 'Taizhong', 'pt': 'Taizhong', 'ru': 'Taizhong', 'th': 'Taizhong', 'vi': 'Taizhong', 'zh': '台中'},
+  'Taibei': {'ar': 'Taibei', 'de': 'Taibei', 'en': 'Taibei', 'es': 'Taibei', 'fr': 'Taibei', 'hi': 'Taibei', 'id': 'Taibei', 'it': 'Taibei', 'ja': 'Taibei', 'ko': 'Taibei', 'pt': 'Taibei', 'ru': 'Taibei', 'th': 'Taibei', 'vi': 'Taibei', 'zh': '台北'},
+  'Tainan': {'ar': 'Tainan', 'de': 'Tainan', 'en': 'Tainan', 'es': 'Tainan', 'fr': 'Tainan', 'hi': 'Tainan', 'id': 'Tainan', 'it': 'Tainan', 'ja': 'Tainan', 'ko': 'Tainan', 'pt': 'Tainan', 'ru': 'Tainan', 'th': 'Tainan', 'vi': 'Tainan', 'zh': '台南'},
+  'Taizhou': {'ar': 'Taizhou', 'de': 'Taizhou', 'en': 'Taizhou', 'es': 'Taizhou', 'fr': 'Taizhou', 'hi': 'Taizhou', 'id': 'Taizhou', 'it': 'Taizhou', 'ja': 'Taizhou', 'ko': 'Taizhou', 'pt': 'Taizhou', 'ru': 'Taizhou', 'th': 'Taizhou', 'vi': 'Taizhou', 'zh': '台州'},
+  'Hefei': {'ar': 'Hefei', 'de': 'Hefei', 'en': 'Hefei', 'es': 'Hefei', 'fr': 'Hefei', 'hi': 'Hefei', 'id': 'Hefei', 'it': 'Hefei', 'ja': 'Hefei', 'ko': 'Hefei', 'pt': 'Hefei', 'ru': 'Hefei', 'th': 'Hefei', 'vi': 'Hefei', 'zh': '合肥'},
+  'Heping': {'ar': 'Heping', 'de': 'Heping', 'en': 'Heping', 'es': 'Heping', 'fr': 'Heping', 'hi': 'Heping', 'id': 'Heping', 'it': 'Heping', 'ja': 'Heping', 'ko': 'Heping', 'pt': 'Heping', 'ru': 'Heping', 'th': 'Heping', 'vi': 'Heping', 'zh': '和平'},
+  'Xianyang': {'ar': 'Xianyang', 'de': 'Xianyang', 'en': 'Xianyang', 'es': 'Xianyang', 'fr': 'Xianyang', 'hi': 'Xianyang', 'id': 'Xianyang', 'it': 'Xianyang', 'ja': 'Xianyang', 'ko': 'Xianyang', 'pt': 'Xianyang', 'ru': 'Xianyang', 'th': 'Xianyang', 'vi': 'Xianyang', 'zh': '咸阳'},
+  'Tangshan': {'ar': 'Tangshan', 'de': 'Tangshan', 'en': 'Tangshan', 'es': 'Tangshan', 'fr': 'Tangshan', 'hi': 'Tangshan', 'id': 'Tangshan', 'it': 'Tangshan', 'ja': 'Tangshan', 'ko': 'Tangshan', 'pt': 'Tangshan', 'ru': 'Tangshan', 'th': 'Tangshan', 'vi': 'Tangshan', 'zh': '唐山'},
+  'Jiaxing': {'ar': 'Jiaxing', 'de': 'Jiaxing', 'en': 'Jiaxing', 'es': 'Jiaxing', 'fr': 'Jiaxing', 'hi': 'Jiaxing', 'id': 'Jiaxing', 'it': 'Jiaxing', 'ja': 'Jiaxing', 'ko': 'Jiaxing', 'pt': 'Jiaxing', 'ru': 'Jiaxing', 'th': 'Jiaxing', 'vi': 'Jiaxing', 'zh': '嘉兴'},
+  'Jilong': {'ar': 'Jilong', 'de': 'Jilong', 'en': 'Jilong', 'es': 'Jilong', 'fr': 'Jilong', 'hi': 'Jilong', 'id': 'Jilong', 'it': 'Jilong', 'ja': 'Jilong', 'ko': 'Jilong', 'pt': 'Jilong', 'ru': 'Jilong', 'th': 'Jilong', 'vi': 'Jilong', 'zh': '基隆'},
+  'Daxing': {'ar': 'Daxing', 'de': 'Daxing', 'en': 'Daxing', 'es': 'Daxing', 'fr': 'Daxing', 'hi': 'Daxing', 'id': 'Daxing', 'it': 'Daxing', 'ja': 'Daxing', 'ko': 'Daxing', 'pt': 'Daxing', 'ru': 'Daxing', 'th': 'Daxing', 'vi': 'Daxing', 'zh': '大兴'},
+  'Dali': {'ar': 'Dali', 'de': 'Dali', 'en': 'Dali', 'es': 'Dali', 'fr': 'Dali', 'hi': 'Dali', 'id': 'Dali', 'it': 'Dali', 'ja': 'Dali', 'ko': 'Dali', 'pt': 'Dali', 'ru': 'Dali', 'th': 'Dali', 'vi': 'Dali', 'zh': '大理'},
+  'Dalian': {'ar': 'Dalian', 'de': 'Dalian', 'en': 'Dalian', 'es': 'Dalian', 'fr': 'Dalian', 'hi': 'Dalian', 'id': 'Dalian', 'it': 'Dalian', 'ja': 'Dalian', 'ko': 'Dalian', 'pt': 'Dalian', 'ru': 'Dalian', 'th': 'Dalian', 'vi': 'Dalian', 'zh': '大连'},
+  'Weihai': {'ar': 'Weihai', 'de': 'Weihai', 'en': 'Weihai', 'es': 'Weihai', 'fr': 'Weihai', 'hi': 'Weihai', 'id': 'Weihai', 'it': 'Weihai', 'ja': 'Weihai', 'ko': 'Weihai', 'pt': 'Weihai', 'ru': 'Weihai', 'th': 'Weihai', 'vi': 'Weihai', 'zh': '威海'},
+  'Xiaogan': {'ar': 'Xiaogan', 'de': 'Xiaogan', 'en': 'Xiaogan', 'es': 'Xiaogan', 'fr': 'Xiaogan', 'hi': 'Xiaogan', 'id': 'Xiaogan', 'it': 'Xiaogan', 'ja': 'Xiaogan', 'ko': 'Xiaogan', 'pt': 'Xiaogan', 'ru': 'Xiaogan', 'th': 'Xiaogan', 'vi': 'Xiaogan', 'zh': '孝感'},
+  'Ningbo': {'ar': 'Ningbo', 'de': 'Ningbo', 'en': 'Ningbo', 'es': 'Ningbo', 'fr': 'Ningbo', 'hi': 'Ningbo', 'id': 'Ningbo', 'it': 'Ningbo', 'ja': 'Ningbo', 'ko': 'Ningbo', 'pt': 'Ningbo', 'ru': 'Ningbo', 'th': 'Ningbo', 'vi': 'Ningbo', 'zh': '宁波'},
+  'Anqing': {'ar': 'Anqing', 'de': 'Anqing', 'en': 'Anqing', 'es': 'Anqing', 'fr': 'Anqing', 'hi': 'Anqing', 'id': 'Anqing', 'it': 'Anqing', 'ja': 'Anqing', 'ko': 'Anqing', 'pt': 'Anqing', 'ru': 'Anqing', 'th': 'Anqing', 'vi': 'Anqing', 'zh': '安庆'},
+  'Anyang': {'ar': 'Anyang', 'de': 'Anyang', 'en': 'Anyang', 'es': 'Anyang', 'fr': 'Anyang', 'hi': 'Anyang', 'id': 'Anyang', 'it': 'Anyang', 'ja': 'Anyang', 'ko': 'Anyang', 'pt': 'Anyang', 'ru': 'Anyang', 'th': 'Anyang', 'vi': 'Anyang', 'zh': '安阳'},
+  'Yibin': {'ar': 'Yibin', 'de': 'Yibin', 'en': 'Yibin', 'es': 'Yibin', 'fr': 'Yibin', 'hi': 'Yibin', 'id': 'Yibin', 'it': 'Yibin', 'ja': 'Yibin', 'ko': 'Yibin', 'pt': 'Yibin', 'ru': 'Yibin', 'th': 'Yibin', 'vi': 'Yibin', 'zh': '宜宾'},
+  'Yichang': {'ar': 'Yichang', 'de': 'Yichang', 'en': 'Yichang', 'es': 'Yichang', 'fr': 'Yichang', 'hi': 'Yichang', 'id': 'Yichang', 'it': 'Yichang', 'ja': 'Yichang', 'ko': 'Yichang', 'pt': 'Yichang', 'ru': 'Yichang', 'th': 'Yichang', 'vi': 'Yichang', 'zh': '宜昌'},
+  'Baoji': {'ar': 'Baoji', 'de': 'Baoji', 'en': 'Baoji', 'es': 'Baoji', 'fr': 'Baoji', 'hi': 'Baoji', 'id': 'Baoji', 'it': 'Baoji', 'ja': 'Baoji', 'ko': 'Baoji', 'pt': 'Baoji', 'ru': 'Baoji', 'th': 'Baoji', 'vi': 'Baoji', 'zh': '宝鸡'},
+  'Jianshaju': {'ar': 'Jianshaju', 'de': 'Jianshaju', 'en': 'Jianshaju', 'es': 'Jianshaju', 'fr': 'Jianshaju', 'hi': 'Jianshaju', 'id': 'Jianshaju', 'it': 'Jianshaju', 'ja': 'Jianshaju', 'ko': 'Jianshaju', 'pt': 'Jianshaju', 'ru': 'Jianshaju', 'th': 'Jianshaju', 'vi': 'Jianshaju', 'zh': '尖沙咀'},
+  'Yueyang': {'ar': 'Yueyang', 'de': 'Yueyang', 'en': 'Yueyang', 'es': 'Yueyang', 'fr': 'Yueyang', 'hi': 'Yueyang', 'id': 'Yueyang', 'it': 'Yueyang', 'ja': 'Yueyang', 'ko': 'Yueyang', 'pt': 'Yueyang', 'ru': 'Yueyang', 'th': 'Yueyang', 'vi': 'Yueyang', 'zh': '岳阳'},
+  'Banan': {'ar': 'Banan', 'de': 'Banan', 'en': 'Banan', 'es': 'Banan', 'fr': 'Banan', 'hi': 'Banan', 'id': 'Banan', 'it': 'Banan', 'ja': 'Banan', 'ko': 'Banan', 'pt': 'Banan', 'ru': 'Banan', 'th': 'Banan', 'vi': 'Banan', 'zh': '巴南'},
+  'Changzhou': {'ar': 'Changzhou', 'de': 'Changzhou', 'en': 'Changzhou', 'es': 'Changzhou', 'fr': 'Changzhou', 'hi': 'Changzhou', 'id': 'Changzhou', 'it': 'Changzhou', 'ja': 'Changzhou', 'ko': 'Changzhou', 'pt': 'Changzhou', 'ru': 'Changzhou', 'th': 'Changzhou', 'vi': 'Changzhou', 'zh': '常州'},
+  'Changde': {'ar': 'Changde', 'de': 'Changde', 'en': 'Changde', 'es': 'Changde', 'fr': 'Changde', 'hi': 'Changde', 'id': 'Changde', 'it': 'Changde', 'ja': 'Changde', 'ko': 'Changde', 'pt': 'Changde', 'ru': 'Changde', 'th': 'Changde', 'vi': 'Changde', 'zh': '常德'},
+  'Guangzhou': {'ar': 'Guangzhou', 'de': 'Guangzhou', 'en': 'Guangzhou', 'es': 'Guangzhou', 'fr': 'Guangzhou', 'hi': 'Guangzhou', 'id': 'Guangzhou', 'it': 'Guangzhou', 'ja': 'Guangzhou', 'ko': 'Guangzhou', 'pt': 'Guangzhou', 'ru': 'Guangzhou', 'th': 'Guangzhou', 'vi': 'Guangzhou', 'zh': '广州'},
+  'Langfang': {'ar': 'Langfang', 'de': 'Langfang', 'en': 'Langfang', 'es': 'Langfang', 'fr': 'Langfang', 'hi': 'Langfang', 'id': 'Langfang', 'it': 'Langfang', 'ja': 'Langfang', 'ko': 'Langfang', 'pt': 'Langfang', 'ru': 'Langfang', 'th': 'Langfang', 'vi': 'Langfang', 'zh': '廊坊'},
+  'Yanan': {'ar': 'Yanan', 'de': 'Yanan', 'en': 'Yanan', 'es': 'Yanan', 'fr': 'Yanan', 'hi': 'Yanan', 'id': 'Yanan', 'it': 'Yanan', 'ja': 'Yanan', 'ko': 'Yanan', 'pt': 'Yanan', 'ru': 'Yanan', 'th': 'Yanan', 'vi': 'Yanan', 'zh': '延安'},
+  'Kaifeng': {'ar': 'Kaifeng', 'de': 'Kaifeng', 'en': 'Kaifeng', 'es': 'Kaifeng', 'fr': 'Kaifeng', 'hi': 'Kaifeng', 'id': 'Kaifeng', 'it': 'Kaifeng', 'ja': 'Kaifeng', 'ko': 'Kaifeng', 'pt': 'Kaifeng', 'ru': 'Kaifeng', 'th': 'Kaifeng', 'vi': 'Kaifeng', 'zh': '开封'},
+  'Zhangjiakou': {'ar': 'Zhangjiakou', 'de': 'Zhangjiakou', 'en': 'Zhangjiakou', 'es': 'Zhangjiakou', 'fr': 'Zhangjiakou', 'hi': 'Zhangjiakou', 'id': 'Zhangjiakou', 'it': 'Zhangjiakou', 'ja': 'Zhangjiakou', 'ko': 'Zhangjiakou', 'pt': 'Zhangjiakou', 'ru': 'Zhangjiakou', 'th': 'Zhangjiakou', 'vi': 'Zhangjiakou', 'zh': '张家口'},
+  'Xuzhou': {'ar': 'Xuzhou', 'de': 'Xuzhou', 'en': 'Xuzhou', 'es': 'Xuzhou', 'fr': 'Xuzhou', 'hi': 'Xuzhou', 'id': 'Xuzhou', 'it': 'Xuzhou', 'ja': 'Xuzhou', 'ko': 'Xuzhou', 'pt': 'Xuzhou', 'ru': 'Xuzhou', 'th': 'Xuzhou', 'vi': 'Xuzhou', 'zh': '徐州'},
+  'Xuhui': {'ar': 'Xuhui', 'de': 'Xuhui', 'en': 'Xuhui', 'es': 'Xuhui', 'fr': 'Xuhui', 'hi': 'Xuhui', 'id': 'Xuhui', 'it': 'Xuhui', 'ja': 'Xuhui', 'ko': 'Xuhui', 'pt': 'Xuhui', 'ru': 'Xuhui', 'th': 'Xuhui', 'vi': 'Xuhui', 'zh': '徐汇'},
+  'Deyang': {'ar': 'Deyang', 'de': 'Deyang', 'en': 'Deyang', 'es': 'Deyang', 'fr': 'Deyang', 'hi': 'Deyang', 'id': 'Deyang', 'it': 'Deyang', 'ja': 'Deyang', 'ko': 'Deyang', 'pt': 'Deyang', 'ru': 'Deyang', 'th': 'Deyang', 'vi': 'Deyang', 'zh': '德阳'},
+  'Huizhou': {'ar': 'Huizhou', 'de': 'Huizhou', 'en': 'Huizhou', 'es': 'Huizhou', 'fr': 'Huizhou', 'hi': 'Huizhou', 'id': 'Huizhou', 'it': 'Huizhou', 'ja': 'Huizhou', 'ko': 'Huizhou', 'pt': 'Huizhou', 'ru': 'Huizhou', 'th': 'Huizhou', 'vi': 'Huizhou', 'zh': '惠州'},
+  'Chengdu': {'ar': 'Chengdu', 'de': 'Chengdu', 'en': 'Chengdu', 'es': 'Chengdu', 'fr': 'Chengdu', 'hi': 'Chengdu', 'id': 'Chengdu', 'it': 'Chengdu', 'ja': 'Chengdu', 'ko': 'Chengdu', 'pt': 'Chengdu', 'ru': 'Chengdu', 'th': 'Chengdu', 'vi': 'Chengdu', 'zh': '成都'},
+  'Yangzhou': {'ar': 'Yangzhou', 'de': 'Yangzhou', 'en': 'Yangzhou', 'es': 'Yangzhou', 'fr': 'Yangzhou', 'hi': 'Yangzhou', 'id': 'Yangzhou', 'it': 'Yangzhou', 'ja': 'Yangzhou', 'ko': 'Yangzhou', 'pt': 'Yangzhou', 'ru': 'Yangzhou', 'th': 'Yangzhou', 'vi': 'Yangzhou', 'zh': '扬州'},
+  'Fushun': {'ar': 'Fushun', 'de': 'Fushun', 'en': 'Fushun', 'es': 'Fushun', 'fr': 'Fushun', 'hi': 'Fushun', 'id': 'Fushun', 'it': 'Fushun', 'ja': 'Fushun', 'ko': 'Fushun', 'pt': 'Fushun', 'ru': 'Fushun', 'th': 'Fushun', 'vi': 'Fushun', 'zh': '抚顺'},
+  'Xinxiang': {'ar': 'Xinxiang', 'de': 'Xinxiang', 'en': 'Xinxiang', 'es': 'Xinxiang', 'fr': 'Xinxiang', 'hi': 'Xinxiang', 'id': 'Xinxiang', 'it': 'Xinxiang', 'ja': 'Xinxiang', 'ko': 'Xinxiang', 'pt': 'Xinxiang', 'ru': 'Xinxiang', 'th': 'Xinxiang', 'vi': 'Xinxiang', 'zh': '新乡'},
+  'Xinbei': {'ar': 'Xinbei', 'de': 'Xinbei', 'en': 'Xinbei', 'es': 'Xinbei', 'fr': 'Xinbei', 'hi': 'Xinbei', 'id': 'Xinbei', 'it': 'Xinbei', 'ja': 'Xinbei', 'ko': 'Xinbei', 'pt': 'Xinbei', 'ru': 'Xinbei', 'th': 'Xinbei', 'vi': 'Xinbei', 'zh': '新北'},
+  'Xinzhu': {'ar': 'Xinzhu', 'de': 'Xinzhu', 'en': 'Xinzhu', 'es': 'Xinzhu', 'fr': 'Xinzhu', 'hi': 'Xinzhu', 'id': 'Xinzhu', 'it': 'Xinzhu', 'ja': 'Xinzhu', 'ko': 'Xinzhu', 'pt': 'Xinzhu', 'ru': 'Xinzhu', 'th': 'Xinzhu', 'vi': 'Xinzhu', 'zh': '新竹'},
+  'Wuxi': {'ar': 'Wuxi', 'de': 'Wuxi', 'en': 'Wuxi', 'es': 'Wuxi', 'fr': 'Wuxi', 'hi': 'Wuxi', 'id': 'Wuxi', 'it': 'Wuxi', 'ja': 'Wuxi', 'ko': 'Wuxi', 'pt': 'Wuxi', 'ru': 'Wuxi', 'th': 'Wuxi', 'vi': 'Wuxi', 'zh': '无锡'},
+  'Wangjiao': {'ar': 'Wangjiao', 'de': 'Wangjiao', 'en': 'Wangjiao', 'es': 'Wangjiao', 'fr': 'Wangjiao', 'hi': 'Wangjiao', 'id': 'Wangjiao', 'it': 'Wangjiao', 'ja': 'Wangjiao', 'ko': 'Wangjiao', 'pt': 'Wangjiao', 'ru': 'Wangjiao', 'th': 'Wangjiao', 'vi': 'Wangjiao', 'zh': '旺角'},
+  'Kunming': {'ar': 'Kunming', 'de': 'Kunming', 'en': 'Kunming', 'es': 'Kunming', 'fr': 'Kunming', 'hi': 'Kunming', 'id': 'Kunming', 'it': 'Kunming', 'ja': 'Kunming', 'ko': 'Kunming', 'pt': 'Kunming', 'ru': 'Kunming', 'th': 'Kunming', 'vi': 'Kunming', 'zh': '昆明'},
+  'Zhaotong': {'ar': 'Zhaotong', 'de': 'Zhaotong', 'en': 'Zhaotong', 'es': 'Zhaotong', 'fr': 'Zhaotong', 'hi': 'Zhaotong', 'id': 'Zhaotong', 'it': 'Zhaotong', 'ja': 'Zhaotong', 'ko': 'Zhaotong', 'pt': 'Zhaotong', 'ru': 'Zhaotong', 'th': 'Zhaotong', 'vi': 'Zhaotong', 'zh': '昭通'},
+  'Puer': {'ar': 'Puer', 'de': 'Puer', 'en': 'Puer', 'es': 'Puer', 'fr': 'Puer', 'hi': 'Puer', 'id': 'Puer', 'it': 'Puer', 'ja': 'Puer', 'ko': 'Puer', 'pt': 'Puer', 'ru': 'Puer', 'th': 'Puer', 'vi': 'Puer', 'zh': '普洱'},
+  'Putuo': {'ar': 'Putuo', 'de': 'Putuo', 'en': 'Putuo', 'es': 'Putuo', 'fr': 'Putuo', 'hi': 'Putuo', 'id': 'Putuo', 'it': 'Putuo', 'ja': 'Putuo', 'ko': 'Putuo', 'pt': 'Putuo', 'ru': 'Putuo', 'th': 'Putuo', 'vi': 'Putuo', 'zh': '普陀'},
+  'Qujing': {'ar': 'Qujing', 'de': 'Qujing', 'en': 'Qujing', 'es': 'Qujing', 'fr': 'Qujing', 'hi': 'Qujing', 'id': 'Qujing', 'it': 'Qujing', 'ja': 'Qujing', 'ko': 'Qujing', 'pt': 'Qujing', 'ru': 'Qujing', 'th': 'Qujing', 'vi': 'Qujing', 'zh': '曲靖'},
+  'Zhaoyang': {'ar': 'Zhaoyang', 'de': 'Zhaoyang', 'en': 'Zhaoyang', 'es': 'Zhaoyang', 'fr': 'Zhaoyang', 'hi': 'Zhaoyang', 'id': 'Zhaoyang', 'it': 'Zhaoyang', 'ja': 'Zhaoyang', 'ko': 'Zhaoyang', 'pt': 'Zhaoyang', 'ru': 'Zhaoyang', 'th': 'Zhaoyang', 'vi': 'Zhaoyang', 'zh': '朝阳'},
+  'Yangpu': {'ar': 'Yangpu', 'de': 'Yangpu', 'en': 'Yangpu', 'es': 'Yangpu', 'fr': 'Yangpu', 'hi': 'Yangpu', 'id': 'Yangpu', 'it': 'Yangpu', 'ja': 'Yangpu', 'ko': 'Yangpu', 'pt': 'Yangpu', 'ru': 'Yangpu', 'th': 'Yangpu', 'vi': 'Yangpu', 'zh': '杨浦'},
+  'Hangzhou': {'ar': 'Hangzhou', 'de': 'Hangzhou', 'en': 'Hangzhou', 'es': 'Hangzhou', 'fr': 'Hangzhou', 'hi': 'Hangzhou', 'id': 'Hangzhou', 'it': 'Hangzhou', 'ja': 'Hangzhou', 'ko': 'Hangzhou', 'pt': 'Hangzhou', 'ru': 'Hangzhou', 'th': 'Hangzhou', 'vi': 'Hangzhou', 'zh': '杭州'},
+  'Liuzhou': {'ar': 'Liuzhou', 'de': 'Liuzhou', 'en': 'Liuzhou', 'es': 'Liuzhou', 'fr': 'Liuzhou', 'hi': 'Liuzhou', 'id': 'Liuzhou', 'it': 'Liuzhou', 'ja': 'Liuzhou', 'ko': 'Liuzhou', 'pt': 'Liuzhou', 'ru': 'Liuzhou', 'th': 'Liuzhou', 'vi': 'Liuzhou', 'zh': '柳州'},
+  'Zhuzhou': {'ar': 'Zhuzhou', 'de': 'Zhuzhou', 'en': 'Zhuzhou', 'es': 'Zhuzhou', 'fr': 'Zhuzhou', 'hi': 'Zhuzhou', 'id': 'Zhuzhou', 'it': 'Zhuzhou', 'ja': 'Zhuzhou', 'ko': 'Zhuzhou', 'pt': 'Zhuzhou', 'ru': 'Zhuzhou', 'th': 'Zhuzhou', 'vi': 'Zhuzhou', 'zh': '株洲'},
+  'Guilin': {'ar': 'Guilin', 'de': 'Guilin', 'en': 'Guilin', 'es': 'Guilin', 'fr': 'Guilin', 'hi': 'Guilin', 'id': 'Guilin', 'it': 'Guilin', 'ja': 'Guilin', 'ko': 'Guilin', 'pt': 'Guilin', 'ru': 'Guilin', 'th': 'Guilin', 'vi': 'Guilin', 'zh': '桂林'},
+  'Taoyuan': {'ar': 'Taoyuan', 'de': 'Taoyuan', 'en': 'Taoyuan', 'es': 'Taoyuan', 'fr': 'Taoyuan', 'hi': 'Taoyuan', 'id': 'Taoyuan', 'it': 'Taoyuan', 'ja': 'Taoyuan', 'ko': 'Taoyuan', 'pt': 'Taoyuan', 'ru': 'Taoyuan', 'th': 'Taoyuan', 'vi': 'Taoyuan', 'zh': '桃园'},
+  'Wuzhou': {'ar': 'Wuzhou', 'de': 'Wuzhou', 'en': 'Wuzhou', 'es': 'Wuzhou', 'fr': 'Wuzhou', 'hi': 'Wuzhou', 'id': 'Wuzhou', 'it': 'Wuzhou', 'ja': 'Wuzhou', 'ko': 'Wuzhou', 'pt': 'Wuzhou', 'ru': 'Wuzhou', 'th': 'Wuzhou', 'vi': 'Wuzhou', 'zh': '梧州'},
+  'Yulin': {'ar': 'Yulin', 'de': 'Yulin', 'en': 'Yulin', 'es': 'Yulin', 'fr': 'Yulin', 'hi': 'Yulin', 'id': 'Yulin', 'it': 'Yulin', 'ja': 'Yulin', 'ko': 'Yulin', 'pt': 'Yulin', 'ru': 'Yulin', 'th': 'Yulin', 'vi': 'Yulin', 'zh': '榆林'},
+  'Wuhan': {'ar': 'Wuhan', 'de': 'Wuhan', 'en': 'Wuhan', 'es': 'Wuhan', 'fr': 'Wuhan', 'hi': 'Wuhan', 'id': 'Wuhan', 'it': 'Wuhan', 'ja': 'Wuhan', 'ko': 'Wuhan', 'pt': 'Wuhan', 'ru': 'Wuhan', 'th': 'Wuhan', 'vi': 'Wuhan', 'zh': '武汉'},
+  'Dangzai': {'ar': 'Dangzai', 'de': 'Dangzai', 'en': 'Dangzai', 'es': 'Dangzai', 'fr': 'Dangzai', 'hi': 'Dangzai', 'id': 'Dangzai', 'it': 'Dangzai', 'ja': 'Dangzai', 'ko': 'Dangzai', 'pt': 'Dangzai', 'ru': 'Dangzai', 'th': 'Dangzai', 'vi': 'Dangzai', 'zh': '氹仔'},
+  'Hanzhong': {'ar': 'Hanzhong', 'de': 'Hanzhong', 'en': 'Hanzhong', 'es': 'Hanzhong', 'fr': 'Hanzhong', 'hi': 'Hanzhong', 'id': 'Hanzhong', 'it': 'Hanzhong', 'ja': 'Hanzhong', 'ko': 'Hanzhong', 'pt': 'Hanzhong', 'ru': 'Hanzhong', 'th': 'Hanzhong', 'vi': 'Hanzhong', 'zh': '汉中'},
+  'Shantou': {'ar': 'Shantou', 'de': 'Shantou', 'en': 'Shantou', 'es': 'Shantou', 'fr': 'Shantou', 'hi': 'Shantou', 'id': 'Shantou', 'it': 'Shantou', 'ja': 'Shantou', 'ko': 'Shantou', 'pt': 'Shantou', 'ru': 'Shantou', 'th': 'Shantou', 'vi': 'Shantou', 'zh': '汕头'},
+  'Jiangbei': {'ar': 'Jiangbei', 'de': 'Jiangbei', 'en': 'Jiangbei', 'es': 'Jiangbei', 'fr': 'Jiangbei', 'hi': 'Jiangbei', 'id': 'Jiangbei', 'it': 'Jiangbei', 'ja': 'Jiangbei', 'ko': 'Jiangbei', 'pt': 'Jiangbei', 'ru': 'Jiangbei', 'th': 'Jiangbei', 'vi': 'Jiangbei', 'zh': '江北'},
+  'Shenyang': {'ar': 'Shenyang', 'de': 'Shenyang', 'en': 'Shenyang', 'es': 'Shenyang', 'fr': 'Shenyang', 'hi': 'Shenyang', 'id': 'Shenyang', 'it': 'Shenyang', 'ja': 'Shenyang', 'ko': 'Shenyang', 'pt': 'Shenyang', 'ru': 'Shenyang', 'th': 'Shenyang', 'vi': 'Shenyang', 'zh': '沈阳'},
+  'Shapingba': {'ar': 'Shapingba', 'de': 'Shapingba', 'en': 'Shapingba', 'es': 'Shapingba', 'fr': 'Shapingba', 'hi': 'Shapingba', 'id': 'Shapingba', 'it': 'Shapingba', 'ja': 'Shapingba', 'ko': 'Shapingba', 'pt': 'Shapingba', 'ru': 'Shapingba', 'th': 'Shapingba', 'vi': 'Shapingba', 'zh': '沙坪坝'},
+  'Shatian': {'ar': 'Shatian', 'de': 'Shatian', 'en': 'Shatian', 'es': 'Shatian', 'fr': 'Shatian', 'hi': 'Shatian', 'id': 'Shatian', 'it': 'Shatian', 'ja': 'Shatian', 'ko': 'Shatian', 'pt': 'Shatian', 'ru': 'Shatian', 'th': 'Shatian', 'vi': 'Shatian', 'zh': '沙田'},
+  'Cangzhou': {'ar': 'Cangzhou', 'de': 'Cangzhou', 'en': 'Cangzhou', 'es': 'Cangzhou', 'fr': 'Cangzhou', 'hi': 'Cangzhou', 'id': 'Cangzhou', 'it': 'Cangzhou', 'ja': 'Cangzhou', 'ko': 'Cangzhou', 'pt': 'Cangzhou', 'ru': 'Cangzhou', 'th': 'Cangzhou', 'vi': 'Cangzhou', 'zh': '沧州'},
+  'Hedong': {'ar': 'Hedong', 'de': 'Hedong', 'en': 'Hedong', 'es': 'Hedong', 'fr': 'Hedong', 'hi': 'Hedong', 'id': 'Hedong', 'it': 'Hedong', 'ja': 'Hedong', 'ko': 'Hedong', 'pt': 'Hedong', 'ru': 'Hedong', 'th': 'Hedong', 'vi': 'Hedong', 'zh': '河东'},
+  'Hebei': {'ar': 'Hebei', 'de': 'Hebei', 'en': 'Hebei', 'es': 'Hebei', 'fr': 'Hebei', 'hi': 'Hebei', 'id': 'Hebei', 'it': 'Hebei', 'ja': 'Hebei', 'ko': 'Hebei', 'pt': 'Hebei', 'ru': 'Hebei', 'th': 'Hebei', 'vi': 'Hebei', 'zh': '河北'},
+  'Hexi': {'ar': 'Hexi', 'de': 'Hexi', 'en': 'Hexi', 'es': 'Hexi', 'fr': 'Hexi', 'hi': 'Hexi', 'id': 'Hexi', 'it': 'Hexi', 'ja': 'Hexi', 'ko': 'Hexi', 'pt': 'Hexi', 'ru': 'Hexi', 'th': 'Hexi', 'vi': 'Hexi', 'zh': '河西'},
+  'Quanzhou': {'ar': 'Quanzhou', 'de': 'Quanzhou', 'en': 'Quanzhou', 'es': 'Quanzhou', 'fr': 'Quanzhou', 'hi': 'Quanzhou', 'id': 'Quanzhou', 'it': 'Quanzhou', 'ja': 'Quanzhou', 'ko': 'Quanzhou', 'pt': 'Quanzhou', 'ru': 'Quanzhou', 'th': 'Quanzhou', 'vi': 'Quanzhou', 'zh': '泉州'},
+  'Taian': {'ar': 'Taian', 'de': 'Taian', 'en': 'Taian', 'es': 'Taian', 'fr': 'Taian', 'hi': 'Taian', 'id': 'Taian', 'it': 'Taian', 'ja': 'Taian', 'ko': 'Taian', 'pt': 'Taian', 'ru': 'Taian', 'th': 'Taian', 'vi': 'Taian', 'zh': '泰安'},
+  'Luzhou': {'ar': 'Luzhou', 'de': 'Luzhou', 'en': 'Luzhou', 'es': 'Luzhou', 'fr': 'Luzhou', 'hi': 'Luzhou', 'id': 'Luzhou', 'it': 'Luzhou', 'ja': 'Luzhou', 'ko': 'Luzhou', 'pt': 'Luzhou', 'ru': 'Luzhou', 'th': 'Luzhou', 'vi': 'Luzhou', 'zh': '泸州'},
+  'Luoyang': {'ar': 'Luoyang', 'de': 'Luoyang', 'en': 'Luoyang', 'es': 'Luoyang', 'fr': 'Luoyang', 'hi': 'Luoyang', 'id': 'Luoyang', 'it': 'Luoyang', 'ja': 'Luoyang', 'ko': 'Luoyang', 'pt': 'Luoyang', 'ru': 'Luoyang', 'th': 'Luoyang', 'vi': 'Luoyang', 'zh': '洛阳'},
+  'Jinan': {'ar': 'Jinan', 'de': 'Jinan', 'en': 'Jinan', 'es': 'Jinan', 'fr': 'Jinan', 'hi': 'Jinan', 'id': 'Jinan', 'it': 'Jinan', 'ja': 'Jinan', 'ko': 'Jinan', 'pt': 'Jinan', 'ru': 'Jinan', 'th': 'Jinan', 'vi': 'Jinan', 'zh': '济南'},
+  'Pudong': {'ar': 'Pudong', 'de': 'Pudong', 'en': 'Pudong', 'es': 'Pudong', 'fr': 'Pudong', 'hi': 'Pudong', 'id': 'Pudong', 'it': 'Pudong', 'ja': 'Pudong', 'ko': 'Pudong', 'pt': 'Pudong', 'ru': 'Pudong', 'th': 'Pudong', 'vi': 'Pudong', 'zh': '浦东'},
+  'Haidian': {'ar': 'Haidian', 'de': 'Haidian', 'en': 'Haidian', 'es': 'Haidian', 'fr': 'Haidian', 'hi': 'Haidian', 'id': 'Haidian', 'it': 'Haidian', 'ja': 'Haidian', 'ko': 'Haidian', 'pt': 'Haidian', 'ru': 'Haidian', 'th': 'Haidian', 'vi': 'Haidian', 'zh': '海淀'},
+  'Zibo': {'ar': 'Zibo', 'de': 'Zibo', 'en': 'Zibo', 'es': 'Zibo', 'fr': 'Zibo', 'hi': 'Zibo', 'id': 'Zibo', 'it': 'Zibo', 'ja': 'Zibo', 'ko': 'Zibo', 'pt': 'Zibo', 'ru': 'Zibo', 'th': 'Zibo', 'vi': 'Zibo', 'zh': '淄博'},
+  'Huainan': {'ar': 'Huainan', 'de': 'Huainan', 'en': 'Huainan', 'es': 'Huainan', 'fr': 'Huainan', 'hi': 'Huainan', 'id': 'Huainan', 'it': 'Huainan', 'ja': 'Huainan', 'ko': 'Huainan', 'pt': 'Huainan', 'ru': 'Huainan', 'th': 'Huainan', 'vi': 'Huainan', 'zh': '淮南'},
+  'Shenzhen': {'ar': 'Shenzhen', 'de': 'Shenzhen', 'en': 'Shenzhen', 'es': 'Shenzhen', 'fr': 'Shenzhen', 'hi': 'Shenzhen', 'id': 'Shenzhen', 'it': 'Shenzhen', 'ja': 'Shenzhen', 'ko': 'Shenzhen', 'pt': 'Shenzhen', 'ru': 'Shenzhen', 'th': 'Shenzhen', 'vi': 'Shenzhen', 'zh': '深圳'},
+  'Yuzhong': {'ar': 'Yuzhong', 'de': 'Yuzhong', 'en': 'Yuzhong', 'es': 'Yuzhong', 'fr': 'Yuzhong', 'hi': 'Yuzhong', 'id': 'Yuzhong', 'it': 'Yuzhong', 'ja': 'Yuzhong', 'ko': 'Yuzhong', 'pt': 'Yuzhong', 'ru': 'Yuzhong', 'th': 'Yuzhong', 'vi': 'Yuzhong', 'zh': '渝中'},
+  'Yubei': {'ar': 'Yubei', 'de': 'Yubei', 'en': 'Yubei', 'es': 'Yubei', 'fr': 'Yubei', 'hi': 'Yubei', 'id': 'Yubei', 'it': 'Yubei', 'ja': 'Yubei', 'ko': 'Yubei', 'pt': 'Yubei', 'ru': 'Yubei', 'th': 'Yubei', 'vi': 'Yubei', 'zh': '渝北'},
+  'Wenzhou': {'ar': 'Wenzhou', 'de': 'Wenzhou', 'en': 'Wenzhou', 'es': 'Wenzhou', 'fr': 'Wenzhou', 'hi': 'Wenzhou', 'id': 'Wenzhou', 'it': 'Wenzhou', 'ja': 'Wenzhou', 'ko': 'Wenzhou', 'pt': 'Wenzhou', 'ru': 'Wenzhou', 'th': 'Wenzhou', 'vi': 'Wenzhou', 'zh': '温州'},
+  'Weinan': {'ar': 'Weinan', 'de': 'Weinan', 'en': 'Weinan', 'es': 'Weinan', 'fr': 'Weinan', 'hi': 'Weinan', 'id': 'Weinan', 'it': 'Weinan', 'ja': 'Weinan', 'ko': 'Weinan', 'pt': 'Weinan', 'ru': 'Weinan', 'th': 'Weinan', 'vi': 'Weinan', 'zh': '渭南'},
+  'Huzhou': {'ar': 'Huzhou', 'de': 'Huzhou', 'en': 'Huzhou', 'es': 'Huzhou', 'fr': 'Huzhou', 'hi': 'Huzhou', 'id': 'Huzhou', 'it': 'Huzhou', 'ja': 'Huzhou', 'ko': 'Huzhou', 'pt': 'Huzhou', 'ru': 'Huzhou', 'th': 'Huzhou', 'vi': 'Huzhou', 'zh': '湖州'},
+  'Xiangtan': {'ar': 'Xiangtan', 'de': 'Xiangtan', 'en': 'Xiangtan', 'es': 'Xiangtan', 'fr': 'Xiangtan', 'hi': 'Xiangtan', 'id': 'Xiangtan', 'it': 'Xiangtan', 'ja': 'Xiangtan', 'ko': 'Xiangtan', 'pt': 'Xiangtan', 'ru': 'Xiangtan', 'th': 'Xiangtan', 'vi': 'Xiangtan', 'zh': '湘潭'},
+  'Wanzai': {'ar': 'Wanzai', 'de': 'Wanzai', 'en': 'Wanzai', 'es': 'Wanzai', 'fr': 'Wanzai', 'hi': 'Wanzai', 'id': 'Wanzai', 'it': 'Wanzai', 'ja': 'Wanzai', 'ko': 'Wanzai', 'pt': 'Wanzai', 'ru': 'Wanzai', 'th': 'Wanzai', 'vi': 'Wanzai', 'zh': '湾仔'},
+  'Chuzhou': {'ar': 'Chuzhou', 'de': 'Chuzhou', 'en': 'Chuzhou', 'es': 'Chuzhou', 'fr': 'Chuzhou', 'hi': 'Chuzhou', 'id': 'Chuzhou', 'it': 'Chuzhou', 'ja': 'Chuzhou', 'ko': 'Chuzhou', 'pt': 'Chuzhou', 'ru': 'Chuzhou', 'th': 'Chuzhou', 'vi': 'Chuzhou', 'zh': '滁州'},
+  'Binhai': {'ar': 'Binhai', 'de': 'Binhai', 'en': 'Binhai', 'es': 'Binhai', 'fr': 'Binhai', 'hi': 'Binhai', 'id': 'Binhai', 'it': 'Binhai', 'ja': 'Binhai', 'ko': 'Binhai', 'pt': 'Binhai', 'ru': 'Binhai', 'th': 'Binhai', 'vi': 'Binhai', 'zh': '滨海'},
+  'Zhangzhou': {'ar': 'Zhangzhou', 'de': 'Zhangzhou', 'en': 'Zhangzhou', 'es': 'Zhangzhou', 'fr': 'Zhangzhou', 'hi': 'Zhangzhou', 'id': 'Zhangzhou', 'it': 'Zhangzhou', 'ja': 'Zhangzhou', 'ko': 'Zhangzhou', 'pt': 'Zhangzhou', 'ru': 'Zhangzhou', 'th': 'Zhangzhou', 'vi': 'Zhangzhou', 'zh': '漳州'},
+  'Weifang': {'ar': 'Weifang', 'de': 'Weifang', 'en': 'Weifang', 'es': 'Weifang', 'fr': 'Weifang', 'hi': 'Weifang', 'id': 'Weifang', 'it': 'Weifang', 'ja': 'Weifang', 'ko': 'Weifang', 'pt': 'Weifang', 'ru': 'Weifang', 'th': 'Weifang', 'vi': 'Weifang', 'zh': '潍坊'},
+  'Aomenbandao': {'ar': 'Aomenbandao', 'de': 'Aomenbandao', 'en': 'Aomenbandao', 'es': 'Aomenbandao', 'fr': 'Aomenbandao', 'hi': 'Aomenbandao', 'id': 'Aomenbandao', 'it': 'Aomenbandao', 'ja': 'Aomenbandao', 'ko': 'Aomenbandao', 'pt': 'Aomenbandao', 'ru': 'Aomenbandao', 'th': 'Aomenbandao', 'vi': 'Aomenbandao', 'zh': '澳门半岛'},
+  'Yantai': {'ar': 'Yantai', 'de': 'Yantai', 'en': 'Yantai', 'es': 'Yantai', 'fr': 'Yantai', 'hi': 'Yantai', 'id': 'Yantai', 'it': 'Yantai', 'ja': 'Yantai', 'ko': 'Yantai', 'pt': 'Yantai', 'ru': 'Yantai', 'th': 'Yantai', 'vi': 'Yantai', 'zh': '烟台'},
+  'Jiaozuo': {'ar': 'Jiaozuo', 'de': 'Jiaozuo', 'en': 'Jiaozuo', 'es': 'Jiaozuo', 'fr': 'Jiaozuo', 'hi': 'Jiaozuo', 'id': 'Jiaozuo', 'it': 'Jiaozuo', 'ja': 'Jiaozuo', 'ko': 'Jiaozuo', 'pt': 'Jiaozuo', 'ru': 'Jiaozuo', 'th': 'Jiaozuo', 'vi': 'Jiaozuo', 'zh': '焦作'},
+  'Yulin': {'ar': 'Yulin', 'de': 'Yulin', 'en': 'Yulin', 'es': 'Yulin', 'fr': 'Yulin', 'hi': 'Yulin', 'id': 'Yulin', 'it': 'Yulin', 'ja': 'Yulin', 'ko': 'Yulin', 'pt': 'Yulin', 'ru': 'Yulin', 'th': 'Yulin', 'vi': 'Yulin', 'zh': '玉林'},
+  'Yuxi': {'ar': 'Yuxi', 'de': 'Yuxi', 'en': 'Yuxi', 'es': 'Yuxi', 'fr': 'Yuxi', 'hi': 'Yuxi', 'id': 'Yuxi', 'it': 'Yuxi', 'ja': 'Yuxi', 'ko': 'Yuxi', 'pt': 'Yuxi', 'ru': 'Yuxi', 'th': 'Yuxi', 'vi': 'Yuxi', 'zh': '玉溪'},
+  'Zhuhai': {'ar': 'Zhuhai', 'de': 'Zhuhai', 'en': 'Zhuhai', 'es': 'Zhuhai', 'fr': 'Zhuhai', 'hi': 'Zhuhai', 'id': 'Zhuhai', 'it': 'Zhuhai', 'ja': 'Zhuhai', 'ko': 'Zhuhai', 'pt': 'Zhuhai', 'ru': 'Zhuhai', 'th': 'Zhuhai', 'vi': 'Zhuhai', 'zh': '珠海'},
+  'Yiyang': {'ar': 'Yiyang', 'de': 'Yiyang', 'en': 'Yiyang', 'es': 'Yiyang', 'fr': 'Yiyang', 'hi': 'Yiyang', 'id': 'Yiyang', 'it': 'Yiyang', 'ja': 'Yiyang', 'ko': 'Yiyang', 'pt': 'Yiyang', 'ru': 'Yiyang', 'th': 'Yiyang', 'vi': 'Yiyang', 'zh': '益阳'},
+  'Panjin': {'ar': 'Panjin', 'de': 'Panjin', 'en': 'Panjin', 'es': 'Panjin', 'fr': 'Panjin', 'hi': 'Panjin', 'id': 'Panjin', 'it': 'Panjin', 'ja': 'Panjin', 'ko': 'Panjin', 'pt': 'Panjin', 'ru': 'Panjin', 'th': 'Panjin', 'vi': 'Panjin', 'zh': '盘锦'},
+  'Shijiazhuang': {'ar': 'Shijiazhuang', 'de': 'Shijiazhuang', 'en': 'Shijiazhuang', 'es': 'Shijiazhuang', 'fr': 'Shijiazhuang', 'hi': 'Shijiazhuang', 'id': 'Shijiazhuang', 'it': 'Shijiazhuang', 'ja': 'Shijiazhuang', 'ko': 'Shijiazhuang', 'pt': 'Shijiazhuang', 'ru': 'Shijiazhuang', 'th': 'Shijiazhuang', 'vi': 'Shijiazhuang', 'zh': '石家庄'},
+  'Shijingshan': {'ar': 'Shijingshan', 'de': 'Shijingshan', 'en': 'Shijingshan', 'es': 'Shijingshan', 'fr': 'Shijingshan', 'hi': 'Shijingshan', 'id': 'Shijingshan', 'it': 'Shijingshan', 'ja': 'Shijingshan', 'ko': 'Shijingshan', 'pt': 'Shijingshan', 'ru': 'Shijingshan', 'th': 'Shijingshan', 'vi': 'Shijingshan', 'zh': '石景山'},
+  'Fuzhou': {'ar': 'Fuzhou', 'de': 'Fuzhou', 'en': 'Fuzhou', 'es': 'Fuzhou', 'fr': 'Fuzhou', 'hi': 'Fuzhou', 'id': 'Fuzhou', 'it': 'Fuzhou', 'ja': 'Fuzhou', 'ko': 'Fuzhou', 'pt': 'Fuzhou', 'ru': 'Fuzhou', 'th': 'Fuzhou', 'vi': 'Fuzhou', 'zh': '福州'},
+  'Qinhuangdao': {'ar': 'Qinhuangdao', 'de': 'Qinhuangdao', 'en': 'Qinhuangdao', 'es': 'Qinhuangdao', 'fr': 'Qinhuangdao', 'hi': 'Qinhuangdao', 'id': 'Qinhuangdao', 'it': 'Qinhuangdao', 'ja': 'Qinhuangdao', 'ko': 'Qinhuangdao', 'pt': 'Qinhuangdao', 'ru': 'Qinhuangdao', 'th': 'Qinhuangdao', 'vi': 'Qinhuangdao', 'zh': '秦皇岛'},
+  'Hongqiao': {'ar': 'Hongqiao', 'de': 'Hongqiao', 'en': 'Hongqiao', 'es': 'Hongqiao', 'fr': 'Hongqiao', 'hi': 'Hongqiao', 'id': 'Hongqiao', 'it': 'Hongqiao', 'ja': 'Hongqiao', 'ko': 'Hongqiao', 'pt': 'Hongqiao', 'ru': 'Hongqiao', 'th': 'Hongqiao', 'vi': 'Hongqiao', 'zh': '红桥'},
+  'Shaoxing': {'ar': 'Shaoxing', 'de': 'Shaoxing', 'en': 'Shaoxing', 'es': 'Shaoxing', 'fr': 'Shaoxing', 'hi': 'Shaoxing', 'id': 'Shaoxing', 'it': 'Shaoxing', 'ja': 'Shaoxing', 'ko': 'Shaoxing', 'pt': 'Shaoxing', 'ru': 'Shaoxing', 'th': 'Shaoxing', 'vi': 'Shaoxing', 'zh': '绍兴'},
+  'Mianyang': {'ar': 'Mianyang', 'de': 'Mianyang', 'en': 'Mianyang', 'es': 'Mianyang', 'fr': 'Mianyang', 'hi': 'Mianyang', 'id': 'Mianyang', 'it': 'Mianyang', 'ja': 'Mianyang', 'ko': 'Mianyang', 'pt': 'Mianyang', 'ru': 'Mianyang', 'th': 'Mianyang', 'vi': 'Mianyang', 'zh': '绵阳'},
+  'Zigong': {'ar': 'Zigong', 'de': 'Zigong', 'en': 'Zigong', 'es': 'Zigong', 'fr': 'Zigong', 'hi': 'Zigong', 'id': 'Zigong', 'it': 'Zigong', 'ja': 'Zigong', 'ko': 'Zigong', 'pt': 'Zigong', 'ru': 'Zigong', 'th': 'Zigong', 'vi': 'Zigong', 'zh': '自贡'},
+  'Wuhu': {'ar': 'Wuhu', 'de': 'Wuhu', 'en': 'Wuhu', 'es': 'Wuhu', 'fr': 'Wuhu', 'hi': 'Wuhu', 'id': 'Wuhu', 'it': 'Wuhu', 'ja': 'Wuhu', 'ko': 'Wuhu', 'pt': 'Wuhu', 'ru': 'Wuhu', 'th': 'Wuhu', 'vi': 'Wuhu', 'zh': '芜湖'},
+  'Suzhou': {'ar': 'Suzhou', 'de': 'Suzhou', 'en': 'Suzhou', 'es': 'Suzhou', 'fr': 'Suzhou', 'hi': 'Suzhou', 'id': 'Suzhou', 'it': 'Suzhou', 'ja': 'Suzhou', 'ko': 'Suzhou', 'pt': 'Suzhou', 'ru': 'Suzhou', 'th': 'Suzhou', 'vi': 'Suzhou', 'zh': '苏州'},
+  'Quanwan': {'ar': 'Quanwan', 'de': 'Quanwan', 'en': 'Quanwan', 'es': 'Quanwan', 'fr': 'Quanwan', 'hi': 'Quanwan', 'id': 'Quanwan', 'it': 'Quanwan', 'ja': 'Quanwan', 'ko': 'Quanwan', 'pt': 'Quanwan', 'ru': 'Quanwan', 'th': 'Quanwan', 'vi': 'Quanwan', 'zh': '荃湾'},
+  'Jingzhou': {'ar': 'Jingzhou', 'de': 'Jingzhou', 'en': 'Jingzhou', 'es': 'Jingzhou', 'fr': 'Jingzhou', 'hi': 'Jingzhou', 'id': 'Jingzhou', 'it': 'Jingzhou', 'ja': 'Jingzhou', 'ko': 'Jingzhou', 'pt': 'Jingzhou', 'ru': 'Jingzhou', 'th': 'Jingzhou', 'vi': 'Jingzhou', 'zh': '荆州'},
+  'Putian': {'ar': 'Putian', 'de': 'Putian', 'en': 'Putian', 'es': 'Putian', 'fr': 'Putian', 'hi': 'Putian', 'id': 'Putian', 'it': 'Putian', 'ja': 'Putian', 'ko': 'Putian', 'pt': 'Putian', 'ru': 'Putian', 'th': 'Putian', 'vi': 'Putian', 'zh': '莆田'},
+  'Yingkou': {'ar': 'Yingkou', 'de': 'Yingkou', 'en': 'Yingkou', 'es': 'Yingkou', 'fr': 'Yingkou', 'hi': 'Yingkou', 'id': 'Yingkou', 'it': 'Yingkou', 'ja': 'Yingkou', 'ko': 'Yingkou', 'pt': 'Yingkou', 'ru': 'Yingkou', 'th': 'Yingkou', 'vi': 'Yingkou', 'zh': '营口'},
+  'Hongkou': {'ar': 'Hongkou', 'de': 'Hongkou', 'en': 'Hongkou', 'es': 'Hongkou', 'fr': 'Hongkou', 'hi': 'Hongkou', 'id': 'Hongkou', 'it': 'Hongkou', 'ja': 'Hongkou', 'ko': 'Hongkou', 'pt': 'Hongkou', 'ru': 'Hongkou', 'th': 'Hongkou', 'vi': 'Hongkou', 'zh': '虹口'},
+  'Bengbu': {'ar': 'Bengbu', 'de': 'Bengbu', 'en': 'Bengbu', 'es': 'Bengbu', 'fr': 'Bengbu', 'hi': 'Bengbu', 'id': 'Bengbu', 'it': 'Bengbu', 'ja': 'Bengbu', 'ko': 'Bengbu', 'pt': 'Bengbu', 'ru': 'Bengbu', 'th': 'Bengbu', 'vi': 'Bengbu', 'zh': '蚌埠'},
+  'Hengyang': {'ar': 'Hengyang', 'de': 'Hengyang', 'en': 'Hengyang', 'es': 'Hengyang', 'fr': 'Hengyang', 'hi': 'Hengyang', 'id': 'Hengyang', 'it': 'Hengyang', 'ja': 'Hengyang', 'ko': 'Hengyang', 'pt': 'Hengyang', 'ru': 'Hengyang', 'th': 'Hengyang', 'vi': 'Hengyang', 'zh': '衡阳'},
+  'Xiangyang': {'ar': 'Xiangyang', 'de': 'Xiangyang', 'en': 'Xiangyang', 'es': 'Xiangyang', 'fr': 'Xiangyang', 'hi': 'Xiangyang', 'id': 'Xiangyang', 'it': 'Xiangyang', 'ja': 'Xiangyang', 'ko': 'Xiangyang', 'pt': 'Xiangyang', 'ru': 'Xiangyang', 'th': 'Xiangyang', 'vi': 'Xiangyang', 'zh': '襄阳'},
+  'Xicheng': {'ar': 'Xicheng', 'de': 'Xicheng', 'en': 'Xicheng', 'es': 'Xicheng', 'fr': 'Xicheng', 'hi': 'Xicheng', 'id': 'Xicheng', 'it': 'Xicheng', 'ja': 'Xicheng', 'ko': 'Xicheng', 'pt': 'Xicheng', 'ru': 'Xicheng', 'th': 'Xicheng', 'vi': 'Xicheng', 'zh': '西城'},
+  'Xian': {'ar': 'Xian', 'de': 'Xian', 'en': 'Xian', 'es': 'Xian', 'fr': 'Xian', 'hi': 'Xian', 'id': 'Xian', 'it': 'Xian', 'ja': 'Xian', 'ko': 'Xian', 'pt': 'Xian', 'ru': 'Xian', 'th': 'Xian', 'vi': 'Xian', 'zh': '西安'},
+  'Xuchang': {'ar': 'Xuchang', 'de': 'Xuchang', 'en': 'Xuchang', 'es': 'Xuchang', 'fr': 'Xuchang', 'hi': 'Xuchang', 'id': 'Xuchang', 'it': 'Xuchang', 'ja': 'Xuchang', 'ko': 'Xuchang', 'pt': 'Xuchang', 'ru': 'Xuchang', 'th': 'Xuchang', 'vi': 'Xuchang', 'zh': '许昌'},
+  'Guigang': {'ar': 'Guigang', 'de': 'Guigang', 'en': 'Guigang', 'es': 'Guigang', 'fr': 'Guigang', 'hi': 'Guigang', 'id': 'Guigang', 'it': 'Guigang', 'ja': 'Guigang', 'ko': 'Guigang', 'pt': 'Guigang', 'ru': 'Guigang', 'th': 'Guigang', 'vi': 'Guigang', 'zh': '贵港'},
+  'Ludangcheng': {'ar': 'Ludangcheng', 'de': 'Ludangcheng', 'en': 'Ludangcheng', 'es': 'Ludangcheng', 'fr': 'Ludangcheng', 'hi': 'Ludangcheng', 'id': 'Ludangcheng', 'it': 'Ludangcheng', 'ja': 'Ludangcheng', 'ko': 'Ludangcheng', 'pt': 'Ludangcheng', 'ru': 'Ludangcheng', 'th': 'Ludangcheng', 'vi': 'Ludangcheng', 'zh': '路氹城'},
+  'Luhuan': {'ar': 'Luhuan', 'de': 'Luhuan', 'en': 'Luhuan', 'es': 'Luhuan', 'fr': 'Luhuan', 'hi': 'Luhuan', 'id': 'Luhuan', 'it': 'Luhuan', 'ja': 'Luhuan', 'ko': 'Luhuan', 'pt': 'Luhuan', 'ru': 'Luhuan', 'th': 'Luhuan', 'vi': 'Luhuan', 'zh': '路环'},
+  'Tongzhou': {'ar': 'Tongzhou', 'de': 'Tongzhou', 'en': 'Tongzhou', 'es': 'Tongzhou', 'fr': 'Tongzhou', 'hi': 'Tongzhou', 'id': 'Tongzhou', 'it': 'Tongzhou', 'ja': 'Tongzhou', 'ko': 'Tongzhou', 'pt': 'Tongzhou', 'ru': 'Tongzhou', 'th': 'Tongzhou', 'vi': 'Tongzhou', 'zh': '通州'},
+  'Handan': {'ar': 'Handan', 'de': 'Handan', 'en': 'Handan', 'es': 'Handan', 'fr': 'Handan', 'hi': 'Handan', 'id': 'Handan', 'it': 'Handan', 'ja': 'Handan', 'ko': 'Handan', 'pt': 'Handan', 'ru': 'Handan', 'th': 'Handan', 'vi': 'Handan', 'zh': '邯郸'},
+  'Zhengzhou': {'ar': 'Zhengzhou', 'de': 'Zhengzhou', 'en': 'Zhengzhou', 'es': 'Zhengzhou', 'fr': 'Zhengzhou', 'hi': 'Zhengzhou', 'id': 'Zhengzhou', 'it': 'Zhengzhou', 'ja': 'Zhengzhou', 'ko': 'Zhengzhou', 'pt': 'Zhengzhou', 'ru': 'Zhengzhou', 'th': 'Zhengzhou', 'vi': 'Zhengzhou', 'zh': '郑州'},
+  'Chenzhou': {'ar': 'Chenzhou', 'de': 'Chenzhou', 'en': 'Chenzhou', 'es': 'Chenzhou', 'fr': 'Chenzhou', 'hi': 'Chenzhou', 'id': 'Chenzhou', 'it': 'Chenzhou', 'ja': 'Chenzhou', 'ko': 'Chenzhou', 'pt': 'Chenzhou', 'ru': 'Chenzhou', 'th': 'Chenzhou', 'vi': 'Chenzhou', 'zh': '郴州'},
+  'Ezhou': {'ar': 'Ezhou', 'de': 'Ezhou', 'en': 'Ezhou', 'es': 'Ezhou', 'fr': 'Ezhou', 'hi': 'Ezhou', 'id': 'Ezhou', 'it': 'Ezhou', 'ja': 'Ezhou', 'ko': 'Ezhou', 'pt': 'Ezhou', 'ru': 'Ezhou', 'th': 'Ezhou', 'vi': 'Ezhou', 'zh': '鄂州'},
+  'Jinhua': {'ar': 'Jinhua', 'de': 'Jinhua', 'en': 'Jinhua', 'es': 'Jinhua', 'fr': 'Jinhua', 'hi': 'Jinhua', 'id': 'Jinhua', 'it': 'Jinhua', 'ja': 'Jinhua', 'ko': 'Jinhua', 'pt': 'Jinhua', 'ru': 'Jinhua', 'th': 'Jinhua', 'vi': 'Jinhua', 'zh': '金华'},
+  'Qinzhou': {'ar': 'Qinzhou', 'de': 'Qinzhou', 'en': 'Qinzhou', 'es': 'Qinzhou', 'fr': 'Qinzhou', 'hi': 'Qinzhou', 'id': 'Qinzhou', 'it': 'Qinzhou', 'ja': 'Qinzhou', 'ko': 'Qinzhou', 'pt': 'Qinzhou', 'ru': 'Qinzhou', 'th': 'Qinzhou', 'vi': 'Qinzhou', 'zh': '钦州'},
+  'Tongchuan': {'ar': 'Tongchuan', 'de': 'Tongchuan', 'en': 'Tongchuan', 'es': 'Tongchuan', 'fr': 'Tongchuan', 'hi': 'Tongchuan', 'id': 'Tongchuan', 'it': 'Tongchuan', 'ja': 'Tongchuan', 'ko': 'Tongchuan', 'pt': 'Tongchuan', 'ru': 'Tongchuan', 'th': 'Tongchuan', 'vi': 'Tongchuan', 'zh': '铜川'},
+  'Tongluowan': {'ar': 'Tongluowan', 'de': 'Tongluowan', 'en': 'Tongluowan', 'es': 'Tongluowan', 'fr': 'Tongluowan', 'hi': 'Tongluowan', 'id': 'Tongluowan', 'it': 'Tongluowan', 'ja': 'Tongluowan', 'ko': 'Tongluowan', 'pt': 'Tongluowan', 'ru': 'Tongluowan', 'th': 'Tongluowan', 'vi': 'Tongluowan', 'zh': '铜锣湾'},
+  'Jinzhou': {'ar': 'Jinzhou', 'de': 'Jinzhou', 'en': 'Jinzhou', 'es': 'Jinzhou', 'fr': 'Jinzhou', 'hi': 'Jinzhou', 'id': 'Jinzhou', 'it': 'Jinzhou', 'ja': 'Jinzhou', 'ko': 'Jinzhou', 'pt': 'Jinzhou', 'ru': 'Jinzhou', 'th': 'Jinzhou', 'vi': 'Jinzhou', 'zh': '锦州'},
+  'Zhenjiang': {'ar': 'Zhenjiang', 'de': 'Zhenjiang', 'en': 'Zhenjiang', 'es': 'Zhenjiang', 'fr': 'Zhenjiang', 'hi': 'Zhenjiang', 'id': 'Zhenjiang', 'it': 'Zhenjiang', 'ja': 'Zhenjiang', 'ko': 'Zhenjiang', 'pt': 'Zhenjiang', 'ru': 'Zhenjiang', 'th': 'Zhenjiang', 'vi': 'Zhenjiang', 'zh': '镇江'},
+  'Zhangning': {'ar': 'Zhangning', 'de': 'Zhangning', 'en': 'Zhangning', 'es': 'Zhangning', 'fr': 'Zhangning', 'hi': 'Zhangning', 'id': 'Zhangning', 'it': 'Zhangning', 'ja': 'Zhangning', 'ko': 'Zhangning', 'pt': 'Zhangning', 'ru': 'Zhangning', 'th': 'Zhangning', 'vi': 'Zhangning', 'zh': '长宁'},
+  'Changsha': {'ar': 'Changsha', 'de': 'Changsha', 'en': 'Changsha', 'es': 'Changsha', 'fr': 'Changsha', 'hi': 'Changsha', 'id': 'Changsha', 'it': 'Changsha', 'ja': 'Changsha', 'ko': 'Changsha', 'pt': 'Changsha', 'ru': 'Changsha', 'th': 'Changsha', 'vi': 'Changsha', 'zh': '长沙'},
+  'Qingdao': {'ar': 'Qingdao', 'de': 'Qingdao', 'en': 'Qingdao', 'es': 'Qingdao', 'fr': 'Qingdao', 'hi': 'Qingdao', 'id': 'Qingdao', 'it': 'Qingdao', 'ja': 'Qingdao', 'ko': 'Qingdao', 'pt': 'Qingdao', 'ru': 'Qingdao', 'th': 'Qingdao', 'vi': 'Qingdao', 'zh': '青岛'},
+  'Jingan': {'ar': 'Jingan', 'de': 'Jingan', 'en': 'Jingan', 'es': 'Jingan', 'fr': 'Jingan', 'hi': 'Jingan', 'id': 'Jingan', 'it': 'Jingan', 'ja': 'Jingan', 'ko': 'Jingan', 'pt': 'Jingan', 'ru': 'Jingan', 'th': 'Jingan', 'vi': 'Jingan', 'zh': '静安'},
+  'Anshan': {'ar': 'Anshan', 'de': 'Anshan', 'en': 'Anshan', 'es': 'Anshan', 'fr': 'Anshan', 'hi': 'Anshan', 'id': 'Anshan', 'it': 'Anshan', 'ja': 'Anshan', 'ko': 'Anshan', 'pt': 'Anshan', 'ru': 'Anshan', 'th': 'Anshan', 'vi': 'Anshan', 'zh': '鞍山'},
+  'Maanshan': {'ar': 'Maanshan', 'de': 'Maanshan', 'en': 'Maanshan', 'es': 'Maanshan', 'fr': 'Maanshan', 'hi': 'Maanshan', 'id': 'Maanshan', 'it': 'Maanshan', 'ja': 'Maanshan', 'ko': 'Maanshan', 'pt': 'Maanshan', 'ru': 'Maanshan', 'th': 'Maanshan', 'vi': 'Maanshan', 'zh': '马鞍山'},
+  'Gaoxiong': {'ar': 'Gaoxiong', 'de': 'Gaoxiong', 'en': 'Gaoxiong', 'es': 'Gaoxiong', 'fr': 'Gaoxiong', 'hi': 'Gaoxiong', 'id': 'Gaoxiong', 'it': 'Gaoxiong', 'ja': 'Gaoxiong', 'ko': 'Gaoxiong', 'pt': 'Gaoxiong', 'ru': 'Gaoxiong', 'th': 'Gaoxiong', 'vi': 'Gaoxiong', 'zh': '高雄'},
+  'Huangshan': {'ar': 'Huangshan', 'de': 'Huangshan', 'en': 'Huangshan', 'es': 'Huangshan', 'fr': 'Huangshan', 'hi': 'Huangshan', 'id': 'Huangshan', 'it': 'Huangshan', 'ja': 'Huangshan', 'ko': 'Huangshan', 'pt': 'Huangshan', 'ru': 'Huangshan', 'th': 'Huangshan', 'vi': 'Huangshan', 'zh': '黄山'},
+  'Huangpu': {'ar': 'Huangpu', 'de': 'Huangpu', 'en': 'Huangpu', 'es': 'Huangpu', 'fr': 'Huangpu', 'hi': 'Huangpu', 'id': 'Huangpu', 'it': 'Huangpu', 'ja': 'Huangpu', 'ko': 'Huangpu', 'pt': 'Huangpu', 'ru': 'Huangpu', 'th': 'Huangpu', 'vi': 'Huangpu', 'zh': '黄浦'},
+  'Huangshi': {'ar': 'Huangshi', 'de': 'Huangshi', 'en': 'Huangshi', 'es': 'Huangshi', 'fr': 'Huangshi', 'hi': 'Huangshi', 'id': 'Huangshi', 'it': 'Huangshi', 'ja': 'Huangshi', 'ko': 'Huangshi', 'pt': 'Huangshi', 'ru': 'Huangshi', 'th': 'Huangshi', 'vi': 'Huangshi', 'zh': '黄石'},
+  'Longyan': {'ar': 'Longyan', 'de': 'Longyan', 'en': 'Longyan', 'es': 'Longyan', 'fr': 'Longyan', 'hi': 'Longyan', 'id': 'Longyan', 'it': 'Longyan', 'ja': 'Longyan', 'ko': 'Longyan', 'pt': 'Longyan', 'ru': 'Longyan', 'th': 'Longyan', 'vi': 'Longyan', 'zh': '龙岩'}
 };
 
 // Reverse map: Chinese state/city names -> English keys for i18n lookup
@@ -6201,6 +6505,10 @@ function tRegion(name) {
   // Try stateI18n with original name (for states already in English)
   const stateMap2 = stateI18n[name];
   if (stateMap2 && stateMap2[curLang]) return stateMap2[curLang];
+  // Try cityI18n: translate Chinese city names to target language
+  const cityMap = cityI18n[engName] || cityI18n[name];
+  if (cityMap && cityMap[curLang]) return cityMap[curLang];
+
   return name;
 }
 
