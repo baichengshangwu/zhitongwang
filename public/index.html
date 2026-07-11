@@ -100,6 +100,7 @@ table{width:100%;border-collapse:collapse;font-size:.75rem}th{text-align:left;pa
 .ttabs{display:flex;gap:3px;margin-bottom:9px;background:var(--bg2);border-radius:9px;padding:3px}.ttab{flex:1;padding:6px;text-align:center;border-radius:7px;font-size:.72rem;font-weight:600;cursor:pointer;transition:var(--tt);color:var(--t3);border:none;background:transparent;font-family:inherit}.ttab.active{background:var(--bgc);color:#fff}
 .sr{display:flex;gap:5px;margin:7px 0}.sb{flex:1;padding:3px;text-align:center;border-radius:5px;font-size:.63rem;cursor:pointer;background:rgba(255,255,255,.03);border:1px solid var(--bd);color:var(--t2);transition:var(--tt);font-family:var(--fm)}.sb:hover,.sb.active{border-color:var(--ap);color:#fff}
 input[type=text],input[type=number],input[type=email],input[type=password],select,textarea{width:100%;padding:8px 10px;background:var(--bg2);border:1px solid var(--bd);border-radius:9px;color:var(--t1);font-family:var(--fm);font-size:.75rem;transition:var(--tt)}
+input[type=number]{direction:ltr;text-align:left}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ap);box-shadow:0 0 0 2px rgba(139,92,246,.1)}
 label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weight:500}
 .mo{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(3px);z-index:2000;display:none;align-items:center;justify-content:center}.mo.show{display:flex}
@@ -419,7 +420,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
           </select>
         </div>
         <div class="ig"><label data-key="pricel2">Price (CNY)</label><input type="number" id="p2p-sell-price" placeholder="5.00" step="0.01"></div>
-        <div class="ig"><label data-key="qty">Quantity</label><input type="number" id="p2p-sell-qty" placeholder="1" value="1" min="1"></div>
+        <div class="ig"><label data-key="qty">Quantity</label><input type="number" dir="ltr" id="p2p-sell-qty" placeholder="1" value="1" min="1"></div>
         <div class="ig"><label data-key="dur">Duration (days)</label><input type="number" id="p2p-sell-dur" placeholder="30" value="30" min="1"></div>
         <div class="ig"><label data-key="p2pCvt">算力转换率 (Token/MWh)</label><input type="number" id="p2p-sell-cvt" placeholder="240" value="240" min="0"></div>
       </div>
@@ -931,7 +932,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <h3 data-key="pub_btn_p2p_listing">Publish P2P Listing</h3>
   <div class="ig"><label data-key="pub_name">Name</label><input type="text" id="pub-p2p-name" data-key="pub_name_ph" placeholder="Listing name"></div>
   <div class="ig"><label data-key="pub_desc">Description</label><textarea id="pub-p2p-desc" rows="3" data-key="pub_desc_ph" placeholder="Describe your listing"></textarea></div>
-  <div class="ig"><label data-key="pub_price">Price (CNY)</label><input type="number" id="pub-p2p-price" placeholder="0" step="0.01" min="0"></div>
+  <div class="ig"><label data-key="pub_price">Price (CNY)</label><input type="number" dir="ltr" id="pub-p2p-price" placeholder="0" step="0.01" min="0"></div>
   <div class="ig"><label data-key="pub_qty">Quantity</label><input type="number" id="pub-p2p-qty" placeholder="1" value="1" min="1"></div>
   <button class="btn bg bw" onclick="doPublishP2P()" style="margin-top:8px" data-key="pub_submit">Publish</button>
   <div class="br2"><button class="btn bo" onclick="cma()" data-key="pub_cancel">Cancel</button></div>
@@ -984,7 +985,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <h3 id="member-buy-title">&#8212;</h3>
   <p id="member-buy-info" style="font-size:.8rem;color:var(--t2);margin-bottom:12px">&#8212;</p>
   <input type="hidden" id="member-buy-idx" value="0">
-  <div class="ig"><label data-key="mbqty">Token Amount</label><input type="number" id="member-buy-qty" value="100" min="1"></div>
+  <div class="ig"><label data-key="mbqty">Token Amount</label><input type="number" dir="ltr" id="member-buy-qty" value="100" min="1"></div>
   <button class="btn bg bw" onclick="confirmMemberBuy()" data-key="mbconfirm">Confirm Purchase</button>
   <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
 </div></div>
@@ -5646,7 +5647,7 @@ function openVault(){
   h+='</div>';
   h+='<div style="background:var(--bg);border-radius:10px;padding:12px">';
   h+='<div style="font-size:.7rem;font-weight:700;margin-bottom:6px">'+t('vault_withdraw_title')+'</div>';
-  h+='<input type="number" id="m-vault-wd" placeholder="'+t('vault_amt_ph')+'" min="1" style="width:100%;padding:8px;background:var(--bgc);border:1px solid var(--bd);border-radius:8px;color:var(--t1);margin-bottom:6px">';
+  h+='<input type="number" dir="ltr" id="m-vault-wd" placeholder="'+t('vault_amt_ph')+'" min="1" style="width:100%;padding:8px;background:var(--bgc);border:1px solid var(--bd);border-radius:8px;color:var(--t1);margin-bottom:6px">';
   h+='<button class="btn bo bs" style="width:100%" onclick="vaultWithdraw()">'+t('vault_withdraw_btn')+'</button>';
   h+='</div>';
   showCustomModal(t('vault_modal_title'), h);
