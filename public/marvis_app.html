@@ -240,7 +240,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 @keyframes orb2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-30px) scale(1.15)}}
 
 /* CS Float Button */
-.cs-float{position:fixed;bottom:30%;right:16px;z-index:99999;display:flex;flex-direction:column;align-items:flex-end;gap:8px;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
+.cs-float{position:fixed;bottom:100px;right:20px;z-index:99999;display:flex;flex-direction:column;align-items:flex-end;gap:8px;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
 .cs-float:active{cursor:grabbing}
 .cs-float-btn{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#ff6b35,#f72585);border:none;cursor:pointer;box-shadow:0 4px 18px rgba(255,107,53,.5);display:flex;align-items:center;justify-content:center;font-size:1.4rem;animation:float-btn 3s ease-in-out infinite;transition:transform .2s;color:#fff;position:relative}
 .cs-float-btn:hover{transform:scale(1.1);animation:none}
@@ -3897,6 +3897,7 @@ async function doLogin_email(e,p){
   loadUserToolsFromBackend();
   loadUserEventsFromBackend();
   notify('Welcome back, '+curUser.name+'!','&#x1F44B;'); rAll();
+  if(curPage==='social'){ setTimeout(function(){ try{loadFriends();loadFriendRequests();}catch(e){} }, 500); }
 }
 function doLogout(){ curUser=null; apiToken=null; try{localStorage.removeItem('nexus_api_token');localStorage.removeItem('nexus_recovery_code');}catch(e){} document.getElementById('aa').style.display='block'; document.getElementById('ud').style.display='none'; rAll(); notify('Logged out'); }
 function doReset(){
@@ -6274,6 +6275,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     buildLangMenu();
     let saved=localStorage.getItem('nexus_cur_user_email');
     if(saved&&users[saved]){curUser={...users[saved]};curUser._email=saved;document.getElementById('aa').style.display='none';document.getElementById('ud').style.display='block';document.getElementById('ual').textContent=(curUser.name||'U')[0].toUpperCase();document.getElementById('udn').textContent=curUser.name;}
+    // Ensure apiToken restored from localStorage (fallback if api-client.js didn't)
+    if(!apiToken){ try{ var t=localStorage.getItem('nexus_api_token'); if(t) apiToken=t; }catch(e){} }
     applyI18N(); rAll();
     initMKT(); setTimeout(function(){rdrTkr();},1500);
     translateCommunityContent();
@@ -7363,7 +7366,7 @@ document.head.appendChild(voiceStyle);
   var csFloat = document.querySelector('.cs-float');
   if(!csFloat) return;
   var isDragging = false, startX, startY, startLeft, startTop;
-  var wasClick = false;
+  var wasClick = false, dragTimeout;
 
   function onStart(e){
     var t = e.touches ? e.touches[0] : e;
@@ -7377,6 +7380,7 @@ document.head.appendChild(voiceStyle);
     csFloat.style.left = startLeft + 'px';
     csFloat.style.top = startTop + 'px';
     csFloat.style.cursor = 'grabbing';
+    csFloat.style.pointerEvents = 'auto';
     if(e.preventDefault) e.preventDefault();
   }
   function onMove(e){
@@ -7384,13 +7388,29 @@ document.head.appendChild(voiceStyle);
     var t = e.touches ? e.touches[0] : e;
     var dx = t.clientX - startX, dy = t.clientY - startY;
     if(Math.abs(dx) > 3 || Math.abs(dy) > 3) wasClick = false;
-    csFloat.style.left = Math.max(0, Math.min(window.innerWidth - 70, startLeft + dx)) + 'px';
-    csFloat.style.top = Math.max(0, Math.min(window.innerHeight - 70, startTop + dy)) + 'px';
+    var left = Math.max(0, Math.min(window.innerWidth - 60, startLeft + dx));
+    var top = Math.max(0, Math.min(window.innerHeight - 60, startTop + dy));
+    csFloat.style.left = left + 'px';
+    csFloat.style.top = top + 'px';
     if(e.preventDefault) e.preventDefault();
   }
   function onEnd(){
+    if(!isDragging) return;
     isDragging = false;
     csFloat.style.cursor = 'grab';
+    csFloat.style.transition = 'all .3s ease';
+    // Snap to right edge
+    var rect = csFloat.getBoundingClientRect();
+    var snapRight = window.innerWidth - rect.right > window.innerWidth / 2;
+    if(snapRight){
+      csFloat.style.left = 'auto';
+      csFloat.style.right = '20px';
+    } else {
+      csFloat.style.left = '20px';
+      csFloat.style.right = 'auto';
+    }
+    clearTimeout(dragTimeout);
+    dragTimeout = setTimeout(function(){ csFloat.style.transition = 'none'; }, 350);
   }
 
   csFloat.addEventListener('touchstart', onStart, {passive:false});
