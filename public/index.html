@@ -4,7 +4,7 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>AI Nexus - AI App Platform & Token Market</title>
 <style>
-:root{--bg:#0a0a0f;--bg2:#111118;--bgc:#161622;--bgch:#1c1c2e;--bd:#1e1e35;--bda:#333366;--t1:#e8e8f0;--t2:#a0a0b8;--t3:#6a6a82;--ap:#8b5cf6;--ab:#3b82f6;--ac:#06b6d4;--apk:#ec4899;--ag:#10b981;--ao:#f59e0b;--ar:#ef4444;--g1:linear-gradient(135deg,#8b5cf6,#3b82f6);--g2:linear-gradient(135deg,#ec4899,#8b5cf6);--r:12px;--rl:16px;--tt:0.25s cubic-bezier(0.4,0,0.2,1);--fm:"SF Mono","Fira Code",monospace}
+:root{--bg:#0a0a0f;--bg2:#111118;--bgc:#161622;--bgch:#1c1c2e;--bd:#1e1e35;--bda:#333366;--t1:#e8e8f0;--t2:#a0a0b8;--t3:#6a6a82;--ap:#8b5cf6;--ab:#3b82f6;--ac:#06b6d4;--apk:#ec4899;--ag:#10b981;--ao:#f59e0b;--ar:#ef4444;--g1:linear-gradient(135deg,#10b981,#059669);--g2:linear-gradient(135deg,#ec4899,#8b5cf6);--r:12px;--rl:16px;--tt:0.25s cubic-bezier(0.4,0,0.2,1);--fm:"SF Mono","Fira Code",monospace}
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
 body{font-family:"Inter","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--t1);line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 .pcs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
@@ -74,7 +74,7 @@ body{font-family:"Inter","PingFang SC","Microsoft YaHei",sans-serif;background:v
 }
 .btn{padding:7px 14px;border-radius:18px;font-weight:600;font-size:.75rem;cursor:pointer;border:none;transition:var(--tt);font-family:inherit;white-space:nowrap;display:inline-flex;align-items:center;gap:4px}
 .bo{background:transparent;border:1.5px solid var(--bda);color:var(--t1)}.bo:hover{border-color:var(--ap);background:rgba(139,92,246,.06)}
-.bg{background:var(--g1);color:#fff;box-shadow:0 4px 14px rgba(139,92,246,.3)}.bg:hover{box-shadow:0 6px 22px rgba(139,92,246,.45);transform:translateY(-1px)}
+.bg{background:var(--g1);color:#fff;box-shadow:0 4px 14px rgba(16,185,129,.3)}.bg:hover{box-shadow:0 6px 22px rgba(16,185,129,.45);transform:translateY(-1px)}
 .bs{padding:4px 10px;font-size:.68rem;border-radius:14px}.bx{padding:2px 7px;font-size:.62rem;border-radius:10px;font-weight:600}
 .bs2{background:rgba(16,185,129,.15);color:var(--ag);border:1px solid rgba(16,185,129,.3)}.bs2:hover{background:rgba(16,185,129,.25)}
 .bd2{background:rgba(239,68,68,.15);color:var(--ar);border:1px solid rgba(239,68,68,.3)}.bd2:hover{background:rgba(239,68,68,.25)}
@@ -222,9 +222,9 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 
 /* Shimmer Button */
 @keyframes shim{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
-@keyframes glow-pulse{0%,100%{box-shadow:0 0 18px rgba(139,92,246,.4),0 0 40px rgba(139,92,246,.15),0 0 80px rgba(6,182,212,.1)}50%{box-shadow:0 0 28px rgba(139,92,246,.7),0 0 60px rgba(139,92,246,.3),0 0 100px rgba(6,182,212,.2)}}
+@keyframes glow-pulse{0%,100%{box-shadow:0 0 18px rgba(16,185,129,.4),0 0 40px rgba(16,185,129,.15),0 0 80px rgba(5,150,105,.1)}50%{box-shadow:0 0 28px rgba(16,185,129,.7),0 0 60px rgba(16,185,129,.3),0 0 100px rgba(5,150,105,.2)}}
 @keyframes float-btn{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.btn-shimmer{position:relative;overflow:hidden;animation:glow-pulse 2.5s ease-in-out infinite;font-size:.82rem;padding:9px 52px;font-weight:800;border:none;border-radius:8px;color:#fff;cursor:pointer;background:linear-gradient(135deg,#8b5cf6,#06b6d4,#8b5cf6);background-size:200% 200%;animation:glow-pulse 2.5s ease-in-out infinite,grad-move 3s ease infinite;box-shadow:0 0 20px rgba(139,92,246,.45);letter-spacing:1.5px;text-transform:uppercase;font-family:inherit;transition:transform .2s}
+.btn-shimmer{position:relative;overflow:hidden;animation:glow-pulse 2.5s ease-in-out infinite;font-size:.82rem;padding:9px 52px;font-weight:800;border:none;border-radius:8px;color:#fff;cursor:pointer;background:linear-gradient(135deg,#10b981,#059669,#10b981);background-size:200% 200%;animation:glow-pulse 2.5s ease-in-out infinite,grad-move 3s ease infinite;box-shadow:0 0 20px rgba(16,185,129,.45);letter-spacing:1.5px;text-transform:uppercase;font-family:inherit;transition:transform .2s}
 @keyframes grad-move{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 .btn-shimmer::before{content:'';position:absolute;top:0;left:0;width:60px;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:skewX(-20deg);animation:shim 2.2s ease-in-out infinite}
 .btn-shimmer:hover{transform:scale(1.05)}
@@ -240,7 +240,8 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 @keyframes orb2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-30px) scale(1.15)}}
 
 /* CS Float Button */
-.cs-float{position:fixed;bottom:47%;right:30%;z-index:9998;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.cs-float{position:fixed;bottom:30%;right:16px;z-index:9998;display:flex;flex-direction:column;align-items:flex-end;gap:8px;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
+.cs-float:active{cursor:grabbing}
 .cs-float-btn{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#ff6b35,#f72585);border:none;cursor:pointer;box-shadow:0 4px 18px rgba(255,107,53,.5);display:flex;align-items:center;justify-content:center;font-size:1.4rem;animation:float-btn 3s ease-in-out infinite;transition:transform .2s;color:#fff;position:relative}
 .cs-float-btn:hover{transform:scale(1.1);animation:none}
 .cs-float-btn::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(255,107,53,.4);animation:cs-ring 2s ease-out infinite}
@@ -254,7 +255,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 .cs-item .cs-val{font-family:var(--fm);font-size:.7rem;color:var(--t1);word-break:break-all}
 .cs-copy{background:transparent;border:1px solid var(--bd);color:var(--t3);padding:2px 7px;border-radius:5px;font-size:.6rem;cursor:pointer;margin-left:auto;flex-shrink:0;transition:var(--tt);font-family:inherit}
 .cs-copy:hover{border-color:var(--ap);color:#fff}
-@media(max-width:768px){.cs-float{bottom:50%;right:31%}.cs-float-btn{width:46px;height:46px;font-size:1.2rem}}
+@media(max-width:768px){.cs-float-btn{width:46px;height:46px;font-size:1.2rem}}
 </style>
 </head>
 <body>
@@ -1000,7 +1001,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 </div></div>
 <div class="mo" id="mo-payment"><div class="mod">
   <h3 id="payment-title">Deposit CNY</h3>
-  <div class="ig"><label>Amount (CNY)</label><input type="number" id="payment-amount" placeholder="100" min="1" step="1"></div>
+  <div class="ig"><label>Amount (CNY)</label><input type="number" dir="ltr" inputmode="decimal" id="payment-amount" placeholder="100" min="1" step="1" style="direction:ltr;text-align:left;"></div>
   <div style="font-size:.68rem;color:var(--t3);margin-bottom:8px" id="payment-info"></div>
   <button class="btn bg bw" id="payment-btn" onclick="execPayment()" style="border-radius:999px;padding:8px 36px">Confirm Deposit</button>
   <div class="br2"><button class="btn bo" onclick="cma()" data-key="mcancel">Cancel</button></div>
@@ -7322,6 +7323,48 @@ var voiceStyle = document.createElement('style');
 voiceStyle.textContent = '@keyframes pulse{0%,100%{opacity:0.4;transform:scaleY(0.6)}50%{opacity:1;transform:scaleY(1.4)}}';
 document.head.appendChild(voiceStyle);
 
+// ============ CS FLOAT DRAG ============
+(function(){
+  var csFloat = document.querySelector('.cs-float');
+  if(!csFloat) return;
+  var isDragging = false, startX, startY, startLeft, startTop;
+  var wasClick = false;
+
+  function onStart(e){
+    var t = e.touches ? e.touches[0] : e;
+    startX = t.clientX; startY = t.clientY;
+    var rect = csFloat.getBoundingClientRect();
+    startLeft = rect.left; startTop = rect.top;
+    isDragging = true; wasClick = true;
+    csFloat.style.transition = 'none';
+    csFloat.style.right = 'auto';
+    csFloat.style.bottom = 'auto';
+    csFloat.style.left = startLeft + 'px';
+    csFloat.style.top = startTop + 'px';
+    csFloat.style.cursor = 'grabbing';
+    if(e.preventDefault) e.preventDefault();
+  }
+  function onMove(e){
+    if(!isDragging) return;
+    var t = e.touches ? e.touches[0] : e;
+    var dx = t.clientX - startX, dy = t.clientY - startY;
+    if(Math.abs(dx) > 3 || Math.abs(dy) > 3) wasClick = false;
+    csFloat.style.left = Math.max(0, Math.min(window.innerWidth - 70, startLeft + dx)) + 'px';
+    csFloat.style.top = Math.max(0, Math.min(window.innerHeight - 70, startTop + dy)) + 'px';
+    if(e.preventDefault) e.preventDefault();
+  }
+  function onEnd(){
+    isDragging = false;
+    csFloat.style.cursor = 'grab';
+  }
+
+  csFloat.addEventListener('touchstart', onStart, {passive:false});
+  csFloat.addEventListener('touchmove', onMove, {passive:false});
+  csFloat.addEventListener('touchend', onEnd);
+  csFloat.addEventListener('mousedown', onStart);
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('mouseup', onEnd);
+})();
 
 </script>
 
