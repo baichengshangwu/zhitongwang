@@ -218,6 +218,42 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 
 .sc-i .btn.bo.sm[data-key="sovoicebtn"]:hover{background:rgba(139,92,246,.2);color:#fff}
 .sc-i .btn.bo.sm[data-key="sovoicecallbtn"]:hover{background:rgba(16,185,129,.2);color:#fff}
+
+/* Shimmer Button */
+@keyframes shim{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
+@keyframes glow-pulse{0%,100%{box-shadow:0 0 18px rgba(139,92,246,.4),0 0 40px rgba(139,92,246,.15),0 0 80px rgba(6,182,212,.1)}50%{box-shadow:0 0 28px rgba(139,92,246,.7),0 0 60px rgba(139,92,246,.3),0 0 100px rgba(6,182,212,.2)}}
+@keyframes float-btn{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.btn-shimmer{position:relative;overflow:hidden;animation:glow-pulse 2.5s ease-in-out infinite;font-size:.82rem;padding:9px 52px;font-weight:800;border:none;border-radius:8px;color:#fff;cursor:pointer;background:linear-gradient(135deg,#8b5cf6,#06b6d4,#8b5cf6);background-size:200% 200%;animation:glow-pulse 2.5s ease-in-out infinite,grad-move 3s ease infinite;box-shadow:0 0 20px rgba(139,92,246,.45);letter-spacing:1.5px;text-transform:uppercase;font-family:inherit;transition:transform .2s}
+@keyframes grad-move{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.btn-shimmer::before{content:'';position:absolute;top:0;left:0;width:60px;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:skewX(-20deg);animation:shim 2.2s ease-in-out infinite}
+.btn-shimmer:hover{transform:scale(1.05)}
+@media(max-width:768px){.btn-shimmer{font-size:.74rem;padding:8px 36px;letter-spacing:1px}}
+
+/* Agent Page Enhancement */
+.ag-hero-enh{background:linear-gradient(160deg,rgba(30,10,50,.6),rgba(10,20,40,.6),rgba(15,10,35,.6));border:1.5px solid rgba(139,92,246,.25);border-radius:18px;padding:28px 20px;margin-bottom:14px;position:relative;overflow:hidden;text-align:center}
+.ag-hero-enh::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 0%,rgba(139,92,246,.15),transparent 50%),radial-gradient(ellipse at 70% 100%,rgba(6,182,212,.1),transparent 50%);pointer-events:none}
+.ag-hero-enh .ag-glow-orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(60px);opacity:.5}
+.ag-hero-enh .ag-glow-orb:nth-child(1){width:200px;height:200px;background:rgba(139,92,246,.2);top:-60px;right:-40px;animation:orb1 6s ease-in-out infinite}
+.ag-hero-enh .ag-glow-orb:nth-child(2){width:160px;height:160px;background:rgba(6,182,212,.15);bottom:-50px;left:-30px;animation:orb2 8s ease-in-out infinite}
+@keyframes orb1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-30px,20px) scale(1.2)}}
+@keyframes orb2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-30px) scale(1.15)}}
+
+/* CS Float Button */
+.cs-float{position:fixed;bottom:80px;right:20px;z-index:9998;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.cs-float-btn{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#06b6d4);border:none;cursor:pointer;box-shadow:0 4px 18px rgba(139,92,246,.4);display:flex;align-items:center;justify-content:center;font-size:1.4rem;animation:float-btn 3s ease-in-out infinite;transition:transform .2s;color:#fff;position:relative}
+.cs-float-btn:hover{transform:scale(1.1);animation:none}
+.cs-float-btn::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(139,92,246,.3);animation:cs-ring 2s ease-out infinite}
+@keyframes cs-ring{0%{transform:scale(1);opacity:1}100%{transform:scale(1.5);opacity:0}}
+.cs-popup{display:none;background:var(--bgc);border:1px solid var(--bda);border-radius:14px;padding:16px 14px;min-width:240px;box-shadow:0 12px 40px rgba(0,0,0,.6);animation:mp .25s ease}
+.cs-popup.show{display:block}
+.cs-popup .cs-title{font-weight:700;font-size:.82rem;margin-bottom:10px;color:#fff;display:flex;align-items:center;gap:6px}
+.cs-popup .cs-item{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.72rem;color:var(--t2)}
+.cs-popup .cs-item:last-child{border-bottom:0}
+.cs-popup .cs-item .cs-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
+.cs-item .cs-val{font-family:var(--fm);font-size:.7rem;color:var(--t1);word-break:break-all}
+.cs-copy{background:transparent;border:1px solid var(--bd);color:var(--t3);padding:2px 7px;border-radius:5px;font-size:.6rem;cursor:pointer;margin-left:auto;flex-shrink:0;transition:var(--tt);font-family:inherit}
+.cs-copy:hover{border-color:var(--ap);color:#fff}
+@media(max-width:768px){.cs-float{bottom:70px;right:12px}.cs-float-btn{width:46px;height:46px;font-size:1.2rem}}
 </style>
 </head>
 <body>
@@ -531,18 +567,21 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
     </div>
   </div>
 
-  <div id="agent-not-registered" class="ag-hero" style="background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(6,182,212,.08));border:1.5px solid rgba(139,92,246,.25);border-radius:16px;padding:24px 18px;margin-bottom:14px;position:relative;overflow:hidden">
-    <div style="position:absolute;top:-30px;right:-30px;width:140px;height:140px;background:radial-gradient(circle,rgba(139,92,246,.25),transparent 70%);border-radius:50%;pointer-events:none"></div>
-    <div style="position:absolute;bottom:-20px;left:-20px;width:100px;height:100px;background:radial-gradient(circle,rgba(6,182,212,.2),transparent 70%);border-radius:50%;pointer-events:none"></div>
-    <div style="font-size:3rem;margin-bottom:6px;line-height:1"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="width:1em;height:1em;vertical-align:middle"><circle cx="20" cy="22" r="15" fill="rgba(139,92,246,0.08)" stroke="#8b5cf6" stroke-width="1.5"/><ellipse cx="20" cy="22" rx="15" ry="5" fill="none" stroke="#8b5cf6" stroke-width="0.5" opacity="0.25"/><ellipse cx="20" cy="22" rx="5" ry="15" fill="none" stroke="#8b5cf6" stroke-width="0.5" opacity="0.25"/><line x1="9" y1="22" x2="9" y2="7" stroke="#8b5cf6" stroke-width="1.4" stroke-linecap="round"/><polygon points="9,7 22,11 9,15" fill="#06b6d4"/><line x1="31" y1="22" x2="31" y2="6" stroke="#8b5cf6" stroke-width="1.4" stroke-linecap="round"/><polygon points="31,6 22,10 31,14" fill="#f59e0b"/><line x1="20" y1="8" x2="20" y2="3" stroke="#8b5cf6" stroke-width="1.4" stroke-linecap="round"/><polygon points="20,3 28,5.5 20,8" fill="#ef4444"/></svg></div>
-    <h2 style="font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,#8b5cf6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px" data-key="agnreg">Become an AI Alliance Agent</h2>
-    <p style="color:var(--t2);font-size:.78rem;margin-bottom:16px;max-width:500px;margin-left:auto;margin-right:auto;word-break:break-word;line-height:1.55" data-key="agnregd">Join the AI Nexus agent program, earn 50% recurring commission on every referred user.</p>
-    <div class="ag-steps">
-      <div class="ag-step" style="background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(139,92,246,.02));border:1px solid rgba(139,92,246,.2)"><div class="ag-sn" style="background:linear-gradient(135deg,#8b5cf6,#06b6d4)">1</div><div class="ag-st" data-key="agstep1">Pay & Join</div><div class="ag-sd" data-key="agstep1d">One-time payment to become an agent</div></div>
-      <div class="ag-step" style="background:linear-gradient(135deg,rgba(6,182,212,.08),rgba(6,182,212,.02));border:1px solid rgba(6,182,212,.2)"><div class="ag-sn" style="background:linear-gradient(135deg,#06b6d4,#10b981)">2</div><div class="ag-st" data-key="agstep2">Get Sub-Accounts</div><div class="ag-sd" data-key="agstep2d">Create sub-accounts for your customers</div></div>
-      <div class="ag-step" style="background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(16,185,129,.02));border:1px solid rgba(16,185,129,.2)"><div class="ag-sn" style="background:linear-gradient(135deg,#10b981,#06b6d4)">3</div><div class="ag-st" data-key="agstep3">Earn 50%</div><div class="ag-sd" data-key="agstep3d">50% recurring commission on every sale</div></div>
+  <div id="agent-not-registered" class="ag-hero-enh">
+    <div class="ag-glow-orb"></div>
+    <div class="ag-glow-orb"></div>
+    <div style="font-size:3rem;margin-bottom:6px;line-height:1;position:relative;z-index:2"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="width:1em;height:1em;vertical-align:middle"><circle cx="20" cy="22" r="15" fill="rgba(139,92,246,.12)" stroke="#8b5cf6" stroke-width="1.5"/><ellipse cx="20" cy="22" rx="15" ry="5" fill="none" stroke="#8b5cf6" stroke-width="0.5" opacity="0.3"/><ellipse cx="20" cy="22" rx="5" ry="15" fill="none" stroke="#8b5cf6" stroke-width="0.5" opacity="0.3"/><line x1="9" y1="22" x2="9" y2="7" stroke="#8b5cf6" stroke-width="1.4" stroke-linecap="round"/><polygon points="9,7 22,11 9,15" fill="#06b6d4"/><line x1="31" y1="22" x2="31" y2="6" stroke="#8b5cf6" stroke-width="1.4" stroke-linecap="round"/><polygon points="31,6 22,10 31,14" fill="#f59e0b"/><line x1="20" y1="8" x2="20" y2="3" stroke="#8b5cf6" stroke-width="1.4" stroke-linecap="round"/><polygon points="20,3 28,5.5 20,8" fill="#ef4444"/></svg></div>
+    <h2 style="font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,#a78bfa,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px;position:relative;z-index:2;letter-spacing:-.5px" data-key="agnreg">Become an AI Alliance Agent</h2>
+    <p style="color:var(--t2);font-size:.78rem;margin-bottom:20px;max-width:500px;margin-left:auto;margin-right:auto;word-break:break-word;line-height:1.55;position:relative;z-index:2" data-key="agnregd">Join the AI Nexus agent program, earn 50% recurring commission on every referred user.</p>
+    <div class="ag-steps" style="position:relative;z-index:2">
+      <div class="ag-step" style="background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(139,92,246,.03));border:1px solid rgba(139,92,246,.25)"><div class="ag-sn" style="background:linear-gradient(135deg,#8b5cf6,#06b6d4)">1</div><div class="ag-st" data-key="agstep1">Pay & Join</div><div class="ag-sd" data-key="agstep1d">One-time payment to become an agent</div></div>
+      <div class="ag-step" style="background:linear-gradient(135deg,rgba(6,182,212,.1),rgba(6,182,212,.03));border:1px solid rgba(6,182,212,.25)"><div class="ag-sn" style="background:linear-gradient(135deg,#06b6d4,#10b981)">2</div><div class="ag-st" data-key="agstep2">Get Sub-Accounts</div><div class="ag-sd" data-key="agstep2d">Create sub-accounts for your customers</div></div>
+      <div class="ag-step" style="background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(16,185,129,.03));border:1px solid rgba(16,185,129,.25)"><div class="ag-sn" style="background:linear-gradient(135deg,#10b981,#06b6d4)">3</div><div class="ag-st" data-key="agstep3">Earn 50%</div><div class="ag-sd" data-key="agstep3d">50% recurring commission on every sale</div></div>
     </div>
-    <button class="btn bg bw" onclick="payToBecomeAgent()" style="font-size:.78rem;padding:6px 48px;background:linear-gradient(135deg,#8b5cf6,#06b6d4);box-shadow:0 6px 20px rgba(139,92,246,.35);font-weight:800;letter-spacing:0;border:none;border-radius:6px" data-key="agjoin">Join Now - Become an Agent</button>
+    <div style="position:relative;z-index:2;margin-top:18px">
+      <button class="btn-shimmer" onclick="payToBecomeAgent()" data-key="agjoin">Join Now - Become an Agent</button>
+      <div style="font-size:.62rem;color:var(--t3);margin-top:8px" data-key="agregok">Registration takes effect immediately after payment</div>
+    </div>
   </div>
   <div id="agent-dashboard" style="display:none">
     <div class="ag-info" id="agent-info-boxes"></div>
@@ -7224,6 +7263,29 @@ document.head.appendChild(voiceStyle);
 
 
 </script>
+
+<!-- CS Float -->
+<div class="cs-float">
+  <div class="cs-popup" id="cs-popup">
+    <div class="cs-title">💬 联系客服 / Contact Support</div>
+    <div class="cs-item">
+      <div class="cs-icon" style="background:rgba(7,193,96,.15)">💚</div>
+      <div><div style="font-size:.65rem;color:var(--t3);margin-bottom:1px">微信 / WeChat</div><div class="cs-val">qiyefuwu77l</div></div>
+      <button class="cs-copy" onclick="navigator.clipboard.writeText('qiyefuwu77l');showToast('微信号已复制','s')" data-key="cscopy">复制</button>
+    </div>
+    <div class="cs-item">
+      <div class="cs-icon" style="background:rgba(0,175,240,.15)">💙</div>
+      <div><div style="font-size:.65rem;color:var(--t3);margin-bottom:1px">Skype</div><div class="cs-val">l-i-gang</div></div>
+      <button class="cs-copy" onclick="navigator.clipboard.writeText('l-i-gang');showToast('Skype 已复制','s')" data-key="cscopy">复制</button>
+    </div>
+    <div class="cs-item">
+      <div class="cs-icon" style="background:rgba(234,67,53,.15)">📧</div>
+      <div><div style="font-size:.65rem;color:var(--t3);margin-bottom:1px">邮箱 / Email</div><div class="cs-val">baichengshangwu@163.com</div></div>
+      <button class="cs-copy" onclick="navigator.clipboard.writeText('baichengshangwu@163.com');showToast('邮箱已复制','s')" data-key="cscopy">复制</button>
+    </div>
+  </div>
+  <button class="cs-float-btn" onclick="var p=document.getElementById('cs-popup');p.classList.toggle('show')" title="客服 / Support">💬</button>
+</div>
 
 </body>
 </html>
