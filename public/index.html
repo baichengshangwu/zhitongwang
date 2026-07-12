@@ -164,18 +164,26 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 /* PayPal button container: clip iframe's long description, keep button visible */
 #paypal-container-EJC58LA49LNM2{max-height:56px!important;overflow:hidden!important;position:relative}
 #paypal-container-EJC58LA49LNM2 iframe{max-height:56px!important}
-/* Cover PayPal yellow branding icon in agent tier buttons */
-.aj-paypal-btn{overflow:hidden!important;position:relative}
-.aj-paypal-btn::after{content:'';position:absolute;top:0;left:0;right:0;height:48px;z-index:99;pointer-events:none;background:linear-gradient(180deg,var(--bgc) 0%,var(--bgc) 60%,transparent 100%)}
-/* Cover PayPal yellow branding icon in modal */
-#paypal-container-EJC58LA49LNM2::after{content:'';position:absolute;top:0;left:0;right:0;height:48px;z-index:99;pointer-events:none;background:linear-gradient(180deg,#1a1a2e 0%,#1a1a2e 60%,transparent 100%)}
+/* Cover PayPal yellow branding icon - aggressive approach */
+.aj-paypal-btn{overflow:hidden!important;position:relative;background:#161622!important}
+.aj-paypal-btn::after{content:'';position:absolute;top:0;left:0;right:0;height:100px;z-index:999;pointer-events:none;background:linear-gradient(180deg,#161622 0%,#161622 50%,transparent 100%)}
+#paypal-container-EJC58LA49LNM2{overflow:hidden!important;position:relative;background:#1a1a2e!important}
+#paypal-container-EJC58LA49LNM2::after{content:'';position:absolute;top:0;left:0;right:0;height:100px;z-index:999;pointer-events:none;background:linear-gradient(180deg,#1a1a2e 0%,#1a1a2e 50%,transparent 100%)}
+#paypal-agent-checkout{overflow:hidden!important;position:relative;background:#1a1a2e!important}
+#paypal-agent-checkout::after{content:'';position:absolute;top:0;left:0;right:0;height:100px;z-index:999;pointer-events:none;background:linear-gradient(180deg,#1a1a2e 0%,#1a1a2e 50%,transparent 100%)}
 
 /* Clip PayPal yellow branding in iframe rendered by SDK */
-.aj-paypal-btn iframe{margin-top:-48px;min-height:calc(40px + 48px)}
-/* Hide any yellow PayPal branding images/svgs added by SDK outside iframe */
-.aj-paypal-btn img[src*="paypal"],.aj-paypal-btn svg[class*="paypal"],
-#paypal-container-EJC58LA49LNM2 img[src*="paypal"],#paypal-container-EJC58LA49LNM2 svg[class*="paypal"],
-#paypal-agent-checkout img[src*="paypal"],#paypal-agent-checkout svg[class*="paypal"]
+.aj-paypal-btn iframe,
+#paypal-container-EJC58LA49LNM2 iframe,
+#paypal-agent-checkout iframe
+{margin-top:-100px;min-height:calc(40px + 100px)}
+/* Hide ANY PayPal yellow branding elements */
+.aj-paypal-btn [src*="paypal"],.aj-paypal-btn svg,
+#paypal-container-EJC58LA49LNM2 [src*="paypal"],#paypal-container-EJC58LA49LNM2 svg,
+#paypal-agent-checkout [src*="paypal"],#paypal-agent-checkout svg,
+.aj-paypal-btn img,.aj-paypal-btn [class*="paypal"],
+#paypal-container-EJC58LA49LNM2 img,#paypal-container-EJC58LA49LNM2 [class*="paypal"],
+#paypal-agent-checkout img,#paypal-agent-checkout [class*="paypal"]
 {display:none!important}
 /* Upload spinner */
 .upspinner{display:inline-block;width:14px;height:14px;border:2px solid var(--bd);border-top-color:var(--ap);border-radius:50%;animation:upspin .7s linear infinite;vertical-align:middle;margin:0 4px}
@@ -6033,6 +6041,150 @@ function openAppTutorial(){
 function apkGA(){try{window.location.href=APK_URL;}catch(e){var a=document.createElement('a');a.href=APK_URL;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();document.body.removeChild(a);}}
 
 // ============ AGENT REGION SELECTORS ============
+// ajRegionsI18n - generated country name translations for all languages
+const ajRegionsI18n = {
+  'Afghanistan': {'ja': 'アフガニスタン', 'ko': '아프가니스탄', 'zh': '阿富汗', 'es': 'Afganistán', 'pt': 'Afeganistão', 'ru': 'Афганистан', 'ar': 'أفغانستان', 'hi': 'अफ़गानिस्तान', 'th': 'อัฟกานิสถาน', 'id': 'Afganistan'},
+  'Albania': {'ja': 'アルバニア', 'ko': '알바니아', 'zh': '阿尔巴尼亚', 'fr': 'Albanie', 'de': 'Albanien', 'pt': 'Albânia', 'ru': 'Албания', 'ar': 'ألبانيا', 'hi': 'अल्बानिया', 'th': 'แอลเบเนีย'},
+  'Algeria': {'ja': 'アルジェリア', 'ko': '알제리', 'zh': '阿尔及利亚', 'es': 'Argelia', 'fr': 'Algérie', 'de': 'Algerien', 'pt': 'Argélia', 'ru': 'Алжир', 'ar': 'الجزائر', 'hi': 'अल्जीरिया', 'th': 'แอลจีเรีย', 'id': 'Aljazair'},
+  'Andorra': {'ja': 'アンドラ', 'ko': '안도라', 'zh': '安道尔', 'fr': 'Andorre', 'ru': 'Андорра', 'ar': 'أندورا', 'hi': 'एंडोरा', 'th': 'อันดอร์รา'},
+  'Argentina': {'ja': 'アルゼンチン', 'ko': '아르헨티나', 'zh': '阿根廷', 'fr': 'Argentine', 'de': 'Argentinien', 'ru': 'Аргентина', 'ar': 'الأرجنتين', 'hi': 'अर्जेंटीना', 'th': 'อาร์เจนตินา'},
+  'Armenia': {'ja': 'アルメニア', 'ko': '아르메니아', 'zh': '亚美尼亚', 'fr': 'Arménie', 'de': 'Armenien', 'pt': 'Armênia', 'ru': 'Армения', 'ar': 'أرمينيا', 'hi': 'आर्मेनिया', 'th': 'อาร์เมเนีย'},
+  'Australia': {'ja': 'オーストラリア', 'ko': '오스트레일리아', 'zh': '澳大利亚', 'fr': 'Australie', 'de': 'Australien', 'pt': 'Austrália', 'ru': 'Австралия', 'ar': 'أستراليا', 'hi': 'ऑस्ट्रेलिया', 'th': 'ออสเตรเลีย', 'vi': 'Úc'},
+  'Austria': {'ja': 'オーストリア', 'ko': '오스트리아', 'zh': '奥地利', 'fr': 'Autriche', 'de': 'Österreich', 'pt': 'Áustria', 'ru': 'Австрия', 'ar': 'النمسا', 'hi': 'ऑस्ट्रिया', 'th': 'ออสเตรีย', 'vi': 'Áo'},
+  'Azerbaijan': {'ja': 'アゼルバイジャン', 'ko': '아제르바이잔', 'zh': '阿塞拜疆', 'es': 'Azerbaiyán', 'fr': 'Azerbaïdjan', 'de': 'Aserbaidschan', 'pt': 'Azerbaijão', 'ru': 'Азербайджан', 'ar': 'أذربيجان', 'hi': 'अज़रबैजान', 'th': 'อาเซอร์ไบจาน', 'it': 'Azerbaigian'},
+  'Bahamas': {'ja': 'バハマ', 'ko': '바하마', 'zh': '巴哈马', 'fr': 'Bahamas', 'de': 'Bahamas', 'pt': 'Bahamas', 'ru': 'Багамы', 'ar': 'باهاماس', 'hi': 'बहामास', 'th': 'บาฮามาส', 'it': 'Bahamas'},
+  'Bahrain': {'ja': 'バーレーン', 'ko': '바레인', 'zh': '巴林', 'es': 'Bahréin', 'fr': 'Bahreïn', 'de': 'Bahrain', 'pt': 'Barein', 'ru': 'Бахрейн', 'ar': 'البحرين', 'hi': 'बहरीन', 'th': 'บาห์เรน'},
+  'Bangladesh': {'ja': 'バングラデシュ', 'ko': '방글라데시', 'zh': '孟加拉国', 'es': 'Bangladés', 'fr': 'Bangladesh', 'de': 'Bangladesch', 'pt': 'Bangladesh', 'ru': 'Бангладеш', 'ar': 'بنغلاديش', 'hi': 'बांग्लादेश', 'th': 'บังกลาเทศ'},
+  'Barbados': {'ja': 'バルバドス', 'ko': '바베이도스', 'zh': '巴巴多斯', 'es': 'Barbados', 'fr': 'Barbade', 'de': 'Barbados', 'pt': 'Barbados', 'ru': 'Барбадос', 'ar': 'بربادوس', 'hi': 'बारबाडोस', 'th': 'บาร์เบโดส'},
+  'Belarus': {'ja': 'ベラルーシ', 'ko': '벨라루스', 'zh': '白俄罗斯', 'es': 'Bielorrusia', 'fr': 'Biélorussie', 'de': 'Belarus', 'pt': 'Belarus', 'ru': 'Беларусь', 'ar': 'روسيا البيضاء', 'hi': 'बेलारूस', 'th': 'เบลารุส', 'vi': 'Belarus'},
+  'Belgium': {'ja': 'ベルギー', 'ko': '벨기에', 'zh': '比利时', 'fr': 'Belgique', 'de': 'Belgien', 'pt': 'Bélgica', 'ru': 'Бельгия', 'ar': 'بلجيكا', 'hi': 'बेल्जियम', 'th': 'เบลเยียม'},
+  'Belize': {'ja': 'ベリーズ', 'ko': '벨리즈', 'zh': '伯利兹', 'es': 'Belice', 'fr': 'Belize', 'de': 'Belize', 'pt': 'Belize', 'ru': 'Белиз', 'ar': 'بليز', 'hi': 'बेलीज़', 'th': 'เบลีซ'},
+  'Bhutan': {'ja': 'ブータン', 'ko': '부탄', 'zh': '不丹', 'es': 'Bután', 'fr': 'Bhoutan', 'de': 'Bhutan', 'pt': 'Butão', 'ru': 'ブータン', 'ar': 'بوتان', 'hi': 'भूटान', 'th': 'ภูฏาน'},
+  'Bolivia': {'ja': 'ボリビア', 'ko': '볼리비아', 'zh': '玻利维亚', 'fr': 'Bolivie', 'de': 'Bolivien', 'pt': 'Bolívia', 'ru': 'Боливия', 'ar': 'بوليفيا', 'hi': 'बोलीविया', 'th': 'โบลิเวีย'},
+  'Bosnia': {'ja': 'ボスニア・ヘルツェゴビナ', 'ko': '보스니아 헤르체고비나', 'zh': '波斯尼亚和黑塞哥维那', 'es': 'Bosnia y Herzegovina', 'fr': 'Bosnie-Herzégovine', 'de': 'Bosnien und Herzegowina', 'pt': 'Bósnia e Herzegovina', 'ru': 'Босния и Герцеговина', 'ar': 'البوسنة والهرسك', 'hi': 'बोस्निया और हर्ज़ेगोविना', 'th': 'บอสเนียและเฮอร์เซโกวีนา'},
+  'Botswana': {'ja': 'ボツワナ', 'ko': '보츠와나', 'zh': '博茨瓦纳', 'es': 'Botsuana', 'fr': 'Botswana', 'de': 'Botsuana', 'pt': 'Botsuana', 'ru': 'Ботсвана', 'ar': 'بوتسوانا', 'hi': 'बोत्सवाना', 'th': 'บอตสวานา'},
+  'Brazil': {'ja': 'ブラジル', 'ko': '브라질', 'zh': '巴西', 'fr': 'Brésil', 'de': 'Brasilien', 'pt': 'Brasil', 'ru': 'Бразилия', 'ar': 'البرازيل', 'hi': 'ब्राज़ील', 'th': 'บราซิล'},
+  'Brunei': {'ja': 'ブルネイ', 'ko': '브루나이', 'zh': '文莱', 'es': 'Brunéi', 'fr': 'Brunei', 'de': 'Brunei', 'pt': 'Brunei', 'ru': 'Бруней', 'ar': 'بروناي', 'hi': 'ब्रुनेई', 'th': 'บรูไน', 'vi': 'Brunei'},
+  'Bulgaria': {'ja': 'ブルガリア', 'ko': '불가리아', 'zh': '保加利亚', 'fr': 'Bulgarie', 'de': 'Bulgarien', 'pt': 'Bulgária', 'ru': 'Болгария', 'ar': 'بلغاريا', 'hi': 'बुल्गारिया', 'th': 'บัลแกเรีย'},
+  'Cambodia': {'ja': 'カンボジア', 'ko': '캄보디아', 'zh': '柬埔寨', 'fr': 'Cambodge', 'de': 'Kambodscha', 'pt': 'Camboja', 'ru': 'Камбоджа', 'ar': 'كمبوديا', 'hi': 'कंबोडिया', 'th': 'กัมพูชา', 'vi': 'Campuchia'},
+  'Cameroon': {'ja': 'カメルーン', 'ko': '카메룬', 'zh': '喀麦隆', 'es': 'Camerún', 'fr': 'Cameroun', 'de': 'Kamerun', 'pt': 'Camarões', 'ru': 'Камерун', 'ar': 'الكاميرون', 'hi': 'कैमरून', 'th': 'แคเมอรูน'},
+  'Canada': {'ja': 'カナダ', 'ko': '캐나다', 'zh': '加拿大', 'fr': 'Canada', 'de': 'Kanada', 'pt': 'Canadá', 'ru': 'Канада', 'ar': 'كندا', 'hi': 'कनाडा', 'th': 'แคนาดา'},
+  'Chile': {'ja': 'チリ', 'ko': '칠레', 'zh': '智利', 'fr': 'Chili', 'de': 'Chile', 'pt': 'Chile', 'ru': 'Чили', 'ar': 'تشيلي', 'hi': 'चिली', 'th': 'ชิลี'},
+  'China': {'ja': '中国', 'ko': '중국', 'zh': '中国', 'fr': 'Chine', 'de': 'China', 'pt': 'China', 'ru': 'Китай', 'ar': 'الصين', 'hi': 'चीन', 'th': 'จีน', 'vi': 'Trung Quốc'},
+  'Colombia': {'ja': 'コロンビア', 'ko': '콜롬비아', 'zh': '哥伦比亚', 'fr': 'Colombie', 'de': 'Kolumbien', 'pt': 'Colômbia', 'ru': 'Колумбия', 'ar': 'كولومبيا', 'hi': 'कोलंबिया', 'th': 'โคลอมเบีย'},
+  'Costa Rica': {'ja': 'コスタリカ', 'ko': '코스타리카', 'zh': '哥斯达黎加', 'fr': 'Costa Rica', 'de': 'Costa Rica', 'pt': 'Costa Rica', 'ru': 'Коста-Рика', 'ar': 'كوستاريكا', 'hi': 'कोस्टा रिका', 'th': 'คอสตาริกา'},
+  'Croatia': {'ja': 'クロアチア', 'ko': '크로아티아', 'zh': '克罗地亚', 'fr': 'Croatie', 'de': 'Kroatien', 'pt': 'Croácia', 'ru': 'Хорватия', 'ar': 'كرواتيا', 'hi': 'क्रोएशिया', 'th': 'โครเอเชีย'},
+  'Cuba': {'ja': 'キューバ', 'ko': '쿠바', 'zh': '古巴', 'fr': 'Cuba', 'de': 'Kuba', 'pt': 'Cuba', 'ru': 'Куба', 'ar': 'كوبا', 'hi': 'क्यूबा', 'th': 'คิวบา'},
+  'Cyprus': {'ja': 'キプロス', 'ko': '키프로스', 'zh': '塞浦路斯', 'fr': 'Chypre', 'de': 'Zypern', 'pt': 'Chipre', 'ru': 'Кипр', 'ar': 'قبرص', 'hi': 'साइप्रस', 'th': 'ไซปรัส'},
+  'Czechia': {'ja': 'チェコ', 'ko': '체코', 'zh': '捷克', 'fr': 'Tchéquie', 'de': 'Tschechien', 'pt': 'Tchéquia', 'ru': 'Чехия', 'ar': 'التشيك', 'hi': 'चेकिया', 'th': 'เช็กเกีย'},
+  'Côte d\'Ivoire': {'ja': 'コートジボワール', 'ko': '코트디부아르', 'zh': '科特迪瓦', 'es': 'Costa de Marfil', 'fr': 'Côte d\'Ivoire', 'de': 'Elfenbeinküste', 'pt': 'Costa do Marfim', 'ru': 'Кот-д\'Ивуар', 'ar': 'ساحل العاج', 'hi': 'कोट द\'आईवोर', 'th': 'โกตดิวัวร์'},
+  'Denmark': {'ja': 'デンマーク', 'ko': '덴마크', 'zh': '丹麦', 'fr': 'Danemark', 'de': 'Dänemark', 'pt': 'Dinamarca', 'ru': 'Дания', 'ar': 'الدنمارك', 'hi': 'डेनमार्क', 'th': 'เดนมาร์ก'},
+  'Dominican Republic': {'ja': 'ドミニカ共和国', 'ko': '도미니카 공화국', 'zh': '多米尼加共和国', 'es': 'República Dominicana', 'fr': 'République dominicaine', 'de': 'Dominikanische Republik', 'pt': 'República Dominicana', 'ru': 'Доминиканская Республика', 'ar': 'جمهورية الدومينيكان', 'hi': 'डोमिनिकन गणराज्य', 'th': 'สาธารณรัฐโดมินิกัน'},
+  'Ecuador': {'ja': 'エクアドル', 'ko': '에콰도르', 'zh': '厄瓜多尔', 'fr': 'Équateur', 'de': 'Ecuador', 'pt': 'Equador', 'ru': 'Эквадор', 'ar': 'الإكوادور', 'hi': 'इक्वाडोर', 'th': 'เอกวาดอร์'},
+  'Egypt': {'ja': 'エジプト', 'ko': '이집트', 'zh': '埃及', 'fr': 'Égypte', 'de': 'Ägypten', 'pt': 'Egito', 'ru': 'Египет', 'ar': 'مصر', 'hi': 'मिस्र', 'th': 'อียิปต์'},
+  'El Salvador': {'ja': 'エルサルバドル', 'ko': '엘살바도르', 'zh': '萨尔瓦多', 'fr': 'El Salvador', 'de': 'El Salvador', 'pt': 'El Salvador', 'ru': 'Сальвадор', 'ar': 'السلفادور', 'hi': 'अल साल्वाडोर', 'th': 'เอลซัลวาดอร์'},
+  'Estonia': {'ja': 'エストニア', 'ko': '에스토니아', 'zh': '爱沙尼亚', 'fr': 'Estonie', 'de': 'Estland', 'pt': 'Estônia', 'ru': 'Эстония', 'ar': 'إستونيا', 'hi': 'एस्टोनिया', 'th': 'เอสโตเนีย'},
+  'Ethiopia': {'ja': 'エチオピア', 'ko': '에티오피아', 'zh': '埃塞俄比亚', 'fr': 'Éthiopie', 'de': 'Äthiopien', 'pt': 'Etiópia', 'ru': 'Эфиопия', 'ar': 'إثيوبيا', 'hi': 'इथियोपिया', 'th': 'เอธิโอเปีย'},
+  'Fiji': {'ja': 'フィジー', 'ko': '피지', 'zh': '斐济', 'es': 'Fiyi', 'fr': 'Fidji', 'de': 'Fidschi', 'pt': 'Fiji', 'ru': 'フィジー', 'ar': 'فيجي', 'hi': 'फ़िजी', 'th': 'ฟิจิ'},
+  'Finland': {'ja': 'フィンランド', 'ko': '핀란드', 'zh': '芬兰', 'fr': 'Finlande', 'de': 'Finnland', 'pt': 'Finlândia', 'ru': 'Финляндия', 'ar': 'فنلندا', 'hi': 'फ़िनलैंड', 'th': 'ฟินแลนด์'},
+  'France': {'ja': 'フランス', 'ko': '프랑스', 'zh': '法国', 'fr': 'France', 'de': 'Frankreich', 'pt': 'França', 'ru': 'Франция', 'ar': 'فرنسا', 'hi': 'फ़्रांस', 'th': 'ฝรั่งเศส'},
+  'Georgia': {'ja': 'ジョージア', 'ko': '조지아', 'zh': '格鲁吉亚', 'fr': 'Géorgie', 'de': 'Georgien', 'pt': 'Geórgia', 'ru': 'Грузия', 'ar': 'جورجيا', 'hi': 'जॉर्जिया', 'th': 'จอร์เจีย'},
+  'Germany': {'ja': 'ドイツ', 'ko': '독일', 'zh': '德国', 'fr': 'Allemagne', 'de': 'Deutschland', 'pt': 'Alemanha', 'ru': 'Германия', 'ar': 'ألمانيا', 'hi': 'जर्मनी', 'th': 'เยอรมนี'},
+  'Ghana': {'ja': 'ガーナ', 'ko': '가나', 'zh': '加纳', 'fr': 'Ghana', 'de': 'Ghana', 'pt': 'Gana', 'ru': 'Гана', 'ar': 'غانا', 'hi': 'घाना', 'th': 'กานา'},
+  'Greece': {'ja': 'ギリシャ', 'ko': '그리스', 'zh': '希腊', 'fr': 'Grèce', 'de': 'Griechenland', 'pt': 'Grécia', 'ru': 'Греция', 'ar': 'اليونان', 'hi': 'यूनान', 'th': 'กรีซ'},
+  'Guatemala': {'ja': 'グアテマラ', 'ko': '과테말라', 'zh': '危地马拉', 'fr': 'Guatemala', 'de': 'Guatemala', 'pt': 'Guatemala', 'ru': 'Гватемала', 'ar': 'غواتيمالا', 'hi': 'ग्वाटेमाला', 'th': 'กัวเตมาลา'},
+  'Honduras': {'ja': 'ホンジュラス', 'ko': '온두라스', 'zh': '洪都拉斯', 'fr': 'Honduras', 'de': 'Honduras', 'pt': 'Honduras', 'ru': 'Гондурас', 'ar': 'هندوراس', 'hi': 'होंडुरास', 'th': 'ฮอนดูรัส'},
+  'Hungary': {'ja': 'ハンガリー', 'ko': '헝가리', 'zh': '匈牙利', 'fr': 'Hongrie', 'de': 'Ungarn', 'pt': 'Hungria', 'ru': 'Венгрия', 'ar': 'المجر', 'hi': 'हंगरी', 'th': 'ฮังการี'},
+  'Iceland': {'ja': 'アイスランド', 'ko': '아이슬란드', 'zh': '冰岛', 'fr': 'Islande', 'de': 'Island', 'pt': 'Islândia', 'ru': 'Исландия', 'ar': 'آيسلندا', 'hi': 'आइसलैंड', 'th': 'ไอซ์แลนด์'},
+  'India': {'ja': 'インド', 'ko': '인도', 'zh': '印度', 'fr': 'Inde', 'de': 'Indien', 'pt': 'Índia', 'ru': 'Индия', 'ar': 'الهند', 'hi': 'भारत', 'th': 'อินเดีย'},
+  'Indonesia': {'ja': 'インドネシア', 'ko': '인도네시아', 'zh': '印度尼西亚', 'fr': 'Indonésie', 'de': 'Indonesien', 'pt': 'Indonésia', 'ru': 'Индонезия', 'ar': 'إندونيسيا', 'hi': 'इंडोनेशिया', 'th': 'อินโดนีเซيا'},
+  'Iran': {'ja': 'イラン', 'ko': '이란', 'zh': '伊朗', 'fr': 'Iran', 'de': 'Iran', 'pt': 'Irã', 'ru': 'Иран', 'ar': 'إيران', 'hi': 'ईरान', 'th': 'อิหร่าน'},
+  'Iraq': {'ja': 'イラク', 'ko': '이라크', 'zh': '伊拉克', 'fr': 'Irak', 'de': 'Irak', 'pt': 'Iraque', 'ru': 'Ирак', 'ar': 'العراق', 'hi': 'इराक', 'th': 'อิรัก'},
+  'Ireland': {'ja': 'アイルランド', 'ko': '아일랜드', 'zh': '爱尔兰', 'fr': 'Irlande', 'de': 'Irland', 'pt': 'Irlanda', 'ru': 'Ирландия', 'ar': 'أيرلندا', 'hi': 'आयरलैंड', 'th': 'ไอร์แลนด์'},
+  'Israel': {'ja': 'イスラエル', 'ko': '이스라엘', 'zh': '以色列', 'fr': 'Israël', 'de': 'Israel', 'pt': 'Israel', 'ru': 'Израиль', 'ar': 'إسرائيل', 'hi': 'इज़राइल', 'th': 'อิสราเอล'},
+  'Italy': {'ja': 'イタリア', 'ko': '이탈리아', 'zh': '意大利', 'fr': 'Italie', 'de': 'Italien', 'pt': 'Itália', 'ru': 'Италия', 'ar': 'إيطاليا', 'hi': 'इटली', 'th': 'อิตาลี'},
+  'Jamaica': {'ja': 'ジャマイカ', 'ko': '자메이카', 'zh': '牙买加', 'fr': 'Jamaïque', 'de': 'Jamaika', 'pt': 'Jamaica', 'ru': 'Ямайка', 'ar': 'جامايكا', 'hi': 'जमैका', 'th': 'จาเมกา'},
+  'Japan': {'ja': '日本', 'ko': '일본', 'zh': '日本', 'fr': 'Japon', 'de': 'Japan', 'pt': 'Japão', 'ru': 'Япония', 'ar': 'اليابان', 'hi': 'जापान', 'th': 'ญี่ปุ่น'},
+  'Jordan': {'ja': 'ヨルダン', 'ko': '요르단', 'zh': '约旦', 'fr': 'Jordanie', 'de': 'Jordanien', 'pt': 'Jordânia', 'ru': 'Иордания', 'ar': 'الأردن', 'hi': 'जॉर्डन', 'th': 'จอร์แดน'},
+  'Kazakhstan': {'ja': 'カザフスタン', 'ko': '카자흐스탄', 'zh': '哈萨克斯坦', 'es': 'Kazajistán', 'fr': 'Kazakhstan', 'de': 'Kasachstan', 'pt': 'Cazaquistão', 'ru': 'Казахстан', 'ar': 'كازاخستان', 'hi': 'कज़ाख़स्तान', 'th': 'คาซัคสถาน'},
+  'Kenya': {'ja': 'ケニア', 'ko': '케냐', 'zh': '肯尼亚', 'fr': 'Kenya', 'de': 'Kenia', 'pt': 'Quênia', 'ru': 'Кения', 'ar': 'كينيا', 'hi': 'केन्या', 'th': 'เคนยา'},
+  'Kuwait': {'ja': 'クウェート', 'ko': '쿠웨이트', 'zh': '科威特', 'es': 'Kuwait', 'fr': 'Koweït', 'de': 'Kuwait', 'pt': 'Kuwait', 'ru': 'Кувейт', 'ar': 'الكويت', 'hi': 'कुवैत', 'th': 'คูเวต'},
+  'Kyrgyzstan': {'ja': 'キルギス', 'ko': '키르기스스탄', 'zh': '吉尔吉斯斯坦', 'es': 'Kirguistán', 'fr': 'Kirghizistan', 'de': 'Kirgisistan', 'pt': 'Quirguistão', 'ru': 'Киргизия', 'ar': 'قيرغيزستان', 'hi': 'किर्गिज़स्तान', 'th': 'คีร์กีซสถาน'},
+  'Laos': {'ja': 'ラオス', 'ko': '라오스', 'zh': '老挝', 'fr': 'Laos', 'de': 'Laos', 'pt': 'Laos', 'ru': 'Лаос', 'ar': 'لاوس', 'hi': 'लाओस', 'th': 'ลาว'},
+  'Latvia': {'ja': 'ラトビア', 'ko': '라트비아', 'zh': '拉脱维亚', 'fr': 'Lettonie', 'de': 'Lettland', 'pt': 'Letônia', 'ru': 'Латвия', 'ar': 'لاتفيا', 'hi': 'लातविया', 'th': 'ลัตเวีย'},
+  'Lebanon': {'ja': 'レバノン', 'ko': '레바논', 'zh': '黎巴嫩', 'fr': 'Liban', 'de': 'Libanon', 'pt': 'Líbano', 'ru': 'Ливан', 'ar': 'لبنان', 'hi': 'लेबनान', 'th': 'เลบานอน'},
+  'Liechtenstein': {'ja': 'リヒテンシュタイン', 'ko': '리히텐슈타인', 'zh': '列支敦士登', 'es': 'Liechtenstein', 'fr': 'Liechtenstein', 'de': 'Liechtenstein', 'pt': 'Liechtenstein', 'ru': 'Лихтенштейн', 'ar': 'ليختنشتاين', 'hi': 'लिचेंस्टीन', 'th': 'ลิกเตนสไตน์'},
+  'Lithuania': {'ja': 'リトアニア', 'ko': '리투아니아', 'zh': '立陶宛', 'fr': 'Lituanie', 'de': 'Litauen', 'pt': 'Lituânia', 'ru': 'Литва', 'ar': 'ليتوانيا', 'hi': 'लिथुआनिया', 'th': 'ลิทัวเนีย'},
+  'Luxembourg': {'ja': 'ルクセンブルク', 'ko': '룩셈부르크', 'zh': '卢森堡', 'fr': 'Luxembourg', 'de': 'Luxemburg', 'pt': 'Luxemburgo', 'ru': 'Люксембург', 'ar': 'لوكسمبورغ', 'hi': 'लक्ज़मबर्ग', 'th': 'ลักเซมเบิร์ก'},
+  'Malaysia': {'ja': 'マレーシア', 'ko': '말레이시아', 'zh': '马来西亚', 'fr': 'Malaisie', 'de': 'Malaysia', 'pt': 'Malásia', 'ru': 'Малайзия', 'ar': 'ماليزيا', 'hi': 'मलेशिया', 'th': 'มาเลเซีย'},
+  'Maldives': {'ja': 'モルディブ', 'ko': '몰디브', 'zh': '马尔代夫', 'fr': 'Maldives', 'de': 'Malediven', 'pt': 'Maldivas', 'ru': 'Мальдивы', 'ar': 'جزر المالديف', 'hi': 'मालदीव', 'th': 'มัลดีฟส์'},
+  'Malta': {'ja': 'マルタ', 'ko': '몰타', 'zh': '马耳他', 'fr': 'Malte', 'de': 'Malta', 'pt': 'Malta', 'ru': 'Мальта', 'ar': 'مالطا', 'hi': 'माल्टा', 'th': 'มอลตา'},
+  'Mauritius': {'ja': 'モーリシャス', 'ko': '모리셔스', 'zh': '毛里求斯', 'fr': 'Maurice', 'de': 'Mauritius', 'pt': 'Maurício', 'ru': 'Маврикий', 'ar': 'موريشيوس', 'hi': 'मॉरिशस', 'th': 'มอริเชียส'},
+  'Mexico': {'ja': 'メキシコ', 'ko': '멕시코', 'zh': '墨西哥', 'fr': 'Mexique', 'de': 'Mexiko', 'pt': 'México', 'ru': 'Мексика', 'ar': 'المكسيك', 'hi': 'मेक्सिको', 'th': 'เม็กซิโก'},
+  'Moldova': {'ja': 'モルドバ', 'ko': '몰도바', 'zh': '摩尔多瓦', 'es': 'Moldavia', 'fr': 'Moldavie', 'de': 'Moldawien', 'pt': 'Moldávia', 'ru': 'Молдова', 'ar': 'مولدوفا', 'hi': 'मोल्डोवा', 'th': 'มอลโดวา'},
+  'Monaco': {'ja': 'モナコ', 'ko': '모나코', 'zh': '摩纳哥', 'es': 'Mónaco', 'fr': 'Monaco', 'de': 'Monaco', 'pt': 'Mônaco', 'ru': 'Монако', 'ar': 'موناكو', 'hi': 'मोनाको', 'th': 'โมนาโก'},
+  'Mongolia': {'ja': 'モンゴル', 'ko': '몽골', 'zh': '蒙古', 'fr': 'Mongolie', 'de': 'Mongolei', 'pt': 'Mongólia', 'ru': 'Монголия', 'ar': 'منغوليا', 'hi': 'मंगोलिया', 'th': 'มองโกเลีย'},
+  'Montenegro': {'ja': 'モンテネグロ', 'ko': '몬테네그로', 'zh': '黑山', 'es': 'Montenegro', 'fr': 'Monténégro', 'de': 'Montenegro', 'pt': 'Montenegro', 'ru': 'Черногория', 'ar': 'الجبل الأسود', 'hi': 'मोंटेनेग्रो', 'th': 'มอนเตเนโกร'},
+  'Morocco': {'ja': 'モロッコ', 'ko': '모로코', 'zh': '摩洛哥', 'fr': 'Maroc', 'de': 'Marokko', 'pt': 'Marrocos', 'ru': 'Марокко', 'ar': 'المغرب', 'hi': 'मोरक्को', 'th': 'โมร็อกโก'},
+  'Myanmar': {'ja': 'ミャンマー', 'ko': '미얀마', 'zh': '缅甸', 'fr': 'Myanmar', 'de': 'Myanmar', 'pt': 'Mianmar', 'ru': 'Мьянма', 'ar': 'ميانمار', 'hi': 'म्यांमार', 'th': 'เมียนมา'},
+  'Namibia': {'ja': 'ナミビア', 'ko': '나미비아', 'zh': '纳米比亚', 'fr': 'Namibie', 'de': 'Namibia', 'pt': 'Namíbia', 'ru': 'Намибия', 'ar': 'ناميبيا', 'hi': 'नामीबिया', 'th': 'นามิเบีย'},
+  'Nepal': {'ja': 'ネパール', 'ko': '네팔', 'zh': '尼泊尔', 'es': 'Nepal', 'fr': 'Népal', 'de': 'Nepal', 'pt': 'Nepal', 'ru': 'Непал', 'ar': 'نيبال', 'hi': 'नेपाल', 'th': 'เนปาล'},
+  'Netherlands': {'ja': 'オランダ', 'ko': '네덜란드', 'zh': '荷兰', 'fr': 'Pays-Bas', 'de': 'Niederlande', 'pt': 'Holanda', 'ru': 'Нидерланды', 'ar': 'هولندا', 'hi': 'नीदरलैंड्स', 'th': 'เนเธอร์แลนด์'},
+  'New Zealand': {'ja': 'ニュージーランド', 'ko': '뉴질랜드', 'zh': '新西兰', 'fr': 'Nouvelle-Zélande', 'de': 'Neuseeland', 'pt': 'Nova Zelândia', 'ru': 'Новая Зеландия', 'ar': 'نيوزيلندا', 'hi': 'न्यूज़ीलैंड', 'th': 'นิวซีแลนด์'},
+  'Nicaragua': {'ja': 'ニカラグア', 'ko': '니카라과', 'zh': '尼加拉瓜', 'fr': 'Nicaragua', 'de': 'Nicaragua', 'pt': 'Nicarágua', 'ru': 'Никарагуа', 'ar': 'نيكاراغوا', 'hi': 'निकारागुआ', 'th': 'นิการากัว'},
+  'Nigeria': {'ja': 'ナイジェリア', 'ko': '나이지리아', 'zh': '尼日利亚', 'fr': 'Nigeria', 'de': 'Nigeria', 'pt': 'Nigéria', 'ru': 'Нигерия', 'ar': 'نيجيريا', 'hi': 'नाइजीरिया', 'th': 'ไนจีเรีย'},
+  'North Macedonia': {'ja': '北マケドニア', 'ko': '북마케도니아', 'zh': '北马其顿', 'es': 'Macedonia del Norte', 'fr': 'Macédoine du Nord', 'de': 'Nordmazedonien', 'pt': 'Macedônia do Norte', 'ru': 'Северная Македония', 'ar': 'مقدونيا الشمالية', 'hi': 'उत्तर मैसेडोनिया', 'th': 'มาซิโดเนียเหนือ'},
+  'Norway': {'ja': 'ノルウェー', 'ko': '노르웨이', 'zh': '挪威', 'fr': 'Norvège', 'de': 'Norwegen', 'pt': 'Noruega', 'ru': 'Норвегия', 'ar': 'النرويج', 'hi': 'नॉर्वे', 'th': 'นอร์เวย์'},
+  'Oman': {'ja': 'オマーン', 'ko': '오만', 'zh': '阿曼', 'es': 'Omán', 'fr': 'Oman', 'de': 'Oman', 'pt': 'Omã', 'ru': 'Оман', 'ar': 'عمان', 'hi': 'ओमान', 'th': 'โอมาน'},
+  'Pakistan': {'ja': 'パキスタン', 'ko': '파키스탄', 'zh': '巴基斯坦', 'es': 'Pakistán', 'fr': 'Pakistan', 'de': 'Pakistan', 'pt': 'Paquistão', 'ru': 'Пакистан', 'ar': 'باكستان', 'hi': 'पाकिस्तान', 'th': 'ปากีสถาน'},
+  'Palestine': {'ja': 'パレスチナ', 'ko': '팔레스타인', 'zh': '巴勒斯坦', 'es': 'Palestina', 'fr': 'Palestine', 'de': 'Palästina', 'pt': 'Palestina', 'ru': 'Палестина', 'ar': 'فلسطين', 'hi': 'फ़िलिस्तीन', 'th': 'ปาเลสไตน์'},
+  'Panama': {'ja': 'パナマ', 'ko': '파나마', 'zh': '巴拿马', 'fr': 'Panama', 'de': 'Panama', 'pt': 'Panamá', 'ru': 'Панама', 'ar': 'بنما', 'hi': 'पनामा', 'th': 'ปานามา'},
+  'Papua New Guinea': {'ja': 'パプアニューギニア', 'ko': '파푸아뉴기니', 'zh': '巴布亚新几内亚', 'es': 'Papúa Nueva Guinea', 'fr': 'Papouasie-Nouvelle-Guinée', 'de': 'Papua-Neuguinea', 'pt': 'Papua-Nova Guiné', 'ru': 'Папуа-Новая Гвинея', 'ar': 'بابوا غينيا الجديدة', 'hi': 'पापुआ न्यू गिनी', 'th': 'ปาปัวนิวกินี'},
+  'Paraguay': {'ja': 'パラグアイ', 'ko': '파라과이', 'zh': '巴拉圭', 'fr': 'Paraguay', 'de': 'Paraguay', 'pt': 'Paraguai', 'ru': 'Парагвай', 'ar': 'باراغواي', 'hi': 'पराग्वे', 'th': 'ปารากวัย'},
+  'Peru': {'ja': 'ペルー', 'ko': '페루', 'zh': '秘鲁', 'fr': 'Pérou', 'de': 'Peru', 'pt': 'Peru', 'ru': 'Перу', 'ar': 'بيرو', 'hi': 'पेरू', 'th': 'เปรู'},
+  'Philippines': {'ja': 'フィリピン', 'ko': '필리핀', 'zh': '菲律宾', 'fr': 'Philippines', 'de': 'Philippinen', 'pt': 'Filipinas', 'ru': 'Филиппины', 'ar': 'الفلبين', 'hi': 'फ़िलीपींस', 'th': 'ฟิลิปปินส์'},
+  'Poland': {'ja': 'ポーランド', 'ko': '폴란드', 'zh': '波兰', 'fr': 'Pologne', 'de': 'Polen', 'pt': 'Polônia', 'ru': 'Польша', 'ar': 'بولندا', 'hi': 'पोलैंड', 'th': 'โปแลนด์'},
+  'Portugal': {'ja': 'ポルトガル', 'ko': '포르투갈', 'zh': '葡萄牙', 'fr': 'Portugal', 'de': 'Portugal', 'pt': 'Portugal', 'ru': 'Португалия', 'ar': 'البرتغال', 'hi': 'पुर्तगाल', 'th': 'โปรตุเกส'},
+  'Qatar': {'ja': 'カタール', 'ko': '카타르', 'zh': '卡塔尔', 'es': 'Catar', 'fr': 'Qatar', 'de': 'Katar', 'pt': 'Catar', 'ru': 'Катар', 'ar': 'قطر', 'hi': 'क़तर', 'th': 'กาตาร์'},
+  'Romania': {'ja': 'ルーマニア', 'ko': '루마니아', 'zh': '罗马尼亚', 'fr': 'Roumanie', 'de': 'Rumänien', 'pt': 'Romênia', 'ru': 'Румыния', 'ar': 'رومانيا', 'hi': 'रोमानिया', 'th': 'โรมาเนีย'},
+  'Russia': {'ja': 'ロシア', 'ko': '러시아', 'zh': '俄罗斯', 'fr': 'Russie', 'de': 'Russland', 'pt': 'Rússia', 'ru': 'Россия', 'ar': 'روسيا', 'hi': 'रूस', 'th': 'รัสเซีย'},
+  'Rwanda': {'ja': 'ルワンダ', 'ko': '르완다', 'zh': '卢旺达', 'fr': 'Rwanda', 'de': 'Ruanda', 'pt': 'Ruanda', 'ru': 'Руанда', 'ar': 'رواندا', 'hi': 'रवांडा', 'th': 'รวันดา'},
+  'San Marino': {'ja': 'サンマリノ', 'ko': '산마리노', 'zh': '圣马力诺', 'es': 'San Marino', 'fr': 'Saint-Marin', 'de': 'San Marino', 'pt': 'San Marino', 'ru': 'Сан-Марино', 'ar': 'سان مارينو', 'hi': 'सैन मारिनो', 'th': 'ซานมารีโน'},
+  'Saudi Arabia': {'ja': 'サウジアラビア', 'ko': '사우디아라비아', 'zh': '沙特阿拉伯', 'fr': 'Arabie saoudite', 'de': 'Saudi-Arabien', 'pt': 'Arábia Saudita', 'ru': 'Саудовская Аравия', 'ar': 'المملكة العربية السعودية', 'hi': 'सउदी अरब', 'th': 'ซาอุดีอาระเบีย'},
+  'Senegal': {'ja': 'セネガル', 'ko': '세네갈', 'zh': '塞内加尔', 'es': 'Senegal', 'fr': 'Sénégal', 'de': 'Senegal', 'pt': 'Senegal', 'ru': 'Сенегал', 'ar': 'السنغال', 'hi': 'सेनेगल', 'th': 'เซเนกัล'},
+  'Serbia': {'ja': 'セルビア', 'ko': '세르비아', 'zh': '塞尔维亚', 'fr': 'Serbie', 'de': 'Serbien', 'pt': 'Sérvia', 'ru': 'Сербия', 'ar': 'صربيا', 'hi': 'सर्बिया', 'th': 'เซอร์เบีย'},
+  'Seychelles': {'ja': 'セーシェル', 'ko': '세이셸', 'zh': '塞舌尔', 'es': 'Seychelles', 'fr': 'Seychelles', 'de': 'Seychellen', 'pt': 'Seicheles', 'ru': 'Сейшельские Острова', 'ar': 'سيشل', 'hi': 'सेशेल्स', 'th': 'เซเชลส์'},
+  'Singapore': {'ja': 'シンガポール', 'ko': '싱가포르', 'zh': '新加坡', 'fr': 'Singapour', 'de': 'Singapur', 'pt': 'Singapura', 'ru': 'Сингапур', 'ar': 'سنغافورة', 'hi': 'सिंगापुर', 'th': 'สิงคโปร์'},
+  'Slovakia': {'ja': 'スロバキア', 'ko': '슬로바키아', 'zh': '斯洛伐克', 'fr': 'Slovaquie', 'de': 'Slowakei', 'pt': 'Eslováquia', 'ru': 'Словакия', 'ar': 'سلوفاكيا', 'hi': 'स्लोवाकिया', 'th': 'สโลวะเกีย'},
+  'Slovenia': {'ja': 'スロベニア', 'ko': '슬로베니아', 'zh': '斯洛文尼亚', 'fr': 'Slovénie', 'de': 'Slowenien', 'pt': 'Eslovênia', 'ru': 'Словения', 'ar': 'سلوفينيا', 'hi': 'स्लोवेनिया', 'th': 'สโลวีเนีย', 'id': 'Slovenia'},
+  'South Africa': {'ja': '南アフリカ', 'ko': '남아프리카', 'zh': '南非', 'fr': 'Afrique du Sud', 'de': 'Südafrika', 'pt': 'África do Sul', 'ru': 'Южно-Африканская Республика', 'ar': 'جنوب أفريقيا', 'hi': 'दक्षिण अफ़्रीका', 'th': 'แอฟริกาใต้'},
+  'South Korea': {'ja': '韓国', 'ko': '대한민국', 'zh': '韩国', 'fr': 'Corée du Sud', 'de': 'Südkorea', 'pt': 'Coreia do Sul', 'ru': 'Республика Корея', 'ar': 'كوريا الجنوبية', 'hi': 'दक्षिण कोरिया', 'th': 'เกาหลีใต้'},
+  'Spain': {'ja': 'スペイン', 'ko': '스페인', 'zh': '西班牙', 'fr': 'Espagne', 'de': 'Spanien', 'pt': 'Espanha', 'ru': 'Испания', 'ar': 'إسبانيا', 'hi': 'स्पेन', 'th': 'สเปน'},
+  'Sri Lanka': {'ja': 'スリランカ', 'ko': '스리랑카', 'zh': '斯里兰卡', 'fr': 'Sri Lanka', 'de': 'Sri Lanka', 'pt': 'Sri Lanka', 'ru': 'Шри-Ланка', 'ar': 'سريلانكا', 'hi': 'श्रीलंका', 'th': 'ศรีลังกา'},
+  'Sweden': {'ja': 'スウェーデン', 'ko': '스웨덴', 'zh': '瑞典', 'fr': 'Suède', 'de': 'Schweden', 'pt': 'Suécia', 'ru': 'Швеция', 'ar': 'السويد', 'hi': 'स्वीडन', 'th': 'สวีเดน'},
+  'Switzerland': {'ja': 'スイス', 'ko': '스위스', 'zh': '瑞士', 'fr': 'Suisse', 'de': 'Schweiz', 'pt': 'Suíça', 'ru': 'Швейцария', 'ar': 'سويسرا', 'hi': 'स्विट्ज़रलैंड', 'th': 'สวิตเซอร์แลนด์'},
+  'Syria': {'ja': 'シリア', 'ko': '시리아', 'zh': '叙利亚', 'fr': 'Syrie', 'de': 'Syrien', 'pt': 'Síria', 'ru': 'Сирия', 'ar': 'سوريا', 'hi': 'सीरिया', 'th': 'ซีเรีย'},
+  'Tajikistan': {'ja': 'タジキスタン', 'ko': '타지키스탄', 'zh': '塔吉克斯坦', 'es': 'Tayikistán', 'fr': 'Tadjikistan', 'de': 'Tadschikistan', 'pt': 'Tadjiquistão', 'ru': 'Таджикистан', 'ar': 'طاجيكستان', 'hi': 'ताजिकिस्तान', 'th': 'ทาจิกิสถาน'},
+  'Tanzania': {'ja': 'タンザニア', 'ko': '탄자니아', 'zh': '坦桑尼亚', 'fr': 'Tanzanie', 'de': 'Tansania', 'pt': 'Tanzânia', 'ru': 'Танзания', 'ar': 'تنزانيا', 'hi': 'तंज़ानिया', 'th': 'แทนซาเนีย'},
+  'Thailand': {'ja': 'タイ', 'ko': '태국', 'zh': '泰国', 'fr': 'Thaïlande', 'de': 'Thailand', 'pt': 'Tailândia', 'ru': 'Таиланд', 'ar': 'تايلاند', 'hi': 'थाईलैंड', 'th': 'ไทย'},
+  'Trinidad and Tobago': {'ja': 'トリニダード・トバゴ', 'ko': '트리니다드 토바고', 'zh': '特立尼达和多巴哥', 'es': 'Trinidad y Tobago', 'fr': 'Trinité-et-Tobago', 'de': 'Trinidad und Tobago', 'pt': 'Trinidad e Tobago', 'ru': 'Тринидад и Тобаго', 'ar': 'ترينيداد وتوباغو', 'hi': 'त्रिनिदाद और टोबैगो', 'th': 'ตรินิแดดและโตเบโก'},
+  'Tunisia': {'ja': 'チュニジア', 'ko': '튀니지', 'zh': '突尼斯', 'fr': 'Tunisie', 'de': 'Tunesien', 'pt': 'Tunísia', 'ru': 'Тунис', 'ar': 'تونس', 'hi': 'ट्यूनीशिया', 'th': 'ตูนิเซีย'},
+  'Turkey': {'ja': 'トルコ', 'ko': '튀르키예', 'zh': '土耳其', 'fr': 'Turquie', 'de': 'Türkei', 'pt': 'Turquia', 'ru': 'Турция', 'ar': 'تركيا', 'hi': 'तुर्किये', 'th': 'ตุรกี'},
+  'Turkmenistan': {'ja': 'トルクメニスタン', 'ko': '투르크메니스탄', 'zh': '土库曼斯坦', 'es': 'Turkmenistán', 'fr': 'Turkménistan', 'de': 'Turkmenistan', 'pt': 'Turcomenistão', 'ru': 'Туркменистан', 'ar': 'تركمانستان', 'hi': 'तुर्कमेनिस्तान', 'th': 'เติร์กเมนิสถาน'},
+  'Uganda': {'ja': 'ウガンダ', 'ko': '우간다', 'zh': '乌干达', 'fr': 'Ouganda', 'de': 'Uganda', 'pt': 'Uganda', 'ru': 'Уганда', 'ar': 'أوغندا', 'hi': 'युगांडा', 'th': 'ยูกันดา'},
+  'Ukraine': {'ja': 'ウクライナ', 'ko': '우크라이나', 'zh': '乌克兰', 'fr': 'Ukraine', 'de': 'Ukraine', 'pt': 'Ucrânia', 'ru': 'Украина', 'ar': 'أوكرانيا', 'hi': 'यूक्रेन', 'th': 'ยูเครน', 'vi': 'Ukraina'},
+  'United Arab Emirates': {'ja': 'アラブ首長国連邦', 'ko': '아랍에미리트', 'zh': '阿拉伯联合酋长国', 'es': 'Emiratos Árabes Unidos', 'fr': 'Émirats arabes unis', 'de': 'Vereinigte Arabische Emirate', 'pt': 'Emirados Árabes Unidos', 'ru': 'Объединенные Арабские Эмираты', 'ar': 'الإمارات العربية المتحدة', 'hi': 'संयुक्त अरब अमीरात', 'th': 'สหรัฐอาหรับเอมิเรตส์'},
+  'United Kingdom': {'ja': 'イギリス', 'ko': '영국', 'zh': '英国', 'fr': 'Royaume-Uni', 'de': 'Vereinigtes Königreich', 'pt': 'Reino Unido', 'ru': 'Великобритания', 'ar': 'المملكة المتحدة', 'hi': 'यूनाइटेड किंगडम', 'th': 'สหราชอาณาจักร'},
+  'United States': {'ja': 'アメリカ合衆国', 'ko': '미국', 'zh': '美国', 'fr': 'États-Unis', 'de': 'Vereinigte Staaten', 'pt': 'Estados Unidos', 'ru': 'Соединенные Штаты', 'ar': 'الولايات المتحدة', 'hi': 'संयुक्त राज्य अमेरिका', 'th': 'สหรัฐอเมริกา'},
+  'Uruguay': {'ja': 'ウルグアイ', 'ko': '우루과이', 'zh': '乌拉圭', 'fr': 'Uruguay', 'de': 'Uruguay', 'pt': 'Uruguai', 'ru': 'Уругвай', 'ar': 'أوروغواي', 'hi': 'उरुग्वे', 'th': 'อุรุกวัย'},
+  'Uzbekistan': {'ja': 'ウズベキスタン', 'ko': '우즈베키스탄', 'zh': '乌兹别克斯坦', 'es': 'Uzbekistán', 'fr': 'Ouzbékistan', 'de': 'Usbekistan', 'pt': 'Uzbequistão', 'ru': 'Узбекистан', 'ar': 'أوزبكستان', 'hi': 'उज़्बेकिस्तान', 'th': 'อุซเบกิสถาน'},
+  'Vatican City': {'ja': 'バチカン市国', 'ko': '바티칸 시국', 'zh': '梵蒂冈', 'es': 'Ciudad del Vaticano', 'fr': 'Cité du Vatican', 'de': 'Vatikanstadt', 'pt': 'Cidade do Vaticano', 'ru': 'Ватикан', 'ar': 'مدينة الفاتيكان', 'hi': 'वेटिकन सिटी', 'th': 'นครวาติกัน'},
+  'Venezuela': {'ja': 'ベネズエラ', 'ko': '베네수엘라', 'zh': '委内瑞拉', 'fr': 'Venezuela', 'de': 'Venezuela', 'pt': 'Venezuela', 'ru': 'Венесуэла', 'ar': 'فنزويلا', 'hi': 'वेनेज़ुएला', 'th': 'เวเนซุเอลา'},
+  'Vietnam': {'ja': 'ベトナム', 'ko': '베트남', 'zh': '越南', 'fr': 'Viêt Nam', 'de': 'Vietnam', 'pt': 'Vietnã', 'ru': 'Вьетнам', 'ar': 'فيتنام', 'hi': 'वियतनाम', 'th': 'เวียดนาม'},
+  'Yemen': {'ja': 'イエメン', 'ko': '예멘', 'zh': '也门', 'es': 'Yemen', 'fr': 'Yémen', 'de': 'Jemen', 'pt': 'Iêmen', 'ru': 'Йемен', 'ar': 'اليمن', 'hi': 'यमन', 'th': 'เยเมน'},
+  'Zambia': {'ja': 'ザンビア', 'ko': '잠비아', 'zh': '赞比亚', 'fr': 'Zambie', 'de': 'Sambia', 'pt': 'Zâmbia', 'ru': 'Замбия', 'ar': 'زامبيا', 'hi': 'ज़ाम्बिया', 'th': 'แซมเบีย'},
+  'Zimbabwe': {'ja': 'ジンバブエ', 'ko': '짐바브웨', 'zh': '津巴布韦', 'es': 'Zimbabue', 'de': 'Simbabwe', 'pt': 'Zimbábue', 'ru': 'Зимбабве', 'ar': 'زيمبابوي', 'hi': 'ज़िम्बाब्वे', 'th': 'ซิมบับเว'},
+};
 const regionIsoMap = {
   'Afghanistan': 'AF', 'Albania': 'AL', 'Algeria': 'DZ', 'Andorra': 'AD', 'Argentina': 'AR',
   'Armenia': 'AM', 'Australia': 'AU', 'Austria': 'AT', 'Azerbaijan': 'AZ', 'Bahamas': 'BS',
@@ -7080,7 +7232,6 @@ function tRegion(name) {
   // Try stateI18n with original name (for states already in English)
   const stateMap2 = stateI18n[name];
   if (stateMap2 && stateMap2[curLang]) return stateMap2[curLang];
-  return name;
   // cityI18n lookup
   if (typeof cityI18n !== 'undefined') {
     const cityMap = cityI18n[engName];
@@ -7088,6 +7239,7 @@ function tRegion(name) {
     const cityMap2 = cityI18n[name];
     if (cityMap2 && cityMap2[curLang]) return cityMap2[curLang];
   }
+  return name;
 }
 
 function initAjRegionSelectors() {
@@ -8011,7 +8163,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const st = region.s.find(s => s.n === state);
       if (!st || !st.c.length) { citySel.disabled = true; return; }
       citySel.disabled = false;
-      let opts = st.c.map(c => `<option value="${c}">${c}</option>`).join('');
+      let opts = st.c.map(c => `<option value="${c}">${tRegion(c)}</option>`).join('');
       citySel.innerHTML = citySel.querySelector('option[data-key]').outerHTML + opts;
     });
   }
