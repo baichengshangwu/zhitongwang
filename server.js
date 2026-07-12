@@ -599,6 +599,18 @@ app.post('/api/translate', async (req, res) => {
   res.json({ translated: text });
 });
 
+// APK download route - dedicated handler before static middleware
+app.get('/public/ai-nexus-latest.apk', (req, res) => {
+  const apkPath = path.join(__dirname, 'public', 'ai-nexus-latest.apk');
+  if (require('fs').existsSync(apkPath)) {
+    res.setHeader('Content-Type', 'application/vnd.android.package-archive');
+    res.setHeader('Content-Disposition', 'attachment; filename="ai-nexus-latest.apk"');
+    res.sendFile(apkPath);
+  } else {
+    res.status(404).json({ error: 'APK not found' });
+  }
+});
+
 // ========== Static files (SPA) ==========
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('*', (req, res) => {
