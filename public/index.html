@@ -162,8 +162,21 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 #paypal-member-agent-btn{margin-top:5px}
 #paypal-modal-desc{word-break:break-word;white-space:normal;overflow-wrap:break-word;max-width:100%;writing-mode:horizontal-tb}
 /* PayPal button container: clip iframe's long description, keep button visible */
-#paypal-container-EJC58LA49LNM2{max-height:56px!important;overflow:hidden!important}
+#paypal-container-EJC58LA49LNM2{max-height:56px!important;overflow:hidden!important;position:relative}
 #paypal-container-EJC58LA49LNM2 iframe{max-height:56px!important}
+/* Cover PayPal yellow branding icon in agent tier buttons */
+.aj-paypal-btn{overflow:hidden!important;position:relative}
+.aj-paypal-btn::after{content:'';position:absolute;top:0;left:0;right:0;height:48px;z-index:99;pointer-events:none;background:linear-gradient(180deg,var(--bgc) 0%,var(--bgc) 60%,transparent 100%)}
+/* Cover PayPal yellow branding icon in modal */
+#paypal-container-EJC58LA49LNM2::after{content:'';position:absolute;top:0;left:0;right:0;height:48px;z-index:99;pointer-events:none;background:linear-gradient(180deg,#1a1a2e 0%,#1a1a2e 60%,transparent 100%)}
+
+/* Clip PayPal yellow branding in iframe rendered by SDK */
+.aj-paypal-btn iframe{margin-top:-48px;min-height:calc(40px + 48px)}
+/* Hide any yellow PayPal branding images/svgs added by SDK outside iframe */
+.aj-paypal-btn img[src*="paypal"],.aj-paypal-btn svg[class*="paypal"],
+#paypal-container-EJC58LA49LNM2 img[src*="paypal"],#paypal-container-EJC58LA49LNM2 svg[class*="paypal"],
+#paypal-agent-checkout img[src*="paypal"],#paypal-agent-checkout svg[class*="paypal"]
+{display:none!important}
 /* Upload spinner */
 .upspinner{display:inline-block;width:14px;height:14px;border:2px solid var(--bd);border-top-color:var(--ap);border-radius:50%;animation:upspin .7s linear infinite;vertical-align:middle;margin:0 4px}
 @keyframes upspin{to{transform:rotate(360deg)}}
@@ -1118,7 +1131,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
         <div style="font-size:1.4rem;font-weight:800;color:var(--ap);font-family:var(--fm);line-height:1">$20,000</div>
         <script src="https://www.paypal.com/sdk/js?client-id=BAAopNlOslfGxeREktaXu8cbdZ6XWXNbzQYeodvtXjmTISEt4Rxrb4pcjPOwR7FZN63ri345gSa9prPJfc&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
 <div id="paypal-container-EJC58LA49LNM2-country" class="aj-paypal-btn" style="display:none;min-height:40px;margin-top:6px"></div>
-<script>window._agentPayTier='country';window._agentPayAmount=20000;paypal.HostedButtons({hostedButtonId:"EJC58LA49LNM2"}).render("#paypal-container-EJC58LA49LNM2-country")</script>
+<script>window._agentPayTier='country';window._agentPayAmount=20000;paypal.HostedButtons({hostedButtonId:"EJC58LA49LNM2",style:{layout:"horizontal",color:"blue",shape:"rect",label:"paypal"}}).render("#paypal-container-EJC58LA49LNM2-country")</script>
       </div>
     </div>
 
@@ -1141,7 +1154,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
         <div style="font-size:1.4rem;font-weight:800;color:#f59e0b;font-family:var(--fm);line-height:1">$6,000</div>
         <script src="https://www.paypal.com/sdk/js?client-id=BAAopNlOslfGxeREktaXu8cbdZ6XWXNbzQYeodvtXjmTISEt4Rxrb4pcjPOwR7FZN63ri345gSa9prPJfc&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
 <div id="paypal-container-EJC58LA49LNM2-state" class="aj-paypal-btn" style="display:none;min-height:40px;margin-top:6px"></div>
-<script>window._agentPayTier='state';window._agentPayAmount=6000;paypal.HostedButtons({hostedButtonId:"EJC58LA49LNM2"}).render("#paypal-container-EJC58LA49LNM2-state")</script>
+<script>window._agentPayTier='state';window._agentPayAmount=6000;paypal.HostedButtons({hostedButtonId:"EJC58LA49LNM2",style:{layout:"horizontal",color:"blue",shape:"rect",label:"paypal"}}).render("#paypal-container-EJC58LA49LNM2-state")</script>
       </div>
     </div>
 
@@ -1167,7 +1180,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
         <div style="font-size:1.4rem;font-weight:800;color:#10b981;font-family:var(--fm);line-height:1">$1,000</div>
         <script src="https://www.paypal.com/sdk/js?client-id=BAAopNlOslfGxeREktaXu8cbdZ6XWXNbzQYeodvtXjmTISEt4Rxrb4pcjPOwR7FZN63ri345gSa9prPJfc&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
 <div id="paypal-container-EJC58LA49LNM2-city" class="aj-paypal-btn" style="display:none;min-height:40px;margin-top:6px"></div>
-<script>window._agentPayTier='city';window._agentPayAmount=1000;paypal.HostedButtons({hostedButtonId:"EJC58LA49LNM2"}).render("#paypal-container-EJC58LA49LNM2-city")</script>
+<script>window._agentPayTier='city';window._agentPayAmount=1000;paypal.HostedButtons({hostedButtonId:"EJC58LA49LNM2",style:{layout:"horizontal",color:"blue",shape:"rect",label:"paypal"}}).render("#paypal-container-EJC58LA49LNM2-city")</script>
       </div>
     </div>
 
@@ -1188,7 +1201,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
         <div style="font-size:1.4rem;font-weight:800;color:#6b7280;font-family:var(--fm);line-height:1">$199</div>
         <script src="https://www.paypal.com/sdk/js?client-id=BAAopNlOslfGxeREktaXu8cbdZ6XWXNbzQYeodvtXjmTISEt4Rxrb4pcjPOwR7FZN63ri345gSa9prPJfc&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
 <div id="paypal-container-EJC58LA49LNM2-normal" class="aj-paypal-btn" style="min-height:40px;margin-top:6px"></div>
-<script>window._agentPayTier='normal';window._agentPayAmount=199;paypal.HostedButtons({hostedButtonId:"EJC58LA49LNM2"}).render("#paypal-container-EJC58LA49LNM2-normal")</script>
+<script>window._agentPayTier='normal';window._agentPayAmount=199;paypal.HostedButtons({hostedButtonId:"EJC58LA49LNM2",style:{layout:"horizontal",color:"blue",shape:"rect",label:"paypal"}}).render("#paypal-container-EJC58LA49LNM2-normal")</script>
       </div>
     </div>
   </div>
@@ -3767,7 +3780,7 @@ function closeModal(id){ var el=document.getElementById(id); el.classList.remove
 function renderAgentPaypal(){
   var c=document.getElementById('paypal-agent-checkout');
   if(c&&!c.hasChildNodes()&&typeof paypal!=='undefined'){
-    paypal.HostedButtons({hostedButtonId:"EJC58LA49LNM2"}).render("#paypal-agent-checkout");
+    paypal.HostedButtons({hostedButtonId:"EJC58LA49LNM2",style:{layout:"horizontal",color:"blue",shape:"rect",label:"paypal"}}).render("#paypal-agent-checkout");
   }
 }
 function togNav(forceClose){
@@ -4118,7 +4131,7 @@ function payAgentTier(tier, amount, regionSelId){
     container.style.display = 'flex';
     if(typeof paypal !== 'undefined' && paypal.HostedButtons){
       container.innerHTML = '';
-      paypal.HostedButtons({hostedButtonId:'EJC58LA49LNM2'}).render('#paypal-container-EJC58LA49LNM2');
+      paypal.HostedButtons({hostedButtonId:'EJC58LA49LNM2',style:{layout:'horizontal',color:'blue',shape:'rect',label:'paypal'}}).render('#paypal-container-EJC58LA49LNM2');
     } else {
       container.innerHTML = '<div style="text-align:center;padding:10px 8px"><a href="https://www.paypal.com/ncp/payment/EJC58LA49LNM2" target="_blank" rel="noopener" style="display:inline-block;padding:8px 28px;background:linear-gradient(135deg,#0070ba,#1546a0);color:#fff;border-radius:999px;text-decoration:none;font-weight:700;font-size:.82rem">Pay Now - $' + amount.toLocaleString('en-US') + '</a><div style="margin-top:8px;font-size:.6rem;color:var(--t3)">Amount: $' + amount.toLocaleString('en-US') + ' / ' + (tier==='country'?'Country/Region':tier==='state'?'State/Province':tier==='city'?'City/District':'Online Network') + ' Agent</div></div>';
     }
@@ -4207,7 +4220,7 @@ function openPaypalBtn(n){
     // Render PayPal hosted button
     if(typeof paypal !== 'undefined' && paypal.HostedButtons){
       container.innerHTML = '';
-      paypal.HostedButtons({hostedButtonId:'EJC58LA49LNM2'}).render('#paypal-container-EJC58LA49LNM2');
+      paypal.HostedButtons({hostedButtonId:'EJC58LA49LNM2',style:{layout:'horizontal',color:'blue',shape:'rect',label:'paypal'}}).render('#paypal-container-EJC58LA49LNM2');
     } else if(!window.paypalLoaded){
       // PayPal SDK blocked (GFW) - show direct payment link fallback
       container.innerHTML = '<a href="https://www.paypal.com/ncp/payment/EJC58LA49LNM2" target="_blank" rel="noopener" style="display:inline-block;padding:8px 28px;background:linear-gradient(135deg,#0070ba,#1546a0);color:#fff;border-radius:999px;text-decoration:none;font-weight:700;font-size:.82rem">Pay Now - $199</a>';
