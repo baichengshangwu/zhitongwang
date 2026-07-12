@@ -1116,7 +1116,8 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
         <select id="ajr_country" class="aj-reg-sel" onchange="onAjRegChange(this,'country')" data-key-placeholder="ajr_sel_ctry"><option value="" data-key="ajr_sel_ctry">选择国家/地区</option></select>
         <div style="font-size:.6rem;color:var(--t3);margin-bottom:1px" data-key="ajfee">代理费</div>
         <div style="font-size:1.4rem;font-weight:800;color:var(--ap);font-family:var(--fm);line-height:1">$20,000</div>
-        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:5px 18px;border-radius:999px;min-width:68px;text-align:center" onclick="event.stopPropagation();payAgentTier('country',20000,'ajr_country')" data-key="ajpay">付款</button>
+        <div id="paypal-container-EJC58LA49LNM2-country" class="aj-paypal-btn" style="display:none;min-height:40px;margin-top:6px"></div>
+<script>window._agentPayTier='country';window._agentPayAmount=20000;paypal.HostedButtons({hostedButtonId:"EJC58LA49LNM2"}).render("#paypal-container-EJC58LA49LNM2-country")</script>
       </div>
     </div>
 
@@ -1137,7 +1138,8 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
         <select id="ajr_state" class="aj-reg-sel" disabled onchange="onAjRegChange(this,'state')"><option value="" data-key="ajr_sel_state">选择洲/省</option></select>
         <div style="font-size:.6rem;color:var(--t3);margin-bottom:1px" data-key="ajfee">代理费</div>
         <div style="font-size:1.4rem;font-weight:800;color:#f59e0b;font-family:var(--fm);line-height:1">$6,000</div>
-        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:5px 18px;border-radius:999px;min-width:68px;text-align:center" onclick="event.stopPropagation();payAgentTier('state',6000,'ajr_state')" data-key="ajpay">付款</button>
+        <div id="paypal-container-EJC58LA49LNM2-state" class="aj-paypal-btn" style="display:none;min-height:40px;margin-top:6px"></div>
+<script>window._agentPayTier='state';window._agentPayAmount=6000;paypal.HostedButtons({hostedButtonId:"EJC58LA49LNM2"}).render("#paypal-container-EJC58LA49LNM2-state")</script>
       </div>
     </div>
 
@@ -1161,7 +1163,8 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
         </div>
         <div style="font-size:.6rem;color:var(--t3);margin-bottom:1px" data-key="ajfee">代理费</div>
         <div style="font-size:1.4rem;font-weight:800;color:#10b981;font-family:var(--fm);line-height:1">$1,000</div>
-        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:5px 18px;border-radius:999px;min-width:68px;text-align:center" onclick="event.stopPropagation();payAgentTier('city',1000,'ajr_city')" data-key="ajpay">付款</button>
+        <div id="paypal-container-EJC58LA49LNM2-city" class="aj-paypal-btn" style="display:none;min-height:40px;margin-top:6px"></div>
+<script>window._agentPayTier='city';window._agentPayAmount=1000;paypal.HostedButtons({hostedButtonId:"EJC58LA49LNM2"}).render("#paypal-container-EJC58LA49LNM2-city")</script>
       </div>
     </div>
 
@@ -1180,7 +1183,8 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
       <div style="text-align:right;flex-shrink:0;min-width:110px">
         <div style="font-size:.6rem;color:var(--t3);margin-bottom:1px" data-key="ajfee">代理费</div>
         <div style="font-size:1.4rem;font-weight:800;color:#6b7280;font-family:var(--fm);line-height:1">$199</div>
-        <button class="btn bg bw" style="margin-top:6px;font-size:.68rem;padding:5px 18px;border-radius:999px;min-width:68px;text-align:center" onclick="event.stopPropagation();payAgentTier('normal',199)" data-key="ajpay">付款</button>
+        <div id="paypal-container-EJC58LA49LNM2-normal" class="aj-paypal-btn" style="min-height:40px;margin-top:6px"></div>
+<script>window._agentPayTier='normal';window._agentPayAmount=199;paypal.HostedButtons({hostedButtonId:"EJC58LA49LNM2"}).render("#paypal-container-EJC58LA49LNM2-normal")</script>
       </div>
     </div>
   </div>
@@ -7096,25 +7100,22 @@ function onAjRegCascade(src, tier, childId) {
 
 function onAjRegChange(src, tier) {
   const val = src.value;
-  if (!val) return;
+  if (!val) {
+    // Hide PayPal button when no region selected
+    var div = document.getElementById('paypal-container-EJC58LA49LNM2-'+tier);
+    if(div) div.style.display = 'none';
+    return;
+  }
   if (tier === 'country') {
-    // country only - validate country selected
+    // Show PayPal button when country selected
+    var div = document.getElementById('paypal-container-EJC58LA49LNM2-country');
+    if(div) div.style.display = 'block';
   } else if (tier === 'state') {
-    // state selected
+    var div = document.getElementById('paypal-container-EJC58LA49LNM2-state');
+    if(div) div.style.display = 'block';
   } else if (tier === 'city') {
-    // city selected
-    // Populate city options if needed
-    const stateSel = document.getElementById('ajr_city_state');
-    if (stateSel && stateSel.value) {
-      const ctrySel = document.getElementById('ajr_city_ctry');
-      const region = ajRegions.find(r => r.n === ctrySel.value);
-      if (region) {
-        const state = region.s.find(s => s.n === stateSel.value);
-        if (state && state.c.length) {
-          // city already populated in onAjRegCascade for city_state
-        }
-      }
-    }
+    var div = document.getElementById('paypal-container-EJC58LA49LNM2-city');
+    if(div) div.style.display = 'block';
   }
 }
 
