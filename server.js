@@ -575,6 +575,29 @@ app.get('/api/lhr-url', (req, res) => {
   res.json({ url: null });
 });
 
+// ========== TRANSLATE ==========
+app.post('/api/translate', async (req, res) => {
+  const { text, target } = req.body;
+  if (!text || !target) return res.status(400).json({ error: 'text and target required' });
+  if (target === 'zh') return res.json({ translated: text });
+  try {
+    const r = await fetch(\`https://api.mymemory.translated.net/get?q=\${encodeURIComponent(text)}&langpair=Autodetect|\${encodeURIComponent(target)}\`);
+    const d = await r.json();
+    const t = (d && d.responseData && d.responseData.translatedText) || '';
+    if (t && t !== text && !t.includes('INVALID SOURCE') && !t.includes('INVALID TARGET')) {
+      return res.json({ translated: t });
+    }
+  } catch (e) {}
+  try {
+    const r = await fetch(\`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=\${encodeURIComponent(target)}&dt=t&q=\${encodeURIComponent(text)}\`);
+    const d = await r.json();
+    const t = (d[0] || []).map(x => x[0]).join('');
+    if (t) return res.json({ translated: t });
+  } catch (e) {}
+  res.json({ translated: text });
+});
+
+
 // ========== Static files (SPA) ==========
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('*', (req, res) => {
