@@ -101,7 +101,7 @@ function requireAuth(req, res, next) {
 // File upload setup
 const upload = multer({
   dest: path.join(DATA_DIR, 'uploads'),
-  limits: { fileSize: 200 * 1024 * 1024 }, // 200MB for video support
+  limits: { fileSize: 500 * 1024 * 1024 }, // 500MB for video support
 });
 
 // ========== Data stores ==========
@@ -141,6 +141,9 @@ app.post('/api/register', async (req, res) => {
     avatar: '',
     sig_image: '',
     sig_video: '',
+    location: '',
+    birth_date: '',
+    gender: '',
     created_at: now,
     updated_at: now
   };
@@ -162,7 +165,7 @@ app.post('/api/login', async (req, res) => {
   if (!valid) return res.status(401).json({ error: 'Invalid credentials' });
 
   const token = jwt.sign({ email, name: user.name }, JWT_SECRET, { expiresIn: '30d' });
-  res.json({ token, user: { email, name: user.name, balance: user.balance, nexus: user.nexus, wallet: user.wallet || '', bio: user.bio || '', avatar: user.avatar || '', sig_image: user.sig_image || '', sig_video: user.sig_video || '' } });
+  res.json({ token, user: { email, name: user.name, balance: user.balance, nexus: user.nexus, wallet: user.wallet || '', bio: user.bio || '', avatar: user.avatar || '', sig_image: user.sig_image || '', sig_video: user.sig_video || '', location: user.location || '', birth_date: user.birth_date || '', gender: user.gender || '' } });
 });
 
 app.get('/api/auth/status', requireAuth, (req, res) => {
@@ -178,7 +181,7 @@ app.post('/api/auth/logout', (req, res) => {
 
 // ========== PROFILE ==========
 app.post('/api/profile', requireAuth, (req, res) => {
-  const { name, wallet, bio, avatar, sig_image, sig_video } = req.body;
+  const { name, wallet, bio, avatar, sig_image, sig_video, location, birth_date, gender } = req.body;
   const users = getUsers();
   if (!users[req.user.email]) return res.status(404).json({ error: 'User not found' });
 
@@ -188,6 +191,9 @@ app.post('/api/profile', requireAuth, (req, res) => {
   if (avatar !== undefined) users[req.user.email].avatar = avatar;
   if (sig_image !== undefined) users[req.user.email].sig_image = sig_image; // comma-separated URLs for multi-image
   if (sig_video !== undefined) users[req.user.email].sig_video = sig_video;
+  if (location !== undefined) users[req.user.email].location = location;
+  if (birth_date !== undefined) users[req.user.email].birth_date = birth_date;
+  if (gender !== undefined) users[req.user.email].gender = gender;
   users[req.user.email].updated_at = new Date().toISOString();
   saveUsers(users);
   res.json({ success: true });
