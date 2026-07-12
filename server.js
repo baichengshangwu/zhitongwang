@@ -581,7 +581,8 @@ app.post('/api/translate', async (req, res) => {
   if (!text || !target) return res.status(400).json({ error: 'text and target required' });
   if (target === 'zh') return res.json({ translated: text });
   try {
-    const r = await fetch(`https://api.mymemory.translated.net/get?q=\${encodeURIComponent(text)}&langpair=Autodetect|\${encodeURIComponent(target)}`);
+    const mymemoryUrl = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=Autodetect|' + encodeURIComponent(target);
+    const r = await fetch(mymemoryUrl);
     const d = await r.json();
     const t = (d && d.responseData && d.responseData.translatedText) || '';
     if (t && t !== text && !t.includes('INVALID SOURCE') && !t.includes('INVALID TARGET')) {
@@ -589,14 +590,14 @@ app.post('/api/translate', async (req, res) => {
     }
   } catch (e) {}
   try {
-    const r = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=\${encodeURIComponent(target)}&dt=t&q=\${encodeURIComponent(text)}`);
+    const googleUrl = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=' + encodeURIComponent(target) + '&dt=t&q=' + encodeURIComponent(text);
+    const r = await fetch(googleUrl);
     const d = await r.json();
-    const t = (d[0] || []).map(x => x[0]).join('');
+    const t = (d[0] || []).map(function(x) { return x[0]; }).join('');
     if (t) return res.json({ translated: t });
   } catch (e) {}
   res.json({ translated: text });
 });
-
 
 // ========== Static files (SPA) ==========
 app.use(express.static(path.join(__dirname, 'public')));
