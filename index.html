@@ -278,6 +278,20 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 .cs-copy{background:transparent;border:1px solid var(--bd);color:var(--t3);padding:2px 7px;border-radius:5px;font-size:.6rem;cursor:pointer;margin-left:auto;flex-shrink:0;transition:var(--tt);font-family:inherit}
 .cs-copy:hover{border-color:var(--ap);color:#fff}
 @media(max-width:768px){.cs-float-btn{width:46px;height:46px;font-size:1.2rem}}
+/* ============ UPGRADE MODAL ============ */
+.upg-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.65);z-index:100000;display:flex;align-items:center;justify-content:center;animation:fadeIn .25s ease}
+.upg-card{background:var(--bg);border:1px solid var(--b2);border-radius:16px;padding:24px 20px;max-width:340px;width:90%;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.upg-icon{font-size:2.4rem;margin-bottom:10px}
+.upg-title{font-size:1.05rem;font-weight:700;color:var(--t1);margin-bottom:8px}
+.upg-body{font-size:.82rem;color:var(--t2);line-height:1.5;margin-bottom:20px}
+.upg-body b{color:var(--ap)}
+.upg-actions{display:flex;gap:10px;justify-content:center}
+.upg-btn{padding:10px 24px;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;border:none;transition:all .2s}
+.upg-btn-primary{background:var(--ap);color:#fff}
+.upg-btn-primary:hover{filter:brightness(1.15)}
+.upg-btn-secondary{background:var(--b1);color:var(--t2)}
+.upg-btn-secondary:hover{background:var(--b2)}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 </style>
 
 <style>@keyframes pulse{0%,100%{opacity:0.4;transform:scaleY(0.6)}50%{opacity:1;transform:scaleY(1.4)}}</style></head>
@@ -4155,6 +4169,7 @@ const TICKERS = [
 // ============ STATE ============
 let curUser = null;
 let curLang = 'zh';
+const CUR_VERSION = '2.0';
 let curPage = 'market';
 let curListing = null;
 let confirmCB = null;
@@ -6590,6 +6605,10 @@ fmpub:'Pubblica',fmpub_tw:'Pubblica Articolo',fmpub_sp:'Pubblica Video',fmpub_ac
   alert_sub_ok:{zh:'订阅成功!',en:'Subscribed!',ja:'購読完了!',ko:'구독 완료!',es:'¡Suscrito!',fr:'Abonné!',de:'Abonniert!',pt:'Assinado!',ru:'Подписка оформлена!',it:'Abbonato!',ar:'تم الاشتراك!',hi:'सदस्यता सफल!',th:'สมัครแล้ว!',vi:'Đã đăng ký!',id:'Berlangganan!'},
   alert_insuf_vault:{zh:'存库包余额不足',en:'Insufficient vault balance',ja:'保管庫残高不足',ko:'보관소 잔액 부족',es:'Saldo de bóveda insuficiente',fr:'Solde du coffre insuffisant',de:'Unzureichendes Tresorguthaben',pt:'Saldo do cofre insuficiente',ru:'Недостаточно в хранилище',it:'Saldo cassaforte insufficiente',ar:'رصيد الخزنة غير كاف',hi:'तिजोरी शेष अपर्याप्त',th:'ยอดในตู้นิรภัยไม่เพียงพอ',vi:'Số dư kho không đủ',id:'Saldo brankas tidak cukup'},
   promo_empty:{zh:'推广页面建设中',en:'Promotion page under construction',ja:'プロモーションページ建設中',ko:'프로모션 페이지 준비 중',es:'Página de promoción en construcción',fr:'Page promotion en construction',de:'Promotionsseite im Aufbau',pt:'Página promocional em construção',ru:'Страница продвижения в разработке',it:'Pagina promozionale in costruzione',ar:'صفحة الترويج قيد الإنشاء',hi:'प्रचार पृष्ठ निर्माणाधीन',th:'หน้าโปรโมชั่นอยู่ระหว่างดำเนินการ',vi:'Trang quảng bá đang xây dựng',id:'Halaman promosi sedang dibangun',listing_seller:'Venditore',listing_rating:'Valutazione',listing_sold:'Venduto',listing_qty:'Qtà',all_tools:'Tutti',no_listings:'Nessun annuncio',no_active_listings:'Nessuna attiva',p2pCvt:'Conversione (Token/MWh)',p2pMode:'Modalità',p2pSrc:'Fonte',p2pReg:'Regione',p2pSla:'Livello SLA',p2pUnit:'Unità',p2pChain:'Energia→Calcolo→Servizio',p2p4s1:'Materia prima',p2p4s2:'Lavorazione',p2p4s3:'Prodotto',p2p4s4:'Vendite',p2pDemo:'Es: 1 MWh carbone → 240M Token @ $0.20/MTok = $48',p2pCreate:'Pubblica annuncio',p2pmode:'Modalità di vendita',p2pUTok:'Energia→Token',p2pPrdSub:'Cluster API / GPU',p2pmToken:'Token a consumo',p2pmMonth:'Abbonamento mensile',p2pmYear:'Abbonamento annuale',p2pmGpu:'Noleggio GPU',p2pSrcCoal:'Carbone/Termico',p2pSrcWind:'Eolico',p2pSrcSolar:'Solare',p2pSrcHydro:'Idro',p2pSrcMix:'Mix verde',p2pRegW:'Ovest',p2pRegX:'Xinjiang',p2pRegY:'Delta dello Yangtze',p2pRegP:'Delta del Fiume delle Perle',p2pRegO:'Estero',p2p_sla_std:'Standard 99.9%',p2p_sla_ent:'Enterprise 99.95%',p2p_sla_crit:'Critico 99.99%',p2p_unit_mtok:'Milione Token',p2p_unit_gpu:'GPU·ora',p2p_mode_token:'Token a consumo',p2p_mode_month:'Mensile',p2p_mode_year:'Annuale',p2p_mode_gpu:'Noleggio GPU',p2p_src_mix:'Mix verde',p2p_src_wind:'Eolico',p2p_src_solar:'Solare',p2p_src_coal:'Carbone/Termico',p2p_reg_west:'Ovest',p2p_reg_yrd:'Delta Yangtze',p2p_reg_prd:'Delta Perla',p2p_reg_overseas:'Estero',p2p_reg_xj:'Xinjiang',p2pSrcCoal2:'Carbone/Termico',p2pSrcWind2:'Eolico',p2pSrcSolar2:'Solare',p2pSrcHydro2:'Idro',p2pSrcMix2:'Mix verde',enter_valid_price:'Inserisci prezzo valido',pub_cancel:'Annulla',category:'Categoria',not_available:'N/D',free:'Gratuito',sc_post_cancel:'Annulla'},
+  upg_title:{zh:'发现新版本',en:'New Version',ja:'新しいバージョン',ko:'새 버전',es:'Nueva versión',fr:'Nouvelle version',de:'Neue Version',pt:'Nova versão',ru:'Новая версия',it:'Nuova versione',ar:'إصدار جديد',hi:'नया संस्करण',th:'เวอร์ชันใหม่',vi:'Phiên bản mới',id:'Versi baru'},
+  upg_body:{zh:'发现新版本 v{ver}（{size}），建议立即更新。',en:'New version v{ver} ({size}) available. Update now.',ja:'v{ver}（{size}）が利用可能です。今すぐ更新。',ko:'v{ver}({size}) 사용 가능. 지금 업데이트하세요.',es:'v{ver} ({size}) disponible. Actualice ahora.',fr:'v{ver} ({size}) disponible. Mettez à jour.',de:'v{ver} ({size}) verfügbar. Jetzt aktualisieren.',pt:'v{ver} ({size}) disponível. Atualize agora.',ru:'v{ver} ({size}) доступна. Обновите сейчас.',it:'v{ver} ({size}) disponibile. Aggiorna ora.',ar:'v{ver} ({size}) متاح. حدث الآن.',hi:'v{ver} ({size}) उपलब्ध है। अभी अपडेट करें।',th:'v{ver} ({size}) พร้อมใช้งาน อัปเดตตอนนี้',vi:'v{ver} ({size}) đã có. Cập nhật ngay.',id:'v{ver} ({size}) tersedia. Perbarui sekarang.'},
+  upg_btn:{zh:'立即更新',en:'Update',ja:'更新',ko:'업데이트',es:'Actualizar',fr:'Mise à jour',de:'Update',pt:'Atualizar',ru:'Обновить',it:'Aggiorna',ar:'تحديث',hi:'अपडेट',th:'อัปเดต',vi:'Cập nhật',id:'Perbarui'},
+  upg_later:{zh:'稍后',en:'Later',ja:'後で',ko:'나중에',es:'Luego',fr:'Après',de:'Später',pt:'Depois',ru:'Позже',it:'Dopo',ar:'لاحقاً',hi:'बाद में',th:'ภายหลัง',vi:'Để sau',id:'Nanti'},
 };
 
 // ============ LANGUAGE ============
@@ -11055,6 +11074,36 @@ function htmlEscape(s){var d=document.createElement('div');d.textContent=s;retur
 
 // ============ INIT ============
 console.log('[PUB] Publish system loaded. Tools:',PUB.tools.length,'P2P:',PUB.p2p.length,'Events:',PUB.events.length);
+
+// ============ VERSION CHECK ============
+(function(){
+  var VER_URL = 'https://baichengshangwu.github.io/zhitongwang/version.json';
+  var APK_URL = 'https://raw.githubusercontent.com/baichengshangwu/zhitongwang/main/public/ai-nexus-latest.apk';
+  var dismissed = sessionStorage.getItem('upg_dismissed');
+  if(dismissed) return;
+  fetch(VER_URL+'?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
+    if(!d||!d.ver) return;
+    if(compareVer(d.ver,CUR_VERSION)<=0) return;
+    showUpgradePrompt(d.ver,d.size||'');
+  }).catch(function(){});
+  function compareVer(a,b){
+    var ap=a.split('.'),bp=b.split('.');
+    for(var i=0;i<Math.max(ap.length,bp.length);i++){
+      var an=parseInt(ap[i])||0,bn=parseInt(bp[i])||0;
+      if(an>bn)return 1;if(an<bn)return -1;
+    }
+    return 0;
+  }
+  function showUpgradePrompt(ver,size){
+    var l=t('upg_title'),b=t('upg_body').replace('{ver}',ver).replace('{size}',size),bu=t('upg_btn'),la=t('upg_later');
+    var ov=document.createElement('div');
+    ov.className='upg-overlay';
+    ov.innerHTML='<div class="upg-card"><div class="upg-icon">&#x1F4E6;</div><div class="upg-title">'+l+'</div><div class="upg-body">'+b+'</div><div class="upg-actions"><button class="upg-btn upg-btn-secondary" id="upg-later">'+la+'</button><button class="upg-btn upg-btn-primary" id="upg-go">'+bu+'</button></div></div>';
+    document.body.appendChild(ov);
+    document.getElementById('upg-go').onclick=function(){window.open(APK_URL,'_blank');ov.remove();};
+    document.getElementById('upg-later').onclick=function(){ov.remove();sessionStorage.setItem('upg_dismissed','1');};
+  }
+})();
 
 </script>
 <script src="api-client.js?v=13"></script>
