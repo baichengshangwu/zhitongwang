@@ -618,6 +618,9 @@ app.get('/public/ai-nexus-latest.apk', (req, res) => {
 });
 
 // ========== Static files (SPA) ==========
+// Health check endpoint for Railway keep-alive
+app.get('/health', (req, res) => { res.status(200).send('OK'); });
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('*', (req, res) => {
   // Don't serve HTML for API routes
@@ -667,7 +670,7 @@ function broadcastToUser(email, message) {
 }
 
 // ========== Start ==========
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`AI Nexus Backend running on port ${PORT}`);
   console.log(`Data directory: ${DATA_DIR}`);
 });
