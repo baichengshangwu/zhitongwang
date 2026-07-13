@@ -33,9 +33,9 @@ body{font-family:"Inter","PingFang SC","Microsoft YaHei",sans-serif;background:v
 .tut-step{display:flex;gap:10px;padding:10px;background:var(--bg2);border-radius:9px;margin-bottom:8px;border:1px solid var(--bd)}
 .tut-sn{width:26px;height:26px;border-radius:50%;background:var(--g1);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem;flex-shrink:0}
 .tut-bd{flex:1;min-width:0}.tut-tt{font-size:.8rem;font-weight:700;color:#fff;margin-bottom:2px}.tut-ds{font-size:.7rem;color:var(--t2);line-height:1.5}
-.apk-dl-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:11px 14px;background:var(--g1);color:#fff;border-radius:10px;font-weight:700;font-size:.85rem;text-decoration:none;margin-top:6px;box-shadow:0 4px 14px rgba(139,92,246,.3);transition:var(--tt);cursor:pointer;border:none;font-family:inherit}
+.app-dl-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:11px 14px;background:var(--g1);color:#fff;border-radius:10px;font-weight:700;font-size:.85rem;text-decoration:none;margin-top:6px;box-shadow:0 4px 14px rgba(139,92,246,.3);transition:var(--tt);cursor:pointer;border:none;font-family:inherit}
 .apk-dl-btn:hover{box-shadow:0 6px 22px rgba(139,92,246,.45);transform:translateY(-1px)}
-.apk-meta{display:flex;justify-content:space-between;font-size:.65rem;color:var(--t3);font-family:var(--fm);margin-top:8px;padding:6px 10px;background:var(--bg2);border-radius:7px}
+.app-dl-meta{display:flex;justify-content:space-between;font-size:.65rem;color:var(--t3);font-family:var(--fm);margin-top:8px;padding:6px 10px;background:var(--bg2);border-radius:7px}.app-platform-tabs button.active{background:var(--g1);color:#fff}.app-plat-panel{display:block}
 .ld{position:relative}.lb{display:flex;align-items:center;gap:3px;padding:5px 8px;border-radius:14px;background:transparent;border:1px solid var(--bd);color:var(--t2);font-size:.7rem;cursor:pointer;transition:var(--tt)}.lb:hover{border-color:var(--bda);color:#fff}
 .lm{display:none;position:absolute;top:115%;right:0;background:var(--bgc);border:1px solid var(--bda);border-radius:12px;padding:5px;min-width:160px;max-height:260px;overflow-y:auto;z-index:100;box-shadow:0 12px 40px rgba(0,0,0,.5)}.lm.show{display:block}
 .lmi{display:flex;align-items:center;gap:7px;padding:6px 9px;border-radius:8px;font-size:.7rem;cursor:pointer;color:var(--t2);transition:var(--tt)}.lmi:hover,.lmi.ac{background:rgba(139,92,246,.15);color:#fff}
@@ -278,20 +278,6 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 .cs-copy{background:transparent;border:1px solid var(--bd);color:var(--t3);padding:2px 7px;border-radius:5px;font-size:.6rem;cursor:pointer;margin-left:auto;flex-shrink:0;transition:var(--tt);font-family:inherit}
 .cs-copy:hover{border-color:var(--ap);color:#fff}
 @media(max-width:768px){.cs-float-btn{width:46px;height:46px;font-size:1.2rem}}
-/* ============ UPGRADE MODAL ============ */
-.upg-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.65);z-index:100000;display:flex;align-items:center;justify-content:center;animation:fadeIn .25s ease}
-.upg-card{background:var(--bg);border:1px solid var(--b2);border-radius:16px;padding:24px 20px;max-width:340px;width:90%;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.4)}
-.upg-icon{font-size:2.4rem;margin-bottom:10px}
-.upg-title{font-size:1.05rem;font-weight:700;color:var(--t1);margin-bottom:8px}
-.upg-body{font-size:.82rem;color:var(--t2);line-height:1.5;margin-bottom:20px}
-.upg-body b{color:var(--ap)}
-.upg-actions{display:flex;gap:10px;justify-content:center}
-.upg-btn{padding:10px 24px;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;border:none;transition:all .2s}
-.upg-btn-primary{background:var(--ap);color:#fff}
-.upg-btn-primary:hover{filter:brightness(1.15)}
-.upg-btn-secondary{background:var(--b1);color:var(--t2)}
-.upg-btn-secondary:hover{background:var(--b2)}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 </style>
 
 <style>@keyframes pulse{0%,100%{opacity:0.4;transform:scaleY(0.6)}50%{opacity:1;transform:scaleY(1.4)}}</style></head>
@@ -1251,24 +1237,53 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 <!-- ============ APP DOWNLOAD MODAL ============ -->
 <div class="mo" id="mo-app-dl"><div class="mod">
   <h3>⬇ <span data-key="appdltt">AI Nexus APP</span></h3>
-  <p style="color:var(--t2);font-size:.78rem" data-key="appdlds2">v2.0 · 安卓 APK · 4.1 MB</p>
-  <div style="background:var(--bg2);border-radius:var(--r);padding:14px;margin:12px 0;text-align:center">
-    <div style="font-size:2.4rem;margin-bottom:6px">📱</div>
-    <div style="font-weight:700;font-size:.9rem;margin-bottom:4px" data-key="appdlname">AI Nexus 移动端 v2.0</div>
-    <div style="font-size:.65rem;color:var(--t3);font-family:var(--fm)" data-key="appdlver">版本 2.0 · Android 8.0+</div>
+  <p style="color:var(--t2);font-size:.78rem" data-key="appdlds2">v2.0 · 安卓 / 苹果 · 双平台</p>
+
+  <div class="app-platform-tabs" style="display:flex;gap:4px;margin-bottom:12px;background:var(--bg2);border-radius:10px;padding:4px">
+    <button class="app-plat-tab active" data-plat="android" onclick="switchAppPlatform('android')" style="flex:1;padding:9px 6px;border:none;background:var(--g1);color:#fff;border-radius:8px;font-weight:700;font-size:.78rem;cursor:pointer;transition:var(--tt)"><span data-key="appdl_android_tab">安卓 Android</span></button>
+    <button class="app-plat-tab" data-plat="ios" onclick="switchAppPlatform('ios')" style="flex:1;padding:9px 6px;border:none;background:transparent;color:var(--t2);border-radius:8px;font-weight:700;font-size:.78rem;cursor:pointer;transition:var(--tt)"><span data-key="appdl_ios_tab">苹果 iOS</span></button>
   </div>
-  <div style="background:var(--bg2);border-radius:var(--r);padding:12px;margin-bottom:12px;font-size:.7rem;color:var(--t2);line-height:1.6">
-    <div data-key="appdlfeat1">✅ P2P 电算协同挂售交易</div>
-    <div data-key="appdlfeat2">✅ 15 语种 i18n 实时切换</div>
-    <div data-key="appdlfeat3">✅ 离线缓存 · 一键安装</div>
+
+  <div class="app-plat-panel" id="app-panel-android">
+    <div style="background:var(--bg2);border-radius:var(--r);padding:14px;margin-bottom:12px;text-align:center">
+      <div style="font-size:2.4rem;margin-bottom:6px">📱</div>
+      <div style="font-weight:700;font-size:.9rem;margin-bottom:4px" data-key="appdlname">AI Nexus 移动端 v2.0</div>
+      <div style="font-size:.65rem;color:var(--t3);font-family:var(--fm)" data-key="appdlver">版本 2.0 · Android 8.0+</div>
+    </div>
+    <div style="background:var(--bg2);border-radius:var(--r);padding:12px;margin-bottom:12px;font-size:.7rem;color:var(--t2);line-height:1.6">
+      <div data-key="appdlfeat1">✅ P2P 电算协同挂售交易</div>
+      <div data-key="appdlfeat2">✅ 15 语种 i18n 实时切换</div>
+      <div data-key="appdlfeat3">✅ 离线缓存 · APK 一键安装</div>
+    </div>
+    <a id="app-dl-link" class="app-dl-btn" href="https://raw.githubusercontent.com/baichengshangwu/zhitongwang/main/public/ai-nexus-latest.apk" target="_blank" rel="noopener" onclick="try{gtag&amp;&amp;gtag('event','app_download_click',{platform:'android'});}catch(e){}">
+      <span>⬇</span> <span data-key="appdlbtn">下载 APK (4.1 MB)</span>
+    </a>
+    <div class="app-dl-meta">
+      <span data-key="appdlplat">Android 8.0+</span>
+      <span>4.1 MB</span>
+    </div>
   </div>
-  <a id="app-dl-link" class="apk-dl-btn" href="https://raw.githubusercontent.com/baichengshangwu/zhitongwang/main/public/ai-nexus-latest.apk" target="_blank" rel="noopener" onclick="try{gtag&amp;&amp;gtag('event','app_download_click');}catch(e){}">
-    <span>⬇</span> <span data-key="appdlbtn">下载 APK (4.1 MB)</span>
-  </a>
-  <div class="apk-meta">
-    <span data-key="appdlplat">Android 8.0+</span>
-    <span>4.1 MB</span>
+
+  <div class="app-plat-panel" id="app-panel-ios" style="display:none">
+    <div style="background:var(--bg2);border-radius:var(--r);padding:14px;margin-bottom:12px;text-align:center">
+      <div style="font-size:2.4rem;margin-bottom:6px">📱</div>
+      <div style="font-weight:700;font-size:.9rem;margin-bottom:4px" data-key="appdliosname">AI Nexus iOS v2.0</div>
+      <div style="font-size:.65rem;color:var(--t3);font-family:var(--fm)" data-key="appdliosver">版本 2.0 · iOS 14.0+</div>
+    </div>
+    <div style="background:var(--bg2);border-radius:var(--r);padding:12px;margin-bottom:12px;font-size:.7rem;color:var(--t2);line-height:1.6">
+      <div data-key="appdliosfeat1">✅ P2P 电算协同挂售交易</div>
+      <div data-key="appdliosfeat2">✅ 15 语种 i18n 实时切换</div>
+      <div data-key="appdliosfeat3">✅ 离线缓存 · 企业签名分发</div>
+    </div>
+    <a id="app-dl-link-ios" class="app-dl-btn" href="https://raw.githubusercontent.com/baichengshangwu/zhitongwang/main/public/ai-nexus-latest.ipa" target="_blank" rel="noopener" onclick="try{gtag&amp;&amp;gtag('event','app_download_click',{platform:'ios'});}catch(e){}">
+      <span>⬇</span> <span data-key="appdliosbtn">下载 IPA (企业签名)</span>
+    </a>
+    <div class="app-dl-meta">
+      <span data-key="appdliosplat">iOS 14.0+</span>
+      <span>5.8 MB</span>
+    </div>
   </div>
+
   <div class="br2"><button class="btn bo" data-key="mcancel" onclick="cma()">取消</button></div>
 </div></div>
 
@@ -4169,7 +4184,6 @@ const TICKERS = [
 // ============ STATE ============
 let curUser = null;
 let curLang = 'zh';
-const CUR_VERSION = '2.0';
 let curPage = 'market';
 let curListing = null;
 let confirmCB = null;
@@ -6514,7 +6528,7 @@ de:{zh:"销售模式",en:"Sale Mode",ja:"販売モード",ko:"판매 모드",es:
   appdlfeat2:{zh:'✅ 15 语种 i18n 实时切换',en:'✅ 15-language i18n real-time switch',ja:'✅ 15言語 i18n リアルタイム切替',ko:'✅ 15개 언어 i18n 실시간 전환',es:'✅ Cambio en tiempo real 15 idiomas i18n',fr:'✅ Commutation temps réel 15 langues i18n',de:'✅ 15-Sprachen i18n Echtzeit-Wechsel',pt:'✅ Comutação em tempo real 15 idiomas i18n',ru:'✅ 15 языков i18n в реальном времени',it:'✅ Commutazione tempo reale 15 lingue i18n',ar:'✅ تبديل فوري 15 لغة i18n',hi:'✅ 15 भाषा i18n रियल-टाइम स्विच',th:'✅ สลับ 15 ภาษา i18n แบบเรียลไทม์',vi:'✅ Chuyển đổi thời gian thực 15 ngôn ngữ i18n',id:'✅ 15 bahasa i18n切换实时'},
   appdlfeat3:{zh:'✅ 离线缓存 · 一键安装',en:'✅ Offline cache · one-click install',ja:'✅ オフラインキャッシュ · ワンクリックインストール',ko:'✅ 오프라인 캐시 · 원클릭 설치',es:'✅ Caché sin conexión · instalación con un clic',fr:'✅ Cache hors ligne · installation en un clic',de:'✅ Offline-Cache · Ein-Klick-Installation',pt:'✅ Cache offline · instalação com um clique',ru:'✅ Офлайн кэш · установка в один клик',it:'✅ Cache offline · installazione con un clic',ar:'✅ ذاكرة التخزين المؤقت دون اتصال · تثبيت بنقرة واحدة',hi:'✅ ऑफलाइन कैश · एक क्लिक इंस्टॉल',th:'✅ แคชออฟไลน์ · ติดตั้งคลิกเดียว',vi:'✅ Bộ nhớ đệm ngoại tuyến · cài đặt một cú nhấp',id:'✅ Cache offline · instalasi satu klik'},
   appdlbtn:{zh:'下载 APK',en:'Download APK',ja:'APK ダウンロード',ko:'APK 다운로드',es:'Descargar APK',fr:'Télécharger APK',de:'APK herunterladen',pt:'Baixar APK',ru:'Скачать APK',it:'Scarica APK',ar:'تحميل APK',hi:'APK डाउनलोड करें',th:'ดาวน์โหลด APK',vi:'Tải xuống APK',id:'Unduh APK'},
-  appdlplat:{zh:'Android 8.0+',en:'Android 8.0+',ja:'Android 8.0+',ko:'Android 8.0+',es:'Android 8.0+',fr:'Android 8.0+',de:'Android 8.0+',pt:'Android 8.0+',ru:'Android 8.0+',it:'Android 8.0+',ar:'أندرويد 8.0+',hi:'Android 8.0+',th:'Android 8.0+',vi:'Android 8.0+',id:'Android 8.0+'},
+  appdlplat:{zh:'Android 8.0+',en:'Android 8.0+',ja:'Android 8.0+',ko:'Android 8.0+',es:'Android 8.0+',fr:'Android 8.0+',de:'Android 8.0+',pt:'Android 8.0+',ru:'Android 8.0+',it:'Android 8.0+',ar:'أندرويد 8.0+',hi:'Android 8.0+',th:'Android 8.0+',vi:'Android 8.0+',id:'Android 8.0+'},appdliosname:{zh:'AI Nexus iOS v2.0',en:'AI Nexus iOS v2.0',ja:'AI Nexus iOS v2.0',ko:'AI Nexus iOS v2.0',es:'AI Nexus iOS v2.0',fr:'AI Nexus iOS v2.0',de:'AI Nexus iOS v2.0',pt:'AI Nexus iOS v2.0',ru:'AI Nexus iOS v2.0',it:'AI Nexus iOS v2.0',ar:'AI Nexus iOS v2.0',hi:'AI Nexus iOS v2.0',th:'AI Nexus iOS v2.0',vi:'AI Nexus iOS v2.0',id:'AI Nexus iOS v2.0'},appdliosver:{zh:'版本 2.0 · iOS 14.0+',en:'Version 2.0 · iOS 14.0+',ja:'バージョン 2.0 · iOS 14.0+',ko:'버전 2.0 · iOS 14.0+',es:'Versión 2.0 · iOS 14.0+',fr:'Version 2.0 · iOS 14.0+',de:'Version 2.0 · iOS 14.0+',pt:'Versão 2.0 · iOS 14.0+',ru:'Версия 2.0 · iOS 14.0+',it:'Versione 2.0 · iOS 14.0+',ar:'الإصدار 2.0 · iOS 14.0+',hi:'संस्करण 2.0 · iOS 14.0+',th:'เวอร์ชัน 2.0 · iOS 14.0+',vi:'Phiên bản 2.0 · iOS 14.0+',id:'Versi 2.0 · iOS 14.0+'},appdliosbtn:{zh:'下载 IPA (企业签名)',en:'Download IPA (Enterprise)',ja:'IPAをダウンロード (企業署名)',ko:'IPA 다운로드 (엔터프라이즈)',es:'Descargar IPA (Empresarial)',fr:'Télécharger IPA (Entreprise)',de:'IPA herunterladen (Enterprise)',pt:'Baixar IPA (Empresarial)',ru:'Скачать IPA (Enterprise)',it:'Scarica IPA (Aziendale)',ar:'تحميل IPA (مؤسسة)',hi:'IPA डाउनलोड करें (एंटरप्राइज)',th:'ดาวน์โหลด IPA (องค์กร)',vi:'Tải IPA (Doanh nghiệp)',id:'Unduh IPA (Perusahaan)'},appdliosplat:{zh:'iOS 14.0+',en:'iOS 14.0+',ja:'iOS 14.0+',ko:'iOS 14.0+',es:'iOS 14.0+',fr:'iOS 14.0+',de:'iOS 14.0+',pt:'iOS 14.0+',ru:'iOS 14.0+',it:'iOS 14.0+',ar:'iOS 14.0+',hi:'iOS 14.0+',th:'iOS 14.0+',vi:'iOS 14.0+',id:'iOS 14.0+'},appdliosfeat1:{zh:'✅ P2P 电算协同挂售交易',en:'\u2705 P2P Compute Co-op Trading',ja:'\u2705 P2P 計算協調取引',ko:'\u2705 P2P 전산 협동 거래',es:'\u2705 Comercio cooperativo P2P',fr:'\u2705 Trading coopératif P2P',de:'\u2705 P2P Co-Computing Handel',pt:'\u2705 Comércio cooperativo P2P',ru:'\u2705 P2P совместные торги',it:'\u2705 Trading cooperativo P2P',ar:'\u2705 تداول تعاوني P2P',hi:'\u2705 P2P सहकारी व्यापार',th:'\u2705 การซื้อขายแบบร่วมมือ P2P',vi:'\u2705 Giao dịch hợp tác P2P',id:'\u2705 Perdagangan kooperatif P2P'},appdliosfeat2:{zh:'✅ 15 语种 i18n 实时切换',en:'\u2705 15-Language i18n Real-time Switch',ja:'\u2705 15言語 i18n リアルタイム切替',ko:'\u2705 15개 언어 i18n 실시간 전환',es:'\u2705 15 idiomas i18n en tiempo real',fr:'\u2705 15 langues i18n en temps réel',de:'\u2705 15 Sprachen i18n Echtzeit-Wechsel',pt:'\u2705 15 idiomas i18n em tempo real',ru:'\u2705 15 языков i18n в реальном времени',it:'\u2705 15 lingue i18n in tempo reale',ar:'\u2705 15 لغة i18n تبديل فوري',hi:'\u2705 15 भाषा i18n रीयल-टाइम स्विच',th:'\u2705 15 ภาษา i18n สลับเรียลไทม์',vi:'\u2705 15 ngôn ngữ i18n chuyển đổi thời gian thực',id:'\u2705 15 Bahasa i18n Ganti Real-time'},appdliosfeat3:{zh:'✅ 离线缓存 · 企业签名分发',en:'\u2705 Offline Cache · Enterprise Signing',ja:'\u2705 オフラインキャッシュ · 企業署名配布',ko:'\u2705 오프라인 캐시 · 엔터프라이즈 서명',es:'\u2705 Caché offline · Firma empresarial',fr:'\u2705 Cache hors ligne · Signature entreprise',de:'\u2705 Offline-Cache · Enterprise-Signierung',pt:'\u2705 Cache offline · Assinatura empresarial',ru:'\u2705 Офлайн-кэш · Корпоративная подпись',it:'\u2705 Cache offline · Firma aziendale',ar:'\u2705 ذاكرة تخزين دون اتصال · توقيع مؤسسي',hi:'\u2705 ऑफलाइन कैश · एंटरप्राइज साइनिंग',th:'\u2705 แคชออฟไลน์ · การเซ็นชื่อองค์กร',vi:'\u2705 Bộ nhớ đệm ngoại tuyến · Ký doanh nghiệp',id:'\u2705 Cache Offline · Penandatanganan Enterprise'},appdl_android_tab:{zh:'安卓 Android',en:'Android',ja:'Android',ko:'Android',es:'Android',fr:'Android',de:'Android',pt:'Android',ru:'Android',it:'Android',ar:'أندرويد',hi:'एंड्रॉइड',th:'แอนดรอยด์',vi:'Android',id:'Android'},appdl_ios_tab:{zh:'苹果 iOS',en:'iOS',ja:'iOS',ko:'iOS',es:'iOS',fr:'iOS',de:'iOS',pt:'iOS',ru:'iOS',it:'iOS',ar:'آيفون',hi:'iOS',th:'iOS',vi:'iOS',id:'iOS'},appdlbtn2:{zh:'下载 APP',en:'Download APP',ja:'アプリをダウンロード',ko:'앱 다운로드',es:'Descargar APP',fr:'Télécharger l\'APP',de:'APP herunterladen',pt:'Baixar APP',ru:'Скачать приложение',it:'Scarica APP',ar:'تحميل التطبيق',hi:'ऐप डाउनलोड करें',th:'ดาวน์โหลดแอป',vi:'Tải ứng dụng',id:'Unduh Aplikasi'},
   tuttt:{zh:'安装使用教程',en:'Installation & Usage Guide',ja:'インストールと使用方法',ko:'설치 및 사용 안내',es:'Guía de instalación y uso',fr:'Guide d\'installation et d\'utilisation',de:'Installations- und Nutzungsanleitung',pt:'Guia de instalação e uso',ru:'Руководство по установке',it:'Guida all\'installazione e all\'uso',ar:'دليل التثبيت والاستخدام',hi:'इंस्टॉलेशन और उपयोग गाइड',th:'คู่มือการติดตั้งและใช้งาน',vi:'Hướng dẫn cài đặt và sử dụng',id:'Panduan instalasi dan penggunaan'},
   tutds:{zh:'三步即可上手 · 全功能离线可用',en:'3 steps to get started · full features offline',ja:'3ステップで開始 · すべての機能がオフラインで利用可能',ko:'3단계로 시작 · 모든 기능 오프라인 사용 가능',es:'3 pasos para empezar · todas las funciones sin conexión',fr:'3 étapes pour commencer · toutes les fonctionnalités hors ligne',de:'3 Schritte zum Starten · alle Funktionen offline',pt:'3 passos para começar · todos os recursos offline',ru:'3 шага для начала · все функции офлайн',it:'3 passi per iniziare · tutte le funzioni offline',ar:'3 خطوات للبدء · جميع الميزات دون اتصال',hi:'3 चरणों में शुरू करें · सभी सुविधाएँ ऑफ़लाइन',th:'3 ขั้นตอนในการเริ่มต้น · คุณสมบัติทั้งหมดออฟไลน์',vi:'3 bước để bắt đầu · tất cả tính năng ngoại tuyến',id:'3 langkah untuk memulai · semua fitur offline'},
   tutstep1t:{zh:'步骤 1: 下载 APK',en:'Step 1: Download APK',ja:'ステップ 1: APKをダウンロード',ko:'1단계: APK 다운로드',es:'Paso 1: Descargar APK',fr:'Étape 1: Télécharger APK',de:'Schritt 1: APK herunterladen',pt:'Passo 1: Baixar APK',ru:'Шаг 1: Скачать APK',it:'Passo 1: Scarica APK',ar:'الخطوة 1: تحميل APK',hi:'चरण 1: APK डाउनलोड करें',th:'ขั้นตอนที่ 1: ดาวน์โหลด APK',vi:'Bước 1: Tải xuống APK',id:'Langkah 1: Unduh APK'},
@@ -6605,10 +6619,6 @@ fmpub:'Pubblica',fmpub_tw:'Pubblica Articolo',fmpub_sp:'Pubblica Video',fmpub_ac
   alert_sub_ok:{zh:'订阅成功!',en:'Subscribed!',ja:'購読完了!',ko:'구독 완료!',es:'¡Suscrito!',fr:'Abonné!',de:'Abonniert!',pt:'Assinado!',ru:'Подписка оформлена!',it:'Abbonato!',ar:'تم الاشتراك!',hi:'सदस्यता सफल!',th:'สมัครแล้ว!',vi:'Đã đăng ký!',id:'Berlangganan!'},
   alert_insuf_vault:{zh:'存库包余额不足',en:'Insufficient vault balance',ja:'保管庫残高不足',ko:'보관소 잔액 부족',es:'Saldo de bóveda insuficiente',fr:'Solde du coffre insuffisant',de:'Unzureichendes Tresorguthaben',pt:'Saldo do cofre insuficiente',ru:'Недостаточно в хранилище',it:'Saldo cassaforte insufficiente',ar:'رصيد الخزنة غير كاف',hi:'तिजोरी शेष अपर्याप्त',th:'ยอดในตู้นิรภัยไม่เพียงพอ',vi:'Số dư kho không đủ',id:'Saldo brankas tidak cukup'},
   promo_empty:{zh:'推广页面建设中',en:'Promotion page under construction',ja:'プロモーションページ建設中',ko:'프로모션 페이지 준비 중',es:'Página de promoción en construcción',fr:'Page promotion en construction',de:'Promotionsseite im Aufbau',pt:'Página promocional em construção',ru:'Страница продвижения в разработке',it:'Pagina promozionale in costruzione',ar:'صفحة الترويج قيد الإنشاء',hi:'प्रचार पृष्ठ निर्माणाधीन',th:'หน้าโปรโมชั่นอยู่ระหว่างดำเนินการ',vi:'Trang quảng bá đang xây dựng',id:'Halaman promosi sedang dibangun',listing_seller:'Venditore',listing_rating:'Valutazione',listing_sold:'Venduto',listing_qty:'Qtà',all_tools:'Tutti',no_listings:'Nessun annuncio',no_active_listings:'Nessuna attiva',p2pCvt:'Conversione (Token/MWh)',p2pMode:'Modalità',p2pSrc:'Fonte',p2pReg:'Regione',p2pSla:'Livello SLA',p2pUnit:'Unità',p2pChain:'Energia→Calcolo→Servizio',p2p4s1:'Materia prima',p2p4s2:'Lavorazione',p2p4s3:'Prodotto',p2p4s4:'Vendite',p2pDemo:'Es: 1 MWh carbone → 240M Token @ $0.20/MTok = $48',p2pCreate:'Pubblica annuncio',p2pmode:'Modalità di vendita',p2pUTok:'Energia→Token',p2pPrdSub:'Cluster API / GPU',p2pmToken:'Token a consumo',p2pmMonth:'Abbonamento mensile',p2pmYear:'Abbonamento annuale',p2pmGpu:'Noleggio GPU',p2pSrcCoal:'Carbone/Termico',p2pSrcWind:'Eolico',p2pSrcSolar:'Solare',p2pSrcHydro:'Idro',p2pSrcMix:'Mix verde',p2pRegW:'Ovest',p2pRegX:'Xinjiang',p2pRegY:'Delta dello Yangtze',p2pRegP:'Delta del Fiume delle Perle',p2pRegO:'Estero',p2p_sla_std:'Standard 99.9%',p2p_sla_ent:'Enterprise 99.95%',p2p_sla_crit:'Critico 99.99%',p2p_unit_mtok:'Milione Token',p2p_unit_gpu:'GPU·ora',p2p_mode_token:'Token a consumo',p2p_mode_month:'Mensile',p2p_mode_year:'Annuale',p2p_mode_gpu:'Noleggio GPU',p2p_src_mix:'Mix verde',p2p_src_wind:'Eolico',p2p_src_solar:'Solare',p2p_src_coal:'Carbone/Termico',p2p_reg_west:'Ovest',p2p_reg_yrd:'Delta Yangtze',p2p_reg_prd:'Delta Perla',p2p_reg_overseas:'Estero',p2p_reg_xj:'Xinjiang',p2pSrcCoal2:'Carbone/Termico',p2pSrcWind2:'Eolico',p2pSrcSolar2:'Solare',p2pSrcHydro2:'Idro',p2pSrcMix2:'Mix verde',enter_valid_price:'Inserisci prezzo valido',pub_cancel:'Annulla',category:'Categoria',not_available:'N/D',free:'Gratuito',sc_post_cancel:'Annulla'},
-  upg_title:{zh:'发现新版本',en:'New Version',ja:'新しいバージョン',ko:'새 버전',es:'Nueva versión',fr:'Nouvelle version',de:'Neue Version',pt:'Nova versão',ru:'Новая версия',it:'Nuova versione',ar:'إصدار جديد',hi:'नया संस्करण',th:'เวอร์ชันใหม่',vi:'Phiên bản mới',id:'Versi baru'},
-  upg_body:{zh:'发现新版本 v{ver}（{size}），建议立即更新。',en:'New version v{ver} ({size}) available. Update now.',ja:'v{ver}（{size}）が利用可能です。今すぐ更新。',ko:'v{ver}({size}) 사용 가능. 지금 업데이트하세요.',es:'v{ver} ({size}) disponible. Actualice ahora.',fr:'v{ver} ({size}) disponible. Mettez à jour.',de:'v{ver} ({size}) verfügbar. Jetzt aktualisieren.',pt:'v{ver} ({size}) disponível. Atualize agora.',ru:'v{ver} ({size}) доступна. Обновите сейчас.',it:'v{ver} ({size}) disponibile. Aggiorna ora.',ar:'v{ver} ({size}) متاح. حدث الآن.',hi:'v{ver} ({size}) उपलब्ध है। अभी अपडेट करें।',th:'v{ver} ({size}) พร้อมใช้งาน อัปเดตตอนนี้',vi:'v{ver} ({size}) đã có. Cập nhật ngay.',id:'v{ver} ({size}) tersedia. Perbarui sekarang.'},
-  upg_btn:{zh:'立即更新',en:'Update',ja:'更新',ko:'업데이트',es:'Actualizar',fr:'Mise à jour',de:'Update',pt:'Atualizar',ru:'Обновить',it:'Aggiorna',ar:'تحديث',hi:'अपडेट',th:'อัปเดต',vi:'Cập nhật',id:'Perbarui'},
-  upg_later:{zh:'稍后',en:'Later',ja:'後で',ko:'나중에',es:'Luego',fr:'Après',de:'Später',pt:'Depois',ru:'Позже',it:'Dopo',ar:'لاحقاً',hi:'बाद में',th:'ภายหลัง',vi:'Để sau',id:'Nanti'},
 };
 
 // ============ LANGUAGE ============
@@ -11074,36 +11084,6 @@ function htmlEscape(s){var d=document.createElement('div');d.textContent=s;retur
 
 // ============ INIT ============
 console.log('[PUB] Publish system loaded. Tools:',PUB.tools.length,'P2P:',PUB.p2p.length,'Events:',PUB.events.length);
-
-// ============ VERSION CHECK ============
-(function(){
-  var VER_URL = 'https://baichengshangwu.github.io/zhitongwang/version.json';
-  var APK_URL = 'https://raw.githubusercontent.com/baichengshangwu/zhitongwang/main/public/ai-nexus-latest.apk';
-  var dismissed = sessionStorage.getItem('upg_dismissed');
-  if(dismissed) return;
-  fetch(VER_URL+'?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
-    if(!d||!d.ver) return;
-    if(compareVer(d.ver,CUR_VERSION)<=0) return;
-    showUpgradePrompt(d.ver,d.size||'');
-  }).catch(function(){});
-  function compareVer(a,b){
-    var ap=a.split('.'),bp=b.split('.');
-    for(var i=0;i<Math.max(ap.length,bp.length);i++){
-      var an=parseInt(ap[i])||0,bn=parseInt(bp[i])||0;
-      if(an>bn)return 1;if(an<bn)return -1;
-    }
-    return 0;
-  }
-  function showUpgradePrompt(ver,size){
-    var l=t('upg_title'),b=t('upg_body').replace('{ver}',ver).replace('{size}',size),bu=t('upg_btn'),la=t('upg_later');
-    var ov=document.createElement('div');
-    ov.className='upg-overlay';
-    ov.innerHTML='<div class="upg-card"><div class="upg-icon">&#x1F4E6;</div><div class="upg-title">'+l+'</div><div class="upg-body">'+b+'</div><div class="upg-actions"><button class="upg-btn upg-btn-secondary" id="upg-later">'+la+'</button><button class="upg-btn upg-btn-primary" id="upg-go">'+bu+'</button></div></div>';
-    document.body.appendChild(ov);
-    document.getElementById('upg-go').onclick=function(){window.open(APK_URL,'_blank');ov.remove();};
-    document.getElementById('upg-later').onclick=function(){ov.remove();sessionStorage.setItem('upg_dismissed','1');};
-  }
-})();
 
 </script>
 <script src="api-client.js?v=13"></script>
