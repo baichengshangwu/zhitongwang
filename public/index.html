@@ -629,6 +629,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <p id="paypal-modal-desc" data-key="ppagent_desc">One-time payment of $199 to join the AI Nexus Partner Program and earn 50% recurring commission.</p>
   <div id="paypal-modal-price" style="font-size:1.5rem;font-weight:800;font-family:var(--fm);color:var(--ap);margin-bottom:14px">$199.00</div>
   <div id="paypal-container-EJC58LA49LNM2" class="aj-paypal-btn" style="display:flex;justify-content:center;align-items:center;margin-bottom:14px;min-height:45px;max-width:100%;overflow:hidden"><span style="color:var(--t3);font-size:.7rem;padding:10px;text-align:center" id="paypal-fallback" data-key="paypal_loading">PayPal button loading... Please wait or refresh.</span></div>
+  <a id="paypal-direct-btn" href="https://www.paypal.com/ncp/payment/EJC58LA49LNM2" target="_blank" rel="noopener" style="display:block;text-align:center;padding:10px 20px;margin-bottom:14px;background:linear-gradient(135deg,#0070ba,#1546a0);color:#fff;border-radius:8px;text-decoration:none;font-weight:700;font-size:.85rem">Pay with PayPal</a>
   <div class="br2"><button class="btn bo" onclick="document.getElementById('paypal-donate-modal').classList.remove('show')" data-key="mcancel">Cancel</button></div>
 </div></div>
 
@@ -4278,30 +4279,34 @@ function openPaypalBtn(n){
   var desc=document.getElementById('paypal-modal-desc');
   var price=document.getElementById('paypal-modal-price');
   var container=document.getElementById('paypal-container-EJC58LA49LNM2');
+  var directBtn=document.getElementById('paypal-direct-btn');
+  var fallback=document.getElementById('paypal-fallback');
   if(n===0){
     title.setAttribute('data-key','ppagent');
     desc.setAttribute('data-key','ppagent_desc');
     price.textContent = '$199.00';
-    container.style.display = 'flex';
-    // Render PayPal hosted button
+    container.style.display = 'none';
+    directBtn.style.display = 'block';
+    directBtn.textContent = 'Pay Now - $199';
+    // Try render PayPal hosted button
     if(typeof paypal !== 'undefined' && paypal.HostedButtons){
+      container.style.display = 'flex';
       container.innerHTML = '';
+      directBtn.style.display = 'none';
       paypal.HostedButtons({hostedButtonId:'EJC58LA49LNM2',style:{layout:'horizontal',color:'blue',shape:'rect',label:'paypal'}}).render('#paypal-container-EJC58LA49LNM2');
-    } else {
-      // PayPal SDK not available - show direct payment link fallback
-      container.innerHTML = '<a href="https://www.paypal.com/ncp/payment/EJC58LA49LNM2" target="_blank" rel="noopener" style="display:inline-block;padding:8px 28px;background:linear-gradient(135deg,#0070ba,#1546a0);color:#fff;border-radius:999px;text-decoration:none;font-weight:700;font-size:.82rem">Pay Now - $199</a>';
     }
   } else {
     title.setAttribute('data-key','ppdonate');
     desc.setAttribute('data-key','ppdonate_desc');
     price.textContent = '';
-    container.style.display = 'flex';
-    // Render PayPal hosted button for donate
+    container.style.display = 'none';
+    directBtn.style.display = 'block';
+    directBtn.textContent = 'Donate via PayPal';
     if(typeof paypal !== 'undefined' && paypal.HostedButtons){
+      container.style.display = 'flex';
       container.innerHTML = '';
+      directBtn.style.display = 'none';
       paypal.HostedButtons({hostedButtonId:'EJC58LA49LNM2',style:{layout:'horizontal',color:'blue',shape:'rect',label:'paypal'}}).render('#paypal-container-EJC58LA49LNM2');
-    } else {
-      container.innerHTML = '<a href="https://www.paypal.com/ncp/payment/EJC58LA49LNM2" target="_blank" rel="noopener" style="display:inline-block;padding:8px 28px;background:linear-gradient(135deg,#0070ba,#1546a0);color:#fff;border-radius:999px;text-decoration:none;font-weight:700;font-size:.82rem">Donate via PayPal</a>';
     }
   }
   // Apply translation to all data-key elements inside modal
