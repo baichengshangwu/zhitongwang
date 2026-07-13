@@ -4281,8 +4281,8 @@ function openPaypalBtn(n){
     if(typeof paypal !== 'undefined' && paypal.HostedButtons){
       container.innerHTML = '';
       paypal.HostedButtons({hostedButtonId:'EJC58LA49LNM2',style:{layout:'horizontal',color:'blue',shape:'rect',label:'paypal'}}).render('#paypal-container-EJC58LA49LNM2');
-    } else if(!window.paypalLoaded){
-      // PayPal SDK blocked (GFW) - show direct payment link fallback
+    } else {
+      // PayPal SDK not available - show direct payment link fallback
       container.innerHTML = '<a href="https://www.paypal.com/ncp/payment/EJC58LA49LNM2" target="_blank" rel="noopener" style="display:inline-block;padding:8px 28px;background:linear-gradient(135deg,#0070ba,#1546a0);color:#fff;border-radius:999px;text-decoration:none;font-weight:700;font-size:.82rem">Pay Now - $199</a>';
     }
   } else {
@@ -4294,7 +4294,7 @@ function openPaypalBtn(n){
     if(typeof paypal !== 'undefined' && paypal.HostedButtons){
       container.innerHTML = '';
       paypal.HostedButtons({hostedButtonId:'EJC58LA49LNM2',style:{layout:'horizontal',color:'blue',shape:'rect',label:'paypal'}}).render('#paypal-container-EJC58LA49LNM2');
-    } else if(!window.paypalLoaded){
+    } else {
       container.innerHTML = '<a href="https://www.paypal.com/ncp/payment/EJC58LA49LNM2" target="_blank" rel="noopener" style="display:inline-block;padding:8px 28px;background:linear-gradient(135deg,#0070ba,#1546a0);color:#fff;border-radius:999px;text-decoration:none;font-weight:700;font-size:.82rem">Donate via PayPal</a>';
     }
   }
@@ -7579,6 +7579,7 @@ function switchCommunityCat(catId){
   renderCommunitySubs();
   renderCommunityPosts();
   setTimeout(function(){try{applyI18N();}catch(e){}},30);
+  setTimeout(function(){try{translateCommunityContent();}catch(e){}},120);
 }
 
 function switchCommunitySub(subId){
@@ -7586,6 +7587,7 @@ function switchCommunitySub(subId){
   renderCommunitySubs();
   renderCommunityPosts();
   setTimeout(function(){try{applyI18N();}catch(e){}},30);
+  setTimeout(function(){try{translateCommunityContent();}catch(e){}},120);
 }
 
 function renderCommunityPosts(){
