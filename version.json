@@ -1,1 +1,8 @@
-{"ver":"2.0","size":"4.1 MB","url":"https://raw.githubusercontent.com/baichengshangwu/zhitongwang/main/public/ai-nexus-latest.apk"}
+{
+  "ver": "2.0",
+  "size": "4.1 MB",
+  "url": "https://raw.githubusercontent.com/baichengshangwu/zhitongwang/main/public/ai-nexus-latest.apk",
+  "ios_ver": "2.0",
+  "ios_size": "5.8 MB",
+  "ios_url": "https://raw.githubusercontent.com/baichengshangwu/zhitongwang/main/public/ai-nexus-latest.ipa"
+}
