@@ -251,6 +251,13 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 .btn-shimmer::before{content:'';position:absolute;top:0;left:0;width:60px;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:skewX(-20deg);animation:shim 2.2s ease-in-out infinite}
 .btn-shimmer:hover{transform:scale(1.05)}
 @media(max-width:768px){.btn-shimmer{font-size:.74rem;padding:8px 36px;letter-spacing:1px}}
+/* Payment spinner */
+@keyframes pay-spin{100%{transform:rotate(360deg)}}
+.btn-spinning{pointer-events:none;opacity:.7;position:relative}
+.btn-spinning::after{content:'';display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.25);border-radius:50%;border-top-color:#fff;animation:pay-spin .65s linear infinite;margin-left:7px;vertical-align:middle;flex-shrink:0}
+.btn-shimmer.btn-spinning{animation:grad-move 3s ease infinite!important}
+.btn-shimmer.btn-spinning::before{display:none}
+.bo.btn-spinning::after{border-top-color:var(--ap)}
 
 /* Agent Page Enhancement */
 .ag-hero-enh{background:linear-gradient(160deg,rgba(30,10,50,.6),rgba(10,20,40,.6),rgba(15,10,35,.6));border:1.5px solid rgba(139,92,246,.25);border-radius:18px;padding:28px 20px;margin-bottom:14px;position:relative;overflow:hidden;text-align:center}
@@ -700,7 +707,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
     </div>
   </div>
   <div class="card" style="margin-top:8px"><div class="ch"><div class="ct" data-key="dkc">KYC 验证</div></div>
-    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span id="kyc-level" style="font-weight:700;font-size:.9rem;padding:4px 10px;border-radius:8px" data-key="kyc_bronze">铜牌</span><span id="kyc-desc" style="color:var(--t2);font-size:.73rem" data-key="kycd">完成 KYC 验证以解锁更高交易限额</span><button class="btn bo bs" onclick="startKYC()" data-key="kycb">升级 KYC</button></div>
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span id="kyc-level" style="font-weight:700;font-size:.9rem;padding:4px 10px;border-radius:8px" data-key="kyc_bronze">铜牌</span><span id="kyc-desc" style="color:var(--t2);font-size:.73rem" data-key="kycd">完成 KYC 验证以解锁更高交易限额</span><button class="btn bo bs" onclick="startKYC(event)" data-key="kycb">升级 KYC</button></div>
   </div>
   <div class="card" style="margin-top:8px"><div class="ch"><div class="ct" data-key="dwl">钱包</div></div>
     <div class="ig"><label data-key="dwa">钱包地址</label><input type="text" id="wallet-addr" placeholder="0x... or T... (your on-chain wallet address)" style="font-family:var(--fm)"><div style="font-size:.63rem;color:var(--t3);margin-top:2px" data-key="dwah">绑定真实钱包地址以进行提现和领取奖励</div></div>
@@ -766,7 +773,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
       <div class="ag-step" style="background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(16,185,129,.03));border:1px solid rgba(16,185,129,.25)"><div class="ag-sn" style="background:linear-gradient(135deg,#10b981,#06b6d4)">3</div><div class="ag-st" data-key="agstep3">赚取50%</div><div class="ag-sd" data-key="agstep3d">每笔销售50%持续佣金</div></div>
     </div>
     <div style="position:relative;z-index:2;margin-top:18px">
-      <button class="btn-shimmer" onclick="payToBecomeAgent()" data-key="agjoin">立即加入 - 成为合伙人</button>
+      <button class="btn-shimmer" onclick="payToBecomeAgent(event)" data-key="agjoin">立即加入 - 成为合伙人</button>
       <div style="font-size:.62rem;color:var(--t3);margin-top:8px" data-key="agregok">代理注册成功</div>
     </div>
   </div>
@@ -4109,6 +4116,13 @@ window['__pp_form_fields_EJC58LA49LNM2'] = {
 </div></div>
 <script>
 
+// ============ PAYMENT SPINNER HELPER ============
+function setBtnSpin(btn, spin) {
+  if (!btn) return;
+  if (spin) { btn.classList.add('btn-spinning'); btn.disabled = true; }
+  else { btn.classList.remove('btn-spinning'); btn.disabled = false; }
+}
+
 // ============ DATA STORE ============
 const initPowerPackages = [
   {id:'pkg-mix-west-240',icon:'&#9889;',name:'西部绿电 240M Token/兆瓦时',cat:'power',desc:'西部内蒙绿电 240M Token/MWh · 标准 99.9% SLA · Token 按量',price:0.20,color:'#10b981',use:0,apy:0,rating:5.0,badge:'GREEN',powerSource:'mix',region:'west',slaTier:'std',computeUnit:'mtok',tokenPerMwh:240,mode:'token',cny:48.00,equivCnyPerMwh:48.0},
@@ -6754,9 +6768,11 @@ async function translateBio(){
     }
   }catch(e){console.error('bio translate:',e);}
 }
-function startKYC(){
+function startKYC(ev){
   if(!curUser){oam('login');return;}
+  setBtnSpin(ev&&ev.target,true);
   document.getElementById('mo-kyc').classList.add('show');
+  setTimeout(function(){ setBtnSpin(ev&&ev.target,false); },500);
 }
 
 // ============ AUTH ============
@@ -7011,16 +7027,20 @@ async function loadAgentDashboard(){
     updateI18n();
   } catch(e){ console.error('loadAgentDashboard:',e); }
 }
-function payToBecomeAgent(){
+function payToBecomeAgent(ev){
   if(!curUser){ showToast(t('noauth'),'w'); oam('login'); return; }
+  setBtnSpin(ev&&ev.target,true);
   oam('agent-join');
+  setTimeout(function(){ setBtnSpin(ev&&ev.target,false); },600);
 }
 function selectAgentTier(el){
   document.querySelectorAll('.aj-tier').forEach(function(n){ n.style.boxShadow='none'; n.style.transform='scale(1)'; });
   el.style.boxShadow='0 8px 24px rgba(139,92,246,.25)';
   el.style.transform='scale(1.02)';
+  window._lastTierEl = el;
 }
 function payAgentTier(tier, amount, regionSelId){
+  if(window._lastTierEl){ setBtnSpin(window._lastTierEl,true); }
   let region = getAjSelectedRegion(tier);
   if ((tier === 'country' || tier === 'state' || tier === 'city') && !region) {
     alert('请先选择代理区域 / Please select an agent region first'); return;
@@ -7061,15 +7081,18 @@ function payAgentTier(tier, amount, regionSelId){
     if(el.tagName==='INPUT'&&el.type==='text') el.placeholder = t(k);
     else if(!el.hasAttribute('data-html')) el.textContent = t(k);
   });}
+  if(window._lastTierEl){ setTimeout(function(){ setBtnSpin(window._lastTierEl,false); },600); }
 }
 async function confirmAgentRegistration(paypal_txn_id){
   if(!curUser) return;
+  setBtnSpin(document.getElementById('agent-pay-btn'),true);
   try{
     var amount = window._agentPayAmount || 199;
     var tier   = window._agentPayTier   || 'normal';
     const res = await API.agentRegister(curUser._email, paypal_txn_id, amount, tier);
     if(res.success){ showToast(t('agregok')||'Agent registration successful!','s'); loadAgentDashboard(); }
   } catch(e){ showToast(e.message,'e'); }
+  setBtnSpin(document.getElementById('agent-pay-btn'),false);
 }
 function renderAgentPaypalList(configs){
   const container = document.getElementById('agent-paypal-list');
@@ -7122,6 +7145,7 @@ function togPaypalDd(e){
   document.getElementById('paypal-menu').classList.toggle('show');
 }
 function openPaypalBtn(n){
+  setBtnSpin(document.getElementById('agent-pay-btn'),true);
   paypalCurrent = n;
   document.getElementById('paypal-menu').classList.remove('show');
   var title=document.getElementById('paypal-modal-title');
@@ -7162,6 +7186,7 @@ function openPaypalBtn(n){
     else if(!el.hasAttribute('data-html')) el.textContent = t(k);
   });
   modal.classList.add('show');
+  setTimeout(function(){ setBtnSpin(document.getElementById('agent-pay-btn'),false); },600);
 }
 document.addEventListener('click',function(e){
   const m = document.getElementById('paypal-menu');
@@ -7694,10 +7719,12 @@ function drTradeChart(){
 }
 async function execTrade(){
   if(!curUser){oam('login');return;}
+  var btn=document.getElementById('trade-exec-btn');
+  setBtnSpin(btn,true);
   confirmDialog(tradeSideV==='buy'?t('trade_confirm_buy'):t('trade_confirm_sell'),t('trade_confirm_msg'),async ()=>{
     let price=parseFloat(document.getElementById('trade-price').value)||0.42;
     let amt=parseInt(document.getElementById('trade-amount').value)||0;
-    if(amt<=0){notify('Enter valid amount','&#x26A0;');return;}
+    if(amt<=0){notify('Enter valid amount','&#x26A0;');setBtnSpin(btn,false);return;}
     try{
       if(tradeSideV==='buy'){
         let res=await API.buy(curUser._email,amt,price);
@@ -7712,6 +7739,7 @@ async function execTrade(){
       saveLS('nexus_users',users); saveSession();
       notify(tradeSideV==='buy'?t('bs'):t('ss'),'&#x2705;'); rAll();
     }catch(err){notify('Trade failed: '+err.message,'&#x26A0;');}
+    setBtnSpin(btn,false);
   });
 }
 function tradeTF(tf,ev){ tradeTFVal=tf;
@@ -7754,8 +7782,10 @@ function startWithdraw(){
   document.getElementById('mo-payment').classList.add('show');
 }
 async function execPayment(){
+  var btn=document.getElementById('payment-btn');
+  setBtnSpin(btn,true);
   let amt=parseFloat(document.getElementById('payment-amount').value)||0;
-  if(amt<=0){notify('Enter valid amount','&#x26A0;');return;}
+  if(amt<=0){notify('Enter valid amount','&#x26A0;');setBtnSpin(btn,false);return;}
   try{
     if(paymentMode==='deposit'){
       let res=await API.deposit(curUser._email,amt);
@@ -7777,6 +7807,7 @@ async function execPayment(){
     saveLS('nexus_users',users); saveSession();
     cma(); rAll();
   }catch(err){notify('Payment failed: '+err.message,'&#x26A0;');}
+  setBtnSpin(btn,false);
 }
 
 // ============ DASHBOARD ============
