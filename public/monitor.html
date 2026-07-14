@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>监控 - zhitongwang.cn</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, sans-serif; background: #0a0a0f; color: #e2e8f0; padding: 16px; min-height: 100vh; }
+.card { background: #111118; border: 1px solid #1e1e35; border-radius: 12px; padding: 20px; margin-bottom: 12px; }
+h1 { font-size: 18px; margin-bottom: 4px; }
+.sub { font-size: 12px; color: #6a6a82; margin-bottom: 16px; }
+.status { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+.status.ok { background: rgba(16,185,129,0.15); color: #10b981; }
+.status.fail { background: rgba(239,68,68,0.15); color: #ef4444; }
+.status.checking { background: rgba(245,158,11,0.15); color: #f59e0b; }
+.row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #1c1c2e; }
+.row:last-child { border-bottom: none; }
+.label { color: #a0a0b8; font-size: 13px; }
+.value { font-size: 13px; font-family: "SF Mono", monospace; }
+.value.pass { color: #10b981; }
+.value.fail-text { color: #ef4444; }
+.btn { display: block; width: 100%; padding: 12px; background: linear-gradient(135deg,#8b5cf6,#3b82f6); color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; margin-top: 12px; cursor: pointer; }
+.log { background: #0a0a0f; border-radius: 8px; padding: 12px; font-family: "SF Mono", monospace; font-size: 12px; color: #6a6a82; max-height: 300px; overflow-y: auto; }
+.log .ok-entry { color: #10b981; }
+.log .fail-entry { color: #ef4444; }
+.refresh-info { font-size: 11px; color: #6a6a82; text-align: center; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>zhitongwang.cn 版本监控</h1>
+  <div class="sub">自动检测关键功能特征</div>
+  <div id="status-container"><span class="status checking">检测中...</span></div>
+</div>
+
+<div class="card" id="checks-card" style="display:none;">
+  <div id="checks"></div>
+</div>
+
+<div class="card">
+  <div style="font-size:13px;color:#a0a0b8;margin-bottom:8px;">检测日志（最近 20 条）</div>
+  <div class="log" id="log">等待首次检测...</div>
+</div>
+
+<button class="btn" onclick="runCheck()">立即检测</button>
+<div class="refresh-info">页面每 30 秒自动检测一次</div>
+
+<script>
+var history = [];
+var MAX_HISTORY = 20;
+
+function runCheck() {
+  var statusEl = document.getElementById('status-container');
+  var checksEl = document.getElementById('checks');
+  var checksCard = document.getElementById('checks-card');
+  var logEl = document.getElementById('log');
+
+  statusEl.innerHTML = '<span class="status checking">检测中...</span>';
+
+  var t0 = Date.now();
+  var xhr = new XMLHttpRequest();
+  xhr.timeout = 10000;
+  xhr.onload = function() {
+    var t = Date.now() - t0;
+    var html = xhr.responseText;
+    var CHECKS = [
+      { key: 'switchAppDlTab', min: 3, name: 'iOS/Android切换' },
+      { key: 'mploc', min: 17, name: 'profile地点翻译' },
+      { key: 'mpbirth', min: 17, name: 'profile生日翻译' },
+      { key: 'app-dl-tabs', min: 2, name: 'APP下载标签' },
+    ];
+
+    var allPassed = true;
+    var rows = [];
+    for (var i = 0; i < CHECKS.length; i++) {
+      var c = CHECKS[i];
+      var count = (html.match(new RegExp(c.key, 'g')) || []).length;
+      var ok = count >= c.min;
+      if (!ok) allPassed = false;
+      rows.push('<div class="row"><span class="label">' + c.name + '</span><span class="value ' + (ok ? 'pass' : 'fail-text') + '">' + count + ' / min ' + c.min + (ok ? '  ✓' : '  ✗') + '</span></div>');
+    }
+
+    checksEl.innerHTML = rows.join('');
+    checksCard.style.display = '';
+    statusEl.innerHTML = '<span class="status ' + (allPassed ? 'ok' : 'fail') + '">' + (allPassed ? '正常' : '异常') + '</span>';
+
+    var entry = {
+      time: new Date().toLocaleTimeString(),
+      ok: allPassed,
+      ms: t,
+      size: html.length
+    };
+    history.unshift(entry);
+    if (history.length > MAX_HISTORY) history.pop();
+    renderLog();
+  };
+
+  xhr.onerror = function() {
+    statusEl.innerHTML = '<span class="status fail">网络错误</span>';
+    history.unshift({ time: new Date().toLocaleTimeString(), ok: false, err: true, ms: Date.now() - t0 });
+    if (history.length > MAX_HISTORY) history.pop();
+    renderLog();
+  };
+
+  xhr.ontimeout = function() {
+    statusEl.innerHTML = '<span class="status fail">超时</span>';
+    history.unshift({ time: new Date().toLocaleTimeString(), ok: false, err: true, ms: 10000 });
+    if (history.length > MAX_HISTORY) history.pop();
+    renderLog();
+  };
+
+  xhr.open('GET', '/?cb=' + Date.now(), true);
+  xhr.send();
+}
+
+function renderLog() {
+  var logEl = document.getElementById('log');
+  var lines = [];
+  for (var i = 0; i < history.length; i++) {
+    var h = history[i];
+    var cls = h.ok ? 'ok-entry' : 'fail-entry';
+    var msg = h.ok ? '√  正常' : '✕  ' + (h.err ? '请求失败' : '版本异常');
+    lines.push('<div class="' + cls + '">' + h.time + '  ' + msg + '  (' + h.ms + 'ms)</div>');
+  }
+  logEl.innerHTML = lines.join('');
+}
+
+// 初始检测
+runCheck();
+
+// 每 30 秒自动检测
+setInterval(runCheck, 30000);
+</script>
+</body>
+</html>
