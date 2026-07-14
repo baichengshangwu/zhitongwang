@@ -8939,5 +8939,45 @@ document.head.appendChild(voiceStyle);
   <button class="cs-float-btn" onclick="var p=document.getElementById('cs-popup');p.classList.toggle('show')" title="客服"><span data-key="cs_btn">客服</span></button>
 </div>
 
+<!-- VERSION SELF-CHECK: v16 snap_05 2026-07-14 -->
+<style>
+.vcheck{position:fixed;bottom:10px;right:10px;width:12px;height:12px;border-radius:50%;z-index:99999;cursor:pointer;transition:all .3s}
+.vcheck.ok{background:#10b981;box-shadow:0 0 8px #10b981}
+.vcheck.err{background:#ef4444;box-shadow:0 0 8px #ef4444;animation:vc-pulse 1.2s infinite}
+@keyframes vc-pulse{0%,100%{box-shadow:0 0 4px #ef4444}50%{box-shadow:0 0 16px #ef4444}}
+.vcheck-tip{display:none;position:fixed;bottom:26px;right:8px;background:rgba(0,0,0,.85);color:#fff;padding:4px 10px;border-radius:6px;font-size:11px;z-index:99998;white-space:nowrap}
+.vcheck:hover+.vcheck-tip,.vcheck-tip.show{display:block}
+</style>
+<div class="vcheck" id="vcheck-dot" title="版本检测"></div>
+<div class="vcheck-tip" id="vcheck-tip"></div>
+<script>
+(function(){
+var V="snap_05_v16_2026-07-14",MD5_H="465439a42b3694d83efe1595a9f31386";
+var dot=document.getElementById("vcheck-dot"),tip=document.getElementById("vcheck-tip");
+var checks=[
+ {n:"appDlTabs",t:function(){return document.querySelectorAll(".app-dl-tab").length>=2}},
+ {n:"proLoc",t:function(){return !!document.querySelector("[data-key='mploc']")}},
+ {n:"proBirth",t:function(){return !!document.querySelector("[data-key='mpbirth']")}},
+ {n:"proGender",t:function(){return !!document.querySelector("[data-key='mpgender']")}},
+ {n:"appVer",t:function(){return (document.body.textContent||"").indexOf("v16")!==-1}},
+ {n:"agentDemo",t:function(){return (document.body.textContent||"").indexOf("上海中心大厦")!==-1}}
+];
+var fail=checks.filter(function(c){return !c.t();});
+var now=new Date().toLocaleString("zh-CN");
+if(fail.length===0){
+ dot.className="vcheck ok";tip.textContent="版本正常 | v16 | "+now;
+}else{
+ dot.className="vcheck err";tip.textContent="版本异常: "+fail.map(function(c){return c.n}).join(",")+" | "+now;
+ console.error("[VCHECK] FAIL:",fail.map(function(c){return c.n}));
+ var lastCheck=localStorage.getItem("_vcheck_last");
+ if(lastCheck===V) return;
+ localStorage.setItem("_vcheck_last",V);
+ if(navigator.serviceWorker&&navigator.serviceWorker.controller){
+  navigator.serviceWorker.controller.postMessage({type:"VCHECK_FAIL",version:V,keys:fail.map(function(c){return c.n})});
+ }
+}
+})();
+</script>
+
 </body>
 </html>
