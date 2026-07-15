@@ -6088,10 +6088,9 @@ function _renderACMarket(lang){
   sells.sort(function(a,b){return a.price-b.price;});
   var bEl=document.getElementById('ac-market-buys');
   var sEl=document.getElementById('ac-market-sells');
-  var _tl=function(k,l){return(LANG&&LANG[l]&&LANG[l][k])?LANG[l][k]:((LANG&&LANG[k]&&LANG[k][l])?LANG[k][l]:((LANG&&LANG['en']&&LANG['en'][k])?LANG['en'][k]:k));};
-  var noOrders=_tl('ac_order_none',lang);
-  var btnBuy=_tl('ac_btn_buy',lang);
-  var btnTrade=_tl('ac_btn_trade',lang);
+  var noOrders=t('ac_order_none');
+  var btnBuy=t('ac_btn_buy');
+  var btnTrade=t('ac_btn_trade');
   if(bEl){
     if(!buys.length){bEl.innerHTML='<div style="text-align:center;padding:12px;color:var(--t3)">'+noOrders+'</div>';}
     else{
