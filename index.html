@@ -5375,7 +5375,7 @@ function rDashboard(){
   document.getElementById('wallet-addr').value=curUser.wallet||'';
   // Alliance Coins balance - read from persistent data, not DOM
   var acData=_getACData();
-  var acBal=acData.acBalance||0;
+  acBal=acData.acBalance||0;
   var pbal=document.getElementById('pay-balance');
   if(pbal)pbal.textContent=acBal.toFixed(2)+' AC';
   applyI18N();
