@@ -4057,7 +4057,7 @@ function oam(type){
   if(map[type]){var el=document.getElementById(map[type]);if(el)el.classList.add('show');}
   if(type==='agent-join'){setTimeout(function(){renderAgentPaypal();},300);}
 }
-function cma(){ document.querySelectorAll('.mo').forEach(m=>{m.classList.remove('show');m.style.display='';}); }
+function cma(){ document.querySelectorAll('.mo').forEach(m=>{m.classList.remove('show');}); }
 function switchPlatTab(plat){
   document.querySelectorAll('.plat-tab').forEach(t=>t.classList.remove('active'));
   var tabs=document.querySelectorAll('.plat-tab');
@@ -5192,7 +5192,9 @@ function getUserMemberLevel(){
 function getDailyRate(){ return DAILY_RATES_STAKE[getUserMemberLevel()]; }
 function openStakeModal(){
   if(!curUser){oam('login');return;}
-  document.getElementById('mo-stake').classList.add('show');
+  var mo=document.getElementById('mo-stake');
+  mo.classList.add('show');
+  mo.style.display='flex';
   var sel=document.getElementById('stake-period');
   if(sel){
     sel.options[0].text=t('stake_p1')+' (+5%)';
