@@ -1583,7 +1583,7 @@ if(listings.length===0){
 let users = loadLS('nexus_users', {});
 let p2pFilter = '';
 let tradeTFVal = '1h';
-const USD_TO_CNY = 6.80;
+const USD_TO_CNY = 7.25;
 
 function loadLS(k, d){ try{let v=localStorage.getItem(k); return v?JSON.parse(v):d;}catch(e){console.error('loadLS failed',k,e);return d;} }
 function saveLS(k, v){ try{localStorage.setItem(k, JSON.stringify(v));if(k==='nexus_users')saveAuthCookie();}catch(e){console.error('saveLS failed',k,e);} }
@@ -4152,19 +4152,10 @@ function updateProfileView(){
 // Translate bio text for current language
 async function translateBio(){
   if(!curUser||!curUser.bio)return;
-  try{
-    var res=await fetch('/api/translate',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({text:curUser.bio,target:curLang})
-    });
-    var d=await res.json();
-    if(d.translated&&d.translated!==curUser.bio){
-      curUser._bioTranslated=d.translated;
-      if(document.getElementById('mo-profile-view').classList.contains('show')){
-        document.getElementById('pv-bio').textContent=d.translated;
-      }
-    }
-  }catch(e){console.error('bio translate:',e);}
+  // Show original bio: API translation unavailable in static hosting
+  if(document.getElementById('mo-profile-view').classList.contains('show')){
+    document.getElementById('pv-bio').textContent=curUser.bio;
+  }
 }
 function startKYC(){
   if(!curUser){oam('login');return;}
@@ -5413,10 +5404,12 @@ function rDashboard(){
   }
   // Load member wallet balances
   var mw=_memberWallet();var usdBal=(mw.balance||0)/USD_TO_CNY;var cnyBal=mw.balance||0;
+  var acData=_getACData();var acBal=acData.acBalance||0;
+  var acValCNY=acBal*AC_BUY_RATE;
   document.getElementById('dash-assets').innerHTML=`
-    <div class="ac"><div class="al" data-key="dash_total_value">Total Value</div><div class="av">$${totalVal.toFixed(2)}</div><div class="as" data-key="dash_usd">USD</div></div>
-    <div class="ac"><div class="al" data-key="dash_alliance_coins">Alliance Coins</div><div class="av">${(_getACData().acBalance||0).toFixed(2)}</div><div class="as" data-key="dash_ac">AC</div></div>
-    <div class="ac"><div class="al" data-key="dash_usd_balance">USD Balance</div><div class="av">$${usdBal.toFixed(2)}</div><div class="as" data-key="dash_usd">USD</div></div>
+    <div class="ac"><div class="al" data-key="dash_total_value">Total Value</div><div class="av">$${totalVal.toFixed(2)}<span style="font-size:.55rem;color:var(--t3);margin-left:4px">≈ ¥${(totalVal*USD_TO_CNY).toFixed(2)}</span></div><div class="as" data-key="dash_usd">USD / CNY</div></div>
+    <div class="ac"><div class="al" data-key="dash_alliance_coins">Alliance Coins</div><div class="av">${acBal.toFixed(2)}<span style="font-size:.55rem;color:var(--t3);margin-left:4px">≈ ¥${acValCNY.toFixed(2)}</span></div><div class="as" data-key="dash_ac">AC</div></div>
+    <div class="ac"><div class="al" data-key="dash_usd_balance">USD Balance</div><div class="av">$${usdBal.toFixed(2)}<span style="font-size:.55rem;color:var(--t3);margin-left:4px">≈ ¥${(usdBal*USD_TO_CNY).toFixed(2)}</span></div><div class="as" data-key="dash_usd">USD</div></div>
     <div class="ac"><div class="al" data-key="dash_cny_balance">CNY Balance</div><div class="av">¥${cnyBal.toFixed(2)}</div><div class="as" data-key="dash_cny">CNY</div></div>
     <div class="ac"><div class="al" data-key="dash_kyc_level">KYC Level</div><div class="av">${t('kyc_'+((curUser.kyc||'bronze').toLowerCase()))||(curUser.kyc||'Bronze')}</div><div class="as" data-key="dash_verification">Verification</div></div>`;  // Holdings table
   let hh='';
@@ -6164,7 +6157,7 @@ function _getNextTradingDay(){
   if(day<3)return '周三';
   return '周日';
 }
-var AC_BUY_RATE=0.10;var AC_SELL_RATE=0.09;
+var AC_BUY_RATE=0.01;var AC_SELL_RATE=0.009;
 function _getACPoolRate(){return{buy:AC_BUY_RATE,sell:AC_SELL_RATE};}
 function _renderACPool(lang){
   lang=lang||'zh';
@@ -8214,7 +8207,7 @@ function onProfileLocCascade(src, childId){
         if (state && state.c.length){
           const citySel = document.getElementById('profile-loc-city');
           citySel.disabled = false;
-          let cops = state.c.map(c => '<option value="'+c.n+'">'+tRegion(c.n)+'</option>').join('');
+          let cops = state.c.map(c => '<option value="'+c+'">'+tRegion(c)+'</option>').join('');
           citySel.innerHTML = '<option value="" data-key="ajr_sel_city">'+t('ajr_sel_city')+'</option>' + cops;
         }
       }
