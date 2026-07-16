@@ -5406,9 +5406,11 @@ function rDashboard(){
   var mw=_memberWallet();var usdBal=(mw.balance||0)/USD_TO_CNY;var cnyBal=mw.balance||0;
   var acData=_getACData();var acBal=acData.acBalance||0;
   var acValCNY=acBal*AC_BUY_RATE;
+  var acValUSD=acValCNY/USD_TO_CNY;
+  totalVal+=acValUSD;
   document.getElementById('dash-assets').innerHTML=`
     <div class="ac"><div class="al" data-key="dash_total_value">Total Value</div><div class="av">$${totalVal.toFixed(2)}<span style="font-size:.55rem;color:var(--t3);margin-left:4px">≈ ¥${(totalVal*USD_TO_CNY).toFixed(2)}</span></div><div class="as" data-key="dash_usd">USD / CNY</div></div>
-    <div class="ac"><div class="al" data-key="dash_alliance_coins">Alliance Coins</div><div class="av">${acBal.toFixed(2)}<span style="font-size:.55rem;color:var(--t3);margin-left:4px">≈ ¥${acValCNY.toFixed(2)}</span></div><div class="as" data-key="dash_ac">AC</div></div>
+    <div class="ac"><div class="al" data-key="dash_alliance_coins">Alliance Coins</div><div class="av">${acBal.toFixed(2)} AC<span style="font-size:.55rem;color:var(--t3);margin-left:4px">≈ ¥${acValCNY.toFixed(4)} / $${acValUSD.toFixed(2)}</span></div><div class="as" data-key="dash_ac">AC → CNY → USD</div></div>
     <div class="ac"><div class="al" data-key="dash_usd_balance">USD Balance</div><div class="av">$${usdBal.toFixed(2)}<span style="font-size:.55rem;color:var(--t3);margin-left:4px">≈ ¥${(usdBal*USD_TO_CNY).toFixed(2)}</span></div><div class="as" data-key="dash_usd">USD</div></div>
     <div class="ac"><div class="al" data-key="dash_cny_balance">CNY Balance</div><div class="av">¥${cnyBal.toFixed(2)}</div><div class="as" data-key="dash_cny">CNY</div></div>
     <div class="ac"><div class="al" data-key="dash_kyc_level">KYC Level</div><div class="av">${t('kyc_'+((curUser.kyc||'bronze').toLowerCase()))||(curUser.kyc||'Bronze')}</div><div class="as" data-key="dash_verification">Verification</div></div>`;  // Holdings table
@@ -6173,7 +6175,7 @@ function _renderACPool(lang){
   var bp=document.getElementById('pool-buy-price');
   if(bp)bp.textContent=rate.buy.toFixed(2);
   var sp=document.getElementById('pool-sell-price');
-  if(sp)sp.textContent=rate.sell.toFixed(2);
+  if(sp)sp.textContent=rate.sell.toFixed(3);
   updatePoolPreview();
   // pool addr
   var pa=document.getElementById('pool-addr');
