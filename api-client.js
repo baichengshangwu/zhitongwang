@@ -39,7 +39,16 @@ async function apiFetch(url, options) {
     try { data = JSON.parse(text); } catch(_) {
       throw new Error('Server returned invalid response (HTTP ' + res.status + ')');
     }
-    if (!res.ok) { var e = new Error(data.error || 'Request failed (status ' + res.status + ')'); e.status = res.status; throw e; }
+    if (!res.ok) {
+      // Clear token on auth errors to force re-login
+      if (res.status === 401 && apiToken) {
+        apiToken = null;
+        try{localStorage.removeItem('nexus_api_token');}catch(_){}
+      }
+      var e = new Error(data.error || 'Request failed (status ' + res.status + ')');
+      e.status = res.status;
+      throw e;
+    }
     return data;
   } catch(e) {
     clearTimeout(timer);
@@ -214,12 +223,12 @@ const API = {
     }
   },
   async uploadAvatar(file) {
-    var compressed = await this._compressImage(file, 300, 800);
+    var compressed = await this._compressImage(file, 2048, 2000);
     var fd = new FormData(); fd.append('file', compressed, file.name);
     return await this._uploadWithFallback(API_BASE + '/api/upload/avatar', fd, true);
   },
   async uploadImage(file) {
-    var compressed = await this._compressImage(file, 300, 1200);
+    var compressed = await this._compressImage(file, 5120, 3000);
     var fd = new FormData(); fd.append('file', compressed, file.name);
     return await this._uploadWithFallback(API_BASE + '/api/upload/image', fd, true);
   },
