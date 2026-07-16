@@ -8107,8 +8107,7 @@ const regionReverseMap = {};
 
 function tRegion(name) {
   if (!name) return name;
-  // For Chinese (zh) language, always return the original name
-  if (curLang === 'zh') return name;
+  // All languages go through the same i18n lookup chain
   // Try direct ajRegionsI18n lookup (country names, including Chinese->English via ajRegionsI18n)
   if (typeof ajRegionsI18n !== 'undefined' && ajRegionsI18n[name] && ajRegionsI18n[name][curLang]) {
     return ajRegionsI18n[name][curLang];
