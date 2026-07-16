@@ -4153,7 +4153,7 @@ function updateProfileView(){
   }else{sigContainer.style.display='none';}
 }
 // Translate bio text for current language
-async async function translateBio(){
+async function translateBio(){
   if(!curUser||!curUser.bio)return;
   var bioEl=document.getElementById('pv-bio');
   if(!bioEl)return;
