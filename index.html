@@ -548,7 +548,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
     </div>
     <div class="card">
       <div class="at"><button class="active" id="trade-buy-btn" onclick="tradeSide('buy')" data-key="tbuy">Buy</button><button id="trade-sell-btn" onclick="tradeSide('sell')" data-key="tsell">Sell</button></div>
-      <div class="ri" style="margin-bottom:8px"><label><input type="radio" name="ttype" value="limit" checked onchange="tradeType()" data-key="tlim"> Limit</label><label><input type="radio" name="ttype" value="market" onchange="tradeType()" data-key="tmar"> Market</label></div>
+      <div class="ri" style="margin-bottom:8px"><label><input type="radio" name="ttype" value="limit" checked onchange="tradeType()"> <span data-key="tlim">Limit</span></label><label><input type="radio" name="ttype" value="market" onchange="tradeType()"> <span data-key="tmar">Market</span></label></div>
       <div class="ig"><label data-key="tprice">Price (CNY)</label><input type="number" id="trade-price" placeholder="0.00" step="0.0001"></div>
       <div class="ig"><label data-key="tamt">Amount (NEXUS)</label><input type="number" id="trade-amount" placeholder="0" step="1" oninput="updTradeTotal()"></div>
       <div class="sr"><button class="sb" onclick="setPct(25)">25%</button><button class="sb" onclick="setPct(50)">50%</button><button class="sb" onclick="setPct(75)">75%</button><button class="sb" onclick="setPct(100)">100%</button></div>
@@ -5102,7 +5102,7 @@ function drTradeChart(){
 async function execTrade(){
   if(!curUser){oam('login');return;}
   confirmDialog(tradeSideV==='buy'?t('trade_confirm_buy'):t('trade_confirm_sell'),t('trade_confirm_msg'),async ()=>{
-    let price=parseFloat(document.getElementById('trade-price').value)||0.42;
+    let price=parseFloat(document.getElementById('trade-price').value)||((_getACPoolRate().buy+_getACPoolRate().sell)/2);
     let amt=parseInt(document.getElementById('trade-amount').value)||0;
     if(amt<=0){notify('Enter valid amount','&#x26A0;');return;}
     try{
@@ -5410,8 +5410,9 @@ function rDashboard(){
     return;
   }
   let totalVal=curUser.bal;
+  var _rate=_getACPoolRate();var _nexusUSD=(_rate.buy+_rate.sell)/2/USD_TO_CNY;
   if(curUser.holds) for(let k in curUser.holds){
-    if(k==='NEXUS') totalVal+=curUser.holds[k]*0.42;
+    if(k==='NEXUS') totalVal+=curUser.holds[k]*_nexusUSD;
     else totalVal+=curUser.holds[k]*10;
   }
   // Load member wallet balances
@@ -5428,7 +5429,7 @@ function rDashboard(){
     <div class="ac"><div class="al" data-key="dash_kyc_level">KYC Level</div><div class="av">${t('kyc_'+((curUser.kyc||'bronze').toLowerCase()))||(curUser.kyc||'Bronze')}</div><div class="as" data-key="dash_verification">Verification</div></div>`;  // Holdings table
   let hh='';
   if(curUser.holds) for(let k in curUser.holds){
-    let val=k==='NEXUS'?curUser.holds[k]*0.42:curUser.holds[k]*10;
+    let val=k==='NEXUS'?curUser.holds[k]*_nexusUSD:curUser.holds[k]*10;
     let pnl=((Math.random()-0.3)*20).toFixed(1);
     hh+=`<tr><td>${k}</td><td>${curUser.holds[k]}</td><td>$${val.toFixed(2)}</td><td style="color:${parseFloat(pnl)>=0?'var(--ag)':'var(--ar)'}">${pnl}%</td></tr>`;
   }
