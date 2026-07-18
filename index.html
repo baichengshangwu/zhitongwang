@@ -4255,13 +4255,13 @@ async function uploadFile(type){
   const input=document.getElementById(map[type]);
   if(!input||!input.files||!input.files[0]){notify(t('mnofile'),'&#x26A0;');return;}
   const file=input.files[0];
-  // File size validation for avatar (max 5MB)
-  if(type==='avatar'&&file.size>5242880){notify(t('mfile_too_big')||'File must be under 5MB','&#x26A0;');input.value='';return;}
-  // Video duration validation (max 120 seconds)
+  // File size validation for avatar (max 10MB)
+  if(type==='avatar'&&file.size>10485760){notify(t('mfile_too_big')||'File must be under 10MB','&#x26A0;');input.value='';return;}
+  // Video duration validation (max 200 seconds)
   if(type==='sigvid'){
     try{
       const dur=await getVideoDuration(file);
-      if(dur>120){notify(t('msigvid_too_long')||'Video must be under 120 seconds','&#x26A0;');input.value='';return;}
+      if(dur>200){notify(t('msigvid_too_long')||'Video must be under 200 seconds','&#x26A0;');input.value='';return;}
     }catch(e){console.warn('Video duration check failed, proceeding anyway:',e);}
   }
   const nameSpan=document.getElementById(map[type]+'-name');
