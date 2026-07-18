@@ -20,15 +20,17 @@ jobs:
 
           cd ios-app
 
-          xcodebuild archive \
+          xcodebuild build \
 
             -project zhitongwang.xcodeproj \
 
             -scheme zhitongwang \
 
-            -archivePath build/zhitongwang.xcarchive \
+            -configuration Release \
 
-            -destination 'generic/platform=iOS' \
+            -sdk iphoneos \
+
+            -derivedDataPath build \
 
             CODE_SIGN_IDENTITY="" \
 
@@ -40,13 +42,11 @@ jobs:
 
             PROVISIONING_PROFILE_SPECIFIER=""
 
-          xcodebuild -exportArchive \
+          mkdir -p Payload
 
-            -archivePath build/zhitongwang.xcarchive \
+          cp -r build/Build/Products/Release-iphoneos/zhitongwang.app Payload/
 
-            -exportPath build \
-
-            -exportOptionsPlist ExportOptions.plist
+          zip -r zhitongwang.ipa Payload
 
       - name: Upload IPA
 
@@ -56,4 +56,4 @@ jobs:
 
           name: zhitongwang-ios
 
-          path: ios-app/build/zhitongwang.ipa
+          path: ios-app/zhitongwang.ipa
