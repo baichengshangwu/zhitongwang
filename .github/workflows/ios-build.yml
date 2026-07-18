@@ -30,6 +30,8 @@ jobs:
 
             -sdk iphoneos \
 
+            -allowProvisioningUpdates \
+
             -derivedDataPath build \
 
             CODE_SIGN_IDENTITY="" \
