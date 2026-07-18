@@ -46,7 +46,7 @@ jobs:
 
           mkdir -p Payload
 
-          cp -r build/Build/Products/Release-iphoneos/zhitongwang.app Payload/
+          cp -r build/Release-iphoneos/zhitongwang.app Payload/
 
           zip -r zhitongwang.ipa Payload
 
