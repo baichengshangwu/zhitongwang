@@ -1,0 +1,41 @@
+name: Build iOS App
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set Xcode version
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Build & Export IPA
+        run: |
+          cd ios-app
+          xcodebuild archive \
+            -project zhitongwang.xcodeproj \
+            -scheme zhitongwang \
+            -archivePath build/zhitongwang.xcarchive \
+            -allowProvisioningUpdates \
+            -authenticationKeyIssuerID "${{ secrets.APPSTORE_ISSUER_ID }}" \
+            -authenticationKeyID "${{ secrets.APPSTORE_KEY_ID }}" \
+            -authenticationKeyPath <(echo "${{ secrets.APPSTORE_API_KEY }}" | base64 -d) \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="iPhone Distribution" \
+            PROVISIONING_PROFILE_SPECIFIER="zhitongwang-distribution"
+          
+          xcodebuild -exportArchive \
+            -archivePath build/zhitongwang.xcarchive \
+            -exportPath build \
+            -exportOptionsPlist ExportOptions.plist \
+            -allowProvisioningUpdates
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: zhitongwang-ios
+          path: ios-app/build/zhitongwang.ipa
