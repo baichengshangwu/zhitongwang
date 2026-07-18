@@ -1,1 +1,5 @@
-{"version":"v16","build":"20260715_162550","note":"JS syntax fix - duplicate acBal redeclaration"}
+{
+  "version": "v16",
+  "build": "20260719_004800",
+  "note": "Filled all 533 empty city arrays + 1791 cityI18n translations for 72 countries"
+}
