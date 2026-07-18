@@ -1,3 +1,4 @@
+
 name: Build iOS App
 
 on:
@@ -22,9 +23,13 @@ jobs:
 
           xcodebuild build -project zhitongwang.xcodeproj -scheme zhitongwang -configuration Release -sdk iphoneos -allowProvisioningUpdates -derivedDataPath build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO DEVELOPMENT_TEAM="" PROVISIONING_PROFILE_SPECIFIER=""
 
+          APP=$(find build -name "*.app" -type d | head -1)
+
+          echo "Found app: $APP"
+
           mkdir -p Payload
 
-          cp -r build/Release-iphoneos/zhitongwang.app Payload/
+          cp -r "$APP" Payload/
 
           zip -r zhitongwang.ipa Payload
 
