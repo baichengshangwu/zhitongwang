@@ -5420,25 +5420,30 @@ function rDashboard(){
   var _rate=_getACPoolRate();var _nexusUSD=(_rate.buy+_rate.sell)/2/USD_TO_CNY;
   if(curUser.holds) for(let k in curUser.holds){
     if(k==='NEXUS') totalVal+=curUser.holds[k]*_nexusUSD;
-    else totalVal+=curUser.holds[k]*10;
+    // Non-NEXUS holdings (tool subscriptions) excluded from total - no liquid market value
   }
   // Load member wallet balances
   var mw=_memberWallet();var usdBal=(mw.balance||0)/USD_TO_CNY;var cnyBal=mw.balance||0;
   var acData=_getACData();var acBal=acData.acBalance||0;
-  var acValCNY=acBal*AC_BUY_RATE;
+  // Include frozen AC from open sell orders (still user's asset)
+  var frozenAC=0;if(acData.orders){acData.orders.forEach(function(o){if(o.dir==='sell'&&o.status==='open')frozenAC+=o.qty||0;});}
+  var acTotalBal=acBal+frozenAC;
+  var acValCNY=acTotalBal*AC_BUY_RATE;
   var acValUSD=acValCNY/USD_TO_CNY;
   totalVal+=acValUSD;
   document.getElementById('dash-assets').innerHTML=`
     <div class="ac"><div class="al" data-key="dash_total_value">Total Value</div><div class="av">$${totalVal.toFixed(2)}<span style="font-size:.55rem;color:var(--t3);margin-left:4px">≈ ¥${(totalVal*USD_TO_CNY).toFixed(2)}</span></div><div class="as" data-key="dash_usd">USD / CNY</div></div>
-    <div class="ac"><div class="al" data-key="dash_alliance_coins">Alliance Coins</div><div class="av">${acBal.toFixed(2)} AC<span style="font-size:.55rem;color:var(--t3);margin-left:4px">≈ ¥${acValCNY.toFixed(4)} / $${acValUSD.toFixed(2)}</span></div><div class="as" data-key="dash_ac">AC → CNY → USD</div></div>
+    <div class="ac"><div class="al" data-key="dash_alliance_coins">Alliance Coins</div><div class="av">${acTotalBal.toFixed(2)} AC<span style="font-size:.55rem;color:var(--t3);margin-left:4px">≈ ¥${acValCNY.toFixed(4)} / $${acValUSD.toFixed(2)}</span></div><div class="as">${frozenAC>0?('可用 '+acBal.toFixed(2)+' · 挂单冻结 '+frozenAC.toFixed(2)):'AC → CNY → USD'}</div></div>
     <div class="ac"><div class="al" data-key="dash_usd_balance">USD Balance</div><div class="av">$${usdBal.toFixed(2)}<span style="font-size:.55rem;color:var(--t3);margin-left:4px">≈ ¥${(usdBal*USD_TO_CNY).toFixed(2)}</span></div><div class="as" data-key="dash_usd">USD</div></div>
     <div class="ac"><div class="al" data-key="dash_cny_balance">CNY Balance</div><div class="av">¥${cnyBal.toFixed(2)}</div><div class="as" data-key="dash_cny">CNY</div></div>
     <div class="ac"><div class="al" data-key="dash_kyc_level">KYC Level</div><div class="av">${t('kyc_'+((curUser.kyc||'bronze').toLowerCase()))||(curUser.kyc||'Bronze')}</div><div class="as" data-key="dash_verification">Verification</div></div>`;  // Holdings table
   let hh='';
   if(curUser.holds) for(let k in curUser.holds){
-    let val=k==='NEXUS'?curUser.holds[k]*_nexusUSD:curUser.holds[k]*10;
-    let pnl=((Math.random()-0.3)*20).toFixed(1);
-    hh+=`<tr><td>${k}</td><td>${curUser.holds[k]}</td><td>$${val.toFixed(2)}</td><td style="color:${parseFloat(pnl)>=0?'var(--ag)':'var(--ar)'}">${pnl}%</td></tr>`;
+    let isNEXUS=k==='NEXUS';
+    let val=isNEXUS?curUser.holds[k]*_nexusUSD:0;
+    let valStr=isNEXUS?'$'+val.toFixed(2):'―';
+    let pnl=isNEXUS?((Math.random()-0.3)*20).toFixed(1):'0.0';
+    hh+=`<tr><td>${k}</td><td>${curUser.holds[k]}</td><td>${valStr}</td><td style="color:${isNEXUS&&parseFloat(pnl)>=0?'var(--ag)':'var(--ar)'}">${isNEXUS?pnl+'%':'―'}</td></tr>`;
   }
   document.getElementById('dash-holdings').innerHTML=hh||'<tr><td colspan="4" style="text-align:center;color:var(--t3)" data-key="dash_no_holdings">No holdings</td></tr>';
   // TX history
@@ -6298,16 +6303,17 @@ function _renderACMarket(lang){
   var sEl=document.getElementById('ac-market-sells');
   var noOrders=t('ac_order_none');
   if(bEl){
+    var cancelTxt=t('pub_cancel')||(lang==='zh'?'取消':'Cancel');
     if(!buys.length){bEl.innerHTML='<div style="text-align:center;padding:12px;color:var(--t3)">'+noOrders+'</div>';}
     else{
-      var bh='';for(var i=0;i<buys.length;i++){var o=buys[i];bh+='<div class="ac-order-row bid"><span>'+o.price.toFixed(2)+' CNY/AC</span><span style="font-family:var(--fm)">'+o.qty+' AC</span><span style="color:var(--t3);font-size:.6rem">'+o.user+'</span></div>';}
+      var bh='';for(var i=0;i<buys.length;i++){var o=buys[i];var oi=orders.indexOf(o);bh+='<div class="ac-order-row bid" style="display:flex;align-items:center;gap:4px"><span style="flex:1">'+o.price.toFixed(2)+' CNY/AC</span><span style="font-family:var(--fm);flex:1;text-align:center">'+o.qty+' AC</span><span style="color:var(--t3);font-size:.6rem;flex:1;text-align:center">'+o.user+'</span><button class="btn bs bd2" style="font-size:.58rem;padding:2px 6px;flex-shrink:0" onclick="cancelACOrder('+oi+')">'+cancelTxt+'</button></div>';}
       bEl.innerHTML=bh;
     }
   }
   if(sEl){
     if(!sells.length){sEl.innerHTML='<div style="text-align:center;padding:12px;color:var(--t3)">'+noOrders+'</div>';}
     else{
-      var sh='';for(var i=0;i<sells.length;i++){var o=sells[i];sh+='<div class="ac-order-row ask"><span>'+o.price.toFixed(2)+' CNY/AC</span><span style="font-family:var(--fm)">'+o.qty+' AC</span><span style="color:var(--t3);font-size:.6rem">'+o.user+'</span></div>';}
+      var sh='';for(var i=0;i<sells.length;i++){var o=sells[i];var oi=orders.indexOf(o);sh+='<div class="ac-order-row ask" style="display:flex;align-items:center;gap:4px"><span style="flex:1">'+o.price.toFixed(2)+' CNY/AC</span><span style="font-family:var(--fm);flex:1;text-align:center">'+o.qty+' AC</span><span style="color:var(--t3);font-size:.6rem;flex:1;text-align:center">'+o.user+'</span><button class="btn bs bd2" style="font-size:.58rem;padding:2px 6px;flex-shrink:0" onclick="cancelACOrder('+oi+')">'+cancelTxt+'</button></div>';}
       sEl.innerHTML=sh;
     }
   }
@@ -6331,6 +6337,19 @@ function placeACOrder(dir){
   orders.push({dir:dir,price:price,qty:qty,user:uname,status:'open',time:new Date().toISOString()});
   acData.orders=orders;_saveACData(acData);
   alert(lang==='zh'?('挂单已发布！'+(dir==='sell'?'卖出':'买入')+' '+qty+' AC @ '+price.toFixed(2)+' CNY/AC'):('Order placed! '+(dir==='sell'?'Sell':'Buy')+' '+qty+' AC @ '+price.toFixed(2)+' CNY/AC'));
+  renderMemberPage();_renderACMarket(lang);
+}
+function cancelACOrder(idx){
+  var lang=(typeof curLang!=='undefined'&&curLang)?curLang:'zh';
+  var acData=_getACData();
+  var orders=acData.orders||[];
+  if(idx<0||idx>=orders.length||orders[idx].status!=='open'){alert(lang==='zh'?'该挂单已不存在或已完成':'Order not found or already completed');return;}
+  var o=orders[idx];
+  if(!confirm(lang==='zh'?('确认撤销 '+o.dir==='sell'?'卖出':'买入'+' '+o.qty+' AC @ '+o.price.toFixed(2)+' CNY/AC 的挂单？'):('Cancel '+(o.dir==='sell'?'sell':'buy')+' order of '+o.qty+' AC @ '+o.price.toFixed(2)+' CNY/AC?')))return;
+  orders[idx].status='cancelled';
+  // 賣單退還凍結的 AC
+  if(o.dir==='sell'){acData.acBalance=(acData.acBalance||0)+o.qty;}
+  acData.orders=orders;_saveACData(acData);
   renderMemberPage();_renderACMarket(lang);
 }
 function _renderACHistory(lang){
