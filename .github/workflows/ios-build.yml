@@ -20,29 +20,7 @@ jobs:
 
           cd ios-app
 
-          xcodebuild build \
-
-            -project zhitongwang.xcodeproj \
-
-            -scheme zhitongwang \
-
-            -configuration Release \
-
-            -sdk iphoneos \
-
-            -allowProvisioningUpdates \
-
-            -derivedDataPath build \
-
-            CODE_SIGN_IDENTITY="" \
-
-            CODE_SIGNING_REQUIRED=NO \
-
-            CODE_SIGNING_ALLOWED=NO \
-
-            DEVELOPMENT_TEAM="" \
-
-            PROVISIONING_PROFILE_SPECIFIER=""
+          xcodebuild build -project zhitongwang.xcodeproj -scheme zhitongwang -configuration Release -sdk iphoneos -allowProvisioningUpdates -derivedDataPath build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO DEVELOPMENT_TEAM="" PROVISIONING_PROFILE_SPECIFIER=""
 
           mkdir -p Payload
 
