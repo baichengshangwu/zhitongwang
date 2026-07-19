@@ -1,44 +1,60 @@
-
-name: Build iOS App
+name: Build iOS IPA
 
 on:
-
   workflow_dispatch:
+  push:
+    paths:
+      - 'ios-project.tar.gz'
+      - '.github/workflows/ios-build.yml'
 
 jobs:
-
   build:
-
     runs-on: macos-latest
-
     steps:
-
       - uses: actions/checkout@v4
 
-      - name: Build Unsigned IPA
-
+      - name: Extract iOS project
         run: |
+          tar -xzf ios-project.tar.gz
+          ls -la AiNexus/
 
-          cd ios-app
-
-          xcodebuild build -project zhitongwang.xcodeproj -scheme zhitongwang -configuration Release -sdk iphoneos -allowProvisioningUpdates -derivedDataPath build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO DEVELOPMENT_TEAM="" PROVISIONING_PROFILE_SPECIFIER=""
-
-          APP=$(find build -name "*.app" -type d | head -1)
-
-          echo "Found app: $APP"
-
-          mkdir -p Payload
-
-          cp -r "$APP" Payload/
-
-          zip -r zhitongwang.ipa Payload
-
-      - name: Upload IPA
-
-        uses: actions/upload-artifact@v4
-
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
+          node-version: '20'
 
-          name: zhitongwang-ios
+      - name: Install dependencies
+        run: |
+          cd AiNexus
+          npm install
 
-          path: ios-app/zhitongwang.ipa
+      - name: Prepare iOS platform
+        run: |
+          cd AiNexus
+          npx cordova prepare ios
+
+      - name: Build unsigned IPA
+        run: |
+          cd AiNexus
+          mkdir -p output
+          xcodebuild archive \
+            -workspace "platforms/ios/App.xcworkspace" \
+            -scheme "App" \
+            -configuration Release \
+            -archivePath "output/AI_Nexus.xcarchive" \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+          
+          mkdir -p output/Payload
+          cp -R "output/AI_Nexus.xcarchive/Products/Applications/AI Nexus.app" output/Payload/
+          cd output
+          zip -r AI_Nexus.ipa Payload/
+          ls -lh AI_Nexus.ipa
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AI_Nexus_iOS
+          path: AiNexus/output/AI_Nexus.ipa
+          retention-days: 30
