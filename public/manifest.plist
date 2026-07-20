@@ -11,13 +11,13 @@
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>https://raw.githubusercontent.com/baichengshangwu/zhitongwang/main/public/zhitongwang-updated.ipa</string>
+					<string>https://raw.githubusercontent.com/baichengshangwu/zhitongwang/main/public/ai-nexus-ios.ipa</string>
 				</dict>
 			</array>
 			<key>metadata</key>
 			<dict>
 				<bundle-identifier>com.ainexus.zhitongwang</bundle-identifier>
-				<bundle-version>19</bundle-version>
+				<bundle-version>17</bundle-version>
 				<kind>software</kind>
 				<title>AI Nexus</title>
 			</dict>
