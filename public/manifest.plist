@@ -16,10 +16,14 @@
 			</array>
 			<key>metadata</key>
 			<dict>
-				<bundle-identifier>com.ainexus.zhitongwang</bundle-identifier>
-				<bundle-version>17</bundle-version>
-				<kind>software</kind>
-				<title>AI Nexus</title>
+				<key>bundle-identifier</key>
+				<string>com.ainexus.zhitongwang</string>
+				<key>bundle-version</key>
+				<string>17</string>
+				<key>kind</key>
+				<string>software</string>
+				<key>title</key>
+				<string>AI Nexus</string>
 			</dict>
 		</dict>
 	</array>
