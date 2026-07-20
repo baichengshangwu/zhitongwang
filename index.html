@@ -281,8 +281,8 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 @media(max-width:768px){.btn-shimmer{font-size:.74rem;padding:8px 36px;letter-spacing:1px}}
 
 /* ============ Member AC Tab Styles ============ */
-.m-tab-bar{display:flex;gap:4px;margin-bottom:10px;background:var(--bgc);border-radius:12px;padding:4px;border:1px solid var(--bd)}
-.m-tab{flex:1;min-width:0;padding:8px 4px;border:none;background:transparent;color:var(--t2);font-size:.7rem;font-weight:600;cursor:pointer;border-radius:9px;transition:all .2s;font-family:inherit;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.m-tab-bar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin-bottom:10px;background:var(--bgc);border-radius:12px;padding:4px;border:1px solid var(--bd)}
+.m-tab{padding:9px 6px;border:none;background:transparent;color:var(--t2);font-size:.7rem;font-weight:600;cursor:pointer;border-radius:9px;transition:all .2s;font-family:inherit;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;text-align:center}
 .m-tab:hover{color:var(--t1)}
 .m-tab.active{background:var(--ap);color:#fff;box-shadow:0 2px 8px rgba(139,92,246,.3)}
 .m-panel{display:none}
