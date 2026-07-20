@@ -4245,9 +4245,9 @@ function setLang(l){
   // Translate bio if profile view is open or bio exists
   if(curUser&&curUser.bio){translateBio(); updateProfileView();}
   // Retranslate chat messages to new language
-  retranslateMsgs();
+  try{if(typeof retranslateMsgs==='function')retranslateMsgs();}catch(e){}
   // Translate dynamic community content
-  translateCommunityContent();
+  try{if(typeof translateCommunityContent==='function')translateCommunityContent();}catch(e){}
   // Force a second pass for newly rendered community cards
   setTimeout(function(){try{translateCommunityContent();}catch(e){}},120);
 }
