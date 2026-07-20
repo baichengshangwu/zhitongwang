@@ -17,7 +17,7 @@
 			<key>metadata</key>
 			<dict>
 				<bundle-identifier>com.ainexus.zhitongwang</bundle-identifier>
-				<bundle-version>19</bundle-version>
+				<bundle-version>20</bundle-version>
 				<kind>software</kind>
 				<title>AI Nexus</title>
 			</dict>
