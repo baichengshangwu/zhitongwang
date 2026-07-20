@@ -363,6 +363,8 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 .pm-card-actions button{background:transparent;border:1px solid var(--bda);color:var(--t2);padding:3px 8px;border-radius:6px;cursor:pointer;font-size:.6rem;transition:all .15s}
 .pm-card-actions button:hover{background:var(--bg2);color:var(--t1)}
 .pm-card-actions button.danger:hover{background:rgba(239,68,68,.1);border-color:#ef4444;color:#ef4444}
+.pm-withdraw-btn{background:var(--ag)!important;color:#fff!important;border:none!important;font-weight:600!important}
+.pm-withdraw-btn:hover{opacity:.85;color:#fff!important}
 .pm-add-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border:1.5px dashed var(--bda);border-radius:10px;color:var(--t3);font-size:.72rem;cursor:pointer;transition:all .2s;margin-bottom:8px}
 .pm-add-btn:hover{border-color:var(--ap);color:var(--ap);background:rgba(139,92,246,.04)}
 .pm-empty{text-align:center;padding:20px;color:var(--t3);font-size:.72rem}
@@ -1061,6 +1063,20 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <h3>确认删除</h3>
   <p id="pm-delete-msg" style="font-size:.78rem;color:var(--t2);margin-bottom:10px">确定要删除此支付方式吗？</p>
   <div class="br2"><button class="btn bg" id="pm-delete-btn" style="background:#ef4444" data-key="mcyes">确认</button><button class="btn bo" onclick="cma()" data-key="mcancel">取消</button></div>
+</div></div>
+
+<!-- Payment Method Withdraw Modal -->
+<div class="mo" id="mo-pm-withdraw"><div class="mod">
+  <h3>&#x1F4B8; 提现</h3>
+  <div id="mo-pm-withdraw-name" style="font-size:.75rem;color:var(--t2);margin-bottom:4px">--</div>
+  <div id="mo-pm-withdraw-detail" style="font-size:.65rem;color:var(--t3);margin-bottom:12px">--</div>
+  <div class="ig"><label>提现金额（元）</label><input type="number" id="pm-withdraw-amount" placeholder="最低 ¥10" min="10" step="0.01" style="width:100%;padding:10px;background:var(--bg);border:1px solid var(--bda);border-radius:8px;color:var(--t1);font-size:.85rem;box-sizing:border-box"></div>
+  <div style="background:var(--bg);border-radius:8px;padding:10px;margin:12px 0;font-size:.7rem;color:var(--t3);line-height:1.6">
+    <div>· 最低提现 <b style="color:var(--t1)">¥10</b>，手续费 <b style="color:var(--ao)">1%</b></div>
+    <div>· 预计 <b style="color:var(--t1)">2小时内</b>到账</div>
+    <div>· 到账金额: <b id="pm-withdraw-arrival" style="color:var(--ag)">¥0.00</b></div>
+  </div>
+  <div class="br2"><button class="btn bg bw" id="pm-withdraw-submit" onclick="submitWithdraw()" data-key="mcyes">确认提现</button><button class="btn bo" onclick="cma()" data-key="mcancel">取消</button></div>
 </div></div>
 
 <!-- ============ SOCIAL PAGE ============ -->
@@ -14943,18 +14959,26 @@ var PM_EDIT_ID=null;
 function _getPM(){try{return JSON.parse(localStorage.getItem(PM_STORAGE_KEY)||'[]');}catch(e){return[];}}
 function _setPM(data){localStorage.setItem(PM_STORAGE_KEY,JSON.stringify(data));}
 
-function renderPaymentMethods(){
-  var list=_getPM();
+async function renderPaymentMethods(){
   var el=document.getElementById('pm-list');
   if(!el)return;
+  el.innerHTML='<div class="pm-empty" style="padding:20px">加载中...</div>';
+  var list=[];
+  // Try backend first, fallback to localStorage
+  if(apiToken && curUser){
+    try{
+      var res=await API.paymentMethods.list();
+      if(res&&res.methods)list=res.methods;
+    }catch(e){console.log('PM sync fallback to localStorage:',e.message);}
+  }
+  if(!list.length)list=_getPM();
   if(!list.length){
     el.innerHTML='<div class="pm-empty">暂无绑定的支付方式，点击下方按钮添加</div>';
     return;
   }
   var html='';
   for(var i=0;i<list.length;i++){
-    var pm=list[i];
-    html+=_pmCardHTML(pm,i);
+    html+=_pmCardHTML(list[i],i);
   }
   el.innerHTML=html;
 }
@@ -14967,6 +14991,7 @@ function _pmCardHTML(pm,idx){
   var badge=badges[pm.type]||'';
   var name=pm.name||labels[pm.type]||pm.type;
   var detail=pm.detail||'';
+  var pid=pm.id||('local_'+idx);
   return '<div class="pm-card">'
     +'<div class="pm-card-icon">'+icon+'</div>'
     +'<div class="pm-card-info">'
@@ -14975,6 +15000,7 @@ function _pmCardHTML(pm,idx){
     +'</div>'
     +'<span class="pm-card-badge '+badge+'">'+labels[pm.type]+'</span>'
     +'<div class="pm-card-actions">'
+    +'<button class="pm-withdraw-btn" onclick="openWithdrawFromPM(\''+_escHtml(pid)+'\',\''+_escHtml(pm.name||labels[pm.type]||pm.type)+'\',\''+_escHtml(pm.detail||'')+'\',\''+(pm.type||'alipay')+'\')">提现</button>'
     +'<button onclick="editPaymentMethod('+idx+')">编辑</button>'
     +'<button class="danger" onclick="confirmDeletePM('+idx+')">删除</button>'
     +'</div>'
@@ -15057,7 +15083,7 @@ function _fillPMForm(pm){
   }
 }
 
-function savePaymentMethod(){
+async function savePaymentMethod(){
   var type=document.getElementById('pm-type');
   if(!type){cma();return;}
   type=type.value;
@@ -15092,13 +15118,32 @@ function savePaymentMethod(){
   }
   pm.name=name;
   pm.detail=detail;
-  var list=_getPM();
-  if(PM_EDIT_ID!==null&&PM_EDIT_ID>=0&&PM_EDIT_ID<list.length){
-    list[PM_EDIT_ID]=pm;
-  }else{
-    list.push(pm);
+
+  // Save to backend if logged in
+  if(apiToken && curUser){
+    try{
+      var oldId=null;
+      if(PM_EDIT_ID!==null){
+        var localList=_getPM();
+        if(PM_EDIT_ID>=0&&PM_EDIT_ID<localList.length)oldId=localList[PM_EDIT_ID].id;
+      }
+      if(oldId){
+        await API.paymentMethods.update(oldId,pm);
+      }else{
+        var res=await API.paymentMethods.create(pm);
+        if(res&&res.method)pm.id=res.method.id;
+      }
+    }catch(e){console.log('PM save to backend failed:',e.message);}
   }
-  _setPM(list);
+
+  // Also save locally as fallback
+  var localList=_getPM();
+  if(PM_EDIT_ID!==null&&PM_EDIT_ID>=0&&PM_EDIT_ID<localList.length){
+    localList[PM_EDIT_ID]=pm;
+  }else{
+    localList.push(pm);
+  }
+  _setPM(localList);
   cma();
   renderPaymentMethods();
   _toastZ(PM_EDIT_ID!==null?'支付方式已更新':'支付方式已绑定','var(--ag)');
@@ -15120,8 +15165,12 @@ function confirmDeletePM(idx){
   document.getElementById('mo-pm-delete-confirm').classList.add('show');
 }
 
-function deletePaymentMethod(idx){
+async function deletePaymentMethod(idx){
   var list=_getPM();
+  var pm=list[idx];
+  if(pm&&pm.id && apiToken && curUser){
+    try{await API.paymentMethods.remove(pm.id);}catch(e){console.log('PM delete from backend failed:',e.message);}
+  }
   list.splice(idx,1);
   _setPM(list);
   renderPaymentMethods();
@@ -15134,6 +15183,47 @@ function _toastZ(msg,color){
   t.style.cssText='position:fixed;top:20px;left:50%;transform:translateX(-50%);background:'+(color||'var(--ag)')+';color:#fff;padding:8px 20px;border-radius:20px;font-size:.72rem;z-index:99999;pointer-events:none;transition:opacity .3s;opacity:1';
   document.body.appendChild(t);
   setTimeout(function(){t.style.opacity='0';setTimeout(function(){t.remove();},300);},1800);
+}
+
+// ============ Withdraw ============
+var _withdrawPMId=null,_withdrawPMType=null;
+function openWithdrawFromPM(pmId,pmName,pmDetail,pmType){
+  if(!apiToken||!curUser){_toastZ('请先登录','#ef4444');return;}
+  _withdrawPMId=pmId;_withdrawPMType=pmType;
+  document.getElementById('mo-pm-withdraw-name').textContent=pmName;
+  document.getElementById('mo-pm-withdraw-detail').textContent=pmDetail;
+  document.getElementById('pm-withdraw-amount').value='';
+  document.getElementById('pm-withdraw-arrival').textContent='¥0.00';
+  document.getElementById('pm-withdraw-submit').disabled=false;
+  document.getElementById('mo-pm-withdraw').classList.add('show');
+  // Bind amount input
+  var amtEl=document.getElementById('pm-withdraw-amount');
+  amtEl.oninput=function(){
+    var a=parseFloat(this.value)||0;
+    var fee=Math.max(0.1,a*0.01);
+    var arrival=Math.max(0,a-fee);
+    document.getElementById('pm-withdraw-arrival').textContent='¥'+arrival.toFixed(2);
+  };
+}
+
+async function submitWithdraw(){
+  var amt=parseFloat(document.getElementById('pm-withdraw-amount').value)||0;
+  if(amt<10){_toastZ('最低提现 ¥10','#ef4444');return;}
+  var btn=document.getElementById('pm-withdraw-submit');
+  btn.disabled=true;btn.textContent='提交中...';
+  try{
+    var res=await API.paymentMethods.withdraw(amt,_withdrawPMId);
+    cma();
+    if(res&&res.withdrawal){
+      var color=res.withdrawal.status==='completed'?'var(--ag)':'var(--ao)';
+      _toastZ(res.message||'提现申请已提交',color);
+    }else{
+      _toastZ(res.error||'提现失败，请重试','#ef4444');
+    }
+  }catch(e){
+    _toastZ('提现请求失败: '+e.message,'#ef4444');
+  }
+  btn.disabled=false;btn.textContent='确认提现';
 }
 
 function getPaymentMethods(type){var all=_getPM();if(!type)return all;return all.filter(function(p){return p.type===type;});}
