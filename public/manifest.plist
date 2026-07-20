@@ -11,19 +11,15 @@
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>https://raw.githubusercontent.com/baichengshangwu/zhitongwang/main/public/ai-nexus-ios.ipa</string>
+					<string>https://raw.githubusercontent.com/baichengshangwu/zhitongwang/main/public/zhitongwang-updated.ipa</string>
 				</dict>
 			</array>
 			<key>metadata</key>
 			<dict>
-				<key>bundle-identifier</key>
-				<string>com.ainexus.zhitongwang</string>
-				<key>bundle-version</key>
-				<string>19</string>
-				<key>kind</key>
-				<string>software</string>
-				<key>title</key>
-				<string>AI Nexus</string>
+				<bundle-identifier>com.ainexus.zhitongwang</bundle-identifier>
+				<bundle-version>19</bundle-version>
+				<kind>software</kind>
+				<title>AI Nexus</title>
 			</dict>
 		</dict>
 	</array>
