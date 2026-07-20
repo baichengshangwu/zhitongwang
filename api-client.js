@@ -39,16 +39,7 @@ async function apiFetch(url, options) {
     try { data = JSON.parse(text); } catch(_) {
       throw new Error('Server returned invalid response (HTTP ' + res.status + ')');
     }
-    if (!res.ok) {
-      // Clear token on auth errors to force re-login
-      if (res.status === 401 && apiToken) {
-        apiToken = null;
-        try{localStorage.removeItem('nexus_api_token');}catch(_){}
-      }
-      var e = new Error(data.error || 'Request failed (status ' + res.status + ')');
-      e.status = res.status;
-      throw e;
-    }
+    if (!res.ok) { var e = new Error(data.error || 'Request failed (status ' + res.status + ')'); e.status = res.status; throw e; }
     return data;
   } catch(e) {
     clearTimeout(timer);
@@ -223,12 +214,12 @@ const API = {
     }
   },
   async uploadAvatar(file) {
-    var compressed = await this._compressImage(file, 2048, 2000);
+    var compressed = await this._compressImage(file, 300, 800);
     var fd = new FormData(); fd.append('file', compressed, file.name);
     return await this._uploadWithFallback(API_BASE + '/api/upload/avatar', fd, true);
   },
   async uploadImage(file) {
-    var compressed = await this._compressImage(file, 5120, 3000);
+    var compressed = await this._compressImage(file, 300, 1200);
     var fd = new FormData(); fd.append('file', compressed, file.name);
     return await this._uploadWithFallback(API_BASE + '/api/upload/image', fd, true);
   },
@@ -331,10 +322,10 @@ async function fetchBalanceFromBackend(email) {
 API.p2pListings = async function() {
   return await apiFetch(API_BASE + '/api/p2p/listings');
 };
-API.p2pCreateListing = async function(toolId, toolName, toolIcon, toolColor, price, qty, dur, saleMode, powerSource, region, slaTier, computeUnit, tokenPerMwh) {
+API.p2pCreateListing = async function(toolId, toolName, toolIcon, toolColor, price, qty, dur) {
   return await apiFetch(API_BASE + '/api/p2p/listings', {
     method: 'POST',
-    body: JSON.stringify({ tool_id: toolId, tool_name: toolName, tool_icon: toolIcon, tool_color: toolColor, price: price, qty: qty, dur: dur, sale_mode: saleMode, power_source: powerSource, region: region, sla_tier: slaTier, compute_unit: computeUnit, token_per_mwh: tokenPerMwh })
+    body: JSON.stringify({ tool_id: toolId, tool_name: toolName, tool_icon: toolIcon, tool_color: toolColor, price: price, qty: qty, dur: dur })
   });
 };
 API.p2pDeleteListing = async function(id) {
@@ -449,3 +440,49 @@ async function syncUserToBackend(email, password, balance, holds) {
     console.error('syncUserToBackend register failed', e);
   }
 }
+
+// ========== Payment Methods API (port 3001) ==========
+const PAYMENT_API = (function(){
+  var base = location.protocol + '//' + location.hostname + ':3001';
+  return base;
+})();
+
+API.paymentMethods = {
+  async list() {
+    return await fetch(PAYMENT_API + '/api/payment-methods', {
+      headers: { 'Content-Type': 'application/json', ...authHeaders() }
+    }).then(r => r.json());
+  },
+  async create(pm) {
+    return await fetch(PAYMENT_API + '/api/payment-methods', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...authHeaders() },
+      body: JSON.stringify(pm)
+    }).then(r => r.json());
+  },
+  async update(id, pm) {
+    return await fetch(PAYMENT_API + '/api/payment-methods/' + encodeURIComponent(id), {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', ...authHeaders() },
+      body: JSON.stringify(pm)
+    }).then(r => r.json());
+  },
+  async remove(id) {
+    return await fetch(PAYMENT_API + '/api/payment-methods/' + encodeURIComponent(id), {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json', ...authHeaders() }
+    }).then(r => r.json());
+  },
+  async withdraw(amount, payment_method_id) {
+    return await fetch(PAYMENT_API + '/api/withdraw', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...authHeaders() },
+      body: JSON.stringify({ amount: amount, payment_method_id: payment_method_id })
+    }).then(r => r.json());
+  },
+  async withdrawals() {
+    return await fetch(PAYMENT_API + '/api/withdrawals', {
+      headers: { 'Content-Type': 'application/json', ...authHeaders() }
+    }).then(r => r.json());
+  }
+};
