@@ -4531,6 +4531,7 @@ function getVideoDuration(file){
     video.onloadedmetadata=function(){window.URL.revokeObjectURL(video.src);resolve(video.duration);};
     video.onerror=function(){window.URL.revokeObjectURL(video.src);reject(new Error('Cannot read video'));};
     video.src=URL.createObjectURL(file);
+  });});
   zpay_donate_nationality:{zh:'国籍',en:'Nationality',ja:'国籍',ko:'국적',es:'Nacionalidad',fr:'Nationalité',de:'Nationalität',pt:'Nacionalidade',ru:'Национальность',ar:'الجنسية',hi:'राष्ट्रीयता',th:'สัญชาติ',vi:'Quốc tịch',id:'Kewarganegaraan',it:'Nazionalità'},
   zpay_donate_nationality_ph:{zh:'请选择国籍',en:'Select nationality',ja:'国籍を選択',ko:'국적 선택',es:'Seleccionar nacionalidad',fr:'Sélectionner la nationalité',de:'Nationalität wählen',pt:'Selecionar nacionalidade',ru:'Выбрать национальность',ar:'اختر الجنسية',hi:'राष्ट्रीयता चुनें',th:'เลือกสัญชาติ',vi:'Chọn quốc tịch',id:'Pilih kewarganegaraan',it:'Seleziona nazionalità'},
   zpay_donate_name:{zh:'姓名',en:'Full Name',ja:'氏名',ko:'이름',es:'Nombre completo',fr:'Nom complet',de:'Vollständiger Name',pt:'Nome completo',ru:'Полное имя',ar:'الاسم الكامل',hi:'पूरा नाम',th:'ชื่อ-นามสกุล',vi:'Họ và tên',id:'Nama lengkap',it:'Nome completo'},
