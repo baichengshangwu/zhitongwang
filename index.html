@@ -743,9 +743,10 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <div id="paypal-modal-price" style="font-size:1.5rem;font-weight:800;font-family:var(--fm);color:var(--ap);margin-bottom:14px">$199.00</div>
   <div id="paypal-container-EJC58LA49LNM2" class="aj-paypal-btn" style="display:flex;justify-content:center;align-items:center;margin-bottom:14px;min-height:45px;max-width:100%;overflow:hidden"><span style="color:var(--t3);font-size:.7rem;padding:10px;text-align:center" id="paypal-fallback" data-key="paypal_loading">PayPal button loading... Please wait or refresh.</span></div>
   <a id="paypal-direct-btn" href="https://www.paypal.com/ncp/payment/EJC58LA49LNM2" target="_blank" rel="noopener" style="display:block;text-align:center;padding:10px 20px;margin-bottom:14px;background:linear-gradient(135deg,#0070ba,#1546a0);color:#fff;border-radius:8px;text-decoration:none;font-weight:700;font-size:.85rem"><span data-key="zpay_paypal_btn">Pay with PayPal</span></a>
-<div id="zpay-partner-row" style="display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap"><span style="font-size:.68rem;color:var(--t3);white-space:nowrap" data-key="zpay_or_label">或</span><button class="zpay-btn zpay-btn-alipay zpay-btn-sm" onclick="zpayPayUsd(199,'合伙人加入费-AI Nexus',zpayGenOrderId())"><span data-key="zpay_alipay">支付宝</span></button><button class="zpay-btn zpay-btn-wxpay zpay-btn-sm" onclick="zpayPayUsd(199,'合伙人加入费-AI Nexus',zpayGenOrderId(),'wxpay')"><span data-key="zpay_wxpay">微信</span></button></div>
+<div id="zpay-partner-row" style="display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap"><button class="zpay-btn zpay-btn-alipay zpay-btn-sm" onclick="zpayPayUsd(199,'合伙人加入费-AI Nexus',zpayGenOrderId())"><span data-key="zpay_alipay">支付宝</span></button><button class="zpay-btn zpay-btn-wxpay zpay-btn-sm" onclick="zpayPayUsd(199,'合伙人加入费-AI Nexus',zpayGenOrderId(),'wxpay')"><span data-key="zpay_wxpay">微信</span></button></div>
 
-  <div class="br2"><button class="btn bo" onclick="document.getElementById('paypal-donate-modal').classList.remove('show')" data-key="mcancel">Cancel</button></div>\n<div id="zpay-donate-area" style="margin-bottom:12px"></div>
+  <div class="br2"><button class="btn bo" onclick="document.getElementById('paypal-donate-modal').classList.remove('show')" data-key="mcancel">Cancel</button></div>
+<div id="zpay-donate-area" style="margin-bottom:12px"></div>
 </div></div>
 
 <!-- ============ BIND PAYPAL MODAL ============ -->
