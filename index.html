@@ -5179,6 +5179,7 @@ async function subscribeTool(toolId){
   }
   // Local fallback
   curUser.bal-=priceCNY;
+  curUser.holds=curUser.holds||{}; curUser.txs=curUser.txs||[];
   let hk='TOOL_'+toolId; curUser.holds[hk]=(curUser.holds[hk]||0)+1;
   curUser.txs.push({type:'buy',token:tool.name,amt:priceCNY,time:new Date().toISOString()});
   users[curUser._email]={...curUser,holds:{...curUser.holds},txs:[...curUser.txs],bal:curUser.bal};
@@ -5394,6 +5395,7 @@ async function buyListing(){
   }
   // Local fallback
   curUser.bal-=parseFloat(curListing.price);
+  curUser.holds=curUser.holds||{}; curUser.txs=curUser.txs||[];
   let hk='TOOL_'+curListing.toolId; curUser.holds[hk]=(curUser.holds[hk]||0)+1;
   curUser.txs.push({type:'buy',token:curListing.toolName,amt:parseFloat(curListing.price),time:new Date().toISOString()});
   users[curUser._email]={...curUser,holds:{...curUser.holds},txs:[...curUser.txs],bal:curUser.bal};
