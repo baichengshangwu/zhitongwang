@@ -11,6 +11,19 @@
 
 // ==================== CONFIGURATION ====================
 
+// Worker API endpoint - deploy to Cloudflare Workers and set here
+const API_BASE = 'https://agent-payment.ai-nexus.workers.dev';
+
+async function apiCall(path, method, body) {
+  const opts = {
+    method,
+    headers: { 'Content-Type': 'application/json' }
+  };
+  if (body) opts.body = JSON.stringify(body);
+  const resp = await fetch(API_BASE + path, opts);
+  return resp.json();
+}
+
 const AGENT_SITE_CONFIG = {
   domestic: {
     suffix: 'agent.ai-nexus.cn',
@@ -355,19 +368,36 @@ function openAgentConsole() {
 
 // ==================== DATA LOADING ====================
 
-function loadAgentData(parsed, config, levelInfo) {
-  const user = getCurrentUser();
-  const key = 'agent_data_' + (user ? user.id : 'guest') + '_' + parsed.channel;
+function getAgentId(parsed) {
+  return 'agent_' + parsed.channel + '_' + parsed.level + '_' + (parsed.subdomain || 'root');
+}
+
+async function loadAgentData(parsed, config, levelInfo) {
+  const agentId = getAgentId(parsed);
   
-  let data;
+  let data = {};
   try {
-    data = JSON.parse(localStorage.getItem(key) || '{}');
-  } catch(e) { data = {}; }
+    const resp = await apiCall(`/api/agent/balance?agent_id=${encodeURIComponent(agentId)}`, 'GET');
+    if (resp.success) {
+      data = resp;
+    }
+    // Fetch commissions
+    const commResp = await apiCall(`/api/agent/commissions?agent_id=${encodeURIComponent(agentId)}`, 'GET');
+    if (commResp.success) data.commissions = commResp.commissions;
+    // Fetch sub-agents
+    const subResp = await apiCall(`/api/agent/subs?agent_id=${encodeURIComponent(agentId)}`, 'GET');
+    if (subResp.success) data.subs = subResp.subs;
+  } catch(e) {
+    console.warn('Worker API unavailable, using local fallback:', e.message);
+    const user = getCurrentUser();
+    const key = 'agent_data_' + (user ? user.id : 'guest') + '_' + parsed.channel;
+    try { data = JSON.parse(localStorage.getItem(key) || '{}'); } catch(e2) { data = {}; }
+  }
   
   // Update stats
   const balance = data.balance || 0;
   const totalCommission = data.total_commission || 0;
-  const subAgents = data.sub_agents || [];
+  const subAgents = data.sub_agents || data.subs || [];
   
   setElText('as-balance', config.currency_symbol + balance.toFixed(2));
   setElText('as-total-commission', config.currency_symbol + totalCommission.toFixed(2));
@@ -381,7 +411,7 @@ function loadAgentData(parsed, config, levelInfo) {
     if (details) {
       details.style.display = 'block';
       details.innerHTML = config.payment_fields.map(f => 
-        `<div style="margin-bottom:4px"><span style="color:var(--t3)">${f.label}:</span> <strong>${maskSensitive(data.payment_info[f.key] || '-')}</strong></div>`
+        `<div style="margin-bottom:4px"><span style="color:var(--t3)">${f.label}:</span> <strong>${maskSensitive((data.payment_info && data.payment_info[f.key]) || '-')}</strong></div>`
       ).join('');
     }
     window.__agentPaymentBound = true;
@@ -482,7 +512,7 @@ function agentSiteBindPayment() {
   document.body.appendChild(div.firstElementChild);
 }
 
-function agentSiteSavePayment() {
+async function agentSiteSavePayment() {
   const config = agentChannelConfig;
   if (!config) return;
   
@@ -492,39 +522,61 @@ function agentSiteSavePayment() {
     info[f.key] = el ? el.value.trim() : '';
   }
   
-  const user = getCurrentUser();
-  const key = 'agent_data_' + (user ? user.id : 'guest') + '_' + currentAgentSite;
-  let data;
-  try {
-    data = JSON.parse(localStorage.getItem(key) || '{}');
-  } catch(e) { data = {}; }
+  const parsed = parseAgentLevel(location.hostname) || { channel: currentAgentSite, level: 0, subdomain: '' };
+  const agentId = getAgentId(parsed);
   
-  data.payment_bound = true;
-  data.payment_info = info;
-  localStorage.setItem(key, JSON.stringify(data));
+  try {
+    const resp = await apiCall('/api/agent/bind-payment', 'POST', {
+      agent_id: agentId,
+      channel: parsed.channel,
+      payment_info: info
+    });
+    if (!resp.success) {
+      alert('绑定失败: ' + (resp.error || '未知错误'));
+      return;
+    }
+  } catch(e) {
+    // Fallback to localStorage
+    const user = getCurrentUser();
+    const key = 'agent_data_' + (user ? user.id : 'guest') + '_' + currentAgentSite;
+    let data;
+    try { data = JSON.parse(localStorage.getItem(key) || '{}'); } catch(e2) { data = {}; }
+    data.payment_bound = true;
+    data.payment_info = info;
+    localStorage.setItem(key, JSON.stringify(data));
+  }
   
   document.getElementById('as-bind-modal').remove();
   
   // Refresh display
-  const parsed = parseAgentLevel(location.hostname) || { channel: currentAgentSite, level: 0, subdomain: '' };
   const levelInfo = config.levels[parsed.level] || config.levels[0];
   loadAgentData(parsed, config, levelInfo);
 }
 
-function agentSiteWithdraw() {
+async function agentSiteWithdraw() {
   const config = agentChannelConfig;
   if (!config) return;
   
-  const user = getCurrentUser();
-  const key = 'agent_data_' + (user ? user.id : 'guest') + '_' + currentAgentSite;
+  const parsed = parseAgentLevel(location.hostname) || { channel: currentAgentSite, level: 0, subdomain: '' };
+  const agentId = getAgentId(parsed);
+  
+  // Check payment bound
   let data;
   try {
-    data = JSON.parse(localStorage.getItem(key) || '{}');
-  } catch(e) { data = {}; }
-  
-  if (!data.payment_bound) {
-    alert('请先绑定' + config.provider_name + '收款通道');
-    return;
+    const balResp = await apiCall(`/api/agent/balance?agent_id=${encodeURIComponent(agentId)}`, 'GET');
+    if (!balResp.success || !balResp.payment_bound) {
+      alert('请先绑定' + config.provider_name + '收款通道');
+      return;
+    }
+    data = balResp;
+  } catch(e) {
+    const user = getCurrentUser();
+    const key = 'agent_data_' + (user ? user.id : 'guest') + '_' + currentAgentSite;
+    try { data = JSON.parse(localStorage.getItem(key) || '{}'); } catch(e2) { data = {}; }
+    if (!data.payment_bound) {
+      alert('请先绑定' + config.provider_name + '收款通道');
+      return;
+    }
   }
   
   const amountEl = document.getElementById('as-withdraw-amount');
@@ -545,20 +597,33 @@ function agentSiteWithdraw() {
     return;
   }
   
-  // Process withdrawal
-  data.balance = (data.balance || 0) - amount;
-  if (!data.commissions) data.commissions = [];
-  data.commissions.unshift({
-    time: Date.now(),
-    source: '提现到银行卡',
-    amount: -amount,
-    status: 'pending'
-  });
-  
-  localStorage.setItem(key, JSON.stringify(data));
+  // Process withdrawal via Worker
+  try {
+    const resp = await apiCall('/api/agent/withdraw', 'POST', {
+      agent_id: agentId,
+      amount: amount
+    });
+    if (!resp.success) {
+      alert('提现失败: ' + (resp.error || '未知错误'));
+      return;
+    }
+  } catch(e) {
+    // Fallback to localStorage
+    const user = getCurrentUser();
+    const key = 'agent_data_' + (user ? user.id : 'guest') + '_' + currentAgentSite;
+    try { data = JSON.parse(localStorage.getItem(key) || '{}'); } catch(e2) { data = {}; }
+    data.balance = (data.balance || 0) - amount;
+    if (!data.commissions) data.commissions = [];
+    data.commissions.unshift({
+      time: Date.now(),
+      source: '提现到银行卡',
+      amount: -amount,
+      status: 'pending'
+    });
+    localStorage.setItem(key, JSON.stringify(data));
+  }
   
   // Refresh
-  const parsed = parseAgentLevel(location.hostname) || { channel: currentAgentSite, level: 0, subdomain: '' };
   const levelInfo = config.levels[parsed.level] || config.levels[0];
   loadAgentData(parsed, config, levelInfo);
   
@@ -619,7 +684,7 @@ function agentSiteCreateSub() {
   });
 }
 
-function agentSiteDoCreateSub(nextLevel) {
+async function agentSiteDoCreateSub(nextLevel) {
   const config = agentChannelConfig;
   const region = document.getElementById('as-sub-region').value.toLowerCase().replace(/[^a-z0-9-]/g, '-');
   const email = document.getElementById('as-sub-email').value.trim();
@@ -631,48 +696,64 @@ function agentSiteDoCreateSub(nextLevel) {
   
   const parsed = parseAgentLevel(location.hostname) || { channel: currentAgentSite, level: 0, subdomain: '' };
   const subdomain = parsed.subdomain ? region + '.' + parsed.subdomain : region;
+  const parentId = getAgentId(parsed);
   
-  const user = getCurrentUser();
-  const key = 'agent_data_' + (user ? user.id : 'guest') + '_' + currentAgentSite;
-  let data;
   try {
-    data = JSON.parse(localStorage.getItem(key) || '{}');
-  } catch(e) { data = {}; }
+    const resp = await apiCall('/api/agent/create-sub', 'POST', {
+      parent_id: parentId,
+      region: region,
+      email: email,
+      name: region
+    });
+    if (!resp.success) {
+      alert('创建失败: ' + (resp.error || '未知错误'));
+      return;
+    }
+  } catch(e) {
+    // Fallback to localStorage
+    const user = getCurrentUser();
+    const key = 'agent_data_' + (user ? user.id : 'guest') + '_' + currentAgentSite;
+    let data;
+    try { data = JSON.parse(localStorage.getItem(key) || '{}'); } catch(e2) { data = {}; }
+    if (!data.sub_agents) data.sub_agents = [];
+    data.sub_agents.push({
+      name: region,
+      email: email,
+      level: nextLevel,
+      subdomain: subdomain,
+      total_commission: 0,
+      user_count: 0,
+      created_at: Date.now()
+    });
+    localStorage.setItem(key, JSON.stringify(data));
+  }
   
-  if (!data.sub_agents) data.sub_agents = [];
-  
-  data.sub_agents.push({
-    name: region,
-    email: email,
-    level: nextLevel,
-    subdomain: subdomain,
-    total_commission: 0,
-    user_count: 0,
-    created_at: Date.now()
-  });
-  
-  localStorage.setItem(key, JSON.stringify(data));
   document.getElementById('as-create-sub-modal').remove();
-  
   loadAgentData(parsed, config, config.levels[parsed.level]);
 }
 
-function agentSiteFilterCommission() {
+async function agentSiteFilterCommission() {
   const filter = document.getElementById('as-comm-filter')?.value || 'all';
   const config = agentChannelConfig;
   if (!config) return;
   
-  const user = getCurrentUser();
-  const key = 'agent_data_' + (user ? user.id : 'guest') + '_' + currentAgentSite;
-  let data;
-  try {
-    data = JSON.parse(localStorage.getItem(key) || '{}');
-  } catch(e) { data = {}; }
+  const parsed = parseAgentLevel(location.hostname) || { channel: currentAgentSite, level: 0, subdomain: '' };
+  const agentId = getAgentId(parsed);
   
-  const commissions = (data.commissions || []).filter(c => {
-    if (filter === 'all') return true;
-    return c.status === filter;
-  });
+  let commissions = [];
+  try {
+    const resp = await apiCall(`/api/agent/commissions?agent_id=${encodeURIComponent(agentId)}&filter=${filter}`, 'GET');
+    if (resp.success) commissions = resp.commissions;
+  } catch(e) {
+    const user = getCurrentUser();
+    const key = 'agent_data_' + (user ? user.id : 'guest') + '_' + currentAgentSite;
+    let data;
+    try { data = JSON.parse(localStorage.getItem(key) || '{}'); } catch(e2) { data = {}; }
+    commissions = (data.commissions || []).filter(c => {
+      if (filter === 'all') return true;
+      return c.status === filter;
+    });
+  }
   
   renderCommissionList(commissions, config);
 }
