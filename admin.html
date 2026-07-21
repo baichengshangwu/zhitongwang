@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XTokens 后台管理</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+.login-container{max-width:400px;margin:100px auto;padding:40px;background:#1e293b;border-radius:16px;border:1px solid #334155}
+.login-container h1{text-align:center;margin-bottom:30px;font-size:1.5rem;color:#38bdf8}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;margin-bottom:6px;color:#94a3b8;font-size:.875rem}
+.form-group input{width:100%;padding:10px 14px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#e2e8f0;font-size:1rem}
+.form-group input:focus{outline:none;border-color:#38bdf8}
+.btn{display:block;width:100%;padding:12px;background:#38bdf8;color:#0f172a;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer}
+.btn:hover{background:#7dd3fc}
+.btn-danger{background:#ef4444;color:#fff}
+.btn-danger:hover{background:#f87171}
+.btn-sm{padding:6px 12px;font-size:.8rem;width:auto;display:inline-block}
+.error{color:#f87171;text-align:center;margin-top:10px;font-size:.875rem}
+
+.dashboard{display:none;max-width:1200px;margin:0 auto;padding:20px}
+.header{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:#1e293b;border-radius:12px;margin-bottom:20px;border:1px solid #334155}
+.header h1{font-size:1.25rem;color:#38bdf8}
+.header button{padding:8px 16px;background:#ef4444;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:.875rem}
+
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.stat-card{background:#1e293b;border-radius:12px;padding:20px;border:1px solid #334155}
+.stat-card .label{color:#94a3b8;font-size:.8rem;margin-bottom:4px}
+.stat-card .value{font-size:1.5rem;font-weight:700;color:#38bdf8}
+
+.section{background:#1e293b;border-radius:12px;padding:24px;margin-bottom:20px;border:1px solid #334155}
+.section h2{font-size:1.1rem;margin-bottom:16px;color:#e2e8f0;border-bottom:1px solid #334155;padding-bottom:8px}
+
+.config-row{display:flex;gap:12px;align-items:flex-end;margin-bottom:12px;flex-wrap:wrap}
+.config-row label{color:#94a3b8;font-size:.8rem;margin-bottom:4px;display:block}
+.config-row input{padding:8px 12px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#e2e8f0;font-size:.9rem}
+.config-row input:focus{outline:none;border-color:#38bdf8}
+
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #1e293b;font-size:.875rem}
+th{color:#94a3b8;font-weight:600}
+td{color:#cbd5e1}
+
+.usage-bar{display:inline-block;height:6px;background:#38bdf8;border-radius:3px;vertical-align:middle;margin-right:6px}
+
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tab{padding:8px 16px;background:transparent;border:1px solid #334155;border-radius:8px;color:#94a3b8;cursor:pointer;font-size:.875rem}
+.tab.active{background:#38bdf8;color:#0f172a;border-color:#38bdf8}
+
+@media(max-width:768px){
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .login-container{margin:40px 16px;padding:24px}
+}
+</style>
+</head>
+<body>
+
+<div class="login-container" id="loginPage">
+  <h1>XTokens 后台管理</h1>
+  <div class="form-group">
+    <label>用户名</label>
+    <input type="text" id="loginUser" placeholder="admin">
+  </div>
+  <div class="form-group">
+    <label>密码</label>
+    <input type="password" id="loginPass" placeholder="输入密码">
+  </div>
+  <button class="btn" onclick="doLogin()">登录</button>
+  <div class="error" id="loginError"></div>
+</div>
+
+<div class="dashboard" id="dashboard">
+  <div class="header">
+    <h1>XTokens 后台管理系统</h1>
+    <button onclick="doLogout()">退出登录</button>
+  </div>
+
+  <div class="stats-grid" id="statsGrid"></div>
+
+  <div class="section">
+    <h2>渠道管理 - API 密钥配置</h2>
+    <p style="color:#94a3b8;font-size:.8rem;margin-bottom:12px">XTokens API 密钥存储在服务器端，前端页面不会暴露。仅在此后台可见。</p>
+    <div class="config-row">
+      <div>
+        <label>API Key</label>
+        <input type="password" id="apiKeyInput" style="width:400px" placeholder="sk-...">
+      </div>
+      <button class="btn btn-sm" onclick="saveApiKey()">保存</button>
+      <button class="btn btn-sm" style="background:#64748b" onclick="toggleApiKey()">显示/隐藏</button>
+    </div>
+    <div id="apiKeyStatus" style="margin-top:8px;font-size:.8rem;color:#94a3b8"></div>
+  </div>
+
+  <div class="section">
+    <h2>AC 联盟币汇率配置</h2>
+    <div class="config-row">
+      <div><label>购买汇率 (1 USD = ? AC)</label><input type="number" id="acBuyRate" step="0.01" style="width:120px"></div>
+      <div><label>出售汇率 (1 AC = ? USD)</label><input type="number" id="acSellRate" step="0.01" style="width:120px"></div>
+      <div><label>调用费率 (AC/Token)</label><input type="number" id="acRate" step="0.0001" style="width:120px"></div>
+      <button class="btn btn-sm" onclick="saveRates()">保存</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>模型调用统计</h2>
+    <div id="modelStats"></div>
+  </div>
+
+  <div class="section">
+    <h2>用户列表</h2>
+    <table id="userTable">
+      <thead><tr><th>用户邮箱</th><th>AC 余额</th><th>已订阅模型数</th><th>交易数</th><th>最后活跃</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+const API = window.location.origin;
+let adminToken = localStorage.getItem('xt_admin_token');
+
+async function api(path, opts={}) {
+  const headers = {...opts.headers, 'X-Admin-Token': adminToken};
+  if (opts.body && typeof opts.body === 'object') {
+    headers['Content-Type'] = 'application/json';
+    opts.body = JSON.stringify(opts.body);
+  }
+  const res = await fetch(API + path, {...opts, headers});
+  return res.json();
+}
+
+async function doLogin() {
+  const u = document.getElementById('loginUser').value.trim() || 'admin';
+  const p = document.getElementById('loginPass').value;
+  const res = await fetch(API + '/api/auth/login', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({username: u, password: p})
+  });
+  const data = await res.json();
+  if (data.success) {
+    adminToken = data.token;
+    localStorage.setItem('xt_admin_token', adminToken);
+    showDashboard();
+  } else {
+    document.getElementById('loginError').textContent = data.error || '登录失败';
+  }
+}
+
+function doLogout() {
+  localStorage.removeItem('xt_admin_token');
+  adminToken = null;
+  document.getElementById('loginPage').style.display = 'block';
+  document.getElementById('dashboard').style.display = 'none';
+}
+
+async function showDashboard() {
+  document.getElementById('loginPage').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  await loadAll();
+}
+
+async function loadAll() {
+  const [stats, config] = await Promise.all([
+    api('/api/admin/stats'),
+    api('/api/admin/config')
+  ]);
+  
+  // Stats
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card"><div class="label">总用户数</div><div class="value">${stats.total_users||0}</div></div>
+    <div class="stat-card"><div class="label">流通 AC</div><div class="value">${(stats.total_ac_circulating||0).toFixed(0)}</div></div>
+    <div class="stat-card"><div class="label">总调用次数</div><div class="value">${stats.total_calls||0}</div></div>
+    <div class="stat-card"><div class="label">今日调用</div><div class="value">${stats.today_calls||0}</div></div>
+    <div class="stat-card"><div class="label">今日消耗 AC</div><div class="value">${(stats.today_ac_spent||0).toFixed(0)}</div></div>
+  `;
+  
+  // Model stats
+  const mu = stats.model_usage || {};
+  document.getElementById('modelStats').innerHTML = Object.entries(mu).slice(0, 10).map(([k,v]) =>
+    `<div style="margin-bottom:8px"><span style="display:inline-block;width:200px;font-size:.85rem">${k}</span><span class="usage-bar" style="width:${Math.min(100,v*2)}px"></span> ${v} 次</div>`
+  ).join('') || '<div style="color:#94a3b8">暂无数据</div>';
+  
+  // Config
+  document.getElementById('apiKeyInput').value = config.api_key || '';
+  document.getElementById('apiKeyStatus').textContent = '当前密钥: ' + (config.api_key_masked || '未设置');
+  document.getElementById('acBuyRate').value = config.ac_buy_rate || 1.0;
+  document.getElementById('acSellRate').value = config.ac_sell_rate || 0.98;
+  document.getElementById('acRate').value = config.ac_rate || 1.0;
+  
+  // Users
+  const users = await api('/api/admin/users');
+  const tbody = document.querySelector('#userTable tbody');
+  tbody.innerHTML = (users.users||[]).map(u => `
+    <tr>
+      <td>${u.email}</td>
+      <td>${(u.acBalance||0).toFixed(0)} AC</td>
+      <td>${Object.keys(u.holds||{}).length}</td>
+      <td>${u.txs||0}</td>
+      <td>${(u.lastActive||'').slice(0,10)}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="5" style="text-align:center;color:#94a3b8">暂无用户</td></tr>';
+}
+
+async function saveApiKey() {
+  const key = document.getElementById('apiKeyInput').value.trim();
+  await api('/api/admin/config', {method:'POST', body:{api_key:key}});
+  document.getElementById('apiKeyStatus').textContent = '已保存！当前密钥: ' + (key ? key.slice(0,6)+'****'+key.slice(-4) : '未设置');
+}
+
+async function saveRates() {
+  await api('/api/admin/config', {method:'POST', body:{
+    ac_buy_rate: parseFloat(document.getElementById('acBuyRate').value),
+    ac_sell_rate: parseFloat(document.getElementById('acSellRate').value),
+    ac_rate: parseFloat(document.getElementById('acRate').value),
+  }});
+  alert('汇率已保存');
+}
+
+function toggleApiKey() {
+  const el = document.getElementById('apiKeyInput');
+  el.type = el.type === 'password' ? 'text' : 'password';
+}
+
+// Init
+if (adminToken) {
+  api('/api/auth/check').then(r => {
+    if (r.authenticated) showDashboard();
+    else { localStorage.removeItem('xt_admin_token'); adminToken = null; }
+  });
+}
+</script>
+</body>
+</html>
