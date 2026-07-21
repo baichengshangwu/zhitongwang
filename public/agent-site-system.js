@@ -41,10 +41,10 @@ const AGENT_SITE_CONFIG = {
     currency: 'USD',
     currency_symbol: '$',
     levels: [
-      { key: 'global',    name: '全球代理',    commission: 5,   sub_prefix: '' },
-      { key: 'country',   name: '国家代理',    commission: 10,  sub_prefix: '{country}' },
-      { key: 'state',     name: '洲省代理',    commission: 30,  sub_prefix: '{state}.{country}' },
-      { key: 'city',      name: '普通代理',    commission: 40,  sub_prefix: '{city}.{state}.{country}' }
+      { key: 'country',   name: '国家/地区代理', commission: 5,   sub_prefix: '{country}' },
+      { key: 'state',     name: '洲省代理',      commission: 10,  sub_prefix: '{state}.{country}' },
+      { key: 'city',      name: '市/区代理',     commission: 30,  sub_prefix: '{city}.{state}.{country}' },
+      { key: 'district',  name: '普通代理',      commission: 40,  sub_prefix: '{district}.{city}.{state}.{country}' }
     ],
     payment_fields: [
       { key: 'payoneer_account', label: 'Payoneer 账户邮箱', placeholder: '输入 Payoneer 账户邮箱' },
