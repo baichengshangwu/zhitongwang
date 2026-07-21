@@ -215,11 +215,12 @@ function buildLangMenu(){
 function setLang(l){
   curLang=l; localStorage.setItem('nexus_lang',l);
   document.getElementById('cln').textContent=l.toUpperCase();
+  document.documentElement.lang=l==='zh'?'zh-CN':l==='ja'?'ja-JP':l==='ko'?'ko-KR':l==='fr'?'fr-FR':l==='de'?'de-DE':l==='es'?'es-ES':l==='pt'?'pt-BR':l==='ru'?'ru-RU':l==='ar'?'ar-SA':l==='hi'?'hi-IN':l==='th'?'th-TH':l==='vi'?'vi-VN':l==='id'?'id-ID':l==='it'?'it-IT':'en-US';
   document.getElementById('lm').classList.remove('show');
   buildLangMenu(); applyI18N(); rAll();
   if(curPage==='member'){try{renderMemberPage();}catch(e){console.error(e);}}
-  // Translate bio if profile view is open or bio exists
-  if(curUser&&curUser.bio){translateBio(); updateProfileView();}
+  // Translate profile fields on language change (always refresh regardless of bio)
+  if(curUser){try{translateBio();}catch(e){console.error(e)}; updateProfileView();}
   // Retranslate chat messages to new language
   retranslateMsgs();
   // Translate dynamic community content
@@ -271,9 +272,13 @@ function updateProfileView(){
   document.getElementById('pv-wallet').textContent=curUser.wallet||'—';
   document.getElementById('pv-kyc').textContent=curUser.kyc||'Bronze';
   document.getElementById('pv-joined').textContent=curUser.joined||'—';
+  // Show new profile fields (location / birth / gender)
+  try{var elLoc=document.getElementById('pv-location');if(elLoc){var locText=curUser.location||'';if(locText&&typeof tRegion==='function'){try{var locParts=locText.split(' / ');locText=locParts.map(function(p){return tRegion(p);}).join(' / ');}catch(e){}}elLoc.textContent=locText||'—';}}catch(e){}
+  try{var elBirth=document.getElementById('pv-birth');if(elBirth){var birthText=curUser.birth_date||'';if(birthText){try{birthText=new Date(birthText+'T00:00:00').toLocaleDateString(curLang==='zh'?'zh-CN':curLang);}catch(e){}}elBirth.textContent=birthText||'—';}}catch(e){}
+  try{var elGend=document.getElementById('pv-gender');if(elGend){elGend.textContent=(curUser.gender==='male'?t('mpgender_m'):curUser.gender==='female'?t('mpgender_f'):'—');}}catch(e){}
   // Show translated bio if available, otherwise original
-  var bioDisplay = curLang==='zh' ? (curUser.bio||'') : (curUser._bioTranslated||'');
-  document.getElementById('pv-bio').textContent=bioDisplay||curUser.bio||'—';
+  var bioDisplay = curUser._bioTranslated || curUser.bio || '';
+  document.getElementById('pv-bio').textContent=bioDisplay||'—';
   // Show signature images
   var sigImgs=curUser.sig_images||(curUser.sig_image?curUser.sig_image.split(',').filter(Boolean):[]);
   var sigContainer=document.getElementById('pv-sigimgs');
@@ -286,7 +291,7 @@ function updateProfileView(){
 }
 // Translate bio text for current language
 async function translateBio(){
-  if(!curUser||!curUser.bio||curLang==='zh')return;
+  if(!curUser||!curUser.bio)return;
   try{
     var res=await fetch('/api/translate',{
       method:'POST',headers:{'Content-Type':'application/json'},
