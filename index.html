@@ -323,7 +323,8 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 @keyframes cs-ring{0%{transform:scale(1);opacity:1}100%{transform:scale(1.5);opacity:0}}
 .cs-popup{display:none;background:var(--bgc);border:1px solid var(--bda);border-radius:14px;padding:16px 14px;min-width:240px;box-shadow:0 12px 40px rgba(0,0,0,.6);animation:mp .25s ease}
 .cs-popup.show{display:block}
-.cs-popup .cs-title{font-weight:700;font-size:.82rem;margin-bottom:10px;color:#fff;display:flex;align-items:center;gap:6px}
+.cs-popup .cs-title{font-weight:700;font-size:.82rem;margin-bottom:10px;color:#fff;display:flex;align-items:center;gap:6px;position:relative;padding-right:28px}
+.cs-popup .cs-close-btn:hover{background:var(--bg2);color:#fff}
 .cs-popup .cs-item{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.72rem;color:var(--t2)}
 .cs-popup .cs-item:last-child{border-bottom:0}
 .cs-popup .cs-item .cs-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
@@ -1819,6 +1820,8 @@ const initPowerPackages = [
   {id:'gpt-image-2-pro',icon:'&#x1F3A8;',name:'GPT Image 2 Pro',cat:'image',desc:'XToken: $0.03/次 | 平台售$0.0420/次',price:0.0420,color:'#10a37f',use:0,apy:0,rating:5.0,badge:'PRO'},
   {id:'Nano-Banana-2',icon:'&#x1F3A8;',name:'Nano Banana 2',cat:'image',desc:'XToken: $0.12/次 | 平台售$0.1680/次',price:0.1680,color:'#4285f4',use:0,apy:0,rating:5.0,badge:''}
 ];
+
+const initTools = initPowerPackages;
 
 const initEvents = [
   {id:'ev1',title:'AI DevCon 2026',date:'2026-09-15',loc:'San Francisco, CA',emoji:'&#x1F680;',attendees:5200,tokens:15000,price:'$299',status:'live',desc:'The largest AI developer conference. Access to 50+ workshops, keynotes, and networking.'},
@@ -4900,9 +4903,9 @@ function populateDonateCountrySelect(){
 
 function openFaqPage(){
   var cur=curLang||'zh';
-  var faq=[{q:{zh:'如何注册账号?',en:'How to register?'},a:{zh:'点击右上角"登录"按钮,选择"注册"并填写邮箱和密码即可完成注册。',en:'Click "Login" at top right, select "Sign Up".'}},{q:{zh:'如何发布作品?',en:'How to publish works?'},a:{zh:'进入论坛页面,选择对应发布区(图文/视频/音频/影视)填写内容后点击发布。系统自动检测政治敏感、暴力血腥、色情、赌博毒品、侵权网暴等违规内容,违规将被拒绝。',en:'Go to Forum, choose category, fill content and publish. Auto-moderation for politics, violence, porn, gambling, infringement.'}},{q:{zh:'如何交易?',en:'How to trade?'},a:{zh:'在P2P页面选择交易对和方向,输入数量和价格后下单。支持电算协同挂售,系统自动计算最优价格。',en:'On P2P page select pair, direction, amount and price, then place order.'}},{q:{zh:'如何绑定支付方式?',en:'How to bind payment?'},a:{zh:'登录后进入"会员中心",在"支付方式"中绑定Alipay/PayPal。需先登录才能操作。',en:'After login, go to Member Center > Payment Methods to bind Alipay/PayPal.'}},{q:{zh:'如何成为代理/合伙人?',en:'How to become an agent/partner?'},a:{zh:'点击右上角"Become a Partner"按钮,选择代理级别(全球/国家/洲省/市区)并完成付款即可。',en:'Click "Become a Partner", select tier and complete payment.'}},{q:{zh:'赞助捐赠如何操作?',en:'How to sponsor/donate?'},a:{zh:'点击右上角"Become a Partner"按钮选择"Sponsor / Donate",填写捐赠信息包括国籍、金额等,然后完成支付。',en:'Click "Become a Partner" then choose "Sponsor / Donate", fill info and pay.'}},{q:{zh:'内容审核规则是什么?',en:'Content moderation rules?'},a:{zh:'系统自动检测五类违规内容: ①政治敏感 ②暴力血腥 ③黄色色情 ④赌博涉毒 ⑤侵权网暴。违规内容将被拒绝发布,严重违规可能导致封号。',en:'Auto-detection for: politics, violence, porn, gambling/drugs, infringement/cyberbullying. Violations rejected.'}},{q:{zh:'电算协同挂售是什么?',en:'What is electronic co-listing?'},a:{zh:'电算协同挂售是P2P端的高级功能,支持自动化计算最优定价与协同管理挂单。在P2P交易页面点击"发布"标签即可创建挂单,系统根据市场行情自动推荐价格。',en:'Advanced P2P feature: auto-calculation and collaborative listing. Go to P2P > Post tab.'}},{q:{zh:'支持哪些语种?',en:'Supported languages?'},a:{zh:'中文、English、日本語、한국어、Español、العربية、Français、Deutsch、Português、Русский、हिन्दी、ไทย、Tiếng Việt、Bahasa Indonesia、Bahasa Melayu共15种语言。',en:'15 languages: ZH, EN, JA, KO, ES, AR, FR, DE, PT, RU, HI, TH, VI, ID, MS.'}},{q:{zh:'如何联系客服?',en:'How to contact support?'},a:{zh:'通过右下角浮窗查看Telegram、微信、邮箱等联系方式。',en:'Use bottom-right floating widget for Telegram, WeChat, email.'}},];
-  var faqTitle={zh:'常见问题解答',en:'FAQ / Help',ja:'よくある質問',ko:'자주 묻는 질문'}[cur]||'FAQ';
-  var h='<div class="mo show" id="mo-faq" onclick="if(event.target===this){var e=document.getElementById(\"mo-faq\");e&&e.remove();}"><div class="mod" style="max-width:600px;max-height:80vh;overflow-y:auto"><h3 style="margin-bottom:16px">'+faqTitle+'</h3>';
+  var faq=[{q:{zh:'如何注册账号?',en:'How to register?'},a:{zh:'点击右上角\u300C登录\u300D按钮,选择\u300C注册\u300D并填写邮箱和密码即可完成注册。',en:'Click "Login" at top right, select "Sign Up" and fill in email and password.'}},{q:{zh:'如何发布作品?',en:'How to publish works?'},a:{zh:'进入论坛页面,选择对应发布区(图文/视频/音频/影视)填写内容后点击发布。系统自动检测违规内容。',en:'Go to Forum, choose category, fill content and publish. Auto-moderation for violations.'}},{q:{zh:'如何交易?',en:'How to trade?'},a:{zh:'在P2P页面选择交易对和方向,输入数量和价格后下单。系统自动计算最优价格。',en:'On P2P page select pair, direction, amount and price, then place order.'}},{q:{zh:'如何绑定支付方式?',en:'How to bind payment?'},a:{zh:'登录后进入\u300C会员中心\u300D,在\u300C支付方式\u300D中绑定Alipay/PayPal。',en:'After login, go to Member Center > Payment Methods to bind Alipay/PayPal.'}},{q:{zh:'如何成为代理/合伙人?',en:'How to become an agent/partner?'},a:{zh:'点击右上角\u300CBecome a Partner\u300D按钮,选择代理级别并完成付款。',en:'Click "Become a Partner", select tier and complete payment.'}},{q:{zh:'赞助捐赠如何操作?',en:'How to sponsor/donate?'},a:{zh:'点击右上角\u300CBecome a Partner\u300D选择\u300CSponsor / Donate\u300D,填写信息并完成支付。',en:'Click "Become a Partner" then "Sponsor / Donate", fill info and pay.'}},{q:{zh:'内容审核规则是什么?',en:'Content moderation rules?'},a:{zh:'系统自动检测五类违规: ①政治敏感 ②暴力血腥 ③黄色色情 ④赌博涉毒 ⑤侵权网暴。违规拒绝发布,严重封号。',en:'Auto-detection: politics, violence, porn, gambling/drugs, infringement/cyberbullying. Violations rejected, severe = ban.'}},{q:{zh:'电算协同挂售是什么?',en:'What is electronic co-listing?'},a:{zh:'P2P高级功能,支持自动化计算最优定价与协同管理挂单。在P2P页面点击\u300C发布\u300D标签创建挂单。',en:'Advanced P2P feature: auto-calculation and collaborative listing. Go to P2P > Post tab.'}},{q:{zh:'支持哪些语种?',en:'Supported languages?'},a:{zh:'中文、English、日本語、한국어、Español、العربية、Français、Deutsch、Português、Русский、हिन्दी、ไทย、Tiếng Việt、Bahasa Indonesia、Bahasa Melayu共15种语言。',en:'15 languages: ZH, EN, JA, KO, ES, AR, FR, DE, PT, RU, HI, TH, VI, ID, MS.'}},{q:{zh:'如何联系客服?',en:'How to contact support?'},a:{zh:'通过右下角浮窗查看微信、邮箱等联系方式,或在此FAQ页面查找答案。',en:'Use bottom-right floating widget for WeChat, email, or browse this FAQ page.'}},];
+  var faqTitle={zh:'常见问题解答',en:'FAQ / Help',ja:'よくある質問',ko:'자주 묻는 질문',es:'Preguntas frecuentes',ar:'الأسئلة الشائعة',fr:'FAQ / Aide',de:'FAQ / Hilfe',pt:'Perguntas frequentes',ru:'Часто задаваемые вопросы',hi:'अक्सर पूछे जाने वाले प्रश्न',th:'คำถามที่พบบ่อย',vi:'Câu hỏi thường gặp',id:'Pertanyaan Umum',ms:'Soalan Lazim'}[cur]||'FAQ';
+  var h='<div class="mo show" id="mo-faq" onclick="if(event.target===this){var e=document.getElementById(\"mo-faq\");e&&e.remove();}" style="z-index:9999"><div class="mod" style="max-width:600px;max-height:80vh;overflow-y:auto"><h3 style="margin-bottom:16px">'+faqTitle+'</h3>';
   faq.forEach(function(item,i){
     h+='<div style="margin-bottom:12px;padding:12px;background:var(--bg2);border-radius:9px;border:1px solid var(--bd)"><div style="font-weight:700;font-size:.82rem;color:var(--t1);margin-bottom:6px">Q'+(i+1)+': '+(item.q[cur]||item.q.zh)+'</div><div style="font-size:.75rem;color:var(--t2);line-height:1.6">'+(item.a[cur]||item.a.zh)+'</div></div>';
   });
@@ -6582,7 +6585,7 @@ function _getNextTradingDay(){
   if(day<3)return '周三';
   return '周日';
 }
-var AC_BUY_RATE=1.0;var AC_SELL_RATE=0.98;
+var AC_BUY_RATE=0.01;var AC_SELL_RATE=0.009;
 function _getACPoolRate(){return{buy:AC_BUY_RATE,sell:AC_SELL_RATE};}
 function _renderACPool(lang){
   lang=lang||'zh';
@@ -14949,7 +14952,7 @@ function md5(string){string=unescape(encodeURIComponent(string));function cmn(q,
 <!-- CS Float -->
 <div class="cs-float">
   <div class="cs-popup" id="cs-popup">
-    <div class="cs-title">💬 <span data-key="cscs">联系客服</span></div>
+    <div class="cs-title">💬 <span data-key="cscs">联系客服</span><button class="cs-close-btn" onclick="var p=document.getElementById('cs-popup');p&&p.classList.remove('show')" style="position:absolute;right:12px;top:12px;width:24px;height:24px;border:none;background:var(--bg3);color:var(--t2);border-radius:50%;cursor:pointer;font-size:.9rem;line-height:24px;display:flex;align-items:center;justify-content:center">&times;</button></div>
     <div class="cs-item">
       <div class="cs-icon" style="background:rgba(7,193,96,.15)">💚</div>
       <div><div style="font-size:.65rem;color:var(--t3);margin-bottom:1px" data-key="cswx">微信</div><div class="cs-val">qiyefuwu77l</div></div>
