@@ -1155,7 +1155,6 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
   <input type="text" placeholder="Search models..." id="th-search" style="max-width:200px" oninput="rTHModels()" data-key-ph="th_search_ph">
   <select id="th-cat" onchange="rTHModels()"><option value="all" data-key="fall">All</option><option value="text" data-key="tcat_text">Text & Copy</option><option value="image" data-key="tcat_image">Image & Design</option><option value="video" data-key="tcat_video">Video & Audio</option><option value="embedding" data-key="th_embed">Embedding</option></select>
   <select id="th-vendor" onchange="rTHModels()"><option value="all" data-key="th_all_vendors">All Vendors</option></select>
-  <button class="btn bd2" onclick="openTHSettings()" style="font-size:.7rem;white-space:nowrap">&#x1F511; <span data-key="th_settings">Settings</span></button>
 </div>
 <div id="th-status-bar" style="font-size:.7rem;color:var(--t2);margin:4px 0 8px;display:flex;gap:12px;flex-wrap:wrap"></div>
 <div class="g3" id="th-models-grid" style="margin-bottom:16px"></div>
@@ -1278,6 +1277,31 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 </div>
 
 <script>
+async function refreshBalanceDisplay(){
+  if(!curUser||!curUser._email)return;
+  try{
+    var bal=await API.getBalance();
+    curUser.bal=bal.balance;
+    curUser.holds=curUser.holds||{};
+    curUser.holds['NEXUS']=bal.nexus_balance;
+    curUser.total_recharge=bal.total_recharge||0;
+    curUser.recharged=bal.total_recharge||0;
+    curUser.member_level=bal.member_level||'normal';
+    saveSession();
+    // Update member center display
+    var acEl=document.getElementById('ac-balance-display');
+    if(acEl)acEl.textContent=(bal.balance||0).toFixed(0);
+    var mblv=document.getElementById('member-level-display');
+    if(mblv)mblv.textContent=bal.member_level||'normal';
+    var totalRech=document.getElementById('total-recharge-display');
+    if(totalRech)totalRech.textContent=(bal.total_recharge||0).toFixed(0);
+    // Update dashboard if visible
+    var dashAc=document.getElementById('dash-ac-balance');
+    if(dashAc)dashAc.textContent=(bal.balance||0).toFixed(0)+' AC';
+    var dashLv=document.getElementById('dash-member-lv');
+    if(dashLv)dashLv.textContent=bal.member_level||'normal';
+  }catch(e){console.warn('refreshBalance failed:',e.message);}
+}
 function refreshDashboard() {
   const u = getUser();
   if (!u || !u.email) {
@@ -1301,10 +1325,8 @@ function refreshDashboard() {
   document.getElementById('dash-addr').textContent = u.addr || '--';
   document.getElementById('dash-status').textContent = '在线';
 
-  // Use _getACData() for consistency with member center
-  var acData = (typeof _getACData === 'function') ? _getACData() : {acBalance:0};
-  var ac = acData.acBalance || 0;
-  document.getElementById('dash-ac-balance').textContent = ac.toFixed(0) + ' AC';
+  // Use backend balance
+  document.getElementById('dash-ac-balance').textContent = (curUser.bal||0).toFixed(0) + ' AC';
 
   var subs = u.subscriptions || u.holds || {};
   var subKeys = Object.keys(subs);
@@ -1313,8 +1335,11 @@ function refreshDashboard() {
   var orders = JSON.parse(localStorage.getItem('user_orders_'+u.email) || '[]');
   document.getElementById('dash-order-count').textContent = orders.length;
 
-  var lv = u.memberLevel || u.level || '普通';
+  var lv = curUser.member_level || u.memberLevel || u.level || 'normal';
   document.getElementById('dash-member-lv').textContent = lv;
+  // Also update total recharge display
+  var trEl=document.getElementById('dash-total-recharge');
+  if(trEl)trEl.textContent=(curUser.total_recharge||0).toFixed(0);
 
   if (orders.length > 0) {
     document.getElementById('dash-activity').innerHTML = orders.slice(-5).reverse().map(function(o){
@@ -1946,13 +1971,34 @@ function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt
 <script>
 // ============ GLOBALS ============
 var apiToken;
+const API_BASE = (function(){ try { var h=window.location.hostname; return (h==='localhost'||h==='127.0.0.1')?'http://localhost:3000':(window.location.protocol+'//'+window.location.host); } catch(e) { return ''; } })();
+
+function _apiFetch(path, opts){
+  opts = opts || {};
+  const headers = {'Content-Type':'application/json'};
+  if(apiToken) headers['Authorization'] = 'Bearer ' + apiToken;
+  if(opts.headers) Object.assign(headers, opts.headers);
+  return fetch(API_BASE + path, { ...opts, headers }).then(function(r){
+    if(!r.ok){
+      return r.json().then(function(e){ var err=new Error(e.error||'API error'); err.status=r.status; throw err; }).catch(function(e2){ if(e2.status) throw e2; var err2=new Error('HTTP '+r.status); err2.status=r.status; throw err2; });
+    }
+    return r.json();
+  });
+}
+
 var API = {
-  register: function(){ return Promise.reject(new Error('API not connected')); },
-  login: function(){ return Promise.reject(new Error('API not connected')); },
+  register: function(n,e,p){ return _apiFetch('/api/register', {method:'POST', body:JSON.stringify({name:n, email:e, password:p})}); },
+  login: function(e,p){ return _apiFetch('/api/login', {method:'POST', body:JSON.stringify({email:e, password:p})}); },
+  getUser: function(){ return _apiFetch('/api/user'); },
+  getBalance: function(){ return _apiFetch('/api/user/balance'); },
+  getTransactions: function(){ return _apiFetch('/api/user/transactions'); },
+  getUsage: function(){ return _apiFetch('/api/user/usage'); },
+  chat: function(model, messages){ return _apiFetch('/api/chat', {method:'POST', body:JSON.stringify({model:model, messages:messages})}); },
+  updateProfile: function(data){ return _apiFetch('/api/user/profile', {method:'POST', body:JSON.stringify(data)}); },
   uploadImage: function(file){return _apiUploadLocal(file,'image');},
   uploadAvatar: function(file){return _apiUploadLocal(file,'avatar');},
   uploadVideo: function(file){return _apiUploadLocal(file,'video');},
-  saveProfile: function(){ return Promise.reject(new Error('API not connected')); },
+  saveProfile: function(){ return Promise.reject(new Error('Use API.updateProfile')); },
   agentStatus: function(){ return Promise.reject(new Error('API not connected')); },
   agentEarnings: function(){ return Promise.reject(new Error('API not connected')); },
   agentRegister: function(){ return Promise.reject(new Error('API not connected')); },
@@ -2117,7 +2163,6 @@ let users = loadLS('nexus_users', {});
 let p2pFilter = '';
 let tradeTFVal = '1h';
 const USD_TO_CNY = 6.81196;
-var TOKENHUB_MASTER_KEY=localStorage.getItem('th_master_key')||'';
 function getTodouModelId(id){var m=id.replace(/-td$/,'');if(m.startsWith('relaypool-'))m=m.replace('relaypool-','relaypool/');if(m.startsWith('unipass-'))m=m.replace('unipass-','unipass/');if(m.startsWith('glm-'))m=m.toUpperCase();if(m==='gpt-image-2-i2i')m='gpt-image-2-image-to-image';if(m==='gpt-image-2-t2i')m='gpt-image-2-text-to-image';return m;}
 var TH_MODELS = [
   {id:'claude-opus-4-6-td',icon:'&#x1F9E0;',name:'Claude Opus 4.6',cat:'text',desc:'$14.58/$36.46',price:25.5208,color:'#d97757',vendor:'Anthropic',badge:''},
@@ -2181,8 +2226,6 @@ var TH_MODELS = [
   {id:'tongyi-embedding-vision-plus-td',icon:'&#x1F9E0;',name:'Tongyi Embedding Vision+',cat:'embedding',desc:'$0.08/$0.08',price:0.0833,color:'#6366f1',vendor:'Alibaba',badge:''},
 ];
 
-function openTHSettings(){var h=document.getElementById('mo-th-settings');if(!h){var d=document.createElement('div');d.id='mo-th-settings';d.className='mo';d.innerHTML='<div class="mc" style="max-width:440px"><span class="mcls" onclick="document.getElementById(\'mo-th-settings\').remove()">&times;</span><h3>&#x1F511; TOKENHUB '+t('main_key_settings')+'</h3><p style="color:var(--t2);font-size:.75rem;margin-bottom:10px">'+t('th_settings_desc')+'</p><label>API Key</label><input type="password" id="th-key-input" placeholder="sk-..." style="width:100%;margin:5px 0"><div id="th-status" style="font-size:.7rem;color:var(--t2);margin-bottom:8px"></div><button class="btn bg bw" onclick="saveTHKey()">'+t('save')+'</button><button class="btn bd2 bw" style="margin-top:4px" onclick="document.getElementById(\'mo-th-settings\').remove()">'+t('cancel')+'</button><p style="font-size:.65rem;color:var(--t3);margin-top:10px"><a href="https://tokenhub.todoucloud.com" target="_blank">tokenhub.todoucloud.com</a></p></div>';document.body.appendChild(d);d.style.display='flex';}else{h.style.display='flex';}document.getElementById('th-key-input').value=TOKENHUB_MASTER_KEY;document.getElementById('th-status').textContent=TOKENHUB_MASTER_KEY?'&#x2705; '+t('configured')+' (sk-****'+TOKENHUB_MASTER_KEY.slice(-4)+')':'&#x26A0; '+t('not_configured');}
-function saveTHKey(){var key=document.getElementById('th-key-input').value.trim();TOKENHUB_MASTER_KEY=key;localStorage.setItem('th_master_key',key);document.getElementById('mo-th-settings').remove();notify(key?'&#x2705; TOKENHUB '+t('key_saved'):'&#x1F5D1; TOKENHUB '+t('key_cleared'),'&#x2705;');}
 
 function loadLS(k, d){ try{let v=localStorage.getItem(k); return v?JSON.parse(v):d;}catch(e){console.error('loadLS failed',k,e);return d;} }
 function saveLS(k, v){ try{localStorage.setItem(k, JSON.stringify(v));if(k==='nexus_users')saveAuthCookie();}catch(e){console.error('saveLS failed',k,e);} }
@@ -2249,7 +2292,7 @@ function rTHModels(){
   if(q)models=models.filter(function(m){return m.name.toLowerCase().includes(q)||m.vendor.toLowerCase().includes(q);});
 
   var sb=document.getElementById('th-status-bar');
-  if(sb){var keyOk=TOKENHUB_MASTER_KEY&&TOKENHUB_MASTER_KEY.length>10;sb.innerHTML='<span>'+t('th_models_count').replace('{n}',TH_MODELS.length)+'</span>'+(keyOk?'<span style=color:var(--green)>&#x2705; '+t('configured')+'</span>':'<span style=color:var(--red)>&#x26A0; '+t('not_configured')+'</span>')+'<span>'+t('th_showing').replace('{n}',models.length)+'</span>';}
+  if(sb){sb.innerHTML='<span>'+t('th_models_count').replace('{n}',TH_MODELS.length)+'</span><span style=color:var(--green)>&#x2705; '+t('configured')+'</span><span>'+t('th_showing').replace('{n}',models.length)+'</span>';}
 
   var vs=document.getElementById('th-vendor');
   if(vs&&vs.options.length<=1){var vd=[];TH_MODELS.forEach(function(m){if(vd.indexOf(m.vendor)===-1)vd.push(m.vendor);});vd.sort();vd.forEach(function(v){var o=document.createElement('option');o.value=v;o.textContent=v;vs.appendChild(o);});}
@@ -2266,7 +2309,7 @@ function selectTHModel(id){currentTHModel=id;var e=document.getElementById('th-c
 function rTHChatModels(){var e=document.getElementById('th-chat-model');if(!e)return;var g={};TH_MODELS.forEach(function(m){if(!g[m.vendor])g[m.vendor]=[];g[m.vendor].push(m);});e.innerHTML=Object.keys(g).sort().map(function(v){return '<optgroup label='+v+'>'+g[v].map(function(m){return '<option value='+m.id+(m.id===currentTHModel?' selected':'')+'>'+m.name+'</option>';}).join('')+'</optgroup>';}).join('');e.value=currentTHModel;}
 
 async function sendTHChat(){
-  if(!TOKENHUB_MASTER_KEY||TOKENHUB_MASTER_KEY.length<10){openTHSettings();return;}
+  if(!curUser){oam('login');return;}
   var i=document.getElementById('th-chat-input'),d=document.getElementById('th-chat-messages'),m=document.getElementById('th-chat-model')?.value||currentTHModel;
   if(!i||!d||!i.value.trim())return;
   var p=i.value.trim();i.value='';
@@ -2276,15 +2319,21 @@ async function sendTHChat(){
   var a=document.createElement('div');a.style.marginBottom='10px';
   a.innerHTML='<strong style=color:var(--green)>AI</strong><div style=word-break:break-word id=th-ai-stream>'+t('chat_thinking')+'...</div>';
   d.appendChild(a);d.scrollTop=d.scrollHeight;
-  var mid=getTodouModelId(m),api='https://tokenhub.todoucloud.com/v1';
   var lm={zh:'Chinese',en:'English',ja:'Japanese',ko:'Korean',es:'Spanish',fr:'French',de:'German',pt:'Portuguese',ru:'Russian',ar:'Arabic',hi:'Hindi'};
   var msgs=[{role:'system',content:'You are a helpful AI assistant. Always respond in '+(lm[curLang]||'English')+'. Keep responses concise.'},{role:'user',content:p}];
   try{
-    var r=await fetch(api+'/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKENHUB_MASTER_KEY},body:JSON.stringify({model:mid,messages:msgs,stream:false,max_tokens:2048})});
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    var j=await r.json(),rp=j.choices?.[0]?.message?.content||'(no response)';
+    var r=await API.chat(m, msgs);
+    if(r.error){throw new Error(r.error);}
+    var rp=(r.choices?.[0]?.message?.content)||'(no response)';
     thChatHistory.push({role:'assistant',content:rp});
     var sd=document.getElementById('th-ai-stream');if(sd)sd.textContent=rp;
+    // Update balance from response meta
+    if(r._meta){
+      curUser.bal=r._meta.balance;
+      if(curUser.holds)curUser.holds['NEXUS']=r._meta.nexus_balance;
+      saveSession();
+      try{refreshBalanceDisplay();}catch(e){}
+    }
   }catch(e){var sd=document.getElementById('th-ai-stream');if(sd)sd.innerHTML='<span style=color:var(--red)>'+t('chat_error')+': '+escHtml(e.message)+'</span>';}
   d.scrollTop=d.scrollHeight;
 }
@@ -4917,35 +4966,32 @@ function doLogin(){
   doLogin_email(e,p);
 }
 async function doLogin_email(e,p){
-  if(!users[e]||users[e].pass!==p){
-    // Local check failed, try backend
-    try{
-      var lr=await API.login(e,p);
-      if(lr&&lr.token){
-        users[e]={name:lr.user.name||'',email:e,pass:p,wallet:lr.user.wallet||'',bal:lr.user.balance||1000,holds:{NEXUS:lr.user.nexus||1000},txs:[],kyc:'Bronze',bio:'',joined:lr.user.joined||''};
-        saveLS('nexus_users',users);
-        notify('Signed in via server','&#x2705;');
-      }else{notify('Invalid email or password','&#x26A0;');return;}
-    }catch(er){
-      notify('Invalid email or password','&#x26A0;');return;
-    }
+  var lr;
+  try{
+    lr=await API.login(e,p);
+    if(!lr||!lr.token){notify('Invalid email or password','&#x26A0;');return;}
+  }catch(er){
+    notify('Invalid email or password','&#x26A0;');return;
   }
-  curUser={...users[e]}; curUser._email=e;
+  apiToken=lr.token;
+  try{localStorage.setItem('nexus_api_token',apiToken);}catch(e){}
+  curUser={
+    name:lr.user.name, email:lr.user.email, wallet:lr.user.wallet||'',
+    bal:lr.user.balance||1000, holds:{NEXUS:lr.user.nexus_balance||1000},
+    kyc:lr.user.kyc||'Bronze', bio:lr.user.bio||'', joined:lr.user.joined||'',
+    ref:lr.user.ref||'', addr:lr.user.addr||'', role:lr.user.role||'user',
+    recharged:lr.user.total_recharge||0, total_recharge:lr.user.total_recharge||0,
+    member_level:lr.user.member_level||'normal'
+  };
+  curUser._email=lr.user.email;
+  // Also keep local users cache
+  users[lr.user.email]={name:curUser.name,email:curUser.email,pass:p,wallet:curUser.wallet,bal:curUser.bal,holds:curUser.holds,txs:[],kyc:curUser.kyc,bio:curUser.bio,joined:curUser.joined,ref:curUser.ref,addr:curUser.addr};
+  saveLS('nexus_users',users);
   document.getElementById('aa').style.display='none';
   document.getElementById('ud').style.display='block';
   document.getElementById('ual').textContent=(curUser.name||'U')[0].toUpperCase();
   document.getElementById('udn').textContent=curUser.name;
   saveSession(); cma();
-  // Fetch balance from backend and sync
-  let bb=await fetchBalanceFromBackend(e);
-  if(bb){curUser.bal=bb.bal;curUser.holds=curUser.holds||{};curUser.holds['NEXUS']=bb.nexus;users[e].bal=bb.bal;users[e].holds=users[e].holds||{};users[e].holds['NEXUS']=bb.nexus;saveLS('nexus_users',users);saveSession();}
-  // Sync local to backend on login
-  syncUserToBackend(e,p,curUser.bal,curUser.holds);
-  // Sync balance, subscriptions, and P2P from backend
-  syncBalanceFromBackend();
-  loadP2PFromBackend();
-  loadUserToolsFromBackend();
-  loadUserEventsFromBackend();
   notify('Welcome back, '+curUser.name+'!','&#x1F44B;'); rAll();
   if(curPage==='social'){ setTimeout(function(){ try{loadFriends();loadFriendRequests();}catch(e){} }, 500); }
 }
@@ -5602,8 +5648,7 @@ function saveChannels(){localStorage.setItem('nexus_channels',JSON.stringify(cha
 
 function showChannelConfig(toolId){
   var tool=initTools.find(function(t){return t.id===toolId;})||userTools.find(function(t){return t.id===toolId;});
-  var isTH=tool&&tool.apiEndpoint&&tool.apiEndpoint.indexOf('tokenhub.todoucloud.com')!==-1;
-  if(isTH){document.getElementById('ch-apikey').value=TOKENHUB_MASTER_KEY;document.getElementById('ch-apikey').readOnly=true;document.getElementById('ch-apikey').style.background='var(--bgd)';}else{document.getElementById('ch-apikey').readOnly=false;document.getElementById('ch-apikey').style.background='';}
+  // TH models now use backend proxy - no API key config needed
   var tool = initTools.find(function(t){return t.id===toolId;}) || userTools.find(function(t){return t.id===toolId;});
   if(!tool) return;
   document.getElementById('ch-tool-name').textContent = tool.name;
@@ -5674,14 +5719,11 @@ function clearAIChat(){
   document.getElementById('chat-messages').innerHTML = '<div style="color:var(--t2);text-align:center;padding:20px;font-size:.75rem">'+t('chat_ready')+'</div>';
 }
 async function sendAIChat(){
+  if(!curUser){oam('login');return;}
   var inputEl = document.getElementById('chat-input');
   var prompt = inputEl.value.trim();
   if(!prompt) return;
   var toolId = document.getElementById('ch-tool-id').textContent.replace(t('chidprefix'),'');
-  var cfg = channelConfigs[toolId] || {};
-  var endpoint = cfg.endpoint || document.getElementById('ch-endpoint').value.trim() || 'https://xtokens.shop/v1';
-  var apikey = cfg.apikey || document.getElementById('ch-apikey').value.trim();
-  if(!endpoint){notify(t('chat_apireq'),'⚠');return;}
   var msgsEl = document.getElementById('chat-messages');
   msgsEl.innerHTML += '<div style="margin-bottom:8px"><div style="color:var(--ap);font-weight:600;font-size:.68rem">'+t('chat_you')+'</div><div style="color:#fff;white-space:pre-wrap">'+escHtml(prompt)+'</div></div>';
   msgsEl.innerHTML += '<div style="margin-bottom:8px"><div style="color:var(--ag);font-weight:600;font-size:.68rem">'+t('chat_ai')+' <span style="color:var(--t3);font-weight:400">'+t('chat_thinking')+'...</span></div><div id="ai-resp-tmp" style="color:var(--t2);font-style:italic">...</div></div>';
@@ -5689,24 +5731,19 @@ async function sendAIChat(){
   inputEl.value = '';
   chatHistory.push({role:'user',content:prompt});
   try{
-    var model = getTodouModelId(toolId||'') || 'gpt-4o-mini';
+    var model = toolId||'gpt-5.4';
     var lm={zh:'Chinese',en:'English',ja:'Japanese',ko:'Korean',es:'Spanish',fr:'French',de:'German',pt:'Portuguese',ru:'Russian',ar:'Arabic',hi:'Hindi'};
     var msgs=[{role:'system',content:'You are a helpful assistant. Always respond in '+(lm[curLang]||'English')+'.'}].concat(chatHistory.slice(-9));
-    var res = await fetch(endpoint+'/chat/completions', {
-      method:'POST',
-      headers:{'Authorization':'Bearer '+apikey,'Content-Type':'application/json'},
-      body:JSON.stringify({model:model,messages:msgs,max_tokens:1024})
-    });
-    if(res.ok){
-      var data = await res.json();
-      var reply = data.choices?data.choices[0].message.content:(data.content||JSON.stringify(data));
-      chatHistory.push({role:'assistant',content:reply});
-      var tmpEl = document.getElementById('ai-resp-tmp');
-      if(tmpEl) tmpEl.innerHTML = '<div style="color:#fff;white-space:pre-wrap">'+escHtml(reply)+'</div>';
-    } else {
-      var errText = await res.text();
-      var tmpEl = document.getElementById('ai-resp-tmp');
-      if(tmpEl) tmpEl.innerHTML = '<div style="color:var(--ar)">'+t('chat_error')+' '+res.status+': '+escHtml(errText.substring(0,300))+'</div>';
+    var res = await API.chat(model, msgs);
+    var reply = (res.choices?.[0]?.message?.content)||'(no response)';
+    chatHistory.push({role:'assistant',content:reply});
+    var tmpEl = document.getElementById('ai-resp-tmp');
+    if(tmpEl) tmpEl.innerHTML = '<div style="color:#fff;white-space:pre-wrap">'+escHtml(reply)+'</div>';
+    if(res._meta){
+      curUser.bal=res._meta.balance;
+      if(curUser.holds)curUser.holds['NEXUS']=res._meta.nexus_balance;
+      saveSession();
+      try{refreshBalanceDisplay();}catch(e){}
     }
   }catch(e){
     var tmpEl = document.getElementById('ai-resp-tmp');
