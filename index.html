@@ -1163,7 +1163,7 @@ label{display:block;font-size:.7rem;color:var(--t2);margin-bottom:3px;font-weigh
 <div class="card" style="margin-bottom:12px">
   <div class="ch"><div class="ct">&#x1F4AC; <span data-key="th_chat_title">AI Chat</span></div><div style="display:flex;gap:6px;align-items:center"><select id="th-chat-model" style="font-size:.7rem;padding:4px 8px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);color:var(--t1)"></select><button class="btn btn-sm" onclick="clearTHChat()" style="font-size:.65rem;padding:3px 8px;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--t2);cursor:pointer" data-key="chat_clear">Clear</button></div></div>
   <div id="th-chat-messages" style="background:var(--bg2);border-radius:8px;padding:12px;min-height:200px;max-height:400px;overflow-y:auto;margin-bottom:10px;font-size:.82rem;line-height:1.6"><div style="color:var(--t2);text-align:center;padding:20px;font-size:.75rem" data-key="th_chat_ready">Select a model and start chatting with LingQu AI</div></div>
-  <div style="display:flex;gap:6px"><textarea id="th-chat-input" rows="3" style="flex:1;border-radius:8px;padding:8px 10px;font-size:.78rem;resize:none;font-family:inherit;background:var(--bg2);color:var(--t1);border:1px solid var(--border)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendTHChat();}" data-key-ph="chat_ph" placeholder="Enter your prompt..."></textarea><button class="btn bg bw" onclick="sendTHChat()" style="align-self:flex-end;white-space:nowrap;padding:8px 16px" data-key="chat_send">Send</button></div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap"><textarea id="th-chat-input" rows="3" style="flex:1;min-width:200px;border-radius:8px;padding:8px 10px;font-size:.78rem;resize:none;font-family:inherit;background:var(--bg2);color:var(--t1);border:1px solid var(--border)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendTHChat();}" data-key-ph="chat_ph" placeholder="Enter your prompt..."></textarea><button class="btn bg bw" onclick="sendTHChat()" style="white-space:nowrap;padding:8px 16px;flex-shrink:0" data-key="chat_send">Send</button></div>
 </div>
 </div>
 
@@ -1707,10 +1707,10 @@ function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt
 <div class="mo" id="mo-ai-chat"><div class="mod" style="max-width:540px">
   <h3>💬 <span id="chat-tool-name" data-key="chat_title">Chat</span></h3>
   <div id="chat-messages" style="background:var(--bg2);border-radius:var(--r);padding:12px;min-height:180px;max-height:360px;overflow-y:auto;margin-bottom:10px;font-size:.82rem;line-height:1.6"></div>
-  <div style="display:flex;gap:6px"><textarea id="chat-input" rows="3" style="flex:1;border-radius:var(--r);padding:8px 10px;font-size:.78rem;resize:none;font-family:inherit" data-key-ph="chat_ph" placeholder="Enter your prompt..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAIChat();}"></textarea></div>
+  <div style="display:flex;gap:6px"><textarea id="chat-input" rows="3" style="flex:1;min-width:200px;border-radius:var(--r);padding:8px 10px;font-size:.78rem;resize:none;font-family:inherit" data-key-ph="chat_ph" placeholder="Enter your prompt..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAIChat();}"></textarea></div>
   <div style="display:flex;gap:6px;margin-top:6px">
-    <button class="btn bg bw" onclick="sendAIChat()" style="flex:1" data-key="chat_send">Send</button>
-    <button class="btn bo" onclick="clearAIChat()" data-key="chat_clear">Clear</button>
+    <button class="btn bg bw" onclick="sendAIChat()" style="white-space:nowrap;padding:8px 16px;flex-shrink:0" data-key="chat_send">Send</button>
+    <button class="btn bo" onclick="clearAIChat()" data-key="chat_clear" style="flex-shrink:0">Clear</button>
   </div>
   <div class="br2"><button class="btn bo" data-key="mcancel" onclick="cma()">Close</button></div>
 </div></div>
@@ -5707,8 +5707,14 @@ async function testChannelConnection(){
 // ============ AI Chat ============
 var chatHistory = [];
 function openAIChat(){
-  var toolId = document.getElementById('ch-tool-id').textContent.replace(t('chidprefix'),'');
+  if(!curUser){oam('login');return;}
+  var toolIdEl = document.getElementById('ch-tool-id');
+  var rawId = toolIdEl ? toolIdEl.textContent.replace(t('chidprefix'),'') : '';
+  var toolId = rawId;
   var tool = initTools.find(function(t){return t.id===toolId;}) || userTools.find(function(t){return t.id===toolId;});
+  // 如果没有选中的工具，默认使用第一个 API 工具
+  if(!tool){tool=initTools[0];toolId=tool.id;}
+  if(toolIdEl) toolIdEl.textContent = (t('chidprefix')||'Tool ID: ')+toolId;
   document.getElementById('chat-tool-name').textContent = tool ? tool.name : t('chat_title');
   if(!chatHistory.length){clearAIChat();}
   document.getElementById('mo-ai-chat').classList.add('show');
@@ -7571,26 +7577,10 @@ function buyEnergy(cnt){
   alert(t('alert_energy_ok').replace('{0}',cnt));
 }
 
-// ============ SUBSCRIBE (订阅大模型工具箱) ============
+// ============ SUBSCRIBE (工具区大模型对话入口) ============
 function openSubscribe(){
-  var w=_memberWallet();
-  var lang=(typeof curLang!=='undefined'&&curLang)?curLang:'zh';
-
-  var status=w.subscribed?(t('mw_subscribed')+(w.subExp||'-')):(t('sub_not_sub_label'));
-  var h='';
-  h+='<div style="background:var(--bg);border-radius:10px;padding:14px;margin-bottom:10px;text-align:center">';
-  h+='<div style="font-size:.7rem;color:var(--t3);margin-bottom:4px" data-key="msub2">'+t('sub_title_label')+'</div>';
-  h+='<div style="font-size:1.2rem;font-weight:800;color:var(--ap)">'+status+'</div>';
-  h+='</div>';
-  h+='<div style="background:var(--bg);border-radius:10px;padding:12px;margin-bottom:10px">';
-  h+='<div style="font-size:.75rem;font-weight:700;margin-bottom:8px">'+t('sub_choose_plan')+'</div>';
-  h+='<button class="btn bo bs" style="width:100%;margin-bottom:6px" onclick="subscribePlan(30)">'+t('sub_monthly')+'</button>';
-  h+='<button class="btn bg bw" style="width:100%" onclick="subscribePlan(365)">'+t('sub_annual')+'</button>';
-  h+='</div>';
-  if(w.subscribed){
-    h+='<button class="btn bo bs" style="width:100%" onclick="unsubscribe()">'+t('sub_unsub_label')+'</button>';
-  }
-  showCustomModal(t('sub_title_label'), h);
+  // 直接打开工具区大模型对话页面
+  openAIChat();
 }
 function subscribePlan(days){
   var price=days===30?99:999;
