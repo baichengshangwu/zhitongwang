@@ -92,7 +92,19 @@ header h1{font-size:1.2rem;color:var(--ap)}
     <h3 style="margin-bottom:12px;font-size:.9rem;color:var(--t2)">系统配置</h3>
     <div id="config-list"></div>
     <div style="margin-top:16px;padding:16px;background:var(--bg2);border-radius:8px;border:1px solid var(--border)">
-      <h4 style="margin-bottom:8px;font-size:.85rem">添加/更新配置</h4>
+      <h4 style="margin-bottom:8px;font-size:.85rem">工具区 API（xtokens.shop）</h4>
+      <input type="text" id="cfg-tool-key" placeholder="tool_api_key (sk-xxx)" style="margin-bottom:8px">
+      <input type="text" id="cfg-tool-endpoint" placeholder="tool_api_endpoint (默认 https://xtokens.shop/v1)" style="margin-bottom:8px">
+      <button class="btn-b" onclick="saveProviderConfig('tool')">保存工具区配置</button>
+    </div>
+    <div style="margin-top:12px;padding:16px;background:var(--bg2);border-radius:8px;border:1px solid var(--border)">
+      <h4 style="margin-bottom:8px;font-size:.85rem">应用区 API（TOKENHUB）</h4>
+      <input type="text" id="cfg-th-key" placeholder="th_api_key (sk-xxx)" style="margin-bottom:8px">
+      <input type="text" id="cfg-th-endpoint" placeholder="th_api_endpoint (默认 https://tokenhub.todoucloud.com/v1)" style="margin-bottom:8px">
+      <button class="btn-b" onclick="saveProviderConfig('th')">保存应用区配置</button>
+    </div>
+    <div style="margin-top:16px;padding:16px;background:var(--bg2);border-radius:8px;border:1px solid var(--border)">
+      <h4 style="margin-bottom:8px;font-size:.85rem">其他配置</h4>
       <input type="text" id="cfg-key" placeholder="配置键名" style="margin-bottom:8px">
       <input type="text" id="cfg-val" placeholder="配置值" style="margin-bottom:8px">
       <button class="btn-p" onclick="saveConfig()">保存配置</button>
@@ -249,11 +261,42 @@ async function adjustBalance(userId){
 async function loadConfig(){
   try{
     var configs = await api('/api/admin/config');
-    document.getElementById('config-list').innerHTML = configs.map(function(c){
-      var isKey = c.key === 'tokenhub_api_key';
+    var interesting = ['tool_api_key','tool_api_endpoint','th_api_key','th_api_endpoint'];
+    var others = configs.filter(function(c){return interesting.indexOf(c.key)===-1;});
+    document.getElementById('config-list').innerHTML = (interesting.concat([])).map(function(k){
+      var c = configs.find(function(x){return x.key===k;});
+      if(!c) return '';
+      var isKey = k.indexOf('_key')>-1;
       return '<div class="config-row"><div class="key">'+esc(c.key)+'</div><div class="val">'+(isKey?'sk-****'+(c.value?c.value.slice(-4):'未配置'):esc(c.value||''))+'</div><div style="font-size:.65rem;color:var(--t3)">'+esc(c.updated_at||'')+'</div></div>';
-    }).join('') || '<div class="loading">暂无配置</div>';
+    }).join('') + (others.length?'<h4 style="margin:16px 0 8px;font-size:.8rem;color:var(--t2)">其他配置</h4>':'') +
+      others.map(function(c){
+        return '<div class="config-row"><div class="key">'+esc(c.key)+'</div><div class="val">'+esc(c.value||'')+'</div><div style="font-size:.65rem;color:var(--t3)">'+esc(c.updated_at||'')+'</div></div>';
+      }).join('') || '<div class="loading">暂无配置</div>';
+
+    // Pre-fill provider input fields
+    var tk = configs.find(function(c){return c.key==='tool_api_key';});
+    var te = configs.find(function(c){return c.key==='tool_api_endpoint';});
+    var hk = configs.find(function(c){return c.key==='th_api_key';});
+    var he = configs.find(function(c){return c.key==='th_api_endpoint';});
+    if(tk) document.getElementById('cfg-tool-key').placeholder = '当前: sk-****' + (tk.value?tk.value.slice(-4):'未配置');
+    if(te) document.getElementById('cfg-tool-endpoint').value = te.value || '';
+    if(hk) document.getElementById('cfg-th-key').placeholder = '当前: sk-****' + (hk.value?hk.value.slice(-4):'未配置');
+    if(he) document.getElementById('cfg-th-endpoint').value = he.value || '';
   }catch(e){document.getElementById('config-list').innerHTML='<div class="loading">加载失败</div>'}
+}
+
+async function saveProviderConfig(provider){
+  var keyInput = document.getElementById('cfg-' + provider + '-key');
+  var epInput = document.getElementById('cfg-' + provider + '-endpoint');
+  var key = keyInput.value.trim();
+  var ep = epInput.value.trim();
+  try{
+    if(key){ await api('/api/admin/config', {method:'PUT', body:JSON.stringify({key:provider+'_api_key', value:key})}); }
+    if(ep){ await api('/api/admin/config', {method:'PUT', body:JSON.stringify({key:provider+'_api_endpoint', value:ep})}); }
+    toast((provider==='tool'?'工具区':'应用区')+'配置已保存','ok');
+    keyInput.value = '';
+    loadConfig();
+  }catch(e){toast(e.message,'err')}
 }
 
 async function saveConfig(){
