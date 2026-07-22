@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>items</key>
@@ -15,7 +17,7 @@
 			<key>metadata</key>
 			<dict>
 				<bundle-identifier>com.ainexus.zhitongwang</bundle-identifier>
-				<bundle-version>18</bundle-version>
+				<bundle-version>17</bundle-version>
 				<kind>software</kind>
 				<title>AI Nexus</title>
 			</dict>
