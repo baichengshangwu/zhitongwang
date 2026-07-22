@@ -1658,7 +1658,20 @@ function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt
   <div class="ig"><label data-key="chkey">API Key</label><div style="display:flex;gap:6px"><input type="password" id="ch-apikey" style="font-family:var(--fm)" placeholder="sk-..."><button class="btn bo bs" onclick="var x=document.getElementById('ch-apikey');x.type=x.type==='password'?'text':'password'">&#x1F441;</button></div></div>
   <div class="ig"><label style="font-size:.65rem;color:var(--t3)" data-key="chtestconn">Test Connection</label><button class="btn bs2 bs" data-key="chtestbtn" onclick="testChannelConnection()">&#x25B6; Test API</button><span id="ch-test-result" style="margin-left:8px;font-size:.7rem"></span></div>
   <button class="btn bg bw" data-key="chsavebtn" onclick="saveChannelConfig()">&#x1F4BE; Save Config</button>
+  <button class="btn bg bw" onclick="openAIChat()" style="margin-top:6px;background:linear-gradient(135deg,#10b981,#0ea5e9)" data-key="chatnow">💬 Try Chat</button>
   <div class="br2"><button class="btn bo" data-key="mcancel" onclick="cma()">Cancel</button></div>
+</div></div>
+
+<!-- ============ AI CHAT MODAL ============ -->
+<div class="mo" id="mo-ai-chat"><div class="mod" style="max-width:540px">
+  <h3>💬 <span id="chat-tool-name">AI Chat</span></h3>
+  <div id="chat-messages" style="background:var(--bg2);border-radius:var(--r);padding:12px;min-height:180px;max-height:360px;overflow-y:auto;margin-bottom:10px;font-size:.82rem;line-height:1.6"></div>
+  <div style="display:flex;gap:6px"><textarea id="chat-input" rows="3" style="flex:1;border-radius:var(--r);padding:8px 10px;font-size:.78rem;resize:none;font-family:inherit" placeholder="Enter your prompt..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAIChat();}"></textarea></div>
+  <div style="display:flex;gap:6px;margin-top:6px">
+    <button class="btn bg bw" onclick="sendAIChat()" style="flex:1">&#x27A4; Send</button>
+    <button class="btn bo" onclick="clearAIChat()">Clear</button>
+  </div>
+  <div class="br2"><button class="btn bo" data-key="mcancel" onclick="cma()">Close</button></div>
 </div></div>
 
 <!-- ============ APP DOWNLOAD MODAL ============ -->
@@ -5405,9 +5418,9 @@ async function subscribeTool(toolId){
   curUser.txs.push({type:'subscribe',token:tool.name,amt:acPrice,ac:true,time:new Date().toISOString()});
   users[curUser._email]={...curUser,holds:{...curUser.holds},txs:[...curUser.txs],bal:curUser.bal};
   saveLS('nexus_users',users); saveSession();
-  if(tool.apiEndpoint||tool.apiKey){ showChannelConfig(toolId); }
   updateACDisplay();
   notify(t('bs'),'&#x2705;'); rAll();
+  setTimeout(function(){showChannelConfig(toolId);},400);
 }
 
 // ============ Create Tool ============
@@ -5481,6 +5494,63 @@ async function testChannelConnection(){
     resultEl.textContent = '❌ '+t('chconnfail').replace('{msg}',e.message);
     resultEl.style.color = 'var(--ar)';
   }
+}
+
+// ============ AI Chat ============
+var chatHistory = [];
+function openAIChat(){
+  var toolId = document.getElementById('ch-tool-id').textContent.replace(t('chidprefix'),'');
+  var tool = initTools.find(function(t){return t.id===toolId;}) || userTools.find(function(t){return t.id===toolId;});
+  document.getElementById('chat-tool-name').textContent = tool ? tool.name : 'AI Chat';
+  if(!chatHistory.length){clearAIChat();}
+  document.getElementById('mo-ai-chat').classList.add('show');
+  setTimeout(function(){document.getElementById('chat-input').focus();},200);
+}
+function clearAIChat(){
+  chatHistory = [];
+  document.getElementById('chat-messages').innerHTML = '<div style="color:var(--t2);text-align:center;padding:20px;font-size:.75rem">Chat ready. Type a prompt and press Send.</div>';
+}
+async function sendAIChat(){
+  var inputEl = document.getElementById('chat-input');
+  var prompt = inputEl.value.trim();
+  if(!prompt) return;
+  var toolId = document.getElementById('ch-tool-id').textContent.replace(t('chidprefix'),'');
+  var cfg = channelConfigs[toolId] || {};
+  var endpoint = cfg.endpoint || document.getElementById('ch-endpoint').value.trim() || 'https://xtokens.shop/v1';
+  var apikey = cfg.apikey || document.getElementById('ch-apikey').value.trim();
+  if(!endpoint){notify('Please configure API Endpoint first','⚠');return;}
+  var msgsEl = document.getElementById('chat-messages');
+  msgsEl.innerHTML += '<div style="margin-bottom:8px"><div style="color:var(--ap);font-weight:600;font-size:.68rem">You</div><div style="color:#fff;white-space:pre-wrap">'+escHtml(prompt)+'</div></div>';
+  msgsEl.innerHTML += '<div style="margin-bottom:8px"><div style="color:var(--ag);font-weight:600;font-size:.68rem">AI <span style="color:var(--t3);font-weight:400">thinking...</span></div><div id="ai-resp-tmp" style="color:var(--t2);font-style:italic">...</div></div>';
+  msgsEl.scrollTop = msgsEl.scrollHeight;
+  inputEl.value = '';
+  chatHistory.push({role:'user',content:prompt});
+  try{
+    var model = 'gpt-4o-mini';
+    var res = await fetch(endpoint+'/chat/completions', {
+      method:'POST',
+      headers:{'Authorization':'Bearer '+apikey,'Content-Type':'application/json'},
+      body:JSON.stringify({model:model,messages:chatHistory.slice(-10),max_tokens:1024})
+    });
+    if(res.ok){
+      var data = await res.json();
+      var reply = data.choices?data.choices[0].message.content:(data.content||JSON.stringify(data));
+      chatHistory.push({role:'assistant',content:reply});
+      var tmpEl = document.getElementById('ai-resp-tmp');
+      if(tmpEl) tmpEl.innerHTML = '<div style="color:#fff;white-space:pre-wrap">'+escHtml(reply)+'</div>';
+    } else {
+      var errText = await res.text();
+      var tmpEl = document.getElementById('ai-resp-tmp');
+      if(tmpEl) tmpEl.innerHTML = '<div style="color:var(--ar)">Error '+res.status+': '+escHtml(errText.substring(0,300))+'</div>';
+    }
+  }catch(e){
+    var tmpEl = document.getElementById('ai-resp-tmp');
+    if(tmpEl) tmpEl.innerHTML = '<div style="color:var(--ar)">Connection failed: '+escHtml(e.message)+'</div>';
+  }
+  msgsEl.scrollTop = msgsEl.scrollHeight;
+}
+function escHtml(s){
+  var d = document.createElement('div'); d.textContent = s; return d.innerHTML;
 }
 
 // ============ Create Event ============
