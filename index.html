@@ -1993,7 +1993,7 @@ var API = {
   getBalance: function(){ return _apiFetch('/api/user/balance'); },
   getTransactions: function(){ return _apiFetch('/api/user/transactions'); },
   getUsage: function(){ return _apiFetch('/api/user/usage'); },
-  chat: function(model, messages){ return _apiFetch('/api/chat', {method:'POST', body:JSON.stringify({model:model, messages:messages})}); },
+  chat: function(model, messages, provider){ return _apiFetch('/api/chat', {method:'POST', body:JSON.stringify({model:model, messages:messages, provider:provider})}); },
   updateProfile: function(data){ return _apiFetch('/api/user/profile', {method:'POST', body:JSON.stringify(data)}); },
   uploadImage: function(file){return _apiUploadLocal(file,'image');},
   uploadAvatar: function(file){return _apiUploadLocal(file,'avatar');},
@@ -2322,7 +2322,7 @@ async function sendTHChat(){
   var lm={zh:'Chinese',en:'English',ja:'Japanese',ko:'Korean',es:'Spanish',fr:'French',de:'German',pt:'Portuguese',ru:'Russian',ar:'Arabic',hi:'Hindi'};
   var msgs=[{role:'system',content:'You are a helpful AI assistant. Always respond in '+(lm[curLang]||'English')+'. Keep responses concise.'},{role:'user',content:p}];
   try{
-    var r=await API.chat(m, msgs);
+    var r=await API.chat(m, msgs, 'th');
     if(r.error){throw new Error(r.error);}
     var rp=(r.choices?.[0]?.message?.content)||'(no response)';
     thChatHistory.push({role:'assistant',content:rp});
@@ -5734,7 +5734,7 @@ async function sendAIChat(){
     var model = toolId||'gpt-5.4';
     var lm={zh:'Chinese',en:'English',ja:'Japanese',ko:'Korean',es:'Spanish',fr:'French',de:'German',pt:'Portuguese',ru:'Russian',ar:'Arabic',hi:'Hindi'};
     var msgs=[{role:'system',content:'You are a helpful assistant. Always respond in '+(lm[curLang]||'English')+'.'}].concat(chatHistory.slice(-9));
-    var res = await API.chat(model, msgs);
+    var res = await API.chat(model, msgs, 'tool');
     var reply = (res.choices?.[0]?.message?.content)||'(no response)';
     chatHistory.push({role:'assistant',content:reply});
     var tmpEl = document.getElementById('ai-resp-tmp');
