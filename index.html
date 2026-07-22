@@ -2048,7 +2048,7 @@ const initEvents = [
 // User-created content
 let userTools = [];
 let userEvents = [];
-async async function loadUserToolsFromBackend(){
+async function loadUserToolsFromBackend(){
   if(!apiToken) return;
   try{ let res=await API.userCreations(); if(res&&res.tools) userTools=res.tools.map(t=>({id:t.id,icon:t.icon,name:t.name,cat:t.cat,desc:t.desc,price:t.price,color:t.color,use:0,apy:0,rating:5.0,badge:'NEW'})); }catch(e){console.error('loadUserTools failed',e);}
 }
@@ -6148,7 +6148,7 @@ async function loadFriendRequests(){
   } catch(e){ div.innerHTML='<div class="nemp" style="color:#ef4444">'+escHtml(errMsg(e))+'</div>'; }
 }
 
-async async function apiSearchUser(email){
+async function apiSearchUser(email){
   // Search local users
   var users = loadLS('nexus_users', {});
   var u = users[email.toLowerCase()];
@@ -6168,7 +6168,7 @@ async async function apiSearchUser(email){
     pendingRequest: pendingRequest
   };
 }
-async async function searchUser(){
+async function searchUser(){
   var q = document.getElementById('social-search').value.trim();
   if(!q){ notify(t('soenteremail'),'⚠'); return; }
   if(!curUser){ notify(t('sologin'),'⚠'); return; }
